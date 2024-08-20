@@ -9,9 +9,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import Table from "react-bootstrap/Table";
 import { Modal } from "react-bootstrap";
+import { downloadExcel } from 'react-export-table-to-excel'
 
 const RL52 = () => {
-    const [tahun, setTahun] = useState("2023");
+    const [tahun, setTahun] = useState("2024");
     const [bulan, setBulan] = useState("01");
     const [dataRL, setDataRL] = useState([]);
     const [token, setToken] = useState("");
@@ -34,8 +35,8 @@ const RL52 = () => {
         getBulan();
         const getLastYear = async () => {
           const date = new Date();
-          setTahun(date.getFullYear() - 1);
-          return date.getFullYear() - 1;
+          setTahun(date.getFullYear() );
+          return date.getFullYear() ;
         };
         getLastYear().then((results) => {});
   
@@ -254,6 +255,45 @@ const RL52 = () => {
       default:
     }
   };
+
+  function handleDownloadExcel() {
+    const header = [
+        "No", 
+        "Kelompok ICD-10", 
+        "Kelompok Diagnosa Penyakit", 
+        "Jumlah Kasus Baru Menurut Jenis Kelamin Laki-Laki",
+        "Jumlah Kasus Baru Menurut Jenis Kelamin Perempuan",
+        "Total Jumlah Kasus Baru",
+        "Jumlah Kunjungan Laki-Laki",
+        "Jumlah Kunjungan Perempuan",
+        "Total Jumlah Kunjungan"
+    ]
+    console.log(dataRL)
+
+        const body = dataRL.map((value, index) => {
+            const data = [
+                index + 1,
+                value.icd_code_group,
+                value.description_code_group,
+                value.jumlah_kasus_baru_L,
+                value.jumlah_kasus_baru_P,
+                value.total_kasus_baru_group_by_icd_code,
+                value.jumlah_kunjungan_L,
+                value.jumlah_kunjungan_P,
+                value.total_jumlah_kunjungan_group_by_icd_code
+            ]
+            return data
+        })
+
+        downloadExcel({
+            fileName: "RL52-10 Besar Kasus Baru Penyakit Rawat Jalan",
+            sheet: "Kasus baru",
+            tablePayload: {
+                header,
+                body: body,
+            },
+        })
+    }
 
   const getProvinsi = async () => {
     try {
@@ -540,6 +580,7 @@ const RL52 = () => {
             >
               Filter
             </button>
+             <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button>
           </div>
         </div>
         <div>

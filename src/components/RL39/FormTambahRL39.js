@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
 import style from './FormTambahRL39.module.css'
 import { HiSaveAs } from 'react-icons/hi'
-import { IoArrowBack } from 'react-icons/io5'
+// import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from 'react-bootstrap/Spinner';
@@ -33,7 +33,7 @@ const FormTambahRL39 = () => {
         getBulan()
         // getKelompokJenisKegiatan()
         const date = new Date();
-        setTahun(date.getFullYear() - 1)
+        setTahun(date.getFullYear())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
