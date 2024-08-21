@@ -253,7 +253,7 @@ const FormTambahRL314 = () => {
                     <Link to={`/rl314/`} className='btn btn-info' style={{fontSize:"18px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
                             &lt;
                         </Link>
-                        <span style={{color: "gray"}}>Kembali RL 3.15 Cara Bayar</span>
+                        <span style={{color: "gray"}}>Kembali RL 3.14 Pelayanan Khusus</span>
                         <table className={style.rlTable}>
                             <thead>
                                 <tr>
@@ -265,6 +265,25 @@ const FormTambahRL314 = () => {
                             </thead>
                             <tbody>
                             {dataRL.map((value, index) => {
+                                if (value.no == 0) {
+                                    return (
+                                        <tr key={value.id}  >
+                               <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                               {value.no}
+                                            </td>
+                                            <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                                <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked} />
+                                            </td>
+                                            <td >
+                                                {value.jenisKegiatan}
+                                            </td>
+                                            <td><input type="number" name="jumlah" className="form-control" value={value.jumlah}
+                                                onChange={e => changeHandler(e, index)} disabled={true} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} onFocus={handleFocus} />
+                                            </td>
+                                        </tr>
+                                    )
+                                }else{
                                     return (
                                         <tr key={value.id}  >
                                <td style={{ textAlign: "center", verticalAlign: "middle" }}>
@@ -282,6 +301,7 @@ const FormTambahRL314 = () => {
                                             </td>
                                         </tr>
                                     )
+                                }
                                 }) }
                             </tbody>
                         </table>
