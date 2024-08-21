@@ -1,4 +1,4 @@
-import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom"
+import { MemoryRouter, Routes, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from "./components/Login/Login"
 import NavigationBar from "./components/NavigationBar/NavigationBar"
@@ -124,7 +124,7 @@ import RL53 from "./components/RL53/RL53.js"
 
 function App() {
   return (
-    <MemoryRouter history="/v2">
+    <MemoryRouter initialEntries={['/beranda']}>
       <Routes>
         <Route path="/" element={<Login/>} />
         <Route path="/beranda" element={<><NavigationBar/></>} />

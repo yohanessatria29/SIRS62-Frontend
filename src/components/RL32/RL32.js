@@ -127,8 +127,8 @@ const RL32 = () => {
 
     const hitungPasienAkhirBulan = ((index) => {
         const result = (parseInt(dataRL[index].pasien_awal_bulan) +
-        parseInt(dataRL[index].pasien_masuk)) -
-        (parseInt(dataRL[index].pasien_keluar_hidup) +
+        parseInt(dataRL[index].pasien_masuk) + parseInt(dataRL[index].pasien_pindahan)) -
+        (parseInt(dataRL[index].pasien_dipindahkan) +  parseInt(dataRL[index].pasien_keluar_hidup) +
             parseInt(dataRL[index].pasien_keluar_mati_kurang_dari_48_jam) +
             parseInt(dataRL[index].pasien_keluar_mati_lebih_dari_atau_sama_dengan_48_jam)
         )
@@ -596,6 +596,8 @@ const RL32 = () => {
                                 <th rowSpan="2" style={{ "width": "10%" }}>Jenis Pelayanan</th>
                                 <th rowSpan="2" style={{ "width": "5%" }}>Pasien Awal Bulan</th>
                                 <th rowSpan="2" style={{ "width": "5%" }}>Pasien Masuk</th>
+                                <th rowSpan="2" style={{ "width": "5%" }}>Pasien Pindahan</th>
+                                <th rowSpan="2" style={{ "width": "5%" }}>Pasien Dipindahkan</th>
                                 <th rowSpan="2" style={{ "width": "5%" }}>Pasien Keluar Hidup</th>
                                 <th colSpan="2" style={{ "width": "5%" }}>Pasien Keluar Mati</th>
                                 <th rowSpan="2" style={{ "width": "5%" }}>Jumlah Lama Dirawat</th>
@@ -648,6 +650,12 @@ const RL32 = () => {
                                                 disabled={true} />
                                         </td>
                                         <td><input type="text" name="pasienMasuk" className="form-control" value={value.pasien_masuk}
+                                            disabled={true} />
+                                        </td>
+                                        <td><input type="text" name="pasienPindahan" className="form-control" value={value.pasien_pindahan}
+                                            disabled={true} />
+                                        </td>
+                                        <td><input type="text" name="pasienDipindahkan" className="form-control" value={value.pasien_dipindahkan}
                                             disabled={true} />
                                         </td>
                                         <td><input type="text" name="pasienKeluarHidup" className="form-control" value={value.pasien_keluar_hidup}
