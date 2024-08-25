@@ -527,77 +527,84 @@ const RL315 = () => {
             <tbody>
               {dataRL.length > 0 ? (
                 <>
-                  {dataRL.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>
-                          <input
-                            type="text"
-                            name="no"
-                            className="form-control"
-                            value={
-                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.no
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          <ToastContainer />
-                          <div style={{ display: "flex" }}>
-                            <button
-                              className="btn btn-danger"
-                              style={{
-                                margin: "0 5px 0 0",
-                                backgroundColor: "#FF6663",
-                                border: "1px solid #FF6663",
-                              }}
-                              type="button"
-                              onClick={(e) => hapus(value.id)}
-                            >
-                              Hapus
-                            </button>
-                            <Link
-                              to={`/rl315/ubah/${value.id}`}
-                              className="btn btn-warning"
-                              style={{
-                                margin: "0 5px 0 0",
-                                backgroundColor: "#CFD35E",
-                                border: "1px solid #CFD35E",
-                                color: "#FFFFFF",
-                              }}
-                            >
-                              Ubah
-                            </Link>
-                          </div>
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="jenisKegiatan"
-                            className="form-control"
-                            value={
-                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.nama
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="jumlah"
-                            className="form-control"
-                            value={value.jumlah}
-                            disabled={true}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {dataRL
+                    .filter((value, index) => {
+                      return (
+                        value.jenis_kegiatan_rl_tiga_titik_lima_belas.no != 0
+                      );
+                    })
+                    .map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td>
+                            <input
+                              type="text"
+                              name="no"
+                              className="form-control"
+                              value={
+                                value.jenis_kegiatan_rl_tiga_titik_lima_belas.no
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td
+                            style={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <ToastContainer />
+                            <div style={{ display: "flex" }}>
+                              <button
+                                className="btn btn-danger"
+                                style={{
+                                  margin: "0 5px 0 0",
+                                  backgroundColor: "#FF6663",
+                                  border: "1px solid #FF6663",
+                                }}
+                                type="button"
+                                onClick={(e) => hapus(value.id)}
+                              >
+                                Hapus
+                              </button>
+                              <Link
+                                to={`/rl315/ubah/${value.id}`}
+                                className="btn btn-warning"
+                                style={{
+                                  margin: "0 5px 0 0",
+                                  backgroundColor: "#CFD35E",
+                                  border: "1px solid #CFD35E",
+                                  color: "#FFFFFF",
+                                }}
+                              >
+                                Ubah
+                              </Link>
+                            </div>
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="jenisKegiatan"
+                              className="form-control"
+                              value={
+                                value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                                  .nama
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="jumlah"
+                              className="form-control"
+                              value={value.jumlah}
+                              disabled={true}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
                   <tr>
                     <th colSpan={3} className="text-center">
                       Total

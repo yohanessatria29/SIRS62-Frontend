@@ -94,6 +94,8 @@ const FormTambahRL315 = () => {
           checked: false,
         };
       });
+
+      console.log(rlTemplate);
       setDataRL(rlTemplate);
     } catch (error) {}
   };
@@ -103,13 +105,16 @@ const FormTambahRL315 = () => {
   };
 
   const changeHandler = (event, index) => {
+    console.log(index);
     let newDataRL = [...dataRL];
     const name = event.target.name;
     if (name === "check") {
-      if (event.target.checked === true) {
-        newDataRL[index].disabledInput = false;
-      } else if (event.target.checked === false) {
-        newDataRL[index].disabledInput = true;
+      if (index != 8) {
+        if (event.target.checked === true) {
+          newDataRL[index].disabledInput = false;
+        } else if (event.target.checked === false) {
+          newDataRL[index].disabledInput = true;
+        }
       }
       newDataRL[index].checked = event.target.checked;
     } else if (name === "jumlah") {
@@ -299,7 +304,9 @@ const FormTambahRL315 = () => {
               {/* <IoArrowBack size={30} style={{color:"gray",cursor: "pointer"}}/> */}
               &lt;
             </Link>
-            <span style={{ color: "gray" }}>Kembali RL 3.15 Kesehatan Jiwa</span>
+            <span style={{ color: "gray" }}>
+              Kembali RL 3.15 Kesehatan Jiwa
+            </span>
 
             <Table
               className={style.rlTable}
