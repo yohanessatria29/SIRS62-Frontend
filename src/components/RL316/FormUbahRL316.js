@@ -92,11 +92,9 @@ export const FormEditRL316 = () => {
         },
       }
     );
-    setNoMetoda(response.data.data.rl_tiga_titik_enam_belas_metoda_id);
-    setNamaJenisPelayanan(
-      response.data.data
-        .rl_tiga_titik_enam_belas_jenis_pelayanan_keluarga_berencana.nama
-    );
+    // console.log(response);
+    setNoMetoda(response.data.data.id_metoda);
+    setNamaJenisPelayanan(response.data.data.nama);
     setKBPaskaPersalinan(response.data.data.pelayanan_kb_paska_persalinan);
     setKBPaskaKeguguran(response.data.data.pelayanan_kb_paska_keguguran);
     setKBInterval(response.data.data.pelayanan_kb_interval);
@@ -209,10 +207,10 @@ export const FormEditRL316 = () => {
       setTimeout(() => {
         navigate("/rl316");
       }, 1000);
-      //   console.log(parseInt(khusus));
     } catch (error) {
+      console.log(error);
       setButtonStatus(false);
-      toast("Data tidak bisa disimpan karena ", {
+      toast("Data tidak bisa. ", {
         position: toast.POSITION.TOP_RIGHT,
       });
     }

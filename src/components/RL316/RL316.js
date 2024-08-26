@@ -162,7 +162,7 @@ const RL316 = () => {
         dataRLTigaTitikEnamBelasDetails.push(element);
         // });
       });
-      // console.log(dataRLTigaTitikDuaBelasDetails);
+      // console.log(dataRLTigaTitikEnamBelasDetails);
       let pelayanan_Kbtotal =
         pelayananKbPaskaPersalinan +
         pelayananKbPaskaKeguguran +
@@ -635,18 +635,22 @@ const RL316 = () => {
                           >
                             Hapus
                           </button>
-                          <Link
-                            to={`/rl316/edit/${value.id}`}
-                            className="btn btn-warning"
-                            style={{
-                              margin: "0 5px 0 0",
-                              backgroundColor: "#CFD35E",
-                              border: "1px solid #CFD35E",
-                              color: "#FFFFFF",
-                            }}
-                          >
-                            Ubah
-                          </Link>
+                          {value.id_metoda != 9 ? (
+                            <Link
+                              to={`/rl316/ubah/${value.id}`}
+                              className="btn btn-warning"
+                              style={{
+                                margin: "0 5px 0 0",
+                                backgroundColor: "#CFD35E",
+                                border: "1px solid #CFD35E",
+                                color: "#FFFFFF",
+                              }}
+                            >
+                              Ubah
+                            </Link>
+                          ) : (
+                            <></>
+                          )}
                         </div>
                       ) : (
                         <></>

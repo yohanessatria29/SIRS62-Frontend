@@ -12,7 +12,10 @@ import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 
 const RL312 = () => {
+  // const [tahun, setTahun] = useState("");
+  const [bulan, setBulan] = useState(1);
   const [tahun, setTahun] = useState("");
+  const [daftarBulan, setDaftarBulan] = useState([]);
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
   const [daftarRumahSakit, setDaftarRumahSakit] = useState([]);
@@ -32,6 +35,7 @@ const RL312 = () => {
 
   useEffect(() => {
     refreshToken();
+    getBulan();
     const getLastYear = async () => {
       const date = new Date();
       setTahun(date.getFullYear());
@@ -61,6 +65,60 @@ const RL312 = () => {
     }
   };
 
+  const getBulan = async () => {
+    const results = [];
+    results.push({
+      key: "Januari",
+      value: "1",
+    });
+    results.push({
+      key: "Februari",
+      value: "2",
+    });
+    results.push({
+      key: "Maret",
+      value: "3",
+    });
+    results.push({
+      key: "April",
+      value: "4",
+    });
+    results.push({
+      key: "Mei",
+      value: "5",
+    });
+    results.push({
+      key: "Juni",
+      value: "6",
+    });
+    results.push({
+      key: "Juli",
+      value: "7",
+    });
+    results.push({
+      key: "Agustus",
+      value: "8",
+    });
+    results.push({
+      key: "September",
+      value: "9",
+    });
+    results.push({
+      key: "Oktober",
+      value: "10",
+    });
+    results.push({
+      key: "November",
+      value: "11",
+    });
+    results.push({
+      key: "Desember",
+      value: "12",
+    });
+
+    setDaftarBulan([...results]);
+  };
+
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
@@ -78,6 +136,10 @@ const RL312 = () => {
       return Promise.reject(error);
     }
   );
+
+  const bulanChangeHandler = async (e) => {
+    setBulan(e.target.value);
+  };
 
   const tahunChangeHandler = (event) => {
     setTahun(event.target.value);
@@ -133,7 +195,8 @@ const RL312 = () => {
     }
     const filter = [];
     filter.push("nama: ".concat(rumahSakit.nama));
-    filter.push("periode: ".concat(String(tahun)));
+    // filter.push("periode: ".concat(String(tahun)));
+    filter.push("periode: ".concat(String(tahun).concat("-").concat(bulan)));
     setFilterLabel(filter);
     try {
       const customConfig = {
@@ -143,7 +206,8 @@ const RL312 = () => {
         },
         params: {
           rsId: rumahSakit.id,
-          periode: String(tahun),
+          // periode: String(tahun),
+          periode: String(tahun).concat("-").concat(bulan),
         },
       };
       const results = await axiosJWT.get(
@@ -169,7 +233,7 @@ const RL312 = () => {
         dataRLTigaTitikDuaBelasDetails.push(element);
         // });
       });
-      // console.log(dataRLTigaTitikDuaBelasDetails);
+
       let totalALL = totalKhusus + totalBesar + totalSedang + totalKecil;
       settotalkhusus(totalKhusus);
       settotalbesar(totalBesar);
@@ -236,18 +300,22 @@ const RL312 = () => {
     switch (jenisUserId) {
       case 1:
         getProvinsi();
+        setBulan(1);
         setShow(true);
         break;
       case 2:
         getKabKota(satKerId);
+        setBulan(1);
         setShow(true);
         break;
       case 3:
         getRumahSakit(satKerId);
+        setBulan(1);
         setShow(true);
         break;
       case 4:
         showRumahSakit(satKerId);
+        setBulan(1);
         setShow(true);
         break;
       default:
@@ -495,9 +563,48 @@ const RL312 = () => {
             ) : (
               <></>
             )}
-            <div
+            {/* <div
               className="form-floating"
               style={{ width: "100%", display: "inline-block" }}
+            >
+              <input
+                name="tahun"
+                type="number"
+                className="form-control"
+                id="tahun"
+                placeholder="Tahun"
+                value={tahun}
+                onChange={(e) => tahunChangeHandler(e)}
+                disabled={false}
+              />
+              <label htmlFor="tahun">Tahun</label>
+            </div> */}
+            <div
+              className="form-floating"
+              style={{ width: "70%", display: "inline-block" }}
+            >
+              <select
+                typeof="select"
+                className="form-control"
+                onChange={bulanChangeHandler}
+              >
+                {daftarBulan.map((bulan) => {
+                  return (
+                    <option
+                      key={bulan.value}
+                      name={bulan.key}
+                      value={bulan.value}
+                    >
+                      {bulan.key}
+                    </option>
+                  );
+                })}
+              </select>
+              <label>Bulan</label>
+            </div>
+            <div
+              className="form-floating"
+              style={{ width: "30%", display: "inline-block" }}
             >
               <input
                 name="tahun"
@@ -753,7 +860,17 @@ const RL312 = () => {
                   </td>
                 </tr>
               ) : (
-                <></>
+                <tr>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      verticalAlign: "middle",
+                    }}
+                    colSpan={8}
+                  >
+                    <h6>Tidak Ada Data</h6>
+                  </td>
+                </tr>
               )}
             </tbody>
           </Table>
