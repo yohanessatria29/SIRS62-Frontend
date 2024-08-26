@@ -1,0 +1,42 @@
+.tableContainer {
+    max-height: 350px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    border: 1px solid #ddd; /* Optional: Add border for better visibility */
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table thead th {
+    position: sticky; /* Fix the header position */
+    top: 0; /* Stick the header to the top */
+    background-color: #f4f4f4; /* Optional: Add background color for better visibility */
+    z-index: 1; /* Ensure header is above the content */
+}
+
+.table td, .table th {
+    border: 1px dotted #779D9E;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+}
+
+.table tr:nth-child(even){background-color: #f2f2f2;}
+
+.table tr:hover {background-color: #ddd;}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center !important;
+    background-color: #fbfefe;
+    color: black;
+}
+
+.aspect-ratio-image {
+    width: 50%; /* 50% of the container width */
+    height: auto;
+}
