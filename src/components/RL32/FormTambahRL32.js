@@ -145,6 +145,8 @@ const FormTambahRL32 = () => {
                     jenisPelayanan: value.nama,
                     pasienAwalBulan: 0,
                     pasienMasuk: 0,
+                    pasienPindahan: 0,
+                    pasienDipindahkan: 0,
                     pasienKeluarHidup: 0,
                     pasienKeluarMatiKurangDari48Jam: 0,
                     pasienKeluarMatiLebihDariAtauSamaDengan48Jam: 0,
@@ -180,8 +182,8 @@ const FormTambahRL32 = () => {
     const hitungPasienAkhirBulan = ((index) => {
         let newDataRL = [...dataRL]
         newDataRL[index].pasienAkhirBulan = (parseInt(newDataRL[index].pasienAwalBulan) +
-        parseInt(newDataRL[index].pasienMasuk)) -
-        (parseInt(newDataRL[index].pasienKeluarHidup) +
+        parseInt(newDataRL[index].pasienMasuk) + parseInt(newDataRL[index].pasienPindahan)) -
+        (parseInt(newDataRL[index].pasienDipindahkan) + parseInt(newDataRL[index].pasienKeluarHidup) +
             parseInt(newDataRL[index].pasienKeluarMatiKurangDari48Jam) +
             parseInt(newDataRL[index].pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
         )
@@ -221,6 +223,20 @@ const FormTambahRL32 = () => {
                 event.target.select(event.target.value)
             }
             newDataRL[index].pasienMasuk = event.target.value
+            hitungPasienAkhirBulan(index)
+        } else if (name === 'pasienPindahan') {
+            if (event.target.value === '') {
+                event.target.value = 0
+                event.target.select(event.target.value)
+            }
+            newDataRL[index].pasienPindahan = event.target.value
+            hitungPasienAkhirBulan(index)
+        } else if (name === 'pasienDipindahkan') {
+            if (event.target.value === '') {
+                event.target.value = 0
+                event.target.select(event.target.value)
+            }
+            newDataRL[index].pasienDipindahkan = event.target.value
             hitungPasienAkhirBulan(index)
         } else if (name === 'pasienKeluarHidup') {
             if (event.target.value === '') {
@@ -330,6 +346,8 @@ const FormTambahRL32 = () => {
                     "rlTigaTitikDuaJenisPelayananId": value.id,
                     "pasienAwalBulan": value.pasienAwalBulan,
                     "pasienMasuk": value.pasienMasuk,
+                    "pasienPindahan": value.pasienPindahan,
+                    "pasienDipindahkan": value.pasienDipindahkan,
                     "pasienKeluarHidup": value.pasienKeluarHidup,
                     "pasienKeluarMatiKurangDari48Jam": value.pasienKeluarMatiKurangDari48Jam,
                     "pasienKeluarMatiLebihDariAtauSamaDengan48Jam": value.pasienKeluarMatiLebihDariAtauSamaDengan48Jam,
@@ -507,6 +525,8 @@ const FormTambahRL32 = () => {
                                     <th rowSpan="2" style={{"width": "10%"}}>Jenis Pelayanan</th>
                                     <th rowSpan="2" style={{"width": "5%"}}>Pasien Awal Bulan</th>
                                     <th rowSpan="2" style={{"width": "5%"}}>Pasien Masuk</th>
+                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Pindahan</th>
+                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Dipindahkan</th>
                                     <th rowSpan="2" style={{"width": "5%"}}>Pasien Keluar Hidup</th>
                                     <th colSpan="2" style={{"width": "5%"}}>Pasien Keluar Mati</th>
                                     <th rowSpan="2" style={{"width": "5%"}}>Jumlah Lama Dirawat</th>
@@ -548,6 +568,15 @@ const FormTambahRL32 = () => {
                                                 onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
                                                 onKeyPress={preventMinus} />
                                             </td>
+                                            <td><input type="number" name="pasienPindahan" className="form-control" value={value.pasienPindahan} 
+                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                            </td>
+                                            <td><input type="number" name="pasienDipindahkan" className="form-control" value={value.pasienDipindahkan} 
+                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                            </td>
+
                                             <td><input type="number" name="pasienKeluarHidup" className="form-control" value={value.pasienKeluarHidup} 
                                                 onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
                                                 onKeyPress={preventMinus} />

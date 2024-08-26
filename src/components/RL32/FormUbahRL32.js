@@ -16,6 +16,8 @@ const FormUbahRL32 = () => {
     const [jenisPelayanan, setJenisPelayanan] = useState('')
     const [pasienAwalBulan, setPasienAwalBulan] = useState(0)
     const [pasienMasuk, setPasienMasuk] = useState(0)
+    const [pasienPindahan, setPasienPindahan] = useState(0)
+    const [pasienDipindahkan, setPasienDipindahkan] = useState(0)
     const [pasienKeluarHidup, setPasienKeluarHidup] = useState(0)
     const [pasienKeluarMatiKurangDari48Jam, setPasienKeluarMatiKurangDari48Jam] = useState(0)
     const [pasienKeluarMatiLebihDariAtauSamaDengan48Jam, setPasienKeluarMatiLebihDariAtauSamaDengan48Jam] = useState(0)
@@ -95,21 +97,23 @@ const FormUbahRL32 = () => {
             })
             
             console.log(
-                (response.data.data.pasien_awal_bulan + response.data.data.pasien_masuk) -
-                (response.data.data.pasien_keluar_hidup + response.data.data.pasien_keluar_mati_kurang_dari_48_jam +
+                (response.data.data.pasien_awal_bulan + response.data.data.pasien_masuk + response.data.data.pasien_pindahan) -
+                (response.data.data.pasien_dipindahkan + response.data.data.pasien_keluar_hidup + response.data.data.pasien_keluar_mati_kurang_dari_48_jam +
                     response.data.data.pasien_keluar_mati_lebih_dari_atau_sama_dengan_48_jam)
             )
 
             setJenisPelayanan(response.data.data.nama_jenis_pelayanan)
             setPasienAwalBulan(response.data.data.pasien_awal_bulan)
             setPasienMasuk(response.data.data.pasien_masuk)
+            setPasienPindahan(response.data.data.pasien_pindahan)
+            setPasienDipindahkan(response.data.data.pasien_dipindahkan)
             setPasienKeluarHidup(response.data.data.pasien_keluar_hidup)
             setPasienKeluarMatiKurangDari48Jam(response.data.data.pasien_keluar_mati_kurang_dari_48_jam)
             setPasienKeluarMatiLebihDariAtauSamaDengan48Jam(response.data.data.pasien_keluar_mati_lebih_dari_atau_sama_dengan_48_jam)
             setJumlahLamaDirawat(response.data.data.jumlah_lama_dirawat)
             setPasienAkhirBulan(
-                (response.data.data.pasien_awal_bulan + response.data.data.pasien_masuk) -
-                (response.data.data.pasien_keluar_hidup + response.data.data.pasien_keluar_mati_kurang_dari_48_jam +
+                (response.data.data.pasien_awal_bulan + response.data.data.pasien_masuk + response.data.data.pasien_pindahan) -
+                (response.data.data.pasien_dipindahkan + response.data.data.pasien_keluar_hidup + response.data.data.pasien_keluar_mati_kurang_dari_48_jam +
                     response.data.data.pasien_keluar_mati_lebih_dari_atau_sama_dengan_48_jam)
             )
             setJumlahHariPerawatan(
@@ -171,9 +175,11 @@ const FormUbahRL32 = () => {
                 setPasienAkhirBulan(
                     (
                         parseInt(event.target.value) +
-                        parseInt(pasienMasuk)
+                        parseInt(pasienMasuk) +
+                        parseInt(pasienPindahan)
                     ) -
                     (
+                        parseInt(pasienDipindahkan) +
                         parseInt(pasienKeluarHidup) +
                         parseInt(pasienKeluarMatiKurangDari48Jam) +
                         parseInt(pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
@@ -189,9 +195,51 @@ const FormUbahRL32 = () => {
                 setPasienAkhirBulan(
                     (
                         parseInt(pasienAwalBulan) +
+                        parseInt(event.target.value) +
+                        parseInt(pasienPindahan)
+                    ) -
+                    (
+                        parseInt(pasienDipindahkan) +
+                        parseInt(pasienKeluarHidup) +
+                        parseInt(pasienKeluarMatiKurangDari48Jam) +
+                        parseInt(pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
+                    )
+                )
+                break
+            case "pasienPindahan":
+                if (event.target.value === '') {
+                    event.target.value = 0
+                    event.target.select(event.target.value)
+                }
+                setPasienPindahan(event.target.value)
+                setPasienAkhirBulan(
+                    (
+                        parseInt(pasienAwalBulan) +
+                        parseInt(pasienMasuk) +
                         parseInt(event.target.value)
                     ) -
                     (
+                        parseInt(pasienDipindahkan) +
+                        parseInt(pasienKeluarHidup) +
+                        parseInt(pasienKeluarMatiKurangDari48Jam) +
+                        parseInt(pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
+                    )
+                )
+                break
+            case "pasienDipindahkan":
+                if (event.target.value === '') {
+                    event.target.value = 0
+                    event.target.select(event.target.value)
+                }
+                setPasienDipindahkan(event.target.value)
+                setPasienAkhirBulan(
+                    (
+                        parseInt(pasienAwalBulan) +
+                        parseInt(pasienMasuk) +
+                        parseInt(pasienPindahan)
+                    ) -
+                    (
+                        parseInt(event.target.value) +
                         parseInt(pasienKeluarHidup) +
                         parseInt(pasienKeluarMatiKurangDari48Jam) +
                         parseInt(pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
@@ -207,9 +255,11 @@ const FormUbahRL32 = () => {
                 setPasienAkhirBulan(
                     (
                         parseInt(pasienAwalBulan) +
-                        parseInt(pasienMasuk)
+                        parseInt(pasienMasuk) +
+                        parseInt(pasienPindahan)
                     ) -
                     (
+                        parseInt(pasienDipindahkan) + 
                         parseInt(event.target.value) +
                         parseInt(pasienKeluarMatiKurangDari48Jam) +
                         parseInt(pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
@@ -225,9 +275,11 @@ const FormUbahRL32 = () => {
                 setPasienAkhirBulan(
                     (
                         parseInt(pasienAwalBulan) +
-                        parseInt(pasienMasuk)
+                        parseInt(pasienMasuk) +
+                        parseInt(pasienPindahan)
                     ) -
                     (
+                        parseInt(pasienDipindahkan) + 
                         parseInt(pasienKeluarHidup) +
                         parseInt(event.target.value) +
                         parseInt(pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
@@ -243,9 +295,11 @@ const FormUbahRL32 = () => {
                 setPasienAkhirBulan(
                     (
                         parseInt(pasienAwalBulan) +
-                        parseInt(pasienMasuk)
+                        parseInt(pasienMasuk) +
+                        parseInt(pasienPindahan)
                     ) -
                     (
+                        parseInt(pasienDipindahkan) + 
                         parseInt(pasienKeluarHidup) +
                         parseInt(pasienKeluarMatiKurangDari48Jam) +
                         parseInt(event.target.value)
@@ -389,6 +443,8 @@ const FormUbahRL32 = () => {
             const data = {
                 "pasienAwalBulan": pasienAwalBulan,
                 "pasienMasuk": pasienMasuk,
+                "pasienPindahan": pasienPindahan,
+                "pasienDipindahkan": pasienDipindahkan,
                 "pasienKeluarHidup": pasienKeluarHidup,
                 "pasienKeluarMatiKurangDari48Jam": pasienKeluarMatiKurangDari48Jam,
                 "pasienKeluarMatiLebihDariAtauSamaDengan48Jam": pasienKeluarMatiLebihDariAtauSamaDengan48Jam,
@@ -495,6 +551,8 @@ const FormUbahRL32 = () => {
                                     <th rowSpan="2" style={{ "width": "10%" }}>Jenis Pelayanan</th>
                                     <th rowSpan="2" style={{ "width": "5%" }}>Pasien Awal Bulan</th>
                                     <th rowSpan="2" style={{ "width": "5%" }}>Pasien Masuk</th>
+                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Pindahan</th>
+                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Dipindahkan</th>
                                     <th rowSpan="2" style={{ "width": "5%" }}>Pasien Keluar Hidup</th>
                                     <th colSpan="2" style={{ "width": "5%" }}>Pasien Keluar Mati</th>
                                     <th rowSpan="2" style={{ "width": "5%" }}>Jumlah Lama Dirawat</th>
@@ -529,6 +587,16 @@ const FormUbahRL32 = () => {
                                     </td>
                                     <td>
                                         <input type="number" name="pasienMasuk" className="form-control" value={pasienMasuk}
+                                            onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                            onKeyPress={preventMinus} />
+                                    </td>
+                                    <td>
+                                        <input type="number" name="pasienPindahan" className="form-control" value={pasienPindahan}
+                                            onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                            onKeyPress={preventMinus} />
+                                    </td>
+                                    <td>
+                                        <input type="number" name="pasienDipindahkan" className="form-control" value={pasienDipindahkan}
                                             onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
                                             onKeyPress={preventMinus} />
                                     </td>
