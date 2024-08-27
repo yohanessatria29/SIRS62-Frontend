@@ -118,7 +118,12 @@ const FormTambahRL37 = () => {
     }
 
     const changeHandlerSingle = (event) => {
-        setTahun(parseInt(event.target.value))
+        const name = event.target.name
+        if (name === 'tahun') {
+            setTahun(parseInt(event.target.value))
+        } else if (name === 'bulan') {
+            setBulan(parseInt(event.target.value))
+        }
     }
 
     const changeHandler = (event, index) => {
@@ -451,7 +456,13 @@ const FormTambahRL37 = () => {
                                     let disabledRnmMati = true
                                     let disabledNRMati = true
                                     let disabledDirujuk = true
-                                    
+                                    let disabledrmRumahSakit = true
+                                    let disabledrmBidan = true
+                                    let disabledrmPuskesmas = true
+                                    let disabledrmFaskesLainnya = true
+                                    let disabledrmHidup = true
+                                    let disabledrnmHidup = true
+                                    let disablednrHidup = true
                                     // if(value.no == 1 || value.no == 2 || value.no == 3){
                                     //     disabled = true
                                     //     visibled = "none" 
@@ -460,11 +471,19 @@ const FormTambahRL37 = () => {
                                     //     visibled = "block"
                                     // }
 
-                                    if(value.no == '2.100' ){
+                                    if(value.no === "0" ){
                                         disabledRmMati = true
                                         disabledRnmMati = true
                                         disabledNRMati = true
                                         disabledDirujuk = true
+
+                                        disabledrmRumahSakit = true
+                                        disabledrmBidan =true
+                                        disabledrmPuskesmas =true
+                                        disabledrmFaskesLainnya = true
+                                        disabledrmHidup = true
+                                        disabledrnmHidup = true
+                                        disablednrHidup = true
                                     } else {
                                         if(value.checked === false){
                                             disabledRmMati = true
@@ -476,6 +495,13 @@ const FormTambahRL37 = () => {
                                             disabledRnmMati = false
                                             disabledNRMati = false
                                             disabledDirujuk = false
+                                            disabledrmRumahSakit = false
+                                            disabledrmBidan =false
+                                            disabledrmPuskesmas =false
+                                            disabledrmFaskesLainnya = false
+                                            disabledrmHidup = false
+                                            disabledrnmHidup = false
+                                            disablednrHidup = false
                                         }
                                     }
                                     return (
@@ -494,23 +520,23 @@ const FormTambahRL37 = () => {
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmRumahSakit" className="form-control" value={value.rmRumahSakit} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmRumahSakit} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmBidan" className="form-control" value={value.rmBidan} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmBidan} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmPuskesmas" className="form-control" value={value.rmPuskesmas} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmPuskesmas} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmFaskesLainnya" className="form-control" value={value.rmFaskesLainnya} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmFaskesLainnya} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmHidup" className="form-control" value={value.rmHidup} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmHidup} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmMati" className="form-control" value={value.rmMati} 
@@ -522,7 +548,7 @@ const FormTambahRL37 = () => {
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rnmHidup" className="form-control" value={value.rnmHidup} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrnmHidup} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rnmMati" className="form-control" value={value.rnmMati} 
@@ -534,7 +560,7 @@ const FormTambahRL37 = () => {
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="nrHidup" className="form-control" value={value.nrHidup} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disablednrHidup} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="nrMati" className="form-control" value={value.nrMati} 

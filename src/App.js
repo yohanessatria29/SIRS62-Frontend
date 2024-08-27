@@ -1,4 +1,4 @@
-import { BrowserRouter, MemoryRouter, Route, Routes } from "react-router-dom"
+import { MemoryRouter, Routes, Route} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from "./components/Login/Login"
 import NavigationBar from "./components/NavigationBar/NavigationBar"
@@ -122,9 +122,12 @@ import RL52 from "./components/RL52/RL52.js"
 // RL 5.3
 import RL53 from "./components/RL53/RL53.js"
 
+// Absensi
+import Absensi from './components/Absensi/absensi.js';
+
 function App() {
   return (
-    <MemoryRouter history="/v2">
+    <MemoryRouter initialEntries={['/beranda']}>
       <Routes>
         <Route path="/" element={<Login/>} />
         <Route path="/beranda" element={<><NavigationBar/></>} />
@@ -305,6 +308,8 @@ function App() {
         <Route path="/rl52" element={<><NavigationBar/><RL52/></>}/>
 
         <Route path="/rl53" element={<><NavigationBar/><RL53/></>}/>
+
+        <Route path="/absensi" element={<><NavigationBar/><Absensi/></>}/>
 
         <Route path="*" element={<PageNotFound />} status={404}/>
       </Routes>

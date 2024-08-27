@@ -13,7 +13,10 @@ const FormTambahRL312 = () => {
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
   const [namaKabKota, setNamaKabKota] = useState("");
+  // const [tahun, setTahun] = useState("");
+  const [bulan, setBulan] = useState(1);
   const [tahun, setTahun] = useState("");
+  const [daftarBulan, setDaftarBulan] = useState([]);
   const [dataRL, setDataRL] = useState([]);
   const [token, setToken] = useState("");
   const [expire, setExpire] = useState("");
@@ -23,6 +26,7 @@ const FormTambahRL312 = () => {
   useEffect(() => {
     refreshToken();
     getRLTigaTitikDuaBelasTemplate();
+    getBulan();
     const date = new Date();
     setTahun(date.getFullYear());
     // setTahun(date.getFullYear() - 1);
@@ -41,6 +45,60 @@ const FormTambahRL312 = () => {
         navigate("/");
       }
     }
+  };
+
+  const getBulan = async () => {
+    const results = [];
+    results.push({
+      key: "Januari",
+      value: "1",
+    });
+    results.push({
+      key: "Februari",
+      value: "2",
+    });
+    results.push({
+      key: "Maret",
+      value: "3",
+    });
+    results.push({
+      key: "April",
+      value: "4",
+    });
+    results.push({
+      key: "Mei",
+      value: "5",
+    });
+    results.push({
+      key: "Juni",
+      value: "6",
+    });
+    results.push({
+      key: "Juli",
+      value: "7",
+    });
+    results.push({
+      key: "Agustus",
+      value: "8",
+    });
+    results.push({
+      key: "September",
+      value: "9",
+    });
+    results.push({
+      key: "Oktober",
+      value: "10",
+    });
+    results.push({
+      key: "November",
+      value: "11",
+    });
+    results.push({
+      key: "Desember",
+      value: "12",
+    });
+
+    setDaftarBulan([...results]);
   };
 
   const axiosJWT = axios.create();
@@ -174,7 +232,9 @@ const FormTambahRL312 = () => {
       await axiosJWT.post(
         "/apisirs6v2/rltigatitikduabelas",
         {
-          tahun: parseInt(tahun),
+          // tahun: parseInt(tahun),
+          periodeBulan: parseInt(bulan),
+          periodeTahun: parseInt(tahun),
           data: dataRLArray,
         },
         customConfig
@@ -220,6 +280,10 @@ const FormTambahRL312 = () => {
         object.target.maxLength
       );
     }
+  };
+
+  const bulanChangeHandler = async (e) => {
+    setBulan(e.target.value);
   };
 
   return (
@@ -289,7 +353,7 @@ const FormTambahRL312 = () => {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title h5">Periode Laporan</h5>
-                <div
+                {/* <div
                   className="form-floating"
                   style={{ width: "100%", display: "inline-block" }}
                 >
@@ -304,6 +368,45 @@ const FormTambahRL312 = () => {
                     onChange={(e) => changeHandlerSingle(e)}
                   />
                   <label htmlFor="floatingInput">Tahun</label>
+                </div> */}
+                <div
+                  className="form-floating"
+                  style={{ width: "50%", display: "inline-block" }}
+                >
+                  <select
+                    typeof="select"
+                    className="form-control"
+                    onChange={bulanChangeHandler}
+                  >
+                    {daftarBulan.map((bulan) => {
+                      return (
+                        <option
+                          key={bulan.value}
+                          name={bulan.key}
+                          value={bulan.value}
+                        >
+                          {bulan.key}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <label>Bulan</label>
+                </div>
+                <div
+                  className="form-floating"
+                  style={{ width: "50%", display: "inline-block" }}
+                >
+                  <input
+                    name="tahun"
+                    type="number"
+                    className="form-control"
+                    id="floatingInput"
+                    placeholder="Tahun"
+                    value={tahun}
+                    onChange={(e) => changeHandlerSingle(e)}
+                    disabled={false}
+                  />
+                  <label>Tahun</label>
                 </div>
               </div>
             </div>

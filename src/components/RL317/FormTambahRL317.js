@@ -4,14 +4,14 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate ,Link} from 'react-router-dom'
 import style from './FormTambahRL317.module.css'
 import { HiSaveAs } from 'react-icons/hi'
-import { IoArrowBack } from 'react-icons/io5'
+// import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from 'react-bootstrap/esm/Spinner'
-import Table from 'react-bootstrap/Table'
+// import Table from 'react-bootstrap/Table'
 
 const FormTambahRL317 = () => {
-    const [tahun, setTahun] = useState('2023')
+    const [tahun, setTahun] = useState('')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
@@ -150,7 +150,8 @@ const FormTambahRL317 = () => {
         e.preventDefault()
         setSpinner(true)
         setButtonStatus(true)
-        try {
+
+        
             const dataRLArray = dataRL.filter((value) => {
                 return value.checked === true
             }).map((value, index) => {
@@ -162,6 +163,21 @@ const FormTambahRL317 = () => {
                 }
             })
 
+            
+let rs1 = dataRL[0].jumlahItemObatRs;
+let obat1 = dataRL[0].jumlahItemObat;
+let rs2 = dataRL[1].jumlahItemObatRs;
+let obat2 = dataRL[1].jumlahItemObat;
+let rs3 = dataRL[2].jumlahItemObatRs;
+let obat3 = dataRL[2].jumlahItemObat;
+let rs4 = dataRL[3].jumlahItemObatRs;
+let obat4 = dataRL[3].jumlahItemObat;
+// console.log(dataRL[0].jumlahItemObat);
+// console.log(dataRL[0].jumlahItemObatRs);
+if(obat1 >= rs1 && obat2 >= rs2 && obat3 >= rs3 && obat4 >= rs4){
+
+
+            try {
             const customConfig = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -187,6 +203,16 @@ const FormTambahRL317 = () => {
             setButtonStatus(false)
             setSpinner(false)
         }
+    }else{
+        toast(
+            `Data Gagal Disimpan, Jumlah Item Obat Di Rumah Sakit tidak boleh lebih besar dari Jumlah Item Obat`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          setButtonStatus(false)
+          setSpinner(false)
+    }
     }
 
     const preventPasteNegative = (e) => {
