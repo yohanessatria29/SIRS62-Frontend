@@ -331,7 +331,6 @@ const RL42 = () => {
         return data
     })
 
-    console.log("tes")
 
     downloadExcel({
         fileName: "rl42_".concat(dataRL[0].rs_id).concat("_").concat(String(tahun).concat("-").concat(bulan).concat("-01")),
