@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -91,6 +92,8 @@ const FormTambahRL38 = () => {
         return {
           id: value.id,
           rLTigaTitikDelapanPemeriksaan: value.nama,
+          rLTigaTitikDelapanGroupNo: value.rl_tiga_titik_delapan_group_pemeriksaan.no,
+          rLTigaTitikDelapanGroupNama: value.rl_tiga_titik_delapan_group_pemeriksaan.nama,
           no: value.no,
           jumlahLaki: 0,
           jumlahPerempuan: 0,
@@ -378,40 +381,6 @@ const FormTambahRL38 = () => {
               </thead>
               <tbody>
                 {dataRL.map((value, index) => {
-                  if (value.no === "0.0.0") {
-                    let disabledInput = true;
-                    return (
-                      <tr key={value.id}>
-                        <td >{value.no}</td>
-                        <td>
-                          <input
-                            type="checkbox"
-                            name="check"
-                            className="form-check-input"
-                            onChange={(e) => changeHandler(e, index)}
-                            checked={value.checked}
-                          />
-                        </td>
-                        <td >{value.rLTigaTitikDelapanPemeriksaan}</td>
-                        <td>
-                          <input
-                            type="number"
-                            name="jumlah"
-                            className="form-control"
-                            value={value.jumlah}
-                            onFocus={handleFocus}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={disabledInput}
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  } else {
                     return (
                       <tr key={value.id}>
                         <td>{value.no}</td>
@@ -429,7 +398,7 @@ const FormTambahRL38 = () => {
                             checked={value.checked}
                           />
                         </td>
-                        <td>{value.rLTigaTitikDelapanPemeriksaan}</td>
+                        <td>{value.rLTigaTitikDelapanGroupNama+" "+value.rLTigaTitikDelapanPemeriksaan}</td>
                         <td>
                           <input
                             type="number"
@@ -496,7 +465,6 @@ const FormTambahRL38 = () => {
                         </td>
                       </tr>
                     );
-                  }
                 })}
               </tbody>
             </Table>
