@@ -125,6 +125,8 @@ import RL53 from "./components/RL53/RL53.js"
 // Absensi
 import Absensi from './components/Absensi/absensi.js';
 
+
+
 function App() {
   return (
     <MemoryRouter initialEntries={['/beranda']}>
