@@ -179,6 +179,7 @@ const FormTambahRL35 = () => {
             totalKunLuarLakiVertikal += parseInt(dataRL[x].kunjungan_pasien_luar_kabkota_perempuan)
             totalKunjungan +=parseInt(dataRL[x].total_kunjungan)
         }
+        // console.log("haiya",jumlahDataRL)
         jumlahDataRL[36].kunjungan_pasien_dalam_kabkota_laki = totalKunDalamLakiVertikal
         jumlahDataRL[36].kunjungan_pasien_dalam_kabkota_perempuan = totalKunDalamPerempuanVertikal
         jumlahDataRL[36].kunjungan_pasien_luar_kabkota_laki = totalKunLuarPerempuanVertikal
@@ -241,6 +242,7 @@ const FormTambahRL35 = () => {
             //     setButtonStatus(false)
             //     setSpinner(false)
             // } else {
+            
                 const customConfig = {
                     headers: {
                         'Content-Type': 'application/json',

@@ -238,20 +238,20 @@ const RL35 = () => {
 
             // console.log(results)
 
-            const rlTigaTitikLimaDetails = results.data.data.map((value) => {
-                return value.rl_tiga_titik_lima_details
-            })
+            // const rlTigaTitikLimaDetails = results.data.data.map((value) => {
+            //     return value
+            // })
 
-            let dataRLTigaTitikLimaDetails = []
-            rlTigaTitikLimaDetails.forEach(element => {
-                element.forEach(value => {
-                    dataRLTigaTitikLimaDetails.push(value)
-                })
-            })
+            // let dataRLTigaTitikLimaDetails = []
+            // rlTigaTitikLimaDetails.forEach(element => {
+            //     element.forEach(value => {
+            //         dataRLTigaTitikLimaDetails.push(value)
+            //     })
+            // })
 
             // console.log(dataRLTigaTitikLimaDetails)
 
-            setDataRL(dataRLTigaTitikLimaDetails)
+            setDataRL(results.data.data)
             setSpinner(false)
 
             handleClose()
@@ -299,9 +299,10 @@ const RL35 = () => {
         // setTotalKunjungan(total5)
         
         // console.log(dataRL)
+        // value.jenis_kegiatan_id == 66 || 
         
         dataRL.map((value, index)=>{
-            if (value.jenis_kegiatan_id == 33 || value.jenis_kegiatan_id == 35 || value.jenis_kegiatan_id == 34) {
+            if (value.jenis_kegiatan_id == 35 || value.jenis_kegiatan_id == 99 || value.jenis_kegiatan_id == 66) {
                 total1 = total1
                 total2 = total2
                 total3 = total3
@@ -315,13 +316,13 @@ const RL35 = () => {
                 total5 = total5 + value.total_kunjungan
             }
             
-            if(value.jenis_kegiatan_id == 34){
+            // if(value.jenis_kegiatan_id == 34){
                 rata1 = Math.ceil(total1 / value.kunjungan_pasien_dalam_kabkota_laki)  
                 rata2 = Math.ceil(total2 / value.kunjungan_pasien_luar_kabkota_laki)
                 rata3 = Math.ceil(total3 / value.kunjungan_pasien_dalam_kabkota_perempuan)
                 rata4 = Math.ceil(total4 / value.kunjungan_pasien_luar_kabkota_perempuan)
                 rata5 = Math.ceil(total5 / value.total_kunjungan)
-            }
+            // }
         })
 
         let newData = [{
@@ -344,12 +345,6 @@ const RL35 = () => {
             kunjungan_pasien_luar_kabkota_perempuan: rata4,
             total_kunjungan: rata5
         }]
-
-        
-
-        // newData.push(total,rata)
-        console.log("datadiabawh")
-        console.log(newData)
         setTotalKunjungan(total5)
         setRataKunjungan(rata5)
         setDataCount(newData)

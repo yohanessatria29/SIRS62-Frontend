@@ -363,6 +363,7 @@ const FormTambahRL38 = () => {
               &lt;
             </Link>
             <span style={{ color: "gray" }}>Kembali RL 3.8 Laboratorium</span>
+            <div className={style.tableContainer}>
             <Table className={style.rlTable}>
               <thead>
                 <tr>
@@ -468,6 +469,7 @@ const FormTambahRL38 = () => {
                 })}
               </tbody>
             </Table>
+            </div>
           </div>
         </div>
         <div className="mt-3 mb-3">
