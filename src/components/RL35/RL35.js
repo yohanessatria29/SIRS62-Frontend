@@ -203,7 +203,7 @@ const RL35 = () => {
             if (event.target.checked === true) {
                 hapus()
             } else if (event.target.checked === false) {
-                console.log('hello2')
+                // console.log('hello2')
             }
         }
     }
