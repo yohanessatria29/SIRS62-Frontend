@@ -5,7 +5,7 @@
 }
 
 table {
-    width: 500%;
+    width: 1000%;
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
