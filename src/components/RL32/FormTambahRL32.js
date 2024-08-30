@@ -442,6 +442,7 @@ const FormTambahRL32 = () => {
 
     return (
         <div className="container" style={{marginTop: "70px"}}>
+            <h2>RL. 3.2</h2>
             <form id="formInputRLRawatInap" onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">
