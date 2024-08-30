@@ -655,7 +655,7 @@ const RL41 = () => {
                 </th>
                 <th
                   rowSpan={3}
-                  style={{width: "1%", verticalAlign: "middle" }}
+                  style={{verticalAlign: "middle" }}
                 >
                   Aksi
                 </th>
