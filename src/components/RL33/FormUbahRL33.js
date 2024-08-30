@@ -525,6 +525,7 @@ export const FormUbahRL33 = () => {
                         value={igdLaki}
                         onChange={(e) => setIgdLaki(e.target.value)}
                         placeholder="igdLaki"
+                        disabled={no === "3" || no === "2.1" ? true : false}
                       />
                     </div>
                   </td>
@@ -555,6 +556,7 @@ export const FormUbahRL33 = () => {
                         value={doaLaki}
                         onChange={(e) => setDoaLaki(e.target.value)}
                         placeholder="doaLaki"
+                        disabled={no === "3" || no === "2.1" ? true : false}
                       />
                     </div>
                   </td>
@@ -585,6 +587,7 @@ export const FormUbahRL33 = () => {
                         value={lukaLaki}
                         onChange={(e) => setLukaLaki(e.target.value)}
                         placeholder="lukaLaki"
+                        disabled={no === "3" || no === "2.1" ? true : false}
                       />
                     </div>
                   </td>
@@ -615,6 +618,7 @@ export const FormUbahRL33 = () => {
                         value={falseEmergency}
                         onChange={(e) => setFalseEmergency(e.target.value)}
                         placeholder="falseEmergency"
+                        disabled={no < 2 ? true : false}
                       />
                     </div>
                   </td>

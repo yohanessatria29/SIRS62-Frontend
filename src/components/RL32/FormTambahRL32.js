@@ -14,7 +14,7 @@ const FormTambahRL32 = () => {
     const [namaPropinsi, setNamaPropinsi] = useState('')
     const [namaKabKota, setNamaKabKota] = useState('')
     const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState(2025)
     const [daftarBulan, setDaftarBulan] = useState([])
     const [dataRL, setDataRL] = useState([])
     const [token, setToken] = useState('')
@@ -26,8 +26,8 @@ const FormTambahRL32 = () => {
         refreshToken()
         getRLTigaTitikSatuTemplate()
         getBulan()
-        const date = new Date();
-        setTahun(date.getFullYear())
+        // const date = new Date();
+        // setTahun(date.getFullYear())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -442,6 +442,7 @@ const FormTambahRL32 = () => {
 
     return (
         <div className="container" style={{marginTop: "70px"}}>
+            <h2>RL. 3.2</h2>
             <form id="formInputRLRawatInap" onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">
@@ -497,7 +498,7 @@ const FormTambahRL32 = () => {
                                 </div>
                                 <div className="form-floating" style={{width:"50%", display:"inline-block"}}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" 
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={false}/>
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true}/>
                                     <label>Tahun</label>
                                 </div>
                             </div>

@@ -558,6 +558,7 @@ const RL32 = () => {
             </Modal>
             <div className="row">
                 <div className="col-md-12">
+                    <h2>RL. 3.2</h2>
                     <div style={{marginBottom: "10px"}}>
                         {
                             user.jenisUserId === 4 ? (
