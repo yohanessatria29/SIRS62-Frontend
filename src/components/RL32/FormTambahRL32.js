@@ -497,7 +497,7 @@ const FormTambahRL32 = () => {
                                 </div>
                                 <div className="form-floating" style={{width:"50%", display:"inline-block"}}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" 
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={false}/>
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true}/>
                                     <label>Tahun</label>
                                 </div>
                             </div>
