@@ -588,6 +588,7 @@ const RL43 = () => {
               Filter
             </button>
             <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button> 
+            <span style={{ color: "gray" }}> RL 4.3 - 10 Besar Kematian Penyakit Pasien Rawat Inap</span>
           </div>
         </div>
         <div>

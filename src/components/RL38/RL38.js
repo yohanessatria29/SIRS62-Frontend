@@ -682,6 +682,7 @@ const RL38 = () => {
             >
               Filter
             </button>
+            <span style={{ color: "gray" }}> RL 3.8 -  Laboratorium</span>
           </div>
         </div>
         <div>

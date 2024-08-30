@@ -581,6 +581,7 @@ const RL42 = () => {
               Filter
             </button>
             <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button> 
+            <span style={{ color: "gray" }}> RL 4.2 - 10 Besar Penyakit Rawat Inap</span>
           </div>
         </div>
         <div>
