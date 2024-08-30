@@ -781,7 +781,7 @@ const Absensi = () => {
                                             {/* 3.1 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_31_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -804,7 +804,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_31_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -827,7 +827,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_31_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -850,7 +850,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_31_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -873,7 +873,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_31_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -896,7 +896,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_31_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -919,7 +919,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_31_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -942,7 +942,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_31_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -965,7 +965,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_31_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -988,7 +988,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_31_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1011,7 +1011,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_31_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1034,7 +1034,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_31_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1338,7 +1338,7 @@ const Absensi = () => {
 
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_33_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1361,7 +1361,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_33_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1384,7 +1384,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_33_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1407,7 +1407,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_33_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1430,7 +1430,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_33_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1453,7 +1453,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_33_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1476,7 +1476,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_33_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1499,7 +1499,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_33_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1522,7 +1522,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_33_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1545,7 +1545,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_33_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1568,7 +1568,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_33_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1591,7 +1591,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_33_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1617,7 +1617,7 @@ const Absensi = () => {
 
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_34_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1640,7 +1640,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_34_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1663,7 +1663,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_34_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1686,7 +1686,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_34_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1709,7 +1709,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_34_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1732,7 +1732,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_34_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1755,7 +1755,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_34_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1778,7 +1778,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_34_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1801,7 +1801,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_34_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1824,7 +1824,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_34_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1847,7 +1847,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_34_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1870,7 +1870,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_34_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1896,7 +1896,7 @@ const Absensi = () => {
 
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_35_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1919,7 +1919,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_35_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1942,7 +1942,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_35_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1965,7 +1965,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_35_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -1988,7 +1988,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_35_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2011,7 +2011,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_35_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2034,7 +2034,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_35_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2057,7 +2057,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_35_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2080,7 +2080,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_35_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2103,7 +2103,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_35_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2126,7 +2126,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_35_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2149,7 +2149,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_35_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2174,7 +2174,7 @@ const Absensi = () => {
                                             {/* 3.6 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_36_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2197,7 +2197,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_36_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2220,7 +2220,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_36_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2243,7 +2243,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_36_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2266,7 +2266,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_36_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2289,7 +2289,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_36_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2312,7 +2312,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_36_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2335,7 +2335,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_36_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2358,7 +2358,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_36_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2381,7 +2381,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_36_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2404,7 +2404,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_36_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2427,7 +2427,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_36_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2731,7 +2731,7 @@ const Absensi = () => {
 
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_38_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2754,7 +2754,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_38_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2777,7 +2777,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_38_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2800,7 +2800,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_38_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2823,7 +2823,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_38_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2846,7 +2846,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_38_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2869,7 +2869,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_38_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2892,7 +2892,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_38_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2915,7 +2915,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_38_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2938,7 +2938,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_38_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2961,7 +2961,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_38_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -2984,7 +2984,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_38_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3287,7 +3287,7 @@ const Absensi = () => {
                                             {/* 3.10 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_310_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3310,7 +3310,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_310_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3333,7 +3333,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_310_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3356,7 +3356,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_310_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3379,7 +3379,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_310_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3402,7 +3402,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_310_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3425,7 +3425,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_310_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3448,7 +3448,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_310_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3471,7 +3471,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_310_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3494,7 +3494,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_310_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3517,7 +3517,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_310_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3540,7 +3540,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_310_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3566,7 +3566,7 @@ const Absensi = () => {
                                             {/* 3.11 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_317 === 0 ? (
+                                                    value.rl_311 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3591,7 +3591,7 @@ const Absensi = () => {
                                             {/* 3.12 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_317 === 0 ? (
+                                                    value.rl_312 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3616,7 +3616,7 @@ const Absensi = () => {
                                             {/* 3.13 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_317 === 0 ? (
+                                                    value.rl_313 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3641,7 +3641,7 @@ const Absensi = () => {
                                             {/* 3.14 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_317 === 0 ? (
+                                                    value.rl_314 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3666,7 +3666,7 @@ const Absensi = () => {
                                             {/* 3.15 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_317 === 0 ? (
+                                                    value.rl_315 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3691,7 +3691,7 @@ const Absensi = () => {
                                             {/* 3.16 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_317 === 0 ? (
+                                                    value.rl_316 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3766,7 +3766,7 @@ const Absensi = () => {
                                             {/* 3.19 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_317 === 0 ? (
+                                                    value.rl_319 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3791,7 +3791,7 @@ const Absensi = () => {
                                             {/* 4.1 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_41_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3814,7 +3814,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_41_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3837,7 +3837,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_41_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3860,7 +3860,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_41_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3883,7 +3883,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_41_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3906,7 +3906,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_41_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3929,7 +3929,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_41_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3952,7 +3952,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_41_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3975,7 +3975,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_41_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -3998,7 +3998,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_41_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4021,7 +4021,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_41_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4044,7 +4044,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_41_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4069,7 +4069,7 @@ const Absensi = () => {
                                             {/* 4.2 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_42_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4092,7 +4092,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_42_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4115,7 +4115,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_42_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4138,7 +4138,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_42_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4161,7 +4161,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_42_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4184,7 +4184,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_42_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4207,7 +4207,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_42_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4230,7 +4230,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_42_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4253,7 +4253,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_42_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4276,7 +4276,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_42_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4299,7 +4299,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_42_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4322,7 +4322,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_42_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4347,7 +4347,7 @@ const Absensi = () => {
                                             {/* 4.3 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_43_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4370,7 +4370,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_43_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4393,7 +4393,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_43_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4416,7 +4416,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_43_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4439,7 +4439,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_43_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4462,7 +4462,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_43_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4485,7 +4485,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_43_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4508,7 +4508,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_43_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4531,7 +4531,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_43_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4554,7 +4554,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_43_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4577,7 +4577,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_43_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4600,7 +4600,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_43_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4625,7 +4625,7 @@ const Absensi = () => {
                                             {/* 5.1 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_1 === 0 ? (
+                                                    value.rl_51_bulan_1 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4648,7 +4648,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_2 === 0 ? (
+                                                    value.rl_51_bulan_2 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4671,7 +4671,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_3 === 0 ? (
+                                                    value.rl_51_bulan_3 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4694,7 +4694,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_4 === 0 ? (
+                                                    value.rl_51_bulan_4 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4717,7 +4717,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_5 === 0 ? (
+                                                    value.rl_51_bulan_5 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4740,7 +4740,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_6 === 0 ? (
+                                                    value.rl_51_bulan_6 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4763,7 +4763,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_7 === 0 ? (
+                                                    value.rl_51_bulan_7 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4786,7 +4786,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_8 === 0 ? (
+                                                    value.rl_51_bulan_8 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4809,7 +4809,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_9 === 0 ? (
+                                                    value.rl_51_bulan_9 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4832,7 +4832,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_10 === 0 ? (
+                                                    value.rl_51_bulan_10 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4855,7 +4855,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_11 === 0 ? (
+                                                    value.rl_51_bulan_11 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
@@ -4878,7 +4878,7 @@ const Absensi = () => {
                                             </td>
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
                                                 {
-                                                    value.rl_53_bulan_12 === 0 ? (
+                                                    value.rl_51_bulan_12 === 0 ? (
                                                         <div>
                                                             <img
                                                                 src={silangIcon}
