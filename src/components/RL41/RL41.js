@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import style from "./FormTambahRL41.module.css";
@@ -10,6 +10,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Table from "react-bootstrap/Table";
 import { Modal } from "react-bootstrap";
+import { DownloadTableExcel } from "react-export-table-to-excel"
 
 const RL41 = () => {
   // const [namaRS, setNamaRS] = useState("");
@@ -33,6 +34,8 @@ const RL41 = () => {
   const [daftarKabKota, setDaftarKabKota] = useState([]);
   const [show, setShow] = useState(false);
   const [user, setUser] = useState({});
+  const tableRef = useRef(null);
+    const [namafile, setNamaFile] = useState("");
 
   useEffect(() => {
     refreshToken();
@@ -226,6 +229,7 @@ const RL41 = () => {
       // });
 
       setDataRL(rlEmpatDetails);
+      setNamaFile("rl41_"+rumahSakit.id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
       setRumahSakit(null);
       handleClose();
       setSpinner(false);
@@ -611,6 +615,15 @@ const RL41 = () => {
             >
               Filter
             </button>
+            <DownloadTableExcel
+                            filename={namafile}
+                            sheet="data RL 35"
+                            currentTableRef={tableRef.current}
+                        >
+                            {/* <button> Export excel </button> */}
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+                            </button>
+                        </DownloadTableExcel>
             <span style={{ color: "gray" }}> RL 4.1 -  Morbiditas Pasien Rawat Inap</span>
           </div>
         </div>
@@ -630,6 +643,7 @@ const RL41 = () => {
             bordered
             responsive
             style={{ width: "700%" }}
+            ref={tableRef}
           >
             <thead>
               <tr>

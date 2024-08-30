@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert";
 import { Modal, Table } from "react-bootstrap";
+import { DownloadTableExcel } from "react-export-table-to-excel"
 
 const RL38 = () => {
   const [tahun, setTahun] = useState("");
@@ -31,6 +32,8 @@ const RL38 = () => {
   const [daftarKabKota, setDaftarKabKota] = useState([]);
   const [show, setShow] = useState(false);
   const [user, setUser] = useState({});
+  const tableRef = useRef(null);
+  const [namafile, setNamaFile] = useState("");
 
   useEffect(() => {
     refreshToken();
@@ -309,6 +312,7 @@ const RL38 = () => {
       });
 
       setDataRL(satu);
+      setNamaFile("rl38_"+rumahSakit.id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
       setRumahSakit(null);
       handleClose();
       setSpinner(false);
@@ -682,6 +686,15 @@ const RL38 = () => {
             >
               Filter
             </button>
+            <DownloadTableExcel
+                            filename={namafile}
+                            sheet="data RL 35"
+                            currentTableRef={tableRef.current}
+                        >
+                            {/* <button> Export excel </button> */}
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+                            </button>
+                        </DownloadTableExcel>
             <span style={{ color: "gray" }}> RL 3.8 -  Laboratorium</span>
           </div>
         </div>
@@ -701,6 +714,7 @@ const RL38 = () => {
             responsive
             bordered
             style={{ widows: "100%" }}
+            ref={tableRef}
           >
             <thead>
               <tr>

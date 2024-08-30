@@ -12,7 +12,7 @@ import Table from "react-bootstrap/esm/Table";
 
 const FormTambahRL38 = () => {
   const [tahun, setTahun] = useState("2024");
-  const [bulan, setBulan] = useState("01");
+  const [bulan, setBulan] = useState("00");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
@@ -185,22 +185,32 @@ const FormTambahRL38 = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const result = await axiosJWT.post(
-        "/apisirs6v2/rltigatitikdelapan",
-        {
-          periodeBulan: parseInt(bulan),
-          periodeTahun: parseInt(tahun),
-          data: dataRLArray,
-        },
-        customConfig
-      );
-      // console.log(result.data);
-      toast("Data Berhasil Disimpan", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      setTimeout(() => {
-        navigate("/rl38");
-      }, 1000);
+
+      if( bulan==='00' || bulan == 0 ){
+        toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setButtonStatus(false);
+      }else{
+        const result = await axiosJWT.post(
+          "/apisirs6v2/rltigatitikdelapan",
+          {
+            periodeBulan: parseInt(bulan),
+            periodeTahun: parseInt(tahun),
+            data: dataRLArray,
+          },
+          customConfig
+        );
+        // console.log(result.data);
+        toast("Data Berhasil Disimpan", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setTimeout(() => {
+          navigate("/rl38");
+        }, 1000);
+      }
+      
+      
     } catch (error) {
       toast(`Data tidak bisa disimpan karena ,${error.response.data.message}`, {
         position: toast.POSITION.TOP_RIGHT,
@@ -325,7 +335,7 @@ const FormTambahRL38 = () => {
                     className="form-control"
                     id="bulan"
                     onChange={(e) => changeHandlerSingle(e)}
-                  >
+                  ><option value="00">--PILIH BULAN--</option>
                     <option value="01">Januari</option>
                     <option value="02">Februari</option>
                     <option value="03">Maret</option>

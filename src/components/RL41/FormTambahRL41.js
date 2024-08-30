@@ -12,7 +12,7 @@ import { Spinner } from "react-bootstrap";
 
 const FormTambahRL41 = () => {
   const [tahun, setTahun] = useState(new Date().getFullYear());
-  const [bulan, setBulan] = useState("01");
+  const [bulan, setBulan] = useState("00");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
@@ -357,68 +357,77 @@ const FormTambahRL41 = () => {
     let periode = tahun + "-" + bulan + "-01";
     e.preventDefault();
     setButtonStatus(true);
+    if( bulan==='00' || bulan == 0 ){
+      toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setButtonStatus(false);
+    }else{
+        let total = 0;
+      let totalMati =
+        parseInt(e.target[datainput[0].label.length * 2 + 1].value) +
+        parseInt(e.target[datainput[0].label.length * 2 + 2].value);
 
-    let total = 0;
-    let totalMati =
-      parseInt(e.target[datainput[0].label.length * 2 + 1].value) +
-      parseInt(e.target[datainput[0].label.length * 2 + 2].value);
+      for (let i = 3; i <= datainput[0].label.length * 2; i++) {
+        total = parseInt(e.target[i].value) + total;
+      }
 
-    for (let i = 3; i <= datainput[0].label.length * 2; i++) {
-      total = parseInt(e.target[i].value) + total;
-    }
+      const transformedObject = {};
 
-    const transformedObject = {};
+      datainput[0].label.forEach((item, index) => {
+        transformedObject[item.namaL] = parseInt(e.target[3 + index * 2].value);
+        transformedObject[item.namaP] = parseInt(e.target[4 + index * 2].value);
+      });
 
-    datainput[0].label.forEach((item, index) => {
-      transformedObject[item.namaL] = parseInt(e.target[3 + index * 2].value);
-      transformedObject[item.namaP] = parseInt(e.target[4 + index * 2].value);
-    });
+      const dataReady = {
+        periodeBulan: parseInt(bulan),
+        periodeTahun: parseInt(tahun),
+        icdId: parseInt(e.target[1].value),
+        data: [transformedObject],
+      };
 
-    const dataReady = {
-      periodeBulan: parseInt(bulan),
-      periodeTahun: parseInt(tahun),
-      icdId: parseInt(e.target[1].value),
-      data: [transformedObject],
-    };
+      if (totalMati <= total) {
+        try {
+          const customConfig = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
 
-    if (totalMati <= total) {
-      try {
-        const customConfig = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const result = await axiosJWT.post(
-          "/apisirs6v2/rlempattitiksatu",
-          dataReady,
-          customConfig
-        );
-        toast("Data Berhasil Disimpan", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        setTimeout(() => {
-          navigate('/rl41')
-      }, 1000);
-      } catch (error) {
+          const result = await axiosJWT.post(
+            "/apisirs6v2/rlempattitiksatu",
+            dataReady,
+            customConfig
+          );
+          toast("Data Berhasil Disimpan", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            navigate('/rl41')
+        }, 1000);
+        } catch (error) {
+          toast(
+            `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          setButtonStatus(false);
+        }
+      } else {
         toast(
-          `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+          `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
           {
             position: toast.POSITION.TOP_RIGHT,
           }
         );
         setButtonStatus(false);
       }
-    } else {
-      toast(
-        `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
-      setButtonStatus(false);
     }
+    
+
+    
   };
 
   const maxLengthCheck = (object) => {
@@ -634,7 +643,7 @@ const FormTambahRL41 = () => {
                         className="form-control"
                         id="bulan"
                         onChange={(e) => changeHandlerSingle(e)}
-                      >
+                      ><option value="00">--PILIH BULAN--</option>
                         <option value="01">Januari</option>
                         <option value="02">Februari</option>
                         <option value="03">Maret</option>

@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/Spinner'
 
 const FormTambahRL35 = () => {
     const [tahun, setTahun] = useState('')
-    const [bulan, setBulan] = useState('01')
+    const [bulan, setBulan] = useState('00')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
@@ -21,7 +21,7 @@ const FormTambahRL35 = () => {
     const [expire, setExpire] = useState('')
     const navigate = useNavigate()
     const [buttonStatus, setButtonStatus] = useState(false)
-    const [spinner, setSpinner] = useState(false)
+    // const [spinner, setSpinner] = useState(false)
 
     useEffect(() => {
         refreshToken()
@@ -78,7 +78,7 @@ const FormTambahRL35 = () => {
     }
 
     const getRLTigaTitikLimaTemplate = async () => {
-        setSpinner(true)
+        // setSpinner(true)
         try {
             const response = await axiosJWT.get('/apisirs6v2/jeniskegiatanrltigatitiklima', {
                 headers: {
@@ -101,7 +101,7 @@ const FormTambahRL35 = () => {
                 }
             })
             setDataRL(rlTemplate)
-            setSpinner(false)
+            // setSpinner(false)
         } catch (error) {
 
         }
@@ -212,7 +212,7 @@ const FormTambahRL35 = () => {
     const Simpan = async (e) => {
         let date = (tahun + '-' + bulan + '-01');
         e.preventDefault()
-        setSpinner(true)
+        // setSpinner(true)
         setButtonStatus(true)
         try {
             const dataRLArray = dataRL.filter((value) => {
@@ -242,7 +242,12 @@ const FormTambahRL35 = () => {
             //     setButtonStatus(false)
             //     setSpinner(false)
             // } else {
-            
+                if( bulan==='00' || bulan == 0 ){
+                    toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+                      position: toast.POSITION.TOP_RIGHT,
+                    });
+                    setButtonStatus(false);
+                  }else{
                 const customConfig = {
                     headers: {
                         'Content-Type': 'application/json',
@@ -255,21 +260,21 @@ const FormTambahRL35 = () => {
                     data: dataRLArray
                 }, customConfig)
                 // console.log(result.data)
-                setSpinner(false)
+                // setSpinner(false)
                 toast('Data Berhasil Disimpan', {
                     position: toast.POSITION.TOP_RIGHT
                 })
                 setTimeout(() => {
                     navigate('/rl35')
                 }, 1000);
-            // }
+            }
 
         } catch (error) {
             toast(`Data tidak bisa disimpan karena ,${error.response.data.message}`, {
                 position: toast.POSITION.TOP_RIGHT
             })
             setButtonStatus(false)
-            setSpinner(false)
+            // setSpinner(false)
         }
     }
 
@@ -339,6 +344,7 @@ const FormTambahRL35 = () => {
                                 </div>
                                 <div className="form-floating" style={{ width: "100%", display: "inline-block" }}>
                                     <select name="bulan" className="form-control" id="bulan" onChange={e => changeHandlerSingle(e)}>
+                                        <option value="00">--PILIH BULAN--</option>
                                         <option value="01">Januari</option>
                                         <option value="02">Februari</option>
                                         <option value="03">Maret</option>
@@ -366,14 +372,14 @@ const FormTambahRL35 = () => {
                             &lt;
                         </Link>
                         <span style={{ color: "gray" }}>Kembali RL 3.5 -  Kunjungan</span>
-                        <div className="container" style={{ textAlign: "center" }}>
+                        {/* <div className="container" style={{ textAlign: "center" }}>
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
-                        </div>
+                        </div> */}
                         <table className={style.rlTable}>
                             <thead>
                                 <tr>
