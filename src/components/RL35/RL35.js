@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
@@ -13,6 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table'
+import { DownloadTableExcel } from "react-export-table-to-excel"
 
 const RL35 = () => {
     const [bulan, setBulan] = useState(1)
@@ -33,7 +34,8 @@ const RL35 = () => {
     const [dataCount, setDataCount] = useState([])
     const [total_kunjungan, setTotalKunjungan] = useState(0)
     const [rata_kunjungan, setRataKunjungan] = useState(0)
-
+    const tableRef = useRef(null);
+    const [namafile, setNamaFile] = useState("");
 
     useEffect(() => {
         refreshToken()
@@ -252,8 +254,9 @@ const RL35 = () => {
             // console.log(dataRLTigaTitikLimaDetails)
 
             setDataRL(results.data.data)
+            setNamaFile("rl35_"+results.data.data[0].rs_id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
             setSpinner(false)
-
+            console.log("sinii ",tableRef)
             handleClose()
         } catch (error) {
             console.log(error)
@@ -689,6 +692,15 @@ const RL35 = () => {
                         <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                             Filter
                         </button>
+                        <DownloadTableExcel
+            filename={namafile}
+            sheet="data RL 35"
+            currentTableRef={tableRef.current}
+          >
+            {/* <button> Export excel </button> */}
+            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+            </button>
+         </DownloadTableExcel>
                         <span style={{ color: "gray" }}> RL 3.5 -  Kunjungan</span>
                     </div>
                     <div>
@@ -700,7 +712,7 @@ const RL35 = () => {
                             }).join(', ')}
                         </h5>
                     </div>
-                    <Table className={style.rlTable}>
+                    <Table className={style.rlTable}  ref={tableRef}>
                         <thead>
                             <tr>
                                 <th rowSpan={2}
@@ -764,8 +776,8 @@ const RL35 = () => {
                                         <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
                                            {99} 
                                         </td>
-                                        {/* <td></td> */}
-                                        <td colSpan={2} style={{ textAlign: "center", verticalAlign: "middle"  }}>Total</td>
+                                        <td></td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>Total</td>
                                         <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
                                            {dataCount[0].kunjungan_pasien_dalam_kabkota_laki}
                                         </td>
@@ -793,7 +805,8 @@ const RL35 = () => {
                                         <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
                                            {77}
                                         </td>
-                                        <td colSpan={2} style={{ textAlign: "center", verticalAlign: "middle"  }}>Rata-rata kunjungan per hari</td>
+                                        <td></td>
+                                        <td  style={{ textAlign: "center", verticalAlign: "middle"  }}>Rata-rata kunjungan per hari</td>
                                         <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
                                            {dataCount[1].kunjungan_pasien_dalam_kabkota_laki}
                                         </td>
