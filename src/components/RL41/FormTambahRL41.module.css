@@ -1,10 +1,11 @@
 .tableContainer {
-    max-height: 1450px;
+    max-height: 750px;
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: auto; /* Enable horizontal scrolling */
     border: 1px solid #ddd; /* Optional: Add border for better visibility */
-}
-
+    position: relative; /* New addition for sticky header */
+  }
+  
 .rlTable {
     border-collapse: collapse;
     width: 100%;

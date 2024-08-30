@@ -637,6 +637,7 @@ const RL41 = () => {
                 .join(", ")}
             </h5>
         </div>
+        <div className={style.tableContainer}>
         <Table
             className={style.rlTable}
             striped
@@ -645,11 +646,11 @@ const RL41 = () => {
             style={{ width: "700%" }}
             ref={tableRef}
           >
-            <thead>
+            <thead style={{position:"sticky"}}>
               <tr>
                 <th
                   rowSpan={3}
-                  style={{ verticalAlign: "middle" }}
+                  style={{ width: "1%",verticalAlign: "middle" }}
                 >
                   No.
                 </th>
@@ -661,7 +662,7 @@ const RL41 = () => {
                 </th>
                 <th
                   rowSpan={3}
-                  style={{ textAlign: "center", verticalAlign: "middle" }}
+                  style={{ width: "1%",textAlign: "center", verticalAlign: "middle" }}
                 >
                   Kode ICD-10
                 </th>
@@ -864,7 +865,7 @@ const RL41 = () => {
                         </Link>
                       </div>
                     </td>
-                    <td style={{ textAlign: "left" }}>
+                    <td style={{ textAlign: "center" }}>
                       <label>{value.icd.icd_code}</label>
                     </td>
                     <td style={{ textAlign: "left" }}>
@@ -1043,6 +1044,7 @@ const RL41 = () => {
               })}
             </tbody>
           </Table>
+          </div>
       </div>
     </div>
   );
