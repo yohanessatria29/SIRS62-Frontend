@@ -548,32 +548,45 @@ const RL315 = () => {
                           }}
                         >
                           <ToastContainer />
-                          <div style={{ display: "flex" }}>
-                            <button
-                              className="btn btn-danger"
+                          {value.jenis_kegiatan_rl_tiga_titik_lima_belas.no ===
+                          0 ? (
+                            <></>
+                          ) : (
+                            <div
                               style={{
-                                margin: "0 5px 0 0",
-                                backgroundColor: "#FF6663",
-                                border: "1px solid #FF6663",
-                              }}
-                              type="button"
-                              onClick={(e) => hapus(value.id)}
-                            >
-                              Hapus
-                            </button>
-                            <Link
-                              to={`/rl315/ubah/${value.id}`}
-                              className="btn btn-warning"
-                              style={{
-                                margin: "0 5px 0 0",
-                                backgroundColor: "#CFD35E",
-                                border: "1px solid #CFD35E",
-                                color: "#FFFFFF",
+                                display:
+                                  value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                                    .no == "0"
+                                    ? "none"
+                                    : "flex",
                               }}
                             >
-                              Ubah
-                            </Link>
-                          </div>
+                              <button
+                                className="btn btn-danger"
+                                style={{
+                                  margin: "0 5px 0 0",
+                                  backgroundColor: "#FF6663",
+                                  border: "1px solid #FF6663",
+                                }}
+                                type="button"
+                                onClick={(e) => hapus(value.id)}
+                              >
+                                Hapus
+                              </button>
+                              <Link
+                                to={`/rl315/ubah/${value.id}`}
+                                className="btn btn-warning"
+                                style={{
+                                  margin: "0 5px 0 0",
+                                  backgroundColor: "#CFD35E",
+                                  border: "1px solid #CFD35E",
+                                  color: "#FFFFFF",
+                                }}
+                              >
+                                Ubah
+                              </Link>
+                            </div>
+                          )}
                         </td>
                         <td>
                           <input
@@ -591,7 +604,12 @@ const RL315 = () => {
                             type="text"
                             name="jumlah"
                             className="form-control"
-                            value={value.jumlah}
+                            value={
+                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.no >
+                              0
+                                ? value.jumlah
+                                : 0
+                            }
                             disabled={true}
                           />
                         </td>

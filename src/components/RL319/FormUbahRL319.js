@@ -422,13 +422,13 @@ export const FormUbahRL319 = () => {
                     style={{ width: "4%", verticalAlign: "middle" }}
                     rowSpan={2}
                   >
-                    No
+                    No. Cara Bayar
                   </th>
                   <th
                     style={{ width: "15%", verticalAlign: "middle" }}
                     rowSpan={2}
                   >
-                    Golongan Obat
+                    Cara Pembayaran
                   </th>
                   <th colSpan={2}>Pasien Rawat Inap</th>
                   <th

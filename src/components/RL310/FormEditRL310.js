@@ -316,7 +316,7 @@ export const FormEditRL310 = () => {
                   <th>Faskes Lain</th>
                   <th>Total Rujukan Masuk</th>
                   <th>Puskesmas</th>
-                  <th>RS Lain</th>
+                  <th>RS Asal</th>
                   <th>Faskes Lain</th>
                   <th>Total Rujukan Masuk Dikembalikan</th>
                   <th>Pasien Rujukn</th>
