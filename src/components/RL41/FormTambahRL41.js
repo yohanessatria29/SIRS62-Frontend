@@ -558,35 +558,37 @@ const FormTambahRL41 = () => {
                   <Spinner animation="grow" variant="success"></Spinner>
                 )}
               </div>
-              <Table className={style.rlTable}>
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Code ICD 10</th>
-                    <th>Deskripsi ICD 10</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataPenyakit.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>{index + 1}</td>
-                        <td style={{ textAlign: "left" }}>{value.icd_code}</td>
-                        <td style={{ textAlign: "left" }}>{value.description_code}</td>
-                        <td>
-                          <button
-                            className="btn btn-outline-success"
-                            onClick={() => DetailPenyakit(value.id)}
-                          >
-                            Tambah
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <div className={style.tableContainer}>
+                <Table className={style.rlTable}>
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Code ICD 10</th>
+                      <th>Deskripsi ICD 10</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataPenyakit.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td>{index + 1}</td>
+                          <td style={{ textAlign: "left" }}>{value.icd_code}</td>
+                          <td style={{ textAlign: "left" }}>{value.description_code}</td>
+                          <td>
+                            <button
+                              className="btn btn-outline-success"
+                              onClick={() => DetailPenyakit(value.id)}
+                            >
+                              Tambah
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </div>
             </div>
           </div>
         </div>

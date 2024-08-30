@@ -172,23 +172,24 @@ const FormTambahRL35 = () => {
         let totalKunjungan = 0
 
 
-        for(let x = 0 ; x<32 ; x++){
+        for(let x = 0 ; x<34 ; x++){
             totalKunDalamLakiVertikal += parseInt(dataRL[x].kunjungan_pasien_dalam_kabkota_laki)
             totalKunDalamPerempuanVertikal += parseInt(dataRL[x].kunjungan_pasien_dalam_kabkota_perempuan)
             totalKunLuarPerempuanVertikal += parseInt(dataRL[x].kunjungan_pasien_luar_kabkota_laki)
             totalKunLuarLakiVertikal += parseInt(dataRL[x].kunjungan_pasien_luar_kabkota_perempuan)
             totalKunjungan +=parseInt(dataRL[x].total_kunjungan)
         }
-        jumlahDataRL[32].kunjungan_pasien_dalam_kabkota_laki = totalKunDalamLakiVertikal
-        jumlahDataRL[32].kunjungan_pasien_dalam_kabkota_perempuan = totalKunDalamPerempuanVertikal
-        jumlahDataRL[32].kunjungan_pasien_luar_kabkota_laki = totalKunLuarPerempuanVertikal
-        jumlahDataRL[32].kunjungan_pasien_luar_kabkota_perempuan = totalKunLuarLakiVertikal
-        jumlahDataRL[32].total_kunjungan = totalKunjungan
-        jumlahDataRL[34].kunjungan_pasien_dalam_kabkota_laki= Math.ceil(totalKunDalamLakiVertikal / parseInt(dataRL[33].kunjungan_pasien_dalam_kabkota_laki))
-        jumlahDataRL[34].kunjungan_pasien_dalam_kabkota_perempuan= Math.ceil(totalKunDalamPerempuanVertikal / parseInt(dataRL[33].kunjungan_pasien_dalam_kabkota_perempuan))
-        jumlahDataRL[34].kunjungan_pasien_luar_kabkota_laki= Math.ceil(totalKunLuarPerempuanVertikal / parseInt(dataRL[33].kunjungan_pasien_luar_kabkota_laki))
-        jumlahDataRL[34].kunjungan_pasien_luar_kabkota_perempuan= Math.ceil(totalKunLuarLakiVertikal / parseInt(dataRL[33].kunjungan_pasien_luar_kabkota_perempuan))
-        jumlahDataRL[34].total_kunjungan= Math.ceil(totalKunjungan / parseInt(dataRL[33].total_kunjungan))
+        // console.log("haiya",jumlahDataRL)
+        jumlahDataRL[36].kunjungan_pasien_dalam_kabkota_laki = totalKunDalamLakiVertikal
+        jumlahDataRL[36].kunjungan_pasien_dalam_kabkota_perempuan = totalKunDalamPerempuanVertikal
+        jumlahDataRL[36].kunjungan_pasien_luar_kabkota_laki = totalKunLuarPerempuanVertikal
+        jumlahDataRL[36].kunjungan_pasien_luar_kabkota_perempuan = totalKunLuarLakiVertikal
+        jumlahDataRL[36].total_kunjungan = totalKunjungan
+        jumlahDataRL[35].kunjungan_pasien_dalam_kabkota_laki= Math.ceil(totalKunDalamLakiVertikal / parseInt(dataRL[34].kunjungan_pasien_dalam_kabkota_laki))
+        jumlahDataRL[35].kunjungan_pasien_dalam_kabkota_perempuan= Math.ceil(totalKunDalamPerempuanVertikal / parseInt(dataRL[34].kunjungan_pasien_dalam_kabkota_perempuan))
+        jumlahDataRL[35].kunjungan_pasien_luar_kabkota_laki= Math.ceil(totalKunLuarPerempuanVertikal / parseInt(dataRL[34].kunjungan_pasien_luar_kabkota_laki))
+        jumlahDataRL[35].kunjungan_pasien_luar_kabkota_perempuan= Math.ceil(totalKunLuarLakiVertikal / parseInt(dataRL[34].kunjungan_pasien_luar_kabkota_perempuan))
+        jumlahDataRL[35].total_kunjungan= Math.ceil(totalKunjungan / parseInt(dataRL[34].total_kunjungan))
 
         setDataRL(jumlahDataRL)
 
@@ -226,26 +227,43 @@ const FormTambahRL35 = () => {
                     "total_kunjungan": value.total_kunjungan
                 }
             })
+            // if(
 
-            const customConfig = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
+            //     dataRL[32].kunjungan_pasien_dalam_kabkota_laki < 1 ||
+            //     dataRL[32].kunjungan_pasien_dalam_kabkota_perempuan < 1 ||
+            //     dataRL[32].kunjungan_pasien_luar_kabkota_laki < 1 ||
+            //     dataRL[32].kunjungan_pasien_luar_kabkota_perempuan < 1 ||
+            //     dataRL[32].total_kunjungan < 1 
+
+            // ){
+            //     toast(`Data tidak bisa disimpan karena , TOTAL 0`, {
+            //         position: toast.POSITION.TOP_RIGHT
+            //     })
+            //     setButtonStatus(false)
+            //     setSpinner(false)
+            // } else {
+            
+                const customConfig = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
                 }
-            }
-            await axiosJWT.post('/apisirs6v2/rltigatitiklima', {
-                tahun: parseInt(tahun),
-                tahunDanBulan: date,
-                data: dataRLArray
-            }, customConfig)
-            // console.log(result.data)
-            setSpinner(false)
-            toast('Data Berhasil Disimpan', {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            setTimeout(() => {
-                navigate('/rl35')
-            }, 1000);
+                await axiosJWT.post('/apisirs6v2/rltigatitiklima', {
+                    tahun: parseInt(tahun),
+                    tahunDanBulan: date,
+                    data: dataRLArray
+                }, customConfig)
+                // console.log(result.data)
+                setSpinner(false)
+                toast('Data Berhasil Disimpan', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                setTimeout(() => {
+                    navigate('/rl35')
+                }, 1000);
+            // }
+
         } catch (error) {
             toast(`Data tidak bisa disimpan karena ,${error.response.data.message}`, {
                 position: toast.POSITION.TOP_RIGHT
@@ -377,7 +395,7 @@ const FormTambahRL35 = () => {
                                 {dataRL.map((value, index) => {
                                     let disabled = true
                                     let visibled = true
-                                    if (value.no == 99 || value.no == 77) {
+                                    if (value.no == 99 || value.no == 77 ) {
                                         disabled = true
                                         visibled = "none"
                                         value.min  = "0"
@@ -386,9 +404,9 @@ const FormTambahRL35 = () => {
                                         value.disabledInput = false
                                         disabled = false
                                         // visibled = "none"
-                                        value.min = "1"
+                                        value.min = "0"
                                         value.checked=true 
-                                    }else if (value.no == 0) {
+                                    }else if (value.no == 100) {
                                         value.disabledInput = true
                                         disabled = false
                                         visibled = "block"

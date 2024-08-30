@@ -682,6 +682,7 @@ const RL38 = () => {
             >
               Filter
             </button>
+            <span style={{ color: "gray" }}> RL 3.8 -  Laboratorium</span>
           </div>
         </div>
         <div>
@@ -694,7 +695,7 @@ const RL38 = () => {
               .join(", ")}
           </h5>
         </div>
-      
+        <div className={style.tableContainer}>
           <Table
             className={style.rlTable}
             responsive
@@ -835,6 +836,7 @@ const RL38 = () => {
               })}
             </tbody>
           </Table>
+          </div>
         </div>
       </div>
   );

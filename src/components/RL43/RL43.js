@@ -10,6 +10,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Table from "react-bootstrap/Table";
 import { Modal } from "react-bootstrap";
+import { downloadExcel } from 'react-export-table-to-excel'
 
 const RL43 = () => {
   // const [namaRS, setNamaRS] = useState("");
@@ -309,6 +310,45 @@ const RL43 = () => {
   //   }
   // };
 
+  function handleDownloadExcel() {
+    const header = [
+        "No", 
+        "Kelompok ICD-10", 
+        "Kelompok Diagnosa Penyakit", 
+        "Jumlah Pasien Hidup dan Mati Menurut Jenis Kelamin Laki-Laki",
+        "Jumlah Pasien Hidup dan Mati Menurut Jenis Kelamin Perempuan",
+        "Total Jumlah Pasien Hidup dan Mati Menurut Jenis Kelamin",
+        "Jumlah Pasien Keluar Mati Laki-Laki",
+        "Jumlah Pasien Keluar Mati Perempuan",
+        "Total Jumlah Pasien Keluar Mati "
+    ]
+    // console.log("tes")
+    // console.log(dataRL)
+
+    const body = dataRL.map((value, index) => {
+        const data = [
+            index + 1,
+            value.icd_code_group,
+            value.description_code_group,
+            value.jmlh_pas_hidup_mati_laki,
+            value.jmlh_pas_hidup_mati_perempuan,
+            value.total_pas_hidup_mati_group_by_icd_code,
+            value.jmlh_pas_keluar_mati_gen_laki,
+            value.jmlh_pas_keluar_mati_gen_perempuan,
+            value.total_pas_keluar_mati_group_by_icd_code
+        ]
+        return data
+    })
+
+    downloadExcel({
+        fileName: "rl43_".concat(dataRL[0].rs_id).concat("_").concat(String(tahun).concat("-").concat(bulan).concat("-01")),
+        sheet: "rl43",
+        tablePayload: {
+            header,
+            body: body,
+        },
+    })
+}
 
   return (
     <div className="container" style={{ marginTop: "70px" }}>
@@ -547,6 +587,8 @@ const RL43 = () => {
             >
               Filter
             </button>
+            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button> 
+            <span style={{ color: "gray" }}> RL 4.3 - 10 Besar Kematian Penyakit Pasien Rawat Inap</span>
           </div>
         </div>
         <div>
@@ -578,13 +620,13 @@ const RL43 = () => {
                   rowSpan={3}
                   style={{ width:"5%",textAlign: "center", verticalAlign: "middle" }}
                 >
-                  Kode ICD-10
+                  Kelompok ICD-10
                 </th>
                 <th
                   rowSpan={3}
                   style={{ textAlign: "left", verticalAlign: "middle" }}
                 >
-                  Diagnosis Penyakit
+                  Kelompok Diagnosa Penyakit
                 </th>
                 <th
                   colSpan={3}
