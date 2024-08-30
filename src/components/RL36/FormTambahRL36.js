@@ -129,13 +129,16 @@ const FormTambahRL36 = () => {
   };
 
   const changeHandler = (event, index) => {
+    console.log(index);
     let newDataRL = [...dataRL];
     const name = event.target.name;
     if (name === "check") {
-      if (event.target.checked === true) {
-        newDataRL[index].disabledInput = false;
-      } else if (event.target.checked === false) {
-        newDataRL[index].disabledInput = true;
+      if (index != 29) {
+        if (event.target.checked === true) {
+          newDataRL[index].disabledInput = false;
+        } else if (event.target.checked === false) {
+          newDataRL[index].disabledInput = true;
+        }
       }
       newDataRL[index].checked = event.target.checked;
     } else if (name === "rmRumahSakit") {
@@ -541,23 +544,48 @@ const FormTambahRL36 = () => {
             >
               <thead>
                 <tr>
-                  <th style={{ width: "2.5%" }}>No.</th>
-                  <th></th>
-                  <th style={{ width: "10%" }}>Jenis Kegiatan</th>
-                  <th>Rujukan Medis Rumah Sakit</th>
-                  <th>Rujukan Medis Bidan</th>
-                  <th>Rujukan Medis Puskesmas</th>
-                  <th>Rujukan Medis Faskes Lainnya</th>
-                  <th>Rujukan Medis Hidup</th>
-                  <th>Rujukan Medis Mati</th>
-                  <th>Rujukan Medis Total</th>
-                  <th>Rujukan Non Medis Hidup</th>
-                  <th>Rujukan Non Medis Mati</th>
-                  <th>Rujukan Non Medis Total</th>
-                  <th>Non Rujukan Hidup</th>
-                  <th>Non Rujukan Mati</th>
-                  <th>Non Rujukan Total</th>
-                  <th>Dirujuk</th>
+                  <th
+                    style={{ width: "2.5%" }}
+                    rowSpan={2}
+                    className="align-middle"
+                  >
+                    No.
+                  </th>
+                  <th rowSpan={2}></th>
+                  <th
+                    style={{ width: "10%" }}
+                    rowSpan={2}
+                    className="align-middle"
+                  >
+                    Jenis Kegiatan
+                  </th>
+                  <th colSpan={7} className="text-center">
+                    Rujukan Medis
+                  </th>
+                  <th colSpan={3} className="text-center">
+                    Rujukan Non Medis
+                  </th>
+                  <th colSpan={3} className="text-center">
+                    Non Rujukan
+                  </th>
+                  <th rowSpan={2} className="align-middle">
+                    Dirujuk
+                  </th>
+                </tr>
+                <tr>
+                  <th className="align-middle">Rumah Sakit</th>
+                  <th className="align-middle">Bidan</th>
+                  <th className="align-middle">Puskesmas</th>
+                  <th className="align-middle">Faskes Lainnya</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Rujukan Medis</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Rujukan Non Medis</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Non Rujukan</th>
                 </tr>
               </thead>
               <tbody>
@@ -570,8 +598,6 @@ const FormTambahRL36 = () => {
                   let disabledDirujuk = true;
 
                   if (value.no == 3) {
-                    // disabled = true
-                    // visibled = "none"
                     disabled = false;
                     visibled = "block";
                   } else {
@@ -608,7 +634,6 @@ const FormTambahRL36 = () => {
                           value={value.id}
                           disabled={true}
                         />
-                        {/* <input type='text' name='no' className="form-control" value={value.no} disabled={true}/> */}
                         {value.no}
                       </td>
                       <td

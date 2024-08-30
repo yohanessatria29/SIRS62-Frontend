@@ -498,22 +498,47 @@ export const FormUbahRL36 = () => {
             >
               <thead>
                 <tr>
-                  <th style={{ width: "2.5%" }}>No.</th>
-                  <th style={{ width: "10%" }}>Jenis Kegiatan</th>
-                  <th>Rujukan Medis Rumah Sakit</th>
-                  <th>Rujukan Medis Bidan</th>
-                  <th>Rujukan Medis Puskesmas</th>
-                  <th>Rujukan Medis Faskes Lainnya</th>
-                  <th>Rujukan Medis Hidup</th>
-                  <th>Rujukan Medis Mati</th>
-                  <th>Rujukan Medis Total</th>
-                  <th>Rujukan Non Medis Hidup</th>
-                  <th>Rujukan Non Medis Mati</th>
-                  <th>Rujukan Non Medis Total</th>
-                  <th>Non Rujukan Hidup</th>
-                  <th>Non Rujukan Mati</th>
-                  <th>Non Rujukan Total</th>
-                  <th>Dirujuk</th>
+                  <th
+                    style={{ width: "2.5%" }}
+                    rowSpan={2}
+                    className="align-middle"
+                  >
+                    No.
+                  </th>
+                  <th
+                    style={{ width: "10%" }}
+                    rowSpan={2}
+                    className="align-middle"
+                  >
+                    Jenis Kegiatan
+                  </th>
+                  <th colSpan={7} className="text-center">
+                    Rujukan Medis
+                  </th>
+                  <th colSpan={3} className="text-center">
+                    Rujukan Non Medis
+                  </th>
+                  <th colSpan={3} className="text-center">
+                    Non Rujukan
+                  </th>
+                  <th rowSpan={2} className="align-middle">
+                    Dirujuk
+                  </th>
+                </tr>
+                <tr>
+                  <th className="align-middle">Rumah Sakit</th>
+                  <th className="align-middle">Bidan</th>
+                  <th className="align-middle">Puskesmas</th>
+                  <th className="align-middle">Faskes Lainnya</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Rujukan Medis</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Rujukan Non Medis</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Non Rujukan</th>
                 </tr>
               </thead>
               <tbody>

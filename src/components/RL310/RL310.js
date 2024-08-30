@@ -537,118 +537,6 @@ const RL310 = () => {
           </Modal.Footer>
         </form>
       </Modal>
-      {/* <div className="row">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title h5">Profile Fasyankes</h5>
-              <div
-                className="form-floating"
-                style={{ width: "100%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={namaRS}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Nama</label>
-              </div>
-              <div
-                className="form-floating"
-                style={{ width: "100%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={alamatRS}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Alamat</label>
-              </div>
-              <div
-                className="form-floating"
-                style={{ width: "50%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={namaPropinsi}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Provinsi </label>
-              </div>
-              <div
-                className="form-floating"
-                style={{ width: "50%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={namaKabKota}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Kab/Kota</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title h5">Periode Laporan</h5>
-              <form onSubmit={Cari}>
-                <div
-                  className="form-floating"
-                  style={{ width: "100%", display: "inline-block" }}
-                >
-                  <input
-                    name="tahun"
-                    type="text"
-                    className="form-control"
-                    id="floatingInput"
-                    placeholder="Tahun"
-                    value={tahun}
-                    onChange={(e) => changeHandlerSingle(e)}
-                  />
-                  <label htmlFor="floatingInput">Tahun</label>
-                </div>
-                <div
-                  className="form-floating"
-                  style={{ width: "100%", display: "inline-block" }}
-                >
-                  <select
-                    name="bulan"
-                    className="form-control"
-                    id="bulan"
-                    value={bulan}
-                    onChange={(e) => setBulan(e.target.value)}
-                  >
-                    {months.map((value) => (
-                      <option key={value.value - 1} value={value.value}>
-                        {value.label}
-                      </option>
-                    ))}
-                  </select>
-                  <label htmlFor="floatingInput">Bulan</label>
-                </div>
-                <div className="mt-3 mb-3">
-                  <button
-                    type="submit"
-                    className="btn btn-outline-success w-100"
-                  >
-                    <HiSaveAs /> Cari
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       <div className="row">
         <div className="col-md-12">
@@ -738,7 +626,7 @@ const RL310 = () => {
                 <th>Faskes Lain</th>
                 <th>Total Rujukan Masuk</th>
                 <th>Puskesmas</th>
-                <th>RS Lain</th>
+                <th>RS Asal</th>
                 <th>Faskes Lain</th>
                 <th>Total Rujukan Masuk Dikembalikan</th>
                 <th>Pasien Rujukn</th>

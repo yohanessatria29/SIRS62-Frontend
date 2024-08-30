@@ -527,34 +527,40 @@ const RL315 = () => {
             <tbody>
               {dataRL.length > 0 ? (
                 <>
-                  {dataRL
-                    .filter((value, index) => {
-                      return (
-                        value.jenis_kegiatan_rl_tiga_titik_lima_belas.no != 0
-                      );
-                    })
-                    .map((value, index) => {
-                      return (
-                        <tr key={value.id}>
-                          <td>
-                            <input
-                              type="text"
-                              name="no"
-                              className="form-control"
-                              value={
-                                value.jenis_kegiatan_rl_tiga_titik_lima_belas.no
-                              }
-                              disabled={true}
-                            />
-                          </td>
-                          <td
-                            style={{
-                              textAlign: "center",
-                              verticalAlign: "middle",
-                            }}
-                          >
-                            <ToastContainer />
-                            <div style={{ display: "flex" }}>
+                  {dataRL.map((value, index) => {
+                    return (
+                      <tr key={value.id}>
+                        <td>
+                          <input
+                            type="text"
+                            name="no"
+                            className="form-control"
+                            value={
+                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.no
+                            }
+                            disabled={true}
+                          />
+                        </td>
+                        <td
+                          style={{
+                            textAlign: "center",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          <ToastContainer />
+                          {value.jenis_kegiatan_rl_tiga_titik_lima_belas.no ===
+                          0 ? (
+                            <></>
+                          ) : (
+                            <div
+                              style={{
+                                display:
+                                  value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                                    .no == "0"
+                                    ? "none"
+                                    : "flex",
+                              }}
+                            >
                               <button
                                 className="btn btn-danger"
                                 style={{
@@ -580,31 +586,36 @@ const RL315 = () => {
                                 Ubah
                               </Link>
                             </div>
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="jenisKegiatan"
-                              className="form-control"
-                              value={
-                                value.jenis_kegiatan_rl_tiga_titik_lima_belas
-                                  .nama
-                              }
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="jumlah"
-                              className="form-control"
-                              value={value.jumlah}
-                              disabled={true}
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })}
+                          )}
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="jenisKegiatan"
+                            className="form-control"
+                            value={
+                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.nama
+                            }
+                            disabled={true}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="jumlah"
+                            className="form-control"
+                            value={
+                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.no >
+                              0
+                                ? value.jumlah
+                                : 0
+                            }
+                            disabled={true}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
                   <tr>
                     <th colSpan={3} className="text-center">
                       Total
