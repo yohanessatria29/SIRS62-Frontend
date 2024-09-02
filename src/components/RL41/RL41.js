@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import style from "./FormTambahRL41.module.css";
+import style from "./RL41.css";
 import { useNavigate, Link } from "react-router-dom";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,7 +17,7 @@ const RL41 = () => {
   // const [alamatRS, setAlamatRS] = useState("");
   // const [namaPropinsi, setNamaPropinsi] = useState("");
   // const [namaKabKota, setNamaKabKota] = useState("");
-  const [tahun, setTahun] = useState("2023");
+  const [tahun, setTahun] = useState("2025");
   const [bulan, setBulan] = useState("01");
   const [dataRL, setDataRL] = useState([]);
   const [token, setToken] = useState("");
@@ -35,18 +35,18 @@ const RL41 = () => {
   const [show, setShow] = useState(false);
   const [user, setUser] = useState({});
   const tableRef = useRef(null);
-    const [namafile, setNamaFile] = useState("");
+  const [namafile, setNamaFile] = useState("");
 
   useEffect(() => {
     refreshToken();
     // getDataRLEmpatTitikSatuDetails("2023-01-01");
     getBulan();
-    const getLastYear = async () => {
-      const date = new Date();
-      setTahun(date.getFullYear() );
-      return date.getFullYear() ;
-    };
-    getLastYear().then((results) => {});
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   setTahun(date.getFullYear() );
+    //   return date.getFullYear() ;
+    // };
+    // getLastYear().then((results) => {});
   }, []);
 
   const refreshToken = async () => {
@@ -171,7 +171,7 @@ const RL41 = () => {
         },
       });
       setDaftarRumahSakit(response.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const showRumahSakit = async (id) => {
@@ -183,7 +183,7 @@ const RL41 = () => {
       });
 
       setRumahSakit(response.data.data);
-    } catch (error) {}
+    } catch (error) { }
   };
 
 
@@ -229,7 +229,7 @@ const RL41 = () => {
       // });
 
       setDataRL(rlEmpatDetails);
-      setNamaFile("rl41_"+rumahSakit.id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
+      setNamaFile("rl41_" + rumahSakit.id + "_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
       setRumahSakit(null);
       handleClose();
       setSpinner(false);
@@ -321,7 +321,7 @@ const RL41 = () => {
   // };
 
   const deleteDetailRL = async (id) => {
-    
+
     try {
       const customConfig = {
         headers: {
@@ -587,7 +587,7 @@ const RL41 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
-        <div style={{ marginBottom: "10px" }}>
+          <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
                 className="btn"
@@ -616,46 +616,43 @@ const RL41 = () => {
               Filter
             </button>
             <DownloadTableExcel
-                            filename={namafile}
-                            sheet="data RL 35"
-                            currentTableRef={tableRef.current}
-                        >
-                            {/* <button> Export excel </button> */}
-                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
-                            </button>
-                        </DownloadTableExcel>
+              filename={namafile}
+              sheet="data RL 35"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+              </button>
+            </DownloadTableExcel>
             <span style={{ color: "gray" }}> RL 4.1 -  Morbiditas Pasien Rawat Inap</span>
           </div>
         </div>
         <div>
           <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
-            </h5>
+            filtered by{" "}
+            {filterLabel
+              .map((value) => {
+                return value;
+              })
+              .join(", ")}
+          </h5>
         </div>
-        <Table
-            className={style.rlTable}
-            striped
-            bordered
+        <div className="table-container mt-3 mb-1 pb-2">
+          <table
             responsive
-            style={{ width: "700%" }}
-            ref={tableRef}
+            style={{ width: "500%" }}
           >
             <thead>
-              <tr>
-                <th
+              <tr className="main-header-row">
+                <th 
                   rowSpan={3}
-                  style={{ verticalAlign: "middle" }}
+                  style={{ width: "1%", verticalAlign: "middle" }}
                 >
                   No.
                 </th>
                 <th
                   rowSpan={3}
-                  style={{verticalAlign: "middle" }}
+                  style={{ width: "2.5%", verticalAlign: "middle" }}
                 >
                   Aksi
                 </th>
@@ -667,7 +664,7 @@ const RL41 = () => {
                 </th>
                 <th
                   rowSpan={3}
-                  style={{ textAlign: "left", verticalAlign: "middle" }}
+                  style={{ width: "2.5%", textAlign: "left", verticalAlign: "middle" }}
                 >
                   Diagnosis Penyakit
                 </th>
@@ -678,7 +675,7 @@ const RL41 = () => {
                 <th
                   colSpan={3}
                   rowSpan={2}
-                  style={{ width:"3%" ,textAlign: "center", verticalAlign: "middle" }}
+                  style={{ textAlign: "center", verticalAlign: "middle" }}
                 >
                   Jumlah Pasien Hidup dan Mati Menurut Jenis Kelamin
                 </th>
@@ -690,7 +687,7 @@ const RL41 = () => {
                   Jumlah Pasien Keluar Mati
                 </th>
               </tr>
-              <tr>
+              <tr className="subheader-row">
                 <th colSpan={2} style={{ textAlign: "center" }}>
                   {" "}
                   &lt; 1 Jam{" "}
@@ -769,7 +766,7 @@ const RL41 = () => {
                   ≥ 85 Tahun{" "}
                 </th>
               </tr>
-              <tr>
+              <tr className="subsubheader-row">
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
                 <th style={{ textAlign: "center" }}>Perempuan</th>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
@@ -831,13 +828,13 @@ const RL41 = () => {
             <tbody>
               {dataRL.map((value, index) => {
                 return (
-                  <tr style= {{verticalAlign: "center" }} key={value.id}>
+                  <tr style={{ verticalAlign: "center" }} key={value.id}>
                     <td>
                       <label>{index + 1}</label>
                     </td>
                     <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                       <ToastContainer />
-                      <div style={{ display: "flex" }}>
+                      <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
                         <button
                           className="btn btn-danger"
                           style={{
@@ -864,7 +861,7 @@ const RL41 = () => {
                         </Link>
                       </div>
                     </td>
-                    <td style={{ textAlign: "left" }}>
+                    <td style={{ textAlign: "center" }}>
                       <label>{value.icd.icd_code}</label>
                     </td>
                     <td style={{ textAlign: "left" }}>
@@ -1042,7 +1039,8 @@ const RL41 = () => {
                 );
               })}
             </tbody>
-          </Table>
+          </table>
+        </div>
       </div>
     </div>
   );

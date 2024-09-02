@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './FormTambahRL35.module.css'
+import style from './RL35.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri'
 import { AiFillFileAdd } from 'react-icons/ai'
@@ -17,7 +17,7 @@ import { DownloadTableExcel } from "react-export-table-to-excel"
 
 const RL35 = () => {
     const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [filterLabel, setFilterLabel] = useState([])
     const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -40,14 +40,14 @@ const RL35 = () => {
     useEffect(() => {
         refreshToken()
         getBulan()
-        const getLastYear = async () => {
-            const date = new Date()
-            setTahun(date.getFullYear())
-            return date.getFullYear()
-        }
-        getLastYear().then((results) => {
+        // const getLastYear = async () => {
+        //     const date = new Date()
+        //     setTahun(date.getFullYear())
+        //     return date.getFullYear()
+        // }
+        // getLastYear().then((results) => {
 
-        })
+        // })
 
         totalPengunjung()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -254,9 +254,8 @@ const RL35 = () => {
             // console.log(dataRLTigaTitikLimaDetails)
 
             setDataRL(results.data.data)
-            setNamaFile("rl35_"+results.data.data[0].rs_id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
+            setNamaFile("rl35_" + results.data.data[0].rs_id + "_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
             setSpinner(false)
-            console.log("sinii ",tableRef)
             handleClose()
         } catch (error) {
             console.log(error)
@@ -266,7 +265,7 @@ const RL35 = () => {
 
     const totalPengunjung = () => {
         // console.log(dataRL)
-   
+
         let total1 = 0
         let total2 = 0
         let total3 = 0
@@ -277,7 +276,7 @@ const RL35 = () => {
         let rata3 = 0
         let rata4 = 0
         let rata5 = 0
-        
+
         // dataRL.map((value, index) => {
         //     if (value.jenis_kegiatan_id == 33 || value.jenis_kegiatan_id == 35) {
         //         total1 = total1
@@ -294,17 +293,17 @@ const RL35 = () => {
         //     }
         // }
         // )
-        
+
         // setTotalKunjunganPasienDalamKabkotaLaki(total1)
         // setTotalKunjunganPasienLuarKabkotaLaki(total2)
         // setTotalKunjunganPasienDalamKabkotaPerempuan(total3)
         // setTotalKunjunganPasienLuarKabkotaPerempuan(total4)
         // setTotalKunjungan(total5)
-        
+
         // console.log(dataRL)
         // value.jenis_kegiatan_id == 66 || 
-        
-        dataRL.map((value, index)=>{
+
+        dataRL.map((value, index) => {
             if (value.jenis_kegiatan_id == 35 || value.jenis_kegiatan_id == 99 || value.jenis_kegiatan_id == 66) {
                 total1 = total1
                 total2 = total2
@@ -318,20 +317,20 @@ const RL35 = () => {
                 total4 = total4 + value.kunjungan_pasien_luar_kabkota_perempuan
                 total5 = total5 + value.total_kunjungan
             }
-            
+
             // if(value.jenis_kegiatan_id == 34){
-                rata1 = Math.ceil(total1 / value.kunjungan_pasien_dalam_kabkota_laki)  
-                rata2 = Math.ceil(total2 / value.kunjungan_pasien_luar_kabkota_laki)
-                rata3 = Math.ceil(total3 / value.kunjungan_pasien_dalam_kabkota_perempuan)
-                rata4 = Math.ceil(total4 / value.kunjungan_pasien_luar_kabkota_perempuan)
-                rata5 = Math.ceil(total5 / value.total_kunjungan)
+            rata1 = Math.ceil(total1 / value.kunjungan_pasien_dalam_kabkota_laki)
+            rata2 = Math.ceil(total2 / value.kunjungan_pasien_luar_kabkota_laki)
+            rata3 = Math.ceil(total3 / value.kunjungan_pasien_dalam_kabkota_perempuan)
+            rata4 = Math.ceil(total4 / value.kunjungan_pasien_luar_kabkota_perempuan)
+            rata5 = Math.ceil(total5 / value.total_kunjungan)
             // }
         })
 
         let newData = [{
-            id:99,
-            jenis_kegiatan_id :  99,
-            jenis_kegiatan_nama : "Total",
+            id: 99,
+            jenis_kegiatan_id: 99,
+            jenis_kegiatan_nama: "Total",
             kunjungan_pasien_dalam_kabkota_laki: total1,
             kunjungan_pasien_luar_kabkota_laki: total2,
             kunjungan_pasien_dalam_kabkota_perempuan: total3,
@@ -339,9 +338,9 @@ const RL35 = () => {
             total_kunjungan: total5
         },
         {
-            id:77,
-            jenis_kegiatan_id :  77,
-            jenis_kegiatan_nama : "Rata-rata kunjungan per hari",
+            id: 77,
+            jenis_kegiatan_id: 77,
+            jenis_kegiatan_nama: "Rata-rata kunjungan per hari",
             kunjungan_pasien_dalam_kabkota_laki: rata1,
             kunjungan_pasien_luar_kabkota_laki: rata2,
             kunjungan_pasien_dalam_kabkota_perempuan: rata3,
@@ -351,8 +350,8 @@ const RL35 = () => {
         setTotalKunjungan(total5)
         setRataKunjungan(rata5)
         setDataCount(newData)
-        
-        
+
+
 
     }
 
@@ -693,14 +692,14 @@ const RL35 = () => {
                             Filter
                         </button>
                         <DownloadTableExcel
-            filename={namafile}
-            sheet="data RL 35"
-            currentTableRef={tableRef.current}
-          >
-            {/* <button> Export excel </button> */}
-            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
-            </button>
-         </DownloadTableExcel>
+                            filename={namafile}
+                            sheet="data RL 35"
+                            currentTableRef={tableRef.current}
+                        >
+                            {/* <button> Export excel </button> */}
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+                            </button>
+                        </DownloadTableExcel>
                         <span style={{ color: "gray" }}> RL 3.5 -  Kunjungan</span>
                     </div>
                     <div>
@@ -712,13 +711,17 @@ const RL35 = () => {
                             }).join(', ')}
                         </h5>
                     </div>
-                    <Table className={style.rlTable}  ref={tableRef}>
+                    <div className="table-container mt-3 mb-1 pb-2">
+                    <table
+                            responsive
+                            style={{ width: "100%" }}
+                        >
                         <thead>
                             <tr>
                                 <th rowSpan={2}
                                     style={{ width: "4%", verticalAlign: "middle" }}>No.</th>
                                 <th rowSpan={2}
-                                    style={{ width: "4%", verticalAlign: "middle" }}>Aksi</th>
+                                    style={{ width: "15%", verticalAlign: "middle" }}>Aksi</th>
                                 <th rowSpan={2}
                                     style={{ width: "35%", verticalAlign: "middle" }}>Jenis Kegiatan</th>
                                 <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Dalam Kota</th>
@@ -736,100 +739,101 @@ const RL35 = () => {
                             {dataRL.map((value, index) => {
                                 return (
                                     <tr key={value.id}>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {index + 1}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {index + 1}
                                         </td>
                                         <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                                             <ToastContainer />
-                                            <div style={{ display: "flex" }}>
+                                            <div style={{ display: "flex" , justifyContent: "space-between", alignItems: "center", width: "100%" }}>
                                                 {/* <RiDeleteBin5Fill  size={20} onClick={(e) => hapus(value.id)} style={{color: "gray", cursor: "pointer", marginRight: "5px"}} /> */}
-                                                <button className="btn btn-danger" style={{ margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663" }} type='button' onClick={(e) => hapus(value.id)}>Hapus</button>
-                                                <Link to={`/rl35/ubah/${value.id}`} className='btn btn-warning' style={{ margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color: "#FFFFFF" }} >
+                                                <button className="btn btn-danger" style={{ margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663" , flex: "1",}} type='button' onClick={(e) => hapus(value.id)}>Hapus</button>
+                                                <Link to={`/rl35/ubah/${value.id}`} className='btn btn-warning' style={{ margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color: "#FFFFFF" , flex: "1",}} >
                                                     Ubah
                                                 </Link>
                                             </div>
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                            {value.jenis_kegiatan_rl_tiga_titik_lima.nama} 
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.jenis_kegiatan_rl_tiga_titik_lima.nama}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                            {value.kunjungan_pasien_dalam_kabkota_laki} 
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_dalam_kabkota_laki}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                            {value.kunjungan_pasien_dalam_kabkota_perempuan} 
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_dalam_kabkota_perempuan}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                            {value.kunjungan_pasien_luar_kabkota_laki} 
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_luar_kabkota_laki}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                            {value.kunjungan_pasien_luar_kabkota_perempuan} 
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_luar_kabkota_perempuan}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                            {value.total_kunjungan} 
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.total_kunjungan}
                                         </td>
                                     </tr>
                                 )
                             })}
                             {
-                                total_kunjungan != 0? (
+                                total_kunjungan != 0 ? (
                                     <tr>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {99} 
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {99}
                                         </td>
                                         <td></td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>Total</td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[0].kunjungan_pasien_dalam_kabkota_laki}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>Total</td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_dalam_kabkota_laki}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[0].kunjungan_pasien_dalam_kabkota_perempuan}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_dalam_kabkota_perempuan}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[0].kunjungan_pasien_luar_kabkota_laki}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_luar_kabkota_laki}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[0].kunjungan_pasien_luar_kabkota_perempuan}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_luar_kabkota_perempuan}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[0].total_kunjungan}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].total_kunjungan}
                                         </td>
                                     </tr>
-                                    
+
                                 ) : (
                                     <></>
                                 )
                             }
                             {
-                                rata_kunjungan != 0? (
+                                rata_kunjungan != 0 ? (
                                     <tr>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {77}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {77}
                                         </td>
                                         <td></td>
-                                        <td  style={{ textAlign: "center", verticalAlign: "middle"  }}>Rata-rata kunjungan per hari</td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[1].kunjungan_pasien_dalam_kabkota_laki}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>Rata-rata kunjungan per hari</td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_dalam_kabkota_laki}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[1].kunjungan_pasien_dalam_kabkota_perempuan}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_dalam_kabkota_perempuan}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[1].kunjungan_pasien_luar_kabkota_laki}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_luar_kabkota_laki}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[1].kunjungan_pasien_luar_kabkota_perempuan}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_luar_kabkota_perempuan}
                                         </td>
-                                        <td style={{ textAlign: "center", verticalAlign: "middle"  }}>
-                                           {dataCount[1].total_kunjungan}
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].total_kunjungan}
                                         </td>
                                     </tr>
-                                    
+
                                 ) : (
                                     <></>
                                 )
                             }
                         </tbody>
-                    </Table>
+                    </table>
+                </div>
                 </div>
             </div>
         </div>

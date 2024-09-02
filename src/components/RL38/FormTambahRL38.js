@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-import style from "./FormTambahRL38.module.css";
+import style from "./RL38.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,7 +11,7 @@ import { IoArrowBack } from "react-icons/io5";
 import Table from "react-bootstrap/esm/Table";
 
 const FormTambahRL38 = () => {
-  const [tahun, setTahun] = useState("2024");
+  const [tahun, setTahun] = useState("2025");
   const [bulan, setBulan] = useState("00");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
@@ -373,25 +373,36 @@ const FormTambahRL38 = () => {
               &lt;
             </Link>
             <span style={{ color: "gray" }}>Kembali RL 3.8 Laboratorium</span>
-            <div className={style.tableContainer}>
-            <Table className={style.rlTable}>
+            <div className="table-container mt-3 mb-1 pb-2">
+            {/* <Table className={style.rlTable}> */}
+            <table
+                            responsive
+                            style={{ width: "100%" }}
+                        >
               <thead>
-                <tr>
-                  <th rowSpan={2} style={{ width: "4%", verticalAlign:"middle" }}>No.</th>
-                  <th rowSpan={2} style={{ width: "3%" }}></th>
-                  <th rowSpan={2} style={{ textAlign: "center" , verticalAlign:"middle" }}>Jenis Pemeriksaan</th>
-                  <th colSpan={2} style={{ textAlign: "center" }}>Jumlah Pemeriksaan</th>
-                  <th colSpan={2} style={{ textAlign: "center" }}>Rata-Rata Pemeriksaan</th>
+                <tr className="main-header-row">
+                  <th  rowSpan={2} style={{ width: "4%", verticalAlign:"middle" }}>No.</th>
+                  <th  rowSpan={2} style={{ width: "3%" }}></th>
+                  <th  rowSpan={2} style={{ textAlign: "center" , verticalAlign:"middle" }}>Jenis Pemeriksaan</th>
+                  <th  colSpan={2} style={{ textAlign: "center" }}>Jumlah Pemeriksaan</th>
+                  <th  colSpan={2} style={{ textAlign: "center" }}>Rata-Rata Pemeriksaan</th>
                 </tr>
-                <tr>
-                  <th style={{ textAlign: "center" }}>Laki-Laki</th>
-                  <th style={{ textAlign: "center" }}>Perempuan</th>
-                  <th style={{ textAlign: "center" }}>Laki-Laki</th>
-                  <th style={{ textAlign: "center" }}>Perempuan</th>
+                <tr className="subheader-row">
+                  <th  style={{ textAlign: "center" }}>Laki-Laki</th>
+                  <th  style={{ textAlign: "center" }}>Perempuan</th>
+                  <th  style={{ textAlign: "center" }}>Laki-Laki</th>
+                  <th  style={{ textAlign: "center" }}>Perempuan</th>
                 </tr>
               </thead>
               <tbody>
                 {dataRL.map((value, index) => {
+                  let disabled = true
+                  let visibled = true
+                  if (value.no == 0) {
+                    value.disabledInput = true
+                    disabled = false
+                    visibled = "block"
+                }
                     return (
                       <tr key={value.id}>
                         <td>{value.no}</td>
@@ -478,7 +489,8 @@ const FormTambahRL38 = () => {
                     );
                 })}
               </tbody>
-            </Table>
+              </table>
+            {/* </Table> */}
             </div>
           </div>
         </div>

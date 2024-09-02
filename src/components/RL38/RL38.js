@@ -2,16 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import style from "./FormTambahRL38.module.css";
+import style from "./RL38.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert";
 import { Modal, Table } from "react-bootstrap";
-import { DownloadTableExcel } from "react-export-table-to-excel"
+import { DownloadTableExcel } from "react-export-table-to-excel";
+
 
 const RL38 = () => {
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [bulan, setBulan] = useState("");
   // const [namaRS, setNamaRS] = useState("");
   // const [alamatRS, setAlamatRS] = useState("");
@@ -39,12 +40,12 @@ const RL38 = () => {
     refreshToken();
     // getDataRLTigaTitikDelapan('2023-01-01');
     getBulan();
-    const getLastYear = async () => {
-      const date = new Date();
-      setTahun(date.getFullYear());
-      return date.getFullYear();
-    };
-    getLastYear().then((results) => {});
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    // };
+    // getLastYear().then((results) => {});
   }, []);
 
   const refreshToken = async () => {
@@ -312,7 +313,11 @@ const RL38 = () => {
       });
 
       setDataRL(satu);
-      setNamaFile("rl38_"+rumahSakit.id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
+      setNamaFile(
+        "rl38_" +
+          rumahSakit.id +
+          "_".concat(String(tahun).concat("-").concat(bulan).concat("-01"))
+      );
       setRumahSakit(null);
       handleClose();
       setSpinner(false);
@@ -402,7 +407,10 @@ const RL38 = () => {
       },
     };
     try {
-      await axiosJWT.delete(`/apisirs6v2/rltigatitikdelapan/${id}`, customConfig);
+      await axiosJWT.delete(
+        `/apisirs6v2/rltigatitikdelapan/${id}`,
+        customConfig
+      );
       window.location.reload(false);
       toast("Data Berhasil Dihapus", {
         position: toast.POSITION.TOP_RIGHT,
@@ -687,15 +695,25 @@ const RL38 = () => {
               Filter
             </button>
             <DownloadTableExcel
-                            filename={namafile}
-                            sheet="data RL 35"
-                            currentTableRef={tableRef.current}
-                        >
-                            {/* <button> Export excel </button> */}
-                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
-                            </button>
-                        </DownloadTableExcel>
-            <span style={{ color: "gray" }}> RL 3.8 -  Laboratorium</span>
+              filename={namafile}
+              sheet="data RL 35"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button
+                className="btn"
+                style={{
+                  fontSize: "18px",
+                  marginLeft: "5px",
+                  backgroundColor: "#779D9E",
+                  color: "#FFFFFF",
+                }}
+              >
+                {" "}
+                Download
+              </button>
+            </DownloadTableExcel>
+            <span style={{ color: "gray" }}> RL 3.8 - Laboratorium</span>
           </div>
         </div>
         <div>
@@ -708,16 +726,13 @@ const RL38 = () => {
               .join(", ")}
           </h5>
         </div>
-        <div className={style.tableContainer}>
-          <Table
-            className={style.rlTable}
-            responsive
-            bordered
-            style={{ widows: "100%" }}
-            ref={tableRef}
-          >
+        <div className="table-container mt-3 mb-1 pb-2">
+        <table
+                            responsive
+                            style={{ width: "100%" }}
+                        >
             <thead>
-              <tr>
+              <tr className="main-header-row">
                 <th
                   rowSpan={2}
                   style={{ width: "4%", verticalAlign: "middle" }}
@@ -726,7 +741,7 @@ const RL38 = () => {
                 </th>
                 <th
                   rowSpan={2}
-                  style={{ width: "3%", verticalAlign: "middle" }}
+                  style={{ width: "14%", verticalAlign: "middle" }}
                 >
                   Aksi
                 </th>
@@ -743,7 +758,7 @@ const RL38 = () => {
                   Rata-Rata Pemeriksaan
                 </th>
               </tr>
-              <tr>
+              <tr className="subheader-row">
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
                 <th style={{ textAlign: "center" }}>Perempuan</th>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
@@ -754,7 +769,8 @@ const RL38 = () => {
               {dataRL.map((value, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <tr key={index}
+                    <tr
+                      key={index}
                       style={{
                         textAlign: "center",
                         backgroundColor: "#C4DFAA",
@@ -773,7 +789,8 @@ const RL38 = () => {
                     {value.details.map((value2, index2) => {
                       return (
                         <React.Fragment key={index2}>
-                          <tr key={index}
+                          <tr
+                            key={index}
                             style={{
                               textAlign: "center",
                               backgroundColor: "#90C8AC",
@@ -802,37 +819,38 @@ const RL38 = () => {
                                 <td>
                                   <ToastContainer />
                                   {user.jenisUserId === 4 ? (
-                                  <div style={{ display: "flex" }}>
-                                    <button
-                                      className="btn btn-danger"
-                                      style={{
-                                        margin: "0 5px 0 0",
-                                        backgroundColor: "#FF6663",
-                                        border: "1px solid #FF6663",
-                                      }}
-                                      type="button"
-                                      onClick={(e) =>
-                                        confirmationDelete(value3.id)
-                                      }
-                                    >
-                                      Hapus
-                                    </button>
-                                    <Link
-                                      to={`/rl38/ubah/${value3.id}`}
-                                      className="btn btn-warning"
-                                      style={{
-                                        margin: "0 5px 0 0",
-                                        backgroundColor: "#CFD35E",
-                                        border: "1px solid #CFD35E",
-                                        color: "#FFFFFF",
-                                      }}
-                                    >
-                                      Ubah
-                                    </Link>
-                                  </div>
-                                    ) : (
-                                      <></>
-                                    )}
+                                    <div style={{ display: "flex" ,  alignItems: "center", width: "100%" }}>
+                                      <button
+                                        className="btn btn-danger"
+                                        style={{
+                                          margin: "0 5px 0 0",
+                                          backgroundColor: "#FF6663",
+                                          border: "1px solid #FF6663",
+                                          flex: "1",
+                                        }}
+                                        type="button"
+                                        onClick={(e) =>
+                                          confirmationDelete(value3.id)
+                                        }
+                                      >
+                                        Hapus
+                                      </button>
+                                      <Link
+                                        to={`/rl38/ubah/${value3.id}`}
+                                        className="btn btn-warning"
+                                        style={{
+                                          margin: "0 5px 0 0",
+                                          backgroundColor: "#CFD35E",
+                                          border: "1px solid #CFD35E",
+                                          color: "#FFFFFF", flex: "1",
+                                        }}
+                                      >
+                                        Ubah
+                                      </Link>
+                                    </div>
+                                  ) : (
+                                    <></>
+                                  )}
                                 </td>
                                 <td>{value3.jenisKegiatanNama}</td>
                                 <td>{value3.jumlahLaki}</td>
@@ -849,10 +867,10 @@ const RL38 = () => {
                 );
               })}
             </tbody>
-          </Table>
-          </div>
+          </table>
         </div>
       </div>
+    </div>
   );
 };
 
