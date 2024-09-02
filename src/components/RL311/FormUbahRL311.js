@@ -1,14 +1,3 @@
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import jwt_decode from "jwt-decode";
-// import { useNavigate, useParams } from "react-router-dom";
-// import style from "./FormTambahRL311.module.css";
-// import { HiSaveAs } from "react-icons/hi";
-// import { IoArrowBack } from "react-icons/io5";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// import { Link } from "react-router-dom";
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -267,12 +256,16 @@ export const FormUbahRL311 = () => {
               Kembali RL 3.11 Gigi dan Mulut
             </span>
             <br></br>
-            <Table className={style.rlTable}>
+            <Table className={style.rlTable} style={{ width: "100%" }}>
               <thead>
                 <tr>
-                  <th style={{ width: "5%" }}>No Kegiatan</th>
-                  <th>Jenis Kegiatan</th>
-                  <th style={{ width: "40%" }}>Jumlah</th>
+                  <th style={{ whiteSpace: "nowrap", width: "1%" }}>
+                    No Kegiatan
+                  </th>
+                  <th style={{ whiteSpace: "nowrap", width: "25%" }}>
+                    Jenis Kegiatan
+                  </th>
+                  <th style={{ whiteSpace: "nowrap", width: "10%" }}>Jumlah</th>
                 </tr>
               </thead>
               <tbody>
