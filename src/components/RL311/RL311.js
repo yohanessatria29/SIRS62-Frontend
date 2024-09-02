@@ -559,15 +559,15 @@ const RL311 = () => {
             <thead>
               <tr>
                 <th style={{ whiteSpace: "nowrap", width: "1%" }}>No.</th>
-                <th style={{ whiteSpace: "nowrap", width: "1%" }}>Aksi</th>
-                <th style={{ whiteSpace: "nowrap", width: "5%" }}>
+                <th style={{ whiteSpace: "nowrap", width: "2%" }}>Aksi</th>
+                <th style={{ whiteSpace: "nowrap", width: "10%" }}>
                   Jenis Kegiatan
                 </th>
                 <th style={{ whiteSpace: "nowrap", width: "2%" }}>Jumlah</th>
               </tr>
             </thead>
 
-            <tbody style={{ whiteSpace: "nowrap", width: "1%" }}>
+            <tbody>
               {dataRL.map((value, index) => {
                 return (
                   <tr key={value.id}>

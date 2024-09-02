@@ -259,7 +259,7 @@ export const FormUbahRL311 = () => {
             <Table className={style.rlTable} style={{ width: "100%" }}>
               <thead>
                 <tr>
-                  <th style={{ whiteSpace: "nowrap", width: "1%" }}>
+                  <th style={{ whiteSpace: "nowrap", width: "4%" }}>
                     No Kegiatan
                   </th>
                   <th style={{ whiteSpace: "nowrap", width: "25%" }}>
@@ -272,6 +272,7 @@ export const FormUbahRL311 = () => {
                 <tr>
                   <td>
                     <input
+                      style={{ textAlign: "center" }}
                       name="no"
                       type="text"
                       className="form-control"
