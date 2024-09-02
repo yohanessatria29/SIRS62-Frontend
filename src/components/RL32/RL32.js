@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table'
+import { downloadExcel } from 'react-export-table-to-excel'
 
 const RL32 = () => {
     const [bulan, setBulan] = useState(1)
@@ -354,6 +355,64 @@ const RL32 = () => {
         }
     }
 
+    function handleDownloadExcel() {
+        const header = [
+            "No", 
+            "Jenis Pelayanan", 
+            "Pasien Awal Bulan", 
+            "Pasien Masuk",
+            "Pasien Pindahan",
+            "Pasien Keluar Hidup",
+            "Pasien Keluar Mati <48 Jam",
+            "Pasien Keluar Mati >=48 Jam",
+            "Jumlah Lama Dirawat",
+            "Pasien Akhir Bulan",
+            "Jumlah Hari Perawatan",
+            "Hari Perawatan VVIP",
+            "Hari Perawatan VIP",
+            "Hari Perawatan 1",
+            "Hari Perawatan 2",
+            "Hari Perawatan 3",
+            "Hari Perawatan Khusus",
+            "Jumlah Alokasi TT Awal Bulan",
+        ]
+
+        console.log(dataRL)
+
+        const body = dataRL.map((value, index) => {
+            const data = [
+                index + 1,
+                value.nama_jenis_pelayanan,
+                value.pasien_awal_bulan,
+                value.pasien_masuk,
+                value.pasien_pindahan,
+                value.pasien_dipindahkan,
+                value.pasien_keluar_hidup,
+                value.pasien_keluar_mati_kurang_dari_48_jam,
+                value.pasien_keluar_mati_lebih_dari_atau_sama_dengan_48_jam,
+                value.jumlah_lama_dirawat,
+                hitungPasienAkhirBulan(index),
+                hitungJumlahHariPerawatan(index),
+                value.rincian_hari_perawatan_kelas_VVIP,
+                value.rincian_hari_perawatan_kelas_VIP,
+                value.rincian_hari_perawatan_kelas_1,
+                value.rincian_hari_perawatan_kelas_2,
+                value.rincian_hari_perawatan_kelas_3,
+                value.jumlah_alokasi_tempat_tidur_awal_bulan
+            ]
+            return data
+        })
+
+        downloadExcel({
+            fileName: "react-export-table-to-excel -> downloadExcel method",
+            sheet: "react-export-table-to-excel",
+            tablePayload: {
+                header,
+                body: body,
+            },
+        })
+    }
+
     return (
         <div className="container" style={{ marginTop: "70px" }}>
             <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
@@ -573,6 +632,7 @@ const RL32 = () => {
                         <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                             Filter
                         </button>
+                        <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button> 
                     </div>
                     
                     <div>
