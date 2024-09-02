@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL311 = () => {
   const [tahun, setTahun] = useState("");
@@ -25,6 +26,8 @@ const RL311 = () => {
   const [user, setUser] = useState({});
   const [totalall, settotalall] = useState(0);
   const navigate = useNavigate();
+  const tableRef = useRef(null);
+  const [namafile, setNamaFile] = useState("");
 
   useEffect(() => {
     refreshToken();
@@ -159,9 +162,13 @@ const RL311 = () => {
         dataRLTigaTitikSebelasDetails.push(element);
       });
 
+      setNamaFile(
+        "rl11_" + results.data.data[0].rs_id + "_".concat(String(tahun))
+      );
       settotalall(total);
       setDataRL(rlTigaTitikSebelasDetails);
       setRumahSakit(null);
+      console.log(results.data.data);
       handleClose();
     } catch (error) {
       console.log(error);
@@ -482,6 +489,9 @@ const RL311 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+          <span style={{ color: "gray" }}>
+            <h4>RL 3.11 - Gigi dan Mulut</h4>
+          </span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -510,6 +520,26 @@ const RL311 = () => {
             >
               Filter
             </button>
+
+            <DownloadTableExcel
+              filename={namafile}
+              sheet="data RL 35"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button
+                className="btn"
+                style={{
+                  fontSize: "18px",
+                  marginLeft: "5px",
+                  backgroundColor: "#779D9E",
+                  color: "#FFFFFF",
+                }}
+              >
+                {" "}
+                Download
+              </button>
+            </DownloadTableExcel>
           </div>
 
           <div>
@@ -524,39 +554,43 @@ const RL311 = () => {
           </div>
           <Table
             className={style.rlTable}
-            striped
-            responsive
+            ref={tableRef}
             style={{ width: "100%" }}
           >
             <thead>
               <tr>
-                <th rowSpan="2" style={{ width: "2%" }}>
-                  No.
-                </th>
-                <th rowSpan="2" style={{ width: "2%" }}>
-                  Aksi
-                </th>
-                <th rowSpan="2" style={{ width: "10%" }}>
+                <th style={{ whiteSpace: "nowrap", width: "1%" }}>No.</th>
+                <th style={{ whiteSpace: "nowrap", width: "1%" }}>Aksi</th>
+                <th style={{ whiteSpace: "nowrap", width: "5%" }}>
                   Jenis Kegiatan
                 </th>
-                <th rowSpan="2" style={{ width: "25%" }}>
-                  Jumlah
-                </th>
+                <th style={{ whiteSpace: "nowrap", width: "2%" }}>Jumlah</th>
               </tr>
             </thead>
-            <tbody>
+
+            <tbody style={{ whiteSpace: "nowrap", width: "1%" }}>
               {dataRL.map((value, index) => {
                 return (
                   <tr key={value.id}>
-                    <td>
-                      <input
+                    <td
+                      style={{
+                        textAlign: "center",
+                        verticalAlign: "middle",
+                        whiteSpace: "nowrap",
+                        width: "1%",
+                      }}
+                    >
+                      {/* <input
                         type="text"
                         name="id"
                         className="form-control"
                         value={index + 1}
                         disabled={true}
                         style={{ textAlign: "center" }}
-                      />
+                      /> */}
+                      {/* <p> */}
+                      {index + 1}
+                      {/* </p> */}
                     </td>
                     <td>
                       <ToastContainer />
@@ -598,23 +632,31 @@ const RL311 = () => {
                         <></>
                       )}
                     </td>
-                    <td>
-                      <input
+                    <td style={{ textAlign: "left", verticalAlign: "middle" }}>
+                      {/* <input
                         type="text"
                         name="jenisKegiatan"
                         className="form-control"
                         value={value.nama_jenis_kegiatan}
                         disabled={true}
-                      />
+                      /> */}
+                      {/* <p> */}
+                      {value.nama_jenis_kegiatan}
+                      {/* </p> */}
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="Jumlah"
                         className="form-control"
                         value={value.jumlah}
                         disabled={true}
-                      />
+                      /> */}
+                      {/* <p> */}
+                      {value.jumlah}
+                      {/* </p> */}
                     </td>
                   </tr>
                 );
@@ -628,14 +670,15 @@ const RL311 = () => {
                   <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                     <h6>TOTAL</h6>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="total"
                       className="form-control"
                       value={totalall}
                       disabled={true}
-                    />
+                    /> */}
+                    <p>{totalall}</p>
                   </td>
                 </tr>
               ) : (
