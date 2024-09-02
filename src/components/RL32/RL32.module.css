@@ -4,21 +4,22 @@
     overflow-y: auto;
 }
 
-table {
-    width: 1000%;
+.table {
+    width: 200%;
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
 }
 
-th,
-td {
+.th,
+.td {
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-thead th {
+.thead th {
     background-color: #f4f4f4;
+    color: grey;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -41,9 +42,9 @@ thead th {
     /* Ensures the subheader is below the main header */
 }
 
-thead th.sticky-header:nth-child(1),
-thead th.sticky-header:nth-child(2),
-thead th.sticky-header:nth-child(3) {
+.thead th.sticky-header:nth-child(1),
+.thead th.sticky-header:nth-child(2),
+.thead th.sticky-header:nth-child(3) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;

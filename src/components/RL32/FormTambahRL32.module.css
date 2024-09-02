@@ -1,19 +1,68 @@
-.rlTable {
+.table-container {
+    max-height: 500px;
+    /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.table {
+    width: 200%;
     border-collapse: collapse;
-    width: 100%;
+    table-layout: fixed;
+    /* Ensures column widths are consistent */
 }
-.rlTable td, .rlTable th {
-    border: 1px dotted #779D9E;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 4px;
+
+.th,
+.td {
+    padding: 8px;
+    border: 1px solid #ddd;
 }
-.rlTable tr:nth-child(even){background-color: #f2f2f2;}
-.rlTable tr:hover {background-color: #ddd;}
-.rlTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center !important;
-    background-color: #fbfefe;
-    color: black;
+
+.thead th {
+    background-color: #f4f4f4;
+    color: grey;
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 0;
+    /* Keeps the main header at the top */
+    z-index: 2;
+    /* Ensures the main header is above other content */
+    text-align: center;
+    vertical-align: middle;
+}
+
+.subheader-row th {
+    background-color: #f4f4f4;
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 40px;
+    /* Adjust this to the height of the main header row */
+    z-index: 1;
+    /* Ensures the subheader is below the main header */
+}
+
+.thead th.sticky-header:nth-child(1),
+.thead th.sticky-header:nth-child(2),
+.thead th.sticky-header:nth-child(3) {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 0;
+    z-index: 3; /* Above both header and body content */
+}
+
+.sticky-header {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0; /* Sticky header */
+    background-color: #f4f4f4;
+    z-index: 2; /* Above table content */
+}
+
+.sticky-column {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 0;
+    background-color: #f4f4f4;
+    z-index: 1; /* Ensures sticky column is above other content */
 }

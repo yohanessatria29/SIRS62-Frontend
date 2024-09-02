@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './RL32.css'
+import style from './RL32.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { confirmAlert } from 'react-confirm-alert'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table'
+// import Table from 'react-bootstrap/Table'
 import { downloadExcel } from 'react-export-table-to-excel'
 
 const RL32 = () => {
@@ -644,16 +644,16 @@ const RL32 = () => {
                             }).join(', ')}
                         </h5>
                     </div>
-                    <div className="table-container mt-3 mb-1 pb-2">
+                    <div className={style['table-container']}>
                         <table
                             responsive
-                            style={{ width: "200%" }}
+                            className={style.table}
                         >
-                            <thead>
-                                <tr className="main-header-row">
-                                    <th className="sticky-header" rowSpan="2" style={{ "width": "2%" }}>No.</th>
-                                    <th className="sticky-header" rowSpan="2" style={{ "width": "4.5%" }}>Aksi</th>
-                                    <th className="sticky-header" rowSpan="2" style={{"width": "8%"}}>Jenis Pelayanan</th>
+                            <thead className={style.thead}>
+                                <tr className="">
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "2%" }}>No.</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "4.5%" }}>Aksi</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{"width": "8%"}}>Jenis Pelayanan</th>
                                     <th rowSpan="2" style={{"width": "4%"}}>Pasien Awal Bulan</th>
                                     <th rowSpan="2" style={{"width": "4%"}}>Pasien Masuk</th>
                                     <th rowSpan="2" style={{"width": "4%"}}>Pasien Pindahan</th>
@@ -666,7 +666,7 @@ const RL32 = () => {
                                     <th colSpan="6" style={{"width": "20%"}}>Rincian Hari Perawatan Per Kelas</th>
                                     <th rowSpan="2" style={{"width": "4%"}}>Jumlah Alokasi TT Awal Bulan</th>
                                 </tr>
-                                <tr>
+                                <tr className={style['subheader-row']}>
                                     <th style={{ "width": "5%" }}>{"< 48 jam"}</th>
                                     <th style={{ "width": "5%" }}>{">= 48 jam"}</th>
                                     <th style={{ "width": "5%" }}>VVIP</th>
@@ -681,10 +681,10 @@ const RL32 = () => {
                                 {dataRL.map((value, index) => {
                                     return (
                                         <tr key={value.id}>
-                                            <td className="sticky-column">
+                                            <td className={style['sticky-column']}>
                                                 <input type='text' name='id' className="form-control" value={index + 1} disabled={true} />
                                             </td>
-                                            <td className="sticky-column" style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            <td className={style['sticky-column']} style={{ textAlign: "center", verticalAlign: "middle" }}>
                                                 <ToastContainer />
                                                 {/* <RiDeleteBin5Fill  size={20} onClick={(e) => hapus(value.id)} style={{color: "gray", cursor: "pointer", marginRight: "5px"}} /> */}
                                                 {
@@ -701,7 +701,7 @@ const RL32 = () => {
                                                     )
                                                 }
                                             </td>
-                                            <td className="sticky-column">
+                                            <td className={style['sticky-column']}>
                                                 <input type="text" name="jenisPelayanan" className="form-control" value={value.nama_jenis_pelayanan}
                                                     disabled={true} />
                                             </td>
