@@ -312,9 +312,9 @@ const FormTambahRL311 = () => {
             <table className={style.rlTable} style={{ width: "100%" }}>
               <thead>
                 <tr>
-                  <th style={{ whiteSpace: "nowrap", width: "1%" }}>No.</th>
+                  <th style={{ whiteSpace: "nowrap", width: "2%" }}>No.</th>
                   <th style={{ whiteSpace: "nowrap", width: "1%" }}></th>
-                  <th style={{ whiteSpace: "nowrap", width: "1%" }}>
+                  <th style={{ whiteSpace: "nowrap", width: "3%" }}>
                     No Kegiatan
                   </th>
                   <th style={{ whiteSpace: "nowrap", width: "20%" }}>
@@ -335,6 +335,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={index + 1}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td
@@ -358,6 +359,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={value.no}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td>
@@ -381,7 +383,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={value.jumlah}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            // disabled={value.disabledInput}
                             disabled={true}
                           />
                         </td>
@@ -397,6 +399,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={index + 1}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td
@@ -420,6 +423,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={value.no}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td>
