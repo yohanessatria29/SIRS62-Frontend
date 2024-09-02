@@ -21,8 +21,8 @@
   color: white;
 }
 
-.table td.fit,
-.table th.fit {
+.rlTable td.fit,
+.rlTable th.fit {
   white-space: nowrap;
   width: 1%;
 }

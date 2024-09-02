@@ -168,7 +168,6 @@ const RL311 = () => {
       settotalall(total);
       setDataRL(rlTigaTitikSebelasDetails);
       setRumahSakit(null);
-      console.log(results.data.data);
       handleClose();
     } catch (error) {
       console.log(error);
