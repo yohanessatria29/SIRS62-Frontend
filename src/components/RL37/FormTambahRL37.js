@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './FormTambahRL37.module.css'
+import style from './FormTambahRL37.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
@@ -420,18 +420,26 @@ const FormTambahRL37 = () => {
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                         </div>
-                        <Table
+                        {/* <Table
                             className={style.rlTable}
                             striped
                             bordered
                             responsive
                             style={{ width: "200%" }}
-                        >
+                        > */}
+                        <div className="table-container mt-12 mb-12">
+                        <table className={style.rlTable}
+                            striped
+                            bordered
+                            responsive
+                            
+                            style={{ width: "200%" }}>
                             <thead>
-                                <tr>
-                                    <th style={{"width": "2.5%"}}>No.</th>
-                                    <th style={{"width": "2.5%"}}></th>
-                                    <th style={{"width": "10%"}}>Jenis Kegiatan</th>
+                                {/* <tr> */}
+                                <tr className="main-header-row">
+                                <th rowSpan="2" style={{ "width": "50px" }}>No.</th>
+                                    <th rowSpan="2" style={{ "width": "35px" }}></th>
+                                    <th className="sticky-header" rowSpan="2" style={{ "width": "300px" }}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>
                                     <th >Rujukan Medis Puskesmas</th>
@@ -506,15 +514,15 @@ const FormTambahRL37 = () => {
                                     }
                                     return (
                                         <tr key={value.id}>
-                                            <td>
-                                                <input type='hidden' name='id' className="form-control" value={value.id} disabled={true}/>
+                                            <td >
+                                                <input type='hidden' name='id'  value={value.id} disabled={true}/>
                                                 {/* <input type='text' name='no' className="form-control" value={value.no} disabled={true}/> */}
                                                 {value.no}
                                             </td>
                                             <td style={{textAlign: "center", verticalAlign: "middle"}}>
                                                 <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked} disabled={disabled} style={{display: visibled}}/>
                                             </td>
-                                            <td>
+                                            <td  className="sticky-column">
                                                 {/* <input type="text" name="jenisKegiatan" className="form-control" value={value.jenisKegiatan} disabled={true} /> */}
                                                 {value.jenisKegiatan}
                                             </td>
@@ -578,7 +586,8 @@ const FormTambahRL37 = () => {
                                     )
                                 }) }
                             </tbody>
-                        </Table>
+                        </table>
+                        </div>
                     </div>
                 </div>
                 <div className="mt-3 mb-3">
