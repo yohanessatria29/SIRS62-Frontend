@@ -103,6 +103,8 @@ const FormTambahRL310 = () => {
         }
       );
 
+      console.log(response);
+
       const rlTemplate = response.data.data.map((value, index) => {
         return {
           id: value.id,
