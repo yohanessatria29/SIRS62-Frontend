@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import style from "./FormTambahRL38.module.css";
+import style from "./RL38.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -726,16 +726,13 @@ const RL38 = () => {
               .join(", ")}
           </h5>
         </div>
-        <div className={style.tableContainer}>
-          <Table
-            className={style.rlTable}
-            responsive
-            bordered
-            style={{ widows: "100%" }}
-            ref={tableRef}
-          >
+        <div className="table-container mt-3 mb-1 pb-2">
+        <table
+                            responsive
+                            style={{ width: "100%" }}
+                        >
             <thead>
-              <tr>
+              <tr className="main-header-row">
                 <th
                   rowSpan={2}
                   style={{ width: "4%", verticalAlign: "middle" }}
@@ -761,7 +758,7 @@ const RL38 = () => {
                   Rata-Rata Pemeriksaan
                 </th>
               </tr>
-              <tr>
+              <tr className="subheader-row">
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
                 <th style={{ textAlign: "center" }}>Perempuan</th>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
@@ -870,7 +867,7 @@ const RL38 = () => {
                 );
               })}
             </tbody>
-          </Table>
+          </table>
         </div>
       </div>
     </div>

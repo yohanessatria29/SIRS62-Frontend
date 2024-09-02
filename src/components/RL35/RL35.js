@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './FormTambahRL35.module.css'
+import style from './RL35.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri'
 import { AiFillFileAdd } from 'react-icons/ai'
@@ -711,7 +711,11 @@ const RL35 = () => {
                             }).join(', ')}
                         </h5>
                     </div>
-                    <Table className={style.rlTable} ref={tableRef}>
+                    <div className="table-container mt-3 mb-1 pb-2">
+                    <table
+                            responsive
+                            style={{ width: "100%" }}
+                        >
                         <thead>
                             <tr>
                                 <th rowSpan={2}
@@ -828,7 +832,8 @@ const RL35 = () => {
                                 )
                             }
                         </tbody>
-                    </Table>
+                    </table>
+                </div>
                 </div>
             </div>
         </div>

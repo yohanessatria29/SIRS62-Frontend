@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './FormTambahRL35.module.css'
+import style from './RL35.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
@@ -380,9 +380,13 @@ const FormTambahRL35 = () => {
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                         </div> */}
-                        <table className={style.rlTable}>
+                        <div className="table-container mt-3 mb-1 pb-2">
+                        <table
+                            responsive
+                            style={{ width: "100%" }}
+                        >
                             <thead>
-                                <tr>
+                            <tr className="main-header-row">
                                     <th rowSpan={2} style={{ width: "4%", verticalAlign: "middle" }}>No.</th>
                                     <th rowSpan={2} style={{ "width": "3%" }}></th>
                                     <th rowSpan={2} style={{ "width": "25%" }}>Jenis Kegiatan</th>
@@ -390,7 +394,7 @@ const FormTambahRL35 = () => {
                                     <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Luar Kota</th>
                                     <th rowSpan={2}>Total Kunjungan</th>
                                 </tr>
-                                <tr>
+                                <tr className="subheader-row">
                                     <th style={{ textAlign: "center" }}>Laki-Laki</th>
                                     <th style={{ textAlign: "center" }}>Perempuan</th>
                                     <th style={{ textAlign: "center" }}>Laki-Laki</th>
@@ -457,6 +461,7 @@ const FormTambahRL35 = () => {
                                 })}
                             </tbody>
                         </table>
+                    </div>
                     </div>
                 </div>
                 <div className="mt-3 mb-3">
