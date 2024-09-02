@@ -352,7 +352,7 @@ export const FormUbahRL37 = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    {/* <div className="col-md-6">
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title h5">Periode Laporan</h5>
@@ -368,14 +368,14 @@ export const FormUbahRL37 = () => {
                                     </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="row mt-3 mb-3">
                     <div className="col-md-12">
                         {/* <h3>Ubah data RL 5.1 -  Pengunjung</h3> */}
                         <Link to={`/rl37/`} style={{textDecoration: "none"}}>
                             <IoArrowBack size={30} style={{color:"gray",cursor: "pointer"}}/>
-                            <span style={{color: "gray"}}>Ubah data RL 3.6 - Kebidanan</span>
+                            <span style={{color: "gray"}}>Ubah data RL 3.7 - Neonatal, Bayi dan Balita</span>
                         </Link>
                         <div className="container" style={{ textAlign: "center" }}>
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}

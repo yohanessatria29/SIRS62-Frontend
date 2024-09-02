@@ -11,7 +11,7 @@ import Table from 'react-bootstrap/esm/Table'
 import Spinner from 'react-bootstrap/esm/Spinner'
 
 const FormTambahRL318 = () => {
-    const [tahun, setTahun] = useState('2023')
+    const [tahun, setTahun] = useState('2025')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
@@ -28,8 +28,8 @@ const FormTambahRL318 = () => {
         refreshToken()
         // getDataRS()
         getRLTigaTitikDelapanBelasTemplate()
-        const date = new Date();
-        setTahun(date.getFullYear() - 1)
+        // const date = new Date();
+        // setTahun(date.getFullYear() - 1)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -289,6 +289,8 @@ const FormTambahRL318 = () => {
                             </thead>
                             <tbody>
                                 {dataRL.map((value, index) => {
+                                    if(value.no === "0"){
+                                        let disabledInput = true
                                     return (
                                         <tr key={value.id}>
                                             <td><center>{value.no}</center></td>
@@ -301,21 +303,49 @@ const FormTambahRL318 = () => {
                                             
                                             <td><input type="number" min={0} maxLength={7}
                                                 onInput={(e) => maxLengthCheck(e)} name="rawatJalan" className="form-control" value={value.rawatJalan} 
-                                                onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={true} onPaste={preventPasteNegative}
                                                 onKeyPress={preventMinus}/>
                                             </td>
                                             <td><input type="number" min={0} maxLength={7}
                                                 onInput={(e) => maxLengthCheck(e)} name="igd" className="form-control" value={value.igd} 
-                                                onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={true} onPaste={preventPasteNegative}
                                                 onKeyPress={preventMinus}/>
                                             </td>
                                             <td><input type="number" min={0} maxLength={7}
                                                 onInput={(e) => maxLengthCheck(e)} name="rawatInap" className="form-control" value={value.rawatInap} 
-                                                onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={true} onPaste={preventPasteNegative}
                                                 onKeyPress={preventMinus}/>
                                             </td>
                                         </tr>
-                                    )
+                                    )}else{
+                                        return (
+                                            <tr key={value.id}>
+                                                <td><center>{value.no}</center></td>
+                                                <td style={{textAlign: "center", verticalAlign: "middle"}}>
+                                                    <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked}/>
+                                                </td>
+                                                <td>
+                                                {value.golonganObat}
+                                                </td>
+                                                
+                                                <td><input type="number" min={0} maxLength={7}
+                                                    onInput={(e) => maxLengthCheck(e)} name="rawatJalan" className="form-control" value={value.rawatJalan} 
+                                                    onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" min={0} maxLength={7}
+                                                    onInput={(e) => maxLengthCheck(e)} name="igd" className="form-control" value={value.igd} 
+                                                    onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" min={0} maxLength={7}
+                                                    onInput={(e) => maxLengthCheck(e)} name="rawatInap" className="form-control" value={value.rawatInap} 
+                                                    onFocus={handleFocus}  onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
                                 }) }
                             </tbody>
                         </Table>
