@@ -392,6 +392,13 @@ const FormTambahRL38 = () => {
               </thead>
               <tbody>
                 {dataRL.map((value, index) => {
+                  let disabled = true
+                  let visibled = true
+                  if (value.no == 0) {
+                    value.disabledInput = true
+                    disabled = false
+                    visibled = "block"
+                }
                     return (
                       <tr key={value.id}>
                         <td>{value.no}</td>
