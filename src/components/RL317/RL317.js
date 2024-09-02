@@ -13,6 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table'
 import Spinner from "react-bootstrap/esm/Spinner";
+import { downloadExcel } from 'react-export-table-to-excel'
 
 export const RL317 = () => {
     // const [tahun, setTahun] = useState('')
@@ -26,7 +27,7 @@ export const RL317 = () => {
     // const [token, setToken] = useState('')
     // const [expire, setExpire] = useState('')
     // const [dataRL, setDataRL] = useState([]);
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [filterLabel, setFilterLabel] = useState([])
     // const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -45,14 +46,14 @@ export const RL317 = () => {
     useEffect(() => {
         refreshToken()
         // getCariTahun(2022)
-        const getLastYear = async () => {
-            const date = new Date()
-            setTahun(date.getFullYear() - 1)
-            return date.getFullYear() - 1
-        }
-        getLastYear().then((results) => {
+        // const getLastYear = async () => {
+        //     const date = new Date()
+        //     setTahun(date.getFullYear() - 1)
+        //     return date.getFullYear() - 1
+        // }
+        // getLastYear().then((results) => {
             
-        })
+        // })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -264,6 +265,35 @@ export const RL317 = () => {
         }
     }
 
+    function handleDownloadExcel() {
+        const header = [
+            "No Golongan Obat", 
+            "Golongan Obat",
+            "JUMLAH ITEM OBAT",
+            "JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT"
+        ]
+        console.log(dataRL)
+    
+            const body = dataRL.map((value, index) => {
+                console.log()
+                const data = [
+                    value.no_golongan_obat,
+                    value.nama_golongan_obat,
+                   value.jumlah_item_obat,
+                   value.jumlah_item_obat_rs
+                ]
+                return data
+            })
+    
+            downloadExcel({
+                fileName: "RL317-Farmasi Pengadaan Obat",
+                sheet: "Farmasi Pengadaan Obat",
+                tablePayload: {
+                    header,
+                    body: body,
+                },
+            })
+        }
     const getProvinsi = async() => {
         try {
             const customConfig = {
@@ -661,8 +691,11 @@ export const RL317 = () => {
                     <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                         Filter
                     </button>
+                    <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button>
                 </div>
-                
+                <div className="col-md-2" style={{ fontSize: "14px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
+                RL 3.17 Farmasi Pengadaan Obat
+                        </div>
                 <div>
                     <h5 style={{fontSize: "14px"}}>
                         filtered by {filterLabel.map((value) => {
@@ -676,15 +709,15 @@ export const RL317 = () => {
                     className={style.rlTable}
                     striped
                     responsive
-                    style={{ width: "200%" }}
+                    style={{ width: "100%" }}
                 >
                      <thead>
                              <tr>
-                                 <th style={{ "width": "7%" }}>No Golongan Obat</th>
+                                 <th style={{ "width": "5%" }}>No Golongan Obat</th>
                                  <th style={{ "width": "7%" }}> </th>
-                                 <th>Golongan Obat</th>
-                                 <th>JUMLAH ITEM OBAT</th>
-                                 <th>JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT</th>
+                                 <th style={{ "width": "10%" }}>Golongan Obat</th>
+                                 <th style={{ "width": "5%" }}>JUMLAH ITEM OBAT</th>
+                                 <th style={{ "width": "5%" }}>JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT</th>
 
                              </tr>
                          </thead>
@@ -712,7 +745,7 @@ export const RL317 = () => {
                                             )
                                         }
                                     </td>
-                                    <td>{value.nama_golongan_obat}
+                                    <td><center>{ value.nama_golongan_obat}</center>
                                         </td>
                                         <td><center>{value.jumlah_item_obat}</center>
                                         </td>

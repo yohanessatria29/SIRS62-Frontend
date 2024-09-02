@@ -11,7 +11,7 @@ import Spinner from 'react-bootstrap/esm/Spinner'
 // import Table from 'react-bootstrap/Table'
 
 const FormTambahRL317 = () => {
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
@@ -27,8 +27,8 @@ const FormTambahRL317 = () => {
     useEffect(() => {
         refreshToken()
         getRLTigaTitikTujuhBelasTemplate()
-        const date = new Date();
-        setTahun(date.getFullYear() - 1)
+        // const date = new Date();
+        // setTahun(date.getFullYear() - 1)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -309,6 +309,8 @@ if(obat1 >= rs1 && obat2 >= rs2 && obat3 >= rs3 && obat4 >= rs4){
                             </thead>
                             <tbody>
                                 {dataRL.map((value, index) => {
+                                     if(value.no === "0"){
+                                        let disabledInput = true
                                     return (
                                         <tr key={value.id}>
                                             <td><center>{value.no}</center></td>
@@ -320,17 +322,40 @@ if(obat1 >= rs1 && obat2 >= rs2 && obat3 >= rs3 && obat4 >= rs4){
                                             </td>
                                             <td><input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} name="jumlahItemObat" className="form-control" value={value.jumlahItemObat} 
-                                               onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                               onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={true} onPaste={preventPasteNegative}
                                                 onKeyPress={preventMinus}/>
                                             </td>
                                             <td><input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} name="jumlahItemObatRs" className="form-control" value={value.jumlahItemObatRs} 
-                                               onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                               onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={true} onPaste={preventPasteNegative}
                                                 onKeyPress={preventMinus}/>
                                             </td>
                                             
                                         </tr>
-                                    )
+                                    )}else{
+                                        return (
+                                            <tr key={value.id}>
+                                                <td><center>{value.no}</center></td>
+                                                <td style={{textAlign: "center", verticalAlign: "middle"}}>
+                                                    <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked}/>
+                                                </td>
+                                                <td>
+                                                    {value.golonganObat}
+                                                </td>
+                                                <td><input type="number" min={0} maxLength={7}
+                                        onInput={(e) => maxLengthCheck(e)} name="jumlahItemObat" className="form-control" value={value.jumlahItemObat} 
+                                                   onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" min={0} maxLength={7}
+                                        onInput={(e) => maxLengthCheck(e)} name="jumlahItemObatRs" className="form-control" value={value.jumlahItemObatRs} 
+                                                   onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                
+                                            </tr>
+                                        )
+                                    }
                                 }) }
                             </tbody>
                         </table>

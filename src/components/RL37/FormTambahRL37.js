@@ -11,7 +11,7 @@ import Table from 'react-bootstrap/Table'
 import Spinner from 'react-bootstrap/Spinner'
 
 const FormTambahRL37 = () => {
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [bulan, setBulan] = useState('01')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
@@ -28,7 +28,7 @@ const FormTambahRL37 = () => {
         refreshToken()
         getRLTigaTitikTujuhTemplate()
         const date = new Date();
-        setTahun(date.getFullYear())
+        // setTahun(date.getFullYear())
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -380,7 +380,7 @@ const FormTambahRL37 = () => {
                                 <h5 className="card-title h5">Periode Laporan</h5>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" min="2024"
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)}/>
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true}/>
                                     <label htmlFor="floatingInput">Tahun</label>
                                 </div>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>
@@ -430,7 +430,7 @@ const FormTambahRL37 = () => {
                             <thead>
                                 <tr>
                                     <th style={{"width": "2.5%"}}>No.</th>
-                                    <th ></th>
+                                    <th style={{"width": "2.5%"}}></th>
                                     <th style={{"width": "10%"}}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>

@@ -12,7 +12,7 @@ import { Modal } from "react-bootstrap";
 import { downloadExcel } from 'react-export-table-to-excel'
 
 const RL52 = () => {
-    const [tahun, setTahun] = useState("2024");
+    const [tahun, setTahun] = useState("2025");
     const [bulan, setBulan] = useState("01");
     const [dataRL, setDataRL] = useState([]);
     const [token, setToken] = useState("");
@@ -33,12 +33,12 @@ const RL52 = () => {
     useEffect(() => {
         refreshToken()
         getBulan();
-        const getLastYear = async () => {
-          const date = new Date();
-          setTahun(date.getFullYear() );
-          return date.getFullYear() ;
-        };
-        getLastYear().then((results) => {});
+        // const getLastYear = async () => {
+        //   const date = new Date();
+        //   setTahun(date.getFullYear() );
+        //   return date.getFullYear() ;
+        // };
+        // getLastYear().then((results) => {});
   
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -582,7 +582,11 @@ const RL52 = () => {
             </button>
              <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button>
           </div>
+          <div className="col-md-3" style={{ fontSize: "14px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
+                RL 5.2 10 Besar Kasus Baru Penyakit Rawat Jalan
+                        </div>
         </div>
+        
         <div>
           <h5 style={{ fontSize: "14px" }}>
               filtered by{" "}
