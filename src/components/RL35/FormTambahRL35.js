@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Spinner from 'react-bootstrap/Spinner'
 
 const FormTambahRL35 = () => {
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [bulan, setBulan] = useState('00')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
@@ -26,8 +26,8 @@ const FormTambahRL35 = () => {
     useEffect(() => {
         refreshToken()
         getRLTigaTitikLimaTemplate()
-        const date = new Date();
-        setTahun(date.getFullYear())
+        // const date = new Date();
+        // setTahun(date.getFullYear())
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

@@ -12,7 +12,7 @@ import { DownloadTableExcel } from "react-export-table-to-excel";
 
 
 const RL38 = () => {
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [bulan, setBulan] = useState("");
   // const [namaRS, setNamaRS] = useState("");
   // const [alamatRS, setAlamatRS] = useState("");
@@ -40,12 +40,12 @@ const RL38 = () => {
     refreshToken();
     // getDataRLTigaTitikDelapan('2023-01-01');
     getBulan();
-    const getLastYear = async () => {
-      const date = new Date();
-      setTahun(date.getFullYear());
-      return date.getFullYear();
-    };
-    getLastYear().then((results) => {});
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    // };
+    // getLastYear().then((results) => {});
   }, []);
 
   const refreshToken = async () => {
