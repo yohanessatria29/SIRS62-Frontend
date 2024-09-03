@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './RL35.css'
+import style from './RL35.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri'
 import { AiFillFileAdd } from 'react-icons/ai'
@@ -711,24 +711,24 @@ const RL35 = () => {
                             }).join(', ')}
                         </h5>
                     </div>
-                    <div className="table-container mt-3 mb-1 pb-2">
+                    <div className={style['table-container']}>
                     <table
                             responsive
                             style={{ width: "100%" }}
                         >
                         <thead>
-                            <tr>
+                            <tr className="main-header-row">
                                 <th rowSpan={2}
-                                    style={{ width: "4%", verticalAlign: "middle" }}>No.</th>
+                                    style={{ width: "4%", verticalAlign: "middle" }} >No.</th>
                                 <th rowSpan={2}
                                     style={{ width: "15%", verticalAlign: "middle" }}>Aksi</th>
                                 <th rowSpan={2}
                                     style={{ width: "35%", verticalAlign: "middle" }}>Jenis Kegiatan</th>
-                                <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Dalam Kota</th>
+                                <th colSpan={2} style={{ textAlign: "center" }} >Kunjungan Pasien Dalam Kota</th>
                                 <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Luar Kota</th>
                                 <th rowSpan={2} style={{ verticalAlign: "middle" }}>Total Kunjungan </th>
                             </tr>
-                            <tr>
+                            <tr className="subheader-row">
                                 <th style={{ verticalAlign: "middle" }}>Laki-Laki</th>
                                 <th style={{ verticalAlign: "middle" }}>Perempuan</th>
                                 <th style={{ verticalAlign: "middle" }}>Laki-Laki</th>
@@ -833,7 +833,7 @@ const RL35 = () => {
                             }
                         </tbody>
                     </table>
-                </div>
+                    </div>
                 </div>
             </div>
         </div>

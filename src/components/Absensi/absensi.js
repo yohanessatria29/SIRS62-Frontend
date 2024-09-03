@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { HiSaveAs } from 'react-icons/hi'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import style from './absensi.css'
+import style from './absensi.module.css'
 // import Table from 'react-bootstrap/Table'
 import checkIcon from '../Images/check.png'
-import silangIcon from '../Images/silang.png'
+import silangIcon from '../Images/silang.png';
 
 const Absensi = () => {
     const [namaRS, setNamaRS] = useState('')
@@ -228,6 +228,7 @@ const Absensi = () => {
                             <thead>
                                 <tr className="main-header-row">
                                     <th className="sticky-header" rowSpan="2" style={{ "width": "60px" }} >No.</th>
+                                    <th className="sticky-header" rowSpan="2" style={{ "width": "100px" }}>Kode RS</th>
                                     <th className="sticky-header" rowSpan="2" style={{ "width": "300px" }}>Nama RS</th>
                                     {/* <th rowSpan="2" className={style.myTableTH} style={{ "width": "1%" }}>RL 3.2</th> */}
                                     <th colSpan="12">RL 3.1</th>
@@ -472,9 +473,11 @@ const Absensi = () => {
                             </thead>
                             <tbody>
                                 {dataAbsensi.map((value, index) => {
+                                    console.log(dataAbsensi)
                                     return (
                                         <tr key={index}>
                                             <td className="sticky-column" style={{ textAlign: 'right', verticalAlign: 'middle' }}>{index + 1}</td>
+                                            <td className="sticky-column">{value.rs_id}</td>
                                             <td className="sticky-column">{value.nama_rs}</td>
                                             {/* <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
                                             {

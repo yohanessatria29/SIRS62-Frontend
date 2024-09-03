@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import style from "./RL38.css";
+import style from "./RL38.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -726,12 +726,9 @@ const RL38 = () => {
               .join(", ")}
           </h5>
         </div>
-        <div className="table-container mt-3 mb-1 pb-2">
-        <table
-                            responsive
-                            style={{ width: "100%" }}
-                        >
-            <thead>
+        <div className={style['table-container']}>
+        <table className={style['table']}>
+            <thead className={style['thead']}>
               <tr className="main-header-row">
                 <th
                   rowSpan={2}
