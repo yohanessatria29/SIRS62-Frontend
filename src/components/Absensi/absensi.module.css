@@ -4,22 +4,27 @@
     overflow-y: auto;
 }
 
-table {
-    width: 500%;
+.table {
+    width: 1000%;
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
 }
 
-th,
-td {
+.th {
+    color: white;
+    padding: 8px;
+    border: 1px solid #0a0a0a;
+}
+.td {
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-thead th {
-    background-color: #f4f4f4;
+.thead th {
+    background-color: #779D9E;
     position: -webkit-sticky;
+    /* color: grey; */
     /* For Safari */
     position: sticky;
     top: 0;
@@ -31,8 +36,9 @@ thead th {
 }
 
 .subheader-row th {
-    background-color: #f4f4f4;
+    background-color: #779D9E;
     position: -webkit-sticky;
+    border: 1px solid #f9f8f8;
     /* For Safari */
     position: sticky;
     top: 40px;
@@ -41,8 +47,8 @@ thead th {
     /* Ensures the subheader is below the main header */
 }
 
-thead th.sticky-header:nth-child(1),
-thead th.sticky-header:nth-child(2) {
+.thead th.sticky-header:nth-child(1),
+.thead th.sticky-header:nth-child(2) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;

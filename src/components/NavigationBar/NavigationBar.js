@@ -164,7 +164,7 @@ const NavigationBar = () => {
                         </NavDropdown>
                         <NavDropdown title="Absensi" id="basic-nav-dropdown">
                             <NavDropdown.Item as={Link} to="/Absensi">
-                               Abssensi Tahun 2025 
+                               Absensi Tahun 2025 
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
