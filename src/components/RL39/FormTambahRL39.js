@@ -15,7 +15,7 @@ const FormTambahRL39 = () => {
     const [namaPropinsi, setNamaPropinsi] = useState('')
     const [namaKabKota, setNamaKabKota] = useState('')
     const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [daftarBulan, setDaftarBulan] = useState([])
     // const [namaKelompokJenisKegiatan, setnamaKelompokJenisKegiatan] = useState([])
     const [dataRL, setDataRL] = useState([])
@@ -32,8 +32,8 @@ const FormTambahRL39 = () => {
         getRLTigaTitikSembilanTemplate()
         getBulan()
         // getKelompokJenisKegiatan()
-        const date = new Date();
-        setTahun(date.getFullYear())
+        // const date = new Date();
+        // setTahun(date.getFullYear())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -327,7 +327,7 @@ const FormTambahRL39 = () => {
                                 </div>
                                 <div className="form-floating" style={{width:"50%", display:"inline-block"}}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" 
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={false}/>
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true}/>
                                     <label>Tahun</label>
                                 </div>
                             </div>

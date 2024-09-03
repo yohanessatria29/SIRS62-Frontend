@@ -6,7 +6,7 @@ import style from './FormTambahRL32.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Table from 'react-bootstrap/Table'
+// import Table from 'react-bootstrap/Table'
 
 const FormTambahRL32 = () => {
     const [namaRS, setNamaRS] = useState('')
@@ -20,6 +20,7 @@ const FormTambahRL32 = () => {
     const [token, setToken] = useState('')
     const [expire, setExpire] = useState('')
     const [buttonStatus, setButtonStatus] = useState(false)
+    const [statusTidakAdaData, setStatusTidakAdaData] = useState(null)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -205,9 +206,13 @@ const FormTambahRL32 = () => {
         const name = event.target.name
         if (name === 'check') {
             if (event.target.checked === true) {
-                newDataRL[index].disabledInput = false
+                if (newDataRL[index].id !== 100) {
+                    newDataRL[index].disabledInput = false
+                }
+                setStatusTidakAdaData(true)
             } else if (event.target.checked === false) {
                 newDataRL[index].disabledInput = true
+                setStatusTidakAdaData(false)
             }
             newDataRL[index].checked = event.target.checked
         } else if (name === 'pasienAwalBulan') {
@@ -362,37 +367,6 @@ const FormTambahRL32 = () => {
                 }
             })
 
-            // let errorPasienAkhirBulan = false
-            // let errorJumlahAlokasiTempatTidurAwalBulan = false
-            // dataRLArray.forEach((value) => {
-            //     if (value.pasienAkhirBulan < 0) {
-            //         errorPasienAkhirBulan = true
-            //         return false
-            //     }
-
-            //     if (value.jumlahAlokasiTempatTidurAwalBulan < 0) {
-            //         errorJumlahAlokasiTempatTidurAwalBulan = true
-            //         return false
-            //     }
-            //     return true
-            // })
-            
-            // if (errorPasienAkhirBulan === true) {
-            //     toast(`jumlah pasien akhir bulan tidak boleh lebih kecil dari 0`, {
-            //         position: toast.POSITION.TOP_RIGHT
-            //     })
-            //     setButtonStatus(false)
-            //     return
-            // }
-
-            // if (errorJumlahAlokasiTempatTidurAwalBulan === true) {
-            //     toast(`jumlah alokasi tempat tidur tidak boleh lebih kecil dari 0`, {
-            //         position: toast.POSITION.TOP_RIGHT
-            //     })
-            //     setButtonStatus(false)
-            //     return
-            // }
-
             const customConfig = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -512,130 +486,136 @@ const FormTambahRL32 = () => {
                             &lt;
                         </Link>
                         <span style={{color: "gray"}}>Kembali RL 3.2 Rawat Inap</span>
-                        <Table 
-                            className={style.rlTable}
-                            striped
-                            bordered
-                            responsive
-                            style={{ width: "200%" }}
-                        >
-                            <thead>
-                                <tr>
-                                    <th rowSpan="2" style={{"width": "2%"}}>No.</th>
-                                    <th rowSpan="2" style={{"width": "1%"}}></th>
-                                    <th rowSpan="2" style={{"width": "10%"}}>Jenis Pelayanan</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Awal Bulan</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Masuk</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Pindahan</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Dipindahkan</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Keluar Hidup</th>
-                                    <th colSpan="2" style={{"width": "5%"}}>Pasien Keluar Mati</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Jumlah Lama Dirawat</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Pasien Akhir Bulan</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Jumlah Hari Perawatan</th>
-                                    <th colSpan="6" style={{"width": "5%"}}>Rincian Hari Perawatan Per Kelas</th>
-                                    <th rowSpan="2" style={{"width": "5%"}}>Jumlah Alokasi TT Awal Bulan</th>
-                                </tr>
-                                <tr>
-                                    <th style={{"width": "5%"}}>{"< 48 jam"}</th>
-                                    <th style={{"width": "5%"}}>{">= 48 jam"}</th>
-                                    <th style={{"width": "5%"}}>VVIP</th>
-                                    <th style={{"width": "5%"}}>VIP</th>
-                                    <th style={{"width": "5%"}}>1</th>
-                                    <th style={{"width": "5%"}}>2</th>
-                                    <th style={{"width": "5%"}}>3</th>
-                                    <th style={{"width": "5%"}}>Khusus</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {dataRL.map((value, index) => {
-                                    return (
-                                        <tr key={value.id}>
-                                            <td>
-                                                <input type='text' name='id' className="form-control" value={value.no} disabled={true}/>
-                                            </td>
-                                            <td style={{textAlign: "center", verticalAlign: "middle"}}>
-                                                <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked}/>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="jenisPelayanan" className="form-control" value={value.jenisPelayanan} disabled={true} />
-                                            </td>
-                                            <td>
-                                                <input type="number" name="pasienAwalBulan" className="form-control" value={value.pasienAwalBulan} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="pasienMasuk" className="form-control" value={value.pasienMasuk} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus} />
-                                            </td>
-                                            <td><input type="number" name="pasienPindahan" className="form-control" value={value.pasienPindahan} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus} />
-                                            </td>
-                                            <td><input type="number" name="pasienDipindahkan" className="form-control" value={value.pasienDipindahkan} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus} />
-                                            </td>
+                        <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
+                            <table
+                                responsive
+                                className={style.table}
+                            >
+                                <thead className={style.thead}>
+                                    <tr className="main-header-row">
+                                        <th className={style['sticky-header']} rowSpan="2" style={{"width": "2%"}}>No.</th>
+                                        <th className={style['sticky-header']} rowSpan="2" style={{"width": "1%"}}></th>
+                                        <th className={style['sticky-header']} rowSpan="2" style={{"width": "8%"}}>Jenis Pelayanan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Awal Bulan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Masuk</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Pindahan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Dipindahkan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Keluar Hidup</th>
+                                        <th colSpan="2" style={{"width": "8%"}}>Pasien Keluar Mati</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Jumlah Lama Dirawat</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Akhir Bulan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Jumlah Hari Perawatan</th>
+                                        <th colSpan="6" style={{"width": "20%"}}>Rincian Hari Perawatan Per Kelas</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Jumlah Alokasi TT Awal Bulan</th>
+                                    </tr>
+                                    <tr className={style['subheader-row']}>
+                                        <th style={{"width": "4%"}}>{"< 48 jam"}</th>
+                                        <th style={{"width": "4%"}}>{">= 48 jam"}</th>
+                                        <th style={{"width": "4%"}}>VVIP</th>
+                                        <th style={{"width": "4%"}}>VIP</th>
+                                        <th style={{"width": "4%"}}>1</th>
+                                        <th style={{"width": "4%"}}>2</th>
+                                        <th style={{"width": "4%"}}>3</th>
+                                        <th style={{"width": "4%"}}>Khusus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {dataRL.map((value, index) => {
+                                        return (
+                                            <tr key={value.id}>
+                                                <td className={style['sticky-column']}>
+                                                    <input type='text' name='id' className="form-control" value={value.no} disabled={true}/>
+                                                </td>
+                                                <td className={style['sticky-column']} style={{textAlign: "center", verticalAlign: "middle"}}>
+                                                    <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked}/>
+                                                </td>
+                                                <td className={style['sticky-column']}>
+                                                    <input type="text" name="jenisPelayanan" className="form-control" value={value.jenisPelayanan} disabled={true} />
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="pasienAwalBulan" className="form-control" value={value.pasienAwalBulan} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="pasienMasuk" className="form-control" value={value.pasienMasuk} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus} />
+                                                </td>
+                                                <td><input type="number" name="pasienPindahan" className="form-control" value={value.pasienPindahan} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus} />
+                                                </td>
+                                                <td><input type="number" name="pasienDipindahkan" className="form-control" value={value.pasienDipindahkan} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus} />
+                                                </td>
 
-                                            <td><input type="number" name="pasienKeluarHidup" className="form-control" value={value.pasienKeluarHidup} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus} />
-                                            </td>
-                                            <td><input type="number" name="pasienKeluarMatiKurangDari48Jam" className="form-control" value={value.pasienKeluarMatiKurangDari48Jam} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus} />
-                                            </td>
-                                            <td><input type="number" name="pasienKeluarMatiLebihDariAtauSamaDengan48Jam" className="form-control" value={value.pasienKeluarMatiLebihDariAtauSamaDengan48Jam} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="jumlahLamaDirawat" className="form-control" value={value.jumlahLamaDirawat} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="pasienAkhirBulan" className="form-control" value={value.pasienAkhirBulan} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={true} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="jumlahHariPerawatan" className="form-control" value={value.jumlahHariPerawatan} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={true} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="rincianHariPerawatanKelasVVIP" className="form-control" value={value.rincianHariPerawatanKelasVVIP} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="rincianHariPerawatanKelasVIP" className="form-control" value={value.rincianHariPerawatanKelasVIP} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="rincianHariPerawatanKelas1" className="form-control" value={value.rincianHariPerawatanKelas1} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="rincianHariPerawatanKelas2" className="form-control" value={value.rincianHariPerawatanKelas2} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="rincianHariPerawatanKelas3" className="form-control" value={value.rincianHariPerawatanKelas3} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td><input type="number" name="rincianHariPerawatanKelasKhusus" className="form-control" value={value.rincianHariPerawatanKelasKhusus} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                            <td>
-                                                <input type="number" name="jumlahAlokasiTempatTidurAwalBulan" className="form-control" value={value.jumlahAlokasiTempatTidurAwalBulan} 
-                                                onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
-                                                onKeyPress={preventMinus}/>
-                                            </td>
-                                        </tr>
-                                    )
-                                }) }
-                            </tbody>
-                        </Table>
+                                                <td><input type="number" name="pasienKeluarHidup" className="form-control" value={value.pasienKeluarHidup} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus} />
+                                                </td>
+                                                <td><input type="number" name="pasienKeluarMatiKurangDari48Jam" className="form-control" value={value.pasienKeluarMatiKurangDari48Jam} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus} />
+                                                </td>
+                                                <td><input type="number" name="pasienKeluarMatiLebihDariAtauSamaDengan48Jam" className="form-control" value={value.pasienKeluarMatiLebihDariAtauSamaDengan48Jam} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="jumlahLamaDirawat" className="form-control" value={value.jumlahLamaDirawat} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="pasienAkhirBulan" className="form-control" value={value.pasienAkhirBulan} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={true} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="jumlahHariPerawatan" className="form-control" value={value.jumlahHariPerawatan} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={true} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="rincianHariPerawatanKelasVVIP" className="form-control" value={value.rincianHariPerawatanKelasVVIP} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="rincianHariPerawatanKelasVIP" className="form-control" value={value.rincianHariPerawatanKelasVIP} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="rincianHariPerawatanKelas1" className="form-control" value={value.rincianHariPerawatanKelas1} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="rincianHariPerawatanKelas2" className="form-control" value={value.rincianHariPerawatanKelas2} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="rincianHariPerawatanKelas3" className="form-control" value={value.rincianHariPerawatanKelas3} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td><input type="number" name="rincianHariPerawatanKelasKhusus" className="form-control" value={value.rincianHariPerawatanKelasKhusus} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="jumlahAlokasiTempatTidurAwalBulan" className="form-control" value={value.jumlahAlokasiTempatTidurAwalBulan} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }) }
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
+                        
                     </div>
                 </div>
                 <div className="mt-3 mb-3">

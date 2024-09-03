@@ -391,6 +391,7 @@ const RL312 = () => {
 
   return (
     <div className="container" style={{ marginTop: "70px" }}>
+      <h1>RL 3.12</h1>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -860,17 +861,7 @@ const RL312 = () => {
                   </td>
                 </tr>
               ) : (
-                <tr>
-                  <td
-                    style={{
-                      textAlign: "center",
-                      verticalAlign: "middle",
-                    }}
-                    colSpan={8}
-                  >
-                    <h6>Tidak Ada Data</h6>
-                  </td>
-                </tr>
+                <></>
               )}
             </tbody>
           </Table>

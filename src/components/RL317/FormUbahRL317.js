@@ -262,19 +262,35 @@ if(jumlah_item_obat >= jumlah_item_obat_rs ){
                         </td>
                         <td>{nama}
                         </td>
-                        <td><div className="control">
+                        
+                        <td> {nama === "Tidak Ada Data" &&
+                            <div className="control">
                                 <input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat" value={jumlah_item_obat} onFocus={handleFocus}
                                     onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
-                                onKeyPress={preventMinus} />
-                            </div>
+                                onKeyPress={preventMinus} disabled={true}/>
+                            </div>}
+
+                            {nama !== "Tidak Ada Data" &&
+                            <div className="control">
+                                <input type="number" min={0} maxLength={7}
+                                    onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat" value={jumlah_item_obat} onFocus={handleFocus}
+                                    onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
+                                onKeyPress={preventMinus} disabled={false}/>
+                            </div>}
                         </td>
-                        <td><div className="control">
+                        <td>{nama === "Tidak Ada Data" &&<div className="control">
                                 <input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat_rs" value={jumlah_item_obat_rs} onFocus={handleFocus}
                                     onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
-                                onKeyPress={preventMinus} />
-                            </div>
+                                onKeyPress={preventMinus} disabled={true}/>
+                            </div>}
+                            {nama !== "Tidak Ada Data" &&<div className="control">
+                                <input type="number" min={0} maxLength={7}
+                                    onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat_rs" value={jumlah_item_obat_rs} onFocus={handleFocus}
+                                    onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
+                                onKeyPress={preventMinus} disabled={false}/>
+                            </div>}
                         </td>
                        
                         </tr>

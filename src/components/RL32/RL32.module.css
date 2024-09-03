@@ -1,18 +1,15 @@
 .table-container {
-    max-height: 750px;
+    max-height: 500px;
     /* Adjust the height as needed */
     overflow-y: auto;
 }
 
-<<<<<<< HEAD:src/components/RL41/RL41.module.css
 .table {
-    width: 500%;
-=======
-table {
-    width: 1000%;
->>>>>>> main:src/components/Absensi/absensi.module.css
+    width: 200%;
     border-collapse: collapse;
     table-layout: fixed;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif; /* Set font family */
     /* Ensures column widths are consistent */
 }
 
@@ -22,14 +19,9 @@ table {
     border: 1px solid #ddd;
 }
 
-<<<<<<< HEAD:src/components/RL41/RL41.module.css
 .thead th {
     background-color: #fbfefe;
     color: #59636e;
-=======
-thead th {
-    background-color: #779D9E;
->>>>>>> main:src/components/Absensi/absensi.module.css
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -46,7 +38,7 @@ thead th {
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
-    top: 20px;
+    top: 40px;
     /* Adjust this to the height of the main header row */
     z-index: 1;
     /* Ensures the subheader is below the main header */
