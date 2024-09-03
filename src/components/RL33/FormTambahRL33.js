@@ -867,12 +867,16 @@ const FormTambahRL33 = () => {
                           className="form-control"
                           value={value.m_igd_laki}
                           onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          readOnly={
+                          disabled={
                             value.no === "3" || value.no === "2.1"
                               ? true
-                              : false
+                              : value.disabledInput
                           }
+                          // readOnly={
+                          //   value.no === "3" || value.no === "2.1"
+                          //     ? true
+                          //     : false
+                          // }
                         />
                       </td>
                       <td>
@@ -900,12 +904,16 @@ const FormTambahRL33 = () => {
                           className="form-control"
                           value={value.doa_laki}
                           onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          readOnly={
+                          disabled={
                             value.no === "3" || value.no === "2.1"
                               ? true
-                              : false
+                              : value.disabledInput
                           }
+                          // readOnly={
+                          //   value.no === "3" || value.no === "2.1"
+                          //     ? true
+                          //     : false
+                          // }
                         />
                       </td>
                       <td>
@@ -933,12 +941,16 @@ const FormTambahRL33 = () => {
                           className="form-control"
                           value={value.luka_laki}
                           onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          readOnly={
+                          disabled={
                             value.no === "3" || value.no === "2.1"
                               ? true
-                              : false
+                              : value.disabledInput
                           }
+                          // readOnly={
+                          //   value.no === "3" || value.no === "2.1"
+                          //     ? true
+                          //     : false
+                          // }
                         />
                       </td>
                       <td>
@@ -966,8 +978,8 @@ const FormTambahRL33 = () => {
                           className="form-control"
                           value={value.false_emergency}
                           onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          readOnly={value.no.includes("1.") ? true : false}
+                          disabled={value.no < 2 ? true : value.disabledInput}
+                          // readOnly={value.no < 2 ? true : false}
                         />
                       </td>
                     </tr>

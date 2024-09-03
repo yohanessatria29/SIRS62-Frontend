@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import jwt_decode from 'jwt-decode'
 import { useNavigate, useParams, Link } from "react-router-dom"
-import style from './FormTambahRL35.module.css'
+import style from './RL35.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,17 +12,19 @@ import Spinner from 'react-bootstrap/Spinner'
 export const FormUbahRL35 = () => {
     const [tahun, setTahun] = useState('')
     // const [bulan, setBulan] = useState('')
+    // const [jenisKegiatan, setJeniskegiatan] = useState('')
+    // const [dataRL, setDataRL] = useState([])
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
     const [namaKabKota, setNamaKabKota] = useState('')
-    // const [jenisKegiatan, setJeniskegiatan] = useState('')
-    const [kunjungan_pasien_dalam_kabkota, setkunjunganPasienDalamKabkota] = useState('')
-    const [kunjungan_pasien_luar_kabkota, setkunjunganPasienLuarKabkota] = useState('')
+    const [kunjungan_pasien_dalam_kabkota_laki, setkunjunganPasienDalamKabkotaLaki] = useState('')
+    const [kunjungan_pasien_luar_kabkota_laki, setkunjunganPasienLuarKabkotaLaki] = useState('')
+    const [kunjungan_pasien_dalam_kabkota_perempuan, setkunjunganPasienDalamKabkotaPerempuan] = useState('')
+    const [kunjungan_pasien_luar_kabkota_perempuan, setkunjunganPasienLuarKabkotaPerempuan] = useState('')
     const [total_kunjungan, setTotalKunjungan] = useState('')
     // const [no, setNo] = useState('')
     const [nama, setNama] = useState('')
-    // const [dataRL, setDataRL] = useState([])
     const [token, setToken] = useState('')
     const [expire, setExpire] = useState('')
     const navigate = useNavigate()
@@ -74,22 +76,38 @@ export const FormUbahRL35 = () => {
     const changeHandler = (event, index) => {
         // let newDataRL = [...dataRL]
         const name = event.target.name
-        if (name === 'kunjungan_pasien_dalam_kabkota') {
+        if (name === 'kunjungan_pasien_dalam_kabkota_laki') {
             if(event.target.value === ''){
                     
                 event.target.value = 0
                 event.target.select(event.target.value)
                 }
-            setkunjunganPasienDalamKabkota(parseInt(event.target.value))
-            setTotalKunjungan(parseInt(event.target.value) + kunjungan_pasien_luar_kabkota)
-        } else if (name === 'kunjungan_pasien_luar_kabkota'){
+            setkunjunganPasienDalamKabkotaLaki(parseInt(event.target.value))
+            setTotalKunjungan(parseInt(event.target.value) +kunjungan_pasien_luar_kabkota_laki+kunjungan_pasien_dalam_kabkota_perempuan+ kunjungan_pasien_dalam_kabkota_perempuan)
+        } else if (name === 'kunjungan_pasien_luar_kabkota_laki'){
             if(event.target.value === ''){
                     
                 event.target.value = 0
                 event.target.select(event.target.value)
                 }
-            setkunjunganPasienLuarKabkota(parseInt(event.target.value))
-            setTotalKunjungan(parseInt(event.target.value) + kunjungan_pasien_dalam_kabkota)
+            setkunjunganPasienLuarKabkotaLaki(parseInt(event.target.value))
+            setTotalKunjungan(parseInt(event.target.value) +kunjungan_pasien_dalam_kabkota_laki + kunjungan_pasien_dalam_kabkota_perempuan +kunjungan_pasien_luar_kabkota_perempuan)
+        } else if (name === 'kunjungan_pasien_dalam_kabkota_perempuan') {
+            if(event.target.value === ''){
+                    
+                event.target.value = 0
+                event.target.select(event.target.value)
+                }
+            setkunjunganPasienDalamKabkotaPerempuan(parseInt(event.target.value))
+            setTotalKunjungan(parseInt(event.target.value) +  kunjungan_pasien_dalam_kabkota_laki +kunjungan_pasien_luar_kabkota_perempuan + kunjungan_pasien_luar_kabkota_laki)
+        } else if (name === 'kunjungan_pasien_luar_kabkota_perempuan'){
+            if(event.target.value === ''){
+                    
+                event.target.value = 0
+                event.target.select(event.target.value)
+                }
+            setkunjunganPasienLuarKabkotaPerempuan(parseInt(event.target.value))
+            setTotalKunjungan(parseInt(event.target.value) + kunjungan_pasien_luar_kabkota_laki +kunjungan_pasien_dalam_kabkota_perempuan + kunjungan_pasien_dalam_kabkota_laki)
         }
     }
 
@@ -121,8 +139,10 @@ export const FormUbahRL35 = () => {
                         }
                     }
             await axiosJWT.patch('/apisirs6v2/rltigatitiklimadetail/' + id, {
-                kunjungan_pasien_dalam_kabkota,
-                kunjungan_pasien_luar_kabkota,
+                kunjungan_pasien_dalam_kabkota_laki,
+                kunjungan_pasien_dalam_kabkota_perempuan,
+                kunjungan_pasien_luar_kabkota_laki,
+                kunjungan_pasien_luar_kabkota_perempuan,
                 total_kunjungan,
             }, customConfig);
             setSpinner(false)
@@ -149,15 +169,17 @@ export const FormUbahRL35 = () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(response)
+        console.log(response.data.data.jenis_kegiatan_rl_tiga_titik_lima.nama)
         setNama(response.data.data.jenis_kegiatan_rl_tiga_titik_lima.nama);
         // setNo(response.data.data.jenis_kegiatan.id);
         // setJeniskegiatan(response.data.data.rl_lima_titik_dua_id);
-        setkunjunganPasienDalamKabkota(response.data.data.kunjungan_pasien_dalam_kabkota);
-        setkunjunganPasienLuarKabkota(response.data.data.kunjungan_pasien_luar_kabkota);
-        setTotalKunjungan(response.data.data.total_kunjungan);
-        setTahun(response.data.data.tahun);
-        console.log(response);
+        setkunjunganPasienDalamKabkotaLaki(response.data.data.kunjungan_pasien_dalam_kabkota_laki)
+        setkunjunganPasienDalamKabkotaPerempuan(response.data.data.kunjungan_pasien_dalam_kabkota_perempuan)
+        setkunjunganPasienLuarKabkotaLaki(response.data.data.kunjungan_pasien_luar_kabkota_laki)
+        setkunjunganPasienLuarKabkotaPerempuan(response.data.data.kunjungan_pasien_luar_kabkota_perempuan)
+        setTotalKunjungan(response.data.data.total_kunjungan)
+        setTahun(response.data.data.tahun)
+        
 
         if((tahun.substring(5,7)) === '01'){
             // setBulan('Januari')
@@ -279,31 +301,45 @@ export const FormUbahRL35 = () => {
                         <table className={style.rlTable}>
                             <thead>
                                 <tr>
-                                    <th style={{"width": "5%"}}>No.</th>
-                                    <th style={{"width": "40%"}}>Jenis Kegiatan</th>
-                                    <th>Kunjungan Pasien Dalam Kota</th>
-                                    <th>Kunjungan Pasien Luar Kota</th>
-                                    <th>Total Kunjungan</th>
+                                    {/* <th rowSpan={2} style={{ width: "4%", verticalAlign: "middle" }}>No.</th> */}
+                                    <th rowSpan={2} style={{ "width": "25%" }}>Jenis Kegiatan</th>
+                                    <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Dalam Kota</th>
+                                    <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Luar Kota</th>
+                                    <th rowSpan={2}>Total Kunjungan</th>
+                                </tr>
+                                <tr>
+                                    <th style={{ textAlign: "center" }}>Laki-Laki</th>
+                                    <th style={{ textAlign: "center" }}>Perempuan</th>
+                                    <th style={{ textAlign: "center" }}>Laki-Laki</th>
+                                    <th style={{ textAlign: "center" }}>Perempuan</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr key={id}>
-                                    <td>
+                                    {/* <td>
                                         <input type='text' name='id' className="form-control" value="1" disabled={true}/>
+                                    </td> */}
+                                    <td  style={{ textAlign: "center" }}>
+                                        {nama}
                                     </td>
                                     <td>
-                                        <input type="text" name="jenisKegiatan" className="form-control" value={nama} disabled={true} />
-                                    </td>
-                                    <td>
-                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="kunjungan_pasien_dalam_kabkota" className="form-control" value={kunjungan_pasien_dalam_kabkota} 
+                                        <input  style={{ textAlign: "center" }} type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="kunjungan_pasien_dalam_kabkota_laki" className="form-control" value={kunjungan_pasien_dalam_kabkota_laki} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                     </td>
                                     <td>
-                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="kunjungan_pasien_luar_kabkota" className="form-control" value={kunjungan_pasien_luar_kabkota} 
+                                        <input  style={{ textAlign: "center" }} type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="kunjungan_pasien_dalam_kabkota_perempuan" className="form-control" value={kunjungan_pasien_dalam_kabkota_perempuan} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                     </td>
                                     <td>
-                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="total_kunjungan" className="form-control" value={total_kunjungan} 
+                                        <input  style={{ textAlign: "center" }} type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="kunjungan_pasien_luar_kabkota_laki" className="form-control" value={kunjungan_pasien_luar_kabkota_laki} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                    </td>
+                                    <td>
+                                        <input  style={{ textAlign: "center" }} type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="kunjungan_pasien_luar_kabkota_perempuan" className="form-control" value={kunjungan_pasien_luar_kabkota_perempuan} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                    </td>
+                                    <td>
+                                        <input  style={{ textAlign: "center" }} type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="total_kunjungan" className="form-control" value={total_kunjungan} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
                                     </td>
                                 </tr>

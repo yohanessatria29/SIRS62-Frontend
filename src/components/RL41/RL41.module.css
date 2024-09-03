@@ -1,36 +1,35 @@
 .table-container {
-    max-height: 1000px;
+    max-height: 750px;
     /* Adjust the height as needed */
     overflow-y: auto;
 }
 
+<<<<<<< HEAD:src/components/RL41/RL41.module.css
 .table {
-    width: 100%;
+    width: 500%;
+=======
+table {
+    width: 1000%;
+>>>>>>> main:src/components/Absensi/absensi.module.css
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
 }
 
-<<<<<<<< HEAD:src/components/RL38/RL38.module.css
 .th,
 .td {
-========
-th{
-    color: white;
-}
-td {
->>>>>>>> main:src/components/RL37/FormTambahRL37.css
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-<<<<<<<< HEAD:src/components/RL38/RL38.module.css
+<<<<<<< HEAD:src/components/RL41/RL41.module.css
 .thead th {
-    background-color: #f4f4f4;
-========
+    background-color: #fbfefe;
+    color: #59636e;
+=======
 thead th {
     background-color: #779D9E;
->>>>>>>> main:src/components/RL37/FormTambahRL37.css
+>>>>>>> main:src/components/Absensi/absensi.module.css
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -43,25 +42,19 @@ thead th {
 }
 
 .subheader-row th {
-    background-color: #779D9E;
+    background-color: #fbfefe;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
-    top: 30px;
+    top: 20px;
     /* Adjust this to the height of the main header row */
     z-index: 1;
     /* Ensures the subheader is below the main header */
 }
 
-<<<<<<<< HEAD:src/components/RL38/RL38.module.css
 .thead th.sticky-header:nth-child(1),
 .thead th.sticky-header:nth-child(2),
 .thead th.sticky-header:nth-child(3) {
-========
-thead th.sticky-header:nth-child(1),
-thead th.sticky-header:nth-child(2),
-thead th.sticky-header:nth-child(3) {
->>>>>>>> main:src/components/RL37/FormTambahRL37.css
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
@@ -72,7 +65,7 @@ thead th.sticky-header:nth-child(3) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0; /* Sticky header */
-    background-color: #779D9E;
+    background-color: #f4f4f4;
     z-index: 2; /* Above table content */
 }
 

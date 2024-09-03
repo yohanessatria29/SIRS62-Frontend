@@ -1,24 +1,27 @@
 .table-container {
-    max-height: 400px;
+    max-height: 500px;
     /* Adjust the height as needed */
     overflow-y: auto;
 }
 
-table {
-    width: 1000%;
+.table {
+    width: 200%;
     border-collapse: collapse;
     table-layout: fixed;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif; /* Set font family */
     /* Ensures column widths are consistent */
 }
 
-th,
-td {
+.th,
+.td {
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-thead th {
-    background-color: #779D9E;
+.thead th {
+    background-color: #fbfefe;
+    color: #59636e;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -31,7 +34,7 @@ thead th {
 }
 
 .subheader-row th {
-    background-color: #f4f4f4;
+    background-color: #fbfefe;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -41,8 +44,9 @@ thead th {
     /* Ensures the subheader is below the main header */
 }
 
-thead th.sticky-header:nth-child(1),
-thead th.sticky-header:nth-child(2) {
+.thead th.sticky-header:nth-child(1),
+.thead th.sticky-header:nth-child(2),
+.thead th.sticky-header:nth-child(3) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;

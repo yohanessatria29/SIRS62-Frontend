@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate, useHistory } from "react-router-dom";
-import style from "./FormTambahRL41.module.css";
+import style from "./RL41.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -558,35 +558,37 @@ const FormTambahRL41 = () => {
                   <Spinner animation="grow" variant="success"></Spinner>
                 )}
               </div>
-              <Table className={style.rlTable}>
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Code ICD 10</th>
-                    <th>Deskripsi ICD 10</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataPenyakit.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>{index + 1}</td>
-                        <td style={{ textAlign: "left" }}>{value.icd_code}</td>
-                        <td style={{ textAlign: "left" }}>{value.description_code}</td>
-                        <td>
-                          <button
-                            className="btn btn-outline-success"
-                            onClick={() => DetailPenyakit(value.id)}
-                          >
-                            Tambah
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <div className={style['table-container']}>
+              <table responsive className={style['table']} style={{ width: "100%"}}>
+                  <thead className={style['thead']}>
+                    <tr className="main-header-row">
+                      <th style={{ width: "5%"}} >No.</th>
+                      <th style={{ width: "10%"}}>Code ICD 10</th>
+                      <th style={{ width: "40%"}}>Deskripsi ICD 10</th>
+                      <th style={{ width: "10%"}}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataPenyakit.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td>{index + 1}</td>
+                          <td style={{ textAlign: "center" }}>{value.icd_code}</td>
+                          <td style={{ textAlign: "left" }}>{value.description_code}</td>
+                          <td>
+                            <button
+                              className="btn btn-outline-success"
+                              onClick={() => DetailPenyakit(value.id)}
+                            >
+                              Tambah
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -671,7 +673,7 @@ const FormTambahRL41 = () => {
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
                     </div>
-                    <Table className={style.rlTable}>
+                    <Table className={style['table-container']}>
                       <thead>
                         <tr>
                           <th>No.</th>

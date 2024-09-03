@@ -1,36 +1,27 @@
 .table-container {
-    max-height: 1000px;
+    max-height: 500px;
     /* Adjust the height as needed */
     overflow-y: auto;
 }
 
 .table {
-    width: 100%;
+    width: 200%;
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif; /* Set font family */
 }
 
-<<<<<<<< HEAD:src/components/RL38/RL38.module.css
 .th,
 .td {
-========
-th{
-    color: white;
-}
-td {
->>>>>>>> main:src/components/RL37/FormTambahRL37.css
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-<<<<<<<< HEAD:src/components/RL38/RL38.module.css
 .thead th {
-    background-color: #f4f4f4;
-========
-thead th {
-    background-color: #779D9E;
->>>>>>>> main:src/components/RL37/FormTambahRL37.css
+    background-color: #fbfefe;;
+    color: grey;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -43,25 +34,18 @@ thead th {
 }
 
 .subheader-row th {
-    background-color: #779D9E;
+    background-color: #fbfefe;;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
-    top: 30px;
+    top: 40px;
     /* Adjust this to the height of the main header row */
     z-index: 1;
     /* Ensures the subheader is below the main header */
 }
 
-<<<<<<<< HEAD:src/components/RL38/RL38.module.css
 .thead th.sticky-header:nth-child(1),
-.thead th.sticky-header:nth-child(2),
-.thead th.sticky-header:nth-child(3) {
-========
-thead th.sticky-header:nth-child(1),
-thead th.sticky-header:nth-child(2),
-thead th.sticky-header:nth-child(3) {
->>>>>>>> main:src/components/RL37/FormTambahRL37.css
+.thead th.sticky-header:nth-child(2) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
@@ -72,7 +56,7 @@ thead th.sticky-header:nth-child(3) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0; /* Sticky header */
-    background-color: #779D9E;
+    background-color: #f4f4f4;
     z-index: 2; /* Above table content */
 }
 

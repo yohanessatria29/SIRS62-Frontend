@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import style from './FormTambahRL32.module.css'
+import style from './FormUbahRL32.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -500,6 +500,7 @@ const FormUbahRL32 = () => {
 
     return (
         <div className="container" style={{ marginTop: "70px" }}>
+            <h2>RL. 3.2</h2>
             <form onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">
@@ -538,125 +539,126 @@ const FormUbahRL32 = () => {
                         </Link>
                         
                         <span style={{ color: "gray" }}>Kembali RL 3.2 Rawat Inap</span>
-                        <Table
-                            className={style.rlTable}
-                            striped
-                            bordered
-                            responsive
-                            style={{ width: "200%" }}
-                        >
-                            <thead>
-                                <tr>
-                                    <th rowSpan="2" style={{ "width": "2%" }}>No.</th>
-                                    <th rowSpan="2" style={{ "width": "10%" }}>Jenis Pelayanan</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Awal Bulan</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Masuk</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Pindahan</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Dipindahkan</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Keluar Hidup</th>
-                                    <th colSpan="2" style={{ "width": "5%" }}>Pasien Keluar Mati</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Jumlah Lama Dirawat</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Pasien Akhir Bulan</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Jumlah Hari Perawatan</th>
-                                    <th colSpan="6" style={{ "width": "5%" }}>Rincian Hari Perawatan Per Kelas</th>
-                                    <th rowSpan="2" style={{ "width": "5%" }}>Jumlah Alokasi TT Awal Bulan</th>
-                                </tr>
-                                <tr>
-                                    <th style={{ "width": "5%" }}>{"< 48 jam"}</th>
-                                    <th style={{ "width": "5%" }}>{">= 48 jam"}</th>
-                                    <th style={{ "width": "5%" }}>VVIP</th>
-                                    <th style={{ "width": "5%" }}>VIP</th>
-                                    <th style={{ "width": "5%" }}>1</th>
-                                    <th style={{ "width": "5%" }}>2</th>
-                                    <th style={{ "width": "5%" }}>3</th>
-                                    <th style={{ "width": "5%" }}>Khusus</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <input type='text' name='id' className="form-control" value="1" disabled={true} />
-                                    </td>
-                                    <td>
-                                        <input type="text" name="jenisPelayanan" className="form-control" value={jenisPelayanan} disabled={true} />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pasienAwalBulan" className="form-control" value={pasienAwalBulan}
+                        <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
+                            <table
+                                responsive
+                                className={style.table}
+                            >
+                                <thead className={style.thead}>
+                                    <tr className="main-header-row">
+                                        <th className={style['sticky-header']} rowSpan="2" style={{"width": "2%"}}>No.</th>
+                                        <th className={style['sticky-header']} rowSpan="2" style={{"width": "8%"}}>Jenis Pelayanan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Awal Bulan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Masuk</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Pindahan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Dipindahkan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Keluar Hidup</th>
+                                        <th colSpan="2" style={{"width": "8%"}}>Pasien Keluar Mati</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Jumlah Lama Dirawat</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Pasien Akhir Bulan</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Jumlah Hari Perawatan</th>
+                                        <th colSpan="6" style={{"width": "20%"}}>Rincian Hari Perawatan Per Kelas</th>
+                                        <th rowSpan="2" style={{"width": "4%"}}>Jumlah Alokasi TT Awal Bulan</th>
+                                    </tr>
+                                    <tr className={style['subheader-row']}>
+                                        <th style={{"width": "4%"}}>{"< 48 jam"}</th>
+                                        <th style={{"width": "4%"}}>{">= 48 jam"}</th>
+                                        <th style={{"width": "4%"}}>VVIP</th>
+                                        <th style={{"width": "4%"}}>VIP</th>
+                                        <th style={{"width": "4%"}}>1</th>
+                                        <th style={{"width": "4%"}}>2</th>
+                                        <th style={{"width": "4%"}}>3</th>
+                                        <th style={{"width": "4%"}}>Khusus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className={style['sticky-column']}>
+                                            <input type='text' name='id' className="form-control" value="1" disabled={true} />
+                                        </td>
+                                        <td className={style['sticky-column']}>
+                                            <input type="text" name="jenisPelayanan" className="form-control" value={jenisPelayanan} disabled={true} />
+                                        </td>
+                                        <td>
+                                            <input type="number" name="pasienAwalBulan" className="form-control" value={pasienAwalBulan}
+                                                onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                        </td>
+                                        <td>
+                                            <input type="number" name="pasienMasuk" className="form-control" value={pasienMasuk}
+                                                onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                        </td>
+                                        <td>
+                                            <input type="number" name="pasienPindahan" className="form-control" value={pasienPindahan}
+                                                onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                        </td>
+                                        <td>
+                                            <input type="number" name="pasienDipindahkan" className="form-control" value={pasienDipindahkan}
+                                                onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                        </td>
+                                        <td>
+                                            <input type="number" name="pasienKeluarHidup" className="form-control" value={pasienKeluarHidup}
+                                                onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                        </td>
+                                        <td><input type="number" name="pasienKeluarMatiKurangDari48Jam" className="form-control" value={pasienKeluarMatiKurangDari48Jam}
                                             onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
                                             onKeyPress={preventMinus} />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pasienMasuk" className="form-control" value={pasienMasuk}
+                                        </td>
+                                        <td><input type="number" name="pasienKeluarMatiLebihDariAtauSamaDengan48Jam" className="form-control" value={pasienKeluarMatiLebihDariAtauSamaDengan48Jam}
                                             onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
                                             onKeyPress={preventMinus} />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pasienPindahan" className="form-control" value={pasienPindahan}
+                                        </td>
+                                        <td><input type="number" name="jumlahLamaDirawat" className="form-control" value={jumlahLamaDirawat}
                                             onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
                                             onKeyPress={preventMinus} />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pasienDipindahkan" className="form-control" value={pasienDipindahkan}
+                                        </td>
+                                        <td><input type="number" name="pasienAkhirBulan" className="form-control" value={pasienAkhirBulan}
+                                            onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={true} min={0} onPaste={preventPasteNegative}
+                                            onKeyPress={preventMinus} />
+                                        </td>
+                                        <td><input type="number" name="jumlahHariPerawatan" className="form-control" value={jumlahHariPerawatan}
+                                            onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={true} min={0} onPaste={preventPasteNegative}
+                                            onKeyPress={preventMinus} />
+                                        </td>
+                                        <td><input type="number" name="rincianHariPerawatanKelasVVIP" className="form-control" value={rincianHariPerawatanKelasVVIP}
                                             onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
                                             onKeyPress={preventMinus} />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="pasienKeluarHidup" className="form-control" value={pasienKeluarHidup}
+                                        </td>
+                                        <td><input type="number" name="rincianHariPerawatanKelasVIP" className="form-control" value={rincianHariPerawatanKelasVIP}
                                             onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
                                             onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="pasienKeluarMatiKurangDari48Jam" className="form-control" value={pasienKeluarMatiKurangDari48Jam}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="pasienKeluarMatiLebihDariAtauSamaDengan48Jam" className="form-control" value={pasienKeluarMatiLebihDariAtauSamaDengan48Jam}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="jumlahLamaDirawat" className="form-control" value={jumlahLamaDirawat}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="pasienAkhirBulan" className="form-control" value={pasienAkhirBulan}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={true} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="jumlahHariPerawatan" className="form-control" value={jumlahHariPerawatan}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={true} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="rincianHariPerawatanKelasVVIP" className="form-control" value={rincianHariPerawatanKelasVVIP}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="rincianHariPerawatanKelasVIP" className="form-control" value={rincianHariPerawatanKelasVIP}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="rincianHariPerawatanKelas1" className="form-control" value={rincianHariPerawatanKelas1}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="rincianHariPerawatanKelas2" className="form-control" value={rincianHariPerawatanKelas2}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="rincianHariPerawatanKelas3" className="form-control" value={rincianHariPerawatanKelas3}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td><input type="number" name="rincianHariPerawatanKelasKhusus" className="form-control" value={rincianHariPerawatanKelasKhusus}
-                                        onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
-                                        onKeyPress={preventMinus} />
-                                    </td>
-                                    <td>
-                                        <input type="number" name="jumlahAlokasiTempatTidurAwalBulan" className="form-control" value={jumlahAlokasiTempatTidurAwalBulan}
+                                        </td>
+                                        <td><input type="number" name="rincianHariPerawatanKelas1" className="form-control" value={rincianHariPerawatanKelas1}
                                             onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
                                             onKeyPress={preventMinus} />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </Table>
+                                        </td>
+                                        <td><input type="number" name="rincianHariPerawatanKelas2" className="form-control" value={rincianHariPerawatanKelas2}
+                                            onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                            onKeyPress={preventMinus} />
+                                        </td>
+                                        <td><input type="number" name="rincianHariPerawatanKelas3" className="form-control" value={rincianHariPerawatanKelas3}
+                                            onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                            onKeyPress={preventMinus} />
+                                        </td>
+                                        <td><input type="number" name="rincianHariPerawatanKelasKhusus" className="form-control" value={rincianHariPerawatanKelasKhusus}
+                                            onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                            onKeyPress={preventMinus} />
+                                        </td>
+                                        <td>
+                                            <input type="number" name="jumlahAlokasiTempatTidurAwalBulan" className="form-control" value={jumlahAlokasiTempatTidurAwalBulan}
+                                                onFocus={handleFocus} onChange={e => changeHandler(e)} disabled={false} min={0} onPaste={preventPasteNegative}
+                                                onKeyPress={preventMinus} />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        
                     </div>
                 </div>
                 <div className="mt-3 mb-3">
