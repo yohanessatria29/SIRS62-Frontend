@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './FormTambahRL37.css'
+import style from './FormTambahRL37.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
@@ -428,16 +428,16 @@ const FormTambahRL37 = () => {
                             style={{ width: "200%" }}
                         > */}
                         <div className="table-container mt-12 mb-12">
-                        <table className={style.rlTable}
+                        <table className={style.table}
                             striped
                             bordered
                             responsive
                             
                             style={{ width: "200%" }}>
-                            <thead>
+                            <thead className={style.thead}>
                                 {/* <tr> */}
                                 <tr className="main-header-row">
-                                <th rowSpan="2" style={{ "width": "50px" }}>No.</th>
+                                    <th rowSpan="2" style={{ "width": "50px" }}>No.</th>
                                     <th rowSpan="2" style={{ "width": "35px" }}></th>
                                     <th className="sticky-header" rowSpan="2" style={{ "width": "300px" }}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>

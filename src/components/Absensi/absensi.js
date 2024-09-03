@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { HiSaveAs } from 'react-icons/hi'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import style from './absensi.css'
+import style from './absensi.module.css'
 // import Table from 'react-bootstrap/Table'
 import checkIcon from '../Images/check.png'
 import silangIcon from '../Images/silang.png'
@@ -223,23 +223,25 @@ const Absensi = () => {
             </form>
             <div className="row mt-3">
                 <div className="col-md-12">
-                    <div className="table-container mt-3 mb-3">
-                        <table>
-                            <thead>
+                    <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
+                        <table
+                        className={style.table}>
+                            <thead className={style.thead}>
                                 <tr className="main-header-row">
-                                    <th className="sticky-header" rowSpan="2" style={{ "width": "60px" }} >No.</th>
-                                    <th className="sticky-header" rowSpan="2" style={{ "width": "300px" }}>Nama RS</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "60px" }} >No.</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "100px" }}>Kode RS</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "300px" }}>Nama RS</th>
                                     {/* <th rowSpan="2" className={style.myTableTH} style={{ "width": "1%" }}>RL 3.2</th> */}
-                                    <th colSpan="12">RL 3.1</th>
-                                    <th colSpan="12">RL 3.2</th>
-                                    <th colSpan="12">RL 3.3</th>
-                                    <th colSpan="12">RL 3.4</th>
-                                    <th colSpan="12">RL 3.5</th>
-                                    <th colSpan="12">RL 3.6</th>
-                                    <th colSpan="12">RL 3.7</th>
-                                    <th colSpan="12">RL 3.8</th>
-                                    <th colSpan="12">RL 3.9</th>
-                                    <th colSpan="12">RL 3.10</th>
+                                    <th colSpan="12" >RL 3.1</th>
+                                    <th colSpan="12" >RL 3.2</th>
+                                    <th colSpan="12" >RL 3.3</th>
+                                    <th colSpan="12" >RL 3.4</th>
+                                    <th colSpan="12" >RL 3.5</th>
+                                    <th colSpan="12" >RL 3.6</th>
+                                    <th colSpan="12" >RL 3.7</th>
+                                    <th colSpan="12" >RL 3.8</th>
+                                    <th colSpan="12" >RL 3.9</th>
+                                    <th colSpan="12" >RL 3.10</th>
 
                                     <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.11</th>
                                     <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.12</th>
@@ -258,9 +260,9 @@ const Absensi = () => {
                                     <th colSpan="12">RL 5.2</th>
                                     <th colSpan="12">RL 5.3</th>
                                 </tr>
-                                <tr className="subheader-row">
-                                    <th style={{ "width": "200px" }} className="sticky-column">1</th>
-                                    <th style={{ "width": "50px" }} className="sticky-column">2</th>
+                                <tr className={style['subheader-row']}>
+                                    <th style={{ "width": "200px" }} >1</th>
+                                    <th style={{ "width": "50px" }} >2</th>
                                     <th style={{ "width": "50px" }}>3</th>
                                     <th style={{ "width": "50px" }}>4</th>
                                     <th style={{ "width": "50px" }}>5</th>
@@ -474,309 +476,10 @@ const Absensi = () => {
                                 {dataAbsensi.map((value, index) => {
                                     return (
                                         <tr key={index}>
-                                            <td className="sticky-column" style={{ textAlign: 'right', verticalAlign: 'middle' }}>{index + 1}</td>
-                                            <td className="sticky-column">{value.nama_rs}</td>
-                                            {/* <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_317 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td> */}
-
-                                            {/* RL 5.3 */}
-                                            {/* <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_1 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_2 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_3 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_4 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_5 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_6 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_7 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_8 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_9 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_10 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_11 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td>
-                                        <td style={{textAlign: 'center', verticalAlign: 'middle'}}>
-                                            {
-                                                value.rl_53_bulan_12 === 0 ? (
-                                                    <div>
-                                                        <img
-                                                            src={silangIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                ) : (
-                                                    <div>
-                                                        <img
-                                                            src={checkIcon}
-                                                            className="img-fluid"
-                                                            style={{width:'20px', height: 'auto'}}
-                                                            alt=""
-                                                        />
-                                                    </div>
-                                                )
-                                            }
-                                        </td> */}
+                                            <td className={style['sticky-column']} style={{ textAlign: 'right', verticalAlign: 'middle' }}>{index + 1}</td>
+                                            <td className={style['sticky-column']}>{value.rs_id}</td>
+                                            <td className={style['sticky-column']}>{value.nama_rs}</td>
+                                            
 
                                             {/* 3.1 */}
                                             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
