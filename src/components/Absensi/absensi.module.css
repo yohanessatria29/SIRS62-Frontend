@@ -1,4 +1,4 @@
-.table-container {
+.table-container { 
     max-height: 400px;
     /* Adjust the height as needed */
     overflow-y: auto;
@@ -8,7 +8,7 @@ table {
     width: 1000%;
     border-collapse: collapse;
     table-layout: fixed;
-    /* Ensures column widths are consistent */
+    /* Ensures column widths are consistent */ 
 }
 
 th,

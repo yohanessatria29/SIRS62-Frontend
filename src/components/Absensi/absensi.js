@@ -8,7 +8,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import style from './absensi.module.css'
 // import Table from 'react-bootstrap/Table'
 import checkIcon from '../Images/check.png'
-import silangIcon from '../Images/silang.png'
+import silangIcon from '../Images/silang.png';
 
 const Absensi = () => {
     const [namaRS, setNamaRS] = useState('')
