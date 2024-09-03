@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
-import style from "./RL38.css";
+import style from "./RL38.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -373,21 +373,20 @@ const FormTambahRL38 = () => {
               &lt;
             </Link>
             <span style={{ color: "gray" }}>Kembali RL 3.8 Laboratorium</span>
-            <div className="table-container mt-3 mb-1 pb-2">
-            {/* <Table className={style.rlTable}> */}
-            <table
+            <div className={style['table-container']}>
+                        <table
                             responsive
-                            style={{ width: "100%" }}
-                        >
-              <thead>
+                            className={style['table']}>
+                        
+                            <thead className={style['thead']}>
                 <tr className="main-header-row">
                   <th  rowSpan={2} style={{ width: "4%", verticalAlign:"middle" }}>No.</th>
                   <th  rowSpan={2} style={{ width: "3%" }}></th>
-                  <th  rowSpan={2} style={{ textAlign: "center" , verticalAlign:"middle" }}>Jenis Pemeriksaan</th>
+                  <th  rowSpan={2} style={{ width: "50%",textAlign: "center" , verticalAlign:"middle" }}>Jenis Pemeriksaan</th>
                   <th  colSpan={2} style={{ textAlign: "center" }}>Jumlah Pemeriksaan</th>
                   <th  colSpan={2} style={{ textAlign: "center" }}>Rata-Rata Pemeriksaan</th>
                 </tr>
-                <tr className="subheader-row">
+                <tr className={style['subheader-row']}>
                   <th  style={{ textAlign: "center" }}>Laki-Laki</th>
                   <th  style={{ textAlign: "center" }}>Perempuan</th>
                   <th  style={{ textAlign: "center" }}>Laki-Laki</th>
