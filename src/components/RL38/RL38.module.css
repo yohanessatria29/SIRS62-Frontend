@@ -4,21 +4,33 @@
     overflow-y: auto;
 }
 
-table {
-    width: 1000%;
+.table {
+    width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
 }
 
-th,
+<<<<<<<< HEAD:src/components/RL38/RL38.module.css
+.th,
+.td {
+========
+th{
+    color: white;
+}
 td {
+>>>>>>>> main:src/components/RL37/FormTambahRL37.css
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-thead th {
+<<<<<<<< HEAD:src/components/RL38/RL38.module.css
+.thead th {
     background-color: #f4f4f4;
+========
+thead th {
+    background-color: #779D9E;
+>>>>>>>> main:src/components/RL37/FormTambahRL37.css
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -31,19 +43,25 @@ thead th {
 }
 
 .subheader-row th {
-    background-color: #f4f4f4;
+    background-color: #779D9E;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
-    top: 40px;
+    top: 30px;
     /* Adjust this to the height of the main header row */
     z-index: 1;
     /* Ensures the subheader is below the main header */
 }
 
+<<<<<<<< HEAD:src/components/RL38/RL38.module.css
+.thead th.sticky-header:nth-child(1),
+.thead th.sticky-header:nth-child(2),
+.thead th.sticky-header:nth-child(3) {
+========
 thead th.sticky-header:nth-child(1),
 thead th.sticky-header:nth-child(2),
 thead th.sticky-header:nth-child(3) {
+>>>>>>>> main:src/components/RL37/FormTambahRL37.css
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
@@ -54,7 +72,7 @@ thead th.sticky-header:nth-child(3) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0; /* Sticky header */
-    background-color: #f4f4f4;
+    background-color: #779D9E;
     z-index: 2; /* Above table content */
 }
 

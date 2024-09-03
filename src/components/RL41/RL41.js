@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import style from "./RL41.css";
 import { useNavigate, Link } from "react-router-dom";
+import style from "./RL41.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -637,12 +637,9 @@ const RL41 = () => {
               .join(", ")}
           </h5>
         </div>
-        <div className="table-container mt-3 mb-1 pb-2">
-          <table
-            responsive
-            style={{ width: "500%" }}
-          >
-            <thead>
+        <div className={style['table-container']}>
+          <table className={style['table']}>
+            <thead className={style['thead']}>
               <tr className="main-header-row">
                 <th 
                   rowSpan={3}
@@ -664,7 +661,7 @@ const RL41 = () => {
                 </th>
                 <th
                   rowSpan={3}
-                  style={{ width: "2.5%", textAlign: "left", verticalAlign: "middle" }}
+                  style={{ width: "5.5%", textAlign: "left", verticalAlign: "middle" }}
                 >
                   Diagnosis Penyakit
                 </th>
@@ -687,7 +684,7 @@ const RL41 = () => {
                   Jumlah Pasien Keluar Mati
                 </th>
               </tr>
-              <tr className="subheader-row">
+              <tr className={style['subheader-row']}>
                 <th colSpan={2} style={{ textAlign: "center" }}>
                   {" "}
                   &lt; 1 Jam{" "}
@@ -766,7 +763,7 @@ const RL41 = () => {
                   ≥ 85 Tahun{" "}
                 </th>
               </tr>
-              <tr className="subsubheader-row">
+              <tr className={style['subheader-row']}>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
                 <th style={{ textAlign: "center" }}>Perempuan</th>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
@@ -829,7 +826,7 @@ const RL41 = () => {
               {dataRL.map((value, index) => {
                 return (
                   <tr style={{ verticalAlign: "center" }} key={value.id}>
-                    <td>
+                    <td style={{ textAlign: "center" }}>
                       <label>{index + 1}</label>
                     </td>
                     <td style={{ textAlign: "center", verticalAlign: "middle" }}>

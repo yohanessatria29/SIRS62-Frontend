@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import jwt_decode from 'jwt-decode'
 import { useNavigate, useParams, Link } from "react-router-dom"
-import style from './FormTambahRL35.module.css'
+import style from './RL35.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';

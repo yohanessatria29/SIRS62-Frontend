@@ -1,24 +1,35 @@
 .table-container {
-    max-height: 400px;
+    max-height: 750px;
     /* Adjust the height as needed */
     overflow-y: auto;
 }
 
+<<<<<<< HEAD:src/components/RL41/RL41.module.css
+.table {
+    width: 500%;
+=======
 table {
     width: 1000%;
+>>>>>>> main:src/components/Absensi/absensi.module.css
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
 }
 
-th,
-td {
+.th,
+.td {
     padding: 8px;
     border: 1px solid #ddd;
 }
 
+<<<<<<< HEAD:src/components/RL41/RL41.module.css
+.thead th {
+    background-color: #fbfefe;
+    color: #59636e;
+=======
 thead th {
-    background-color: #f4f4f4;
+    background-color: #779D9E;
+>>>>>>> main:src/components/Absensi/absensi.module.css
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -31,19 +42,19 @@ thead th {
 }
 
 .subheader-row th {
-    background-color: #f4f4f4;
+    background-color: #fbfefe;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
-    top: 40px;
+    top: 20px;
     /* Adjust this to the height of the main header row */
     z-index: 1;
     /* Ensures the subheader is below the main header */
 }
 
-thead th.sticky-header:nth-child(1),
-thead th.sticky-header:nth-child(2),
-thead th.sticky-header:nth-child(3) {
+.thead th.sticky-header:nth-child(1),
+.thead th.sticky-header:nth-child(2),
+.thead th.sticky-header:nth-child(3) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;

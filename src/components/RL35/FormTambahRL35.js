@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './RL35.css'
+import style from './RL35.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
@@ -380,13 +380,13 @@ const FormTambahRL35 = () => {
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                         </div> */}
-                        <div className="table-container mt-3 mb-1 pb-2">
+                        <div className={style['table-container']}>
                         <table
                             responsive
-                            style={{ width: "100%" }}
-                        >
-                            <thead>
-                            <tr className="main-header-row">
+                            className={style['table']}>
+                        
+                            <thead className={style['thead']}>
+                            <tr>
                                     <th rowSpan={2} style={{ width: "4%", verticalAlign: "middle" }}>No.</th>
                                     <th rowSpan={2} style={{ "width": "3%" }}></th>
                                     <th rowSpan={2} style={{ "width": "25%" }}>Jenis Kegiatan</th>
@@ -394,7 +394,7 @@ const FormTambahRL35 = () => {
                                     <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Luar Kota</th>
                                     <th rowSpan={2}>Total Kunjungan</th>
                                 </tr>
-                                <tr className="subheader-row">
+                                <tr className={style['subheader-row']}>
                                     <th style={{ textAlign: "center" }}>Laki-Laki</th>
                                     <th style={{ textAlign: "center" }}>Perempuan</th>
                                     <th style={{ textAlign: "center" }}>Laki-Laki</th>
@@ -426,11 +426,11 @@ const FormTambahRL35 = () => {
                                     }
                                     return (
                                         <tr key={value.id}>
-                                            <td>
+                                            <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                                                 <input type='hidden' name='id' className="form-control" value={value.id} disabled={true} />
                                                {value.no}
                                             </td>
-                                            <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            <td>
                                                 <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked} disabled={disabled} style={{ display: visibled }} />
                                             </td>
                                             <td>
