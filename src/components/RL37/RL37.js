@@ -1308,14 +1308,14 @@ const RL37 = () => {
                         </div>
 
                         <Table
-                            className={style.rlTable}
+                            className={style.table}
                             striped
                             bordered
                             responsive
                             style={{ width: "200%" }}
                             ref={tableRef}
                           >
-                            <thead>
+                            <thead className={style.thead}>
                                 <tr>
                                     <th style={{"width": "2.5%"}}>No.</th>
                                     <th style={{"width": "6%"}}>Aksi</th>
