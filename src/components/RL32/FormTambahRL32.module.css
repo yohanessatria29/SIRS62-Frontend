@@ -9,6 +9,8 @@
     border-collapse: collapse;
     table-layout: fixed;
     /* Ensures column widths are consistent */
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif; /* Set font family */
 }
 
 .th,
@@ -18,7 +20,7 @@
 }
 
 .thead th {
-    background-color: #f4f4f4;
+    background-color: #fbfefe;;
     color: grey;
     position: -webkit-sticky;
     /* For Safari */
@@ -32,7 +34,7 @@
 }
 
 .subheader-row th {
-    background-color: #f4f4f4;
+    background-color: #fbfefe;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;

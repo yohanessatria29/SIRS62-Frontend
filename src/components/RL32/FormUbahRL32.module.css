@@ -8,9 +8,9 @@
     width: 200%;
     border-collapse: collapse;
     table-layout: fixed;
+    /* Ensures column widths are consistent */
     font-size: 15px;
     font-family: 'Times New Roman', Times, serif; /* Set font family */
-    /* Ensures column widths are consistent */
 }
 
 .th,
@@ -20,8 +20,8 @@
 }
 
 .thead th {
-    background-color: #fbfefe;
-    color: #59636e;
+    background-color: #fbfefe;;
+    color: grey;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -34,7 +34,7 @@
 }
 
 .subheader-row th {
-    background-color: #fbfefe;
+    background-color: #fbfefe;;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -45,8 +45,7 @@
 }
 
 .thead th.sticky-header:nth-child(1),
-.thead th.sticky-header:nth-child(2),
-.thead th.sticky-header:nth-child(3) {
+.thead th.sticky-header:nth-child(2) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
