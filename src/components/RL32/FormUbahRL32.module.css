@@ -34,7 +34,7 @@
 }
 
 .subheader-row th {
-    background-color: #fbfefe;
+    background-color: #fbfefe;;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -45,8 +45,7 @@
 }
 
 .thead th.sticky-header:nth-child(1),
-.thead th.sticky-header:nth-child(2),
-.thead th.sticky-header:nth-child(3) {
+.thead th.sticky-header:nth-child(2) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
