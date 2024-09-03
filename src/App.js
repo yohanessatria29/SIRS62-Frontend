@@ -122,9 +122,6 @@ import RL52 from "./components/RL52/RL52.js"
 // RL 5.3
 import RL53 from "./components/RL53/RL53.js"
 
-// Absensi
-import Absensi from './components/Absensi/absensi.js';
-
 
 
 function App() {
@@ -311,7 +308,6 @@ function App() {
 
         <Route path="/rl53" element={<><NavigationBar/><RL53/></>}/>
 
-        <Route path="/absensi" element={<><NavigationBar/><Absensi/></>}/>
 
         <Route path="*" element={<PageNotFound />} status={404}/>
       </Routes>

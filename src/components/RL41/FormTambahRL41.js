@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate, useHistory } from "react-router-dom";
-import style from "./RL41.css";
+import style from "./RL41.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,8 +11,8 @@ import { IoArrowBack } from "react-icons/io5";
 import { Spinner } from "react-bootstrap";
 
 const FormTambahRL41 = () => {
-  const [tahun, setTahun] = useState("2025");
-  const [bulan, setBulan] = useState("00");
+  const [tahun, setTahun] = useState(new Date().getFullYear());
+  const [bulan, setBulan] = useState("01");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
@@ -357,77 +357,68 @@ const FormTambahRL41 = () => {
     let periode = tahun + "-" + bulan + "-01";
     e.preventDefault();
     setButtonStatus(true);
-    if( bulan==='00' || bulan == 0 ){
-      toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      setButtonStatus(false);
-    }else{
-        let total = 0;
-      let totalMati =
-        parseInt(e.target[datainput[0].label.length * 2 + 1].value) +
-        parseInt(e.target[datainput[0].label.length * 2 + 2].value);
 
-      for (let i = 3; i <= datainput[0].label.length * 2; i++) {
-        total = parseInt(e.target[i].value) + total;
-      }
+    let total = 0;
+    let totalMati =
+      parseInt(e.target[datainput[0].label.length * 2 + 1].value) +
+      parseInt(e.target[datainput[0].label.length * 2 + 2].value);
 
-      const transformedObject = {};
+    for (let i = 3; i <= datainput[0].label.length * 2; i++) {
+      total = parseInt(e.target[i].value) + total;
+    }
 
-      datainput[0].label.forEach((item, index) => {
-        transformedObject[item.namaL] = parseInt(e.target[3 + index * 2].value);
-        transformedObject[item.namaP] = parseInt(e.target[4 + index * 2].value);
-      });
+    const transformedObject = {};
 
-      const dataReady = {
-        periodeBulan: parseInt(bulan),
-        periodeTahun: parseInt(tahun),
-        icdId: parseInt(e.target[1].value),
-        data: [transformedObject],
-      };
+    datainput[0].label.forEach((item, index) => {
+      transformedObject[item.namaL] = parseInt(e.target[3 + index * 2].value);
+      transformedObject[item.namaP] = parseInt(e.target[4 + index * 2].value);
+    });
 
-      if (totalMati <= total) {
-        try {
-          const customConfig = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          };
+    const dataReady = {
+      periodeBulan: parseInt(bulan),
+      periodeTahun: parseInt(tahun),
+      icdId: parseInt(e.target[1].value),
+      data: [transformedObject],
+    };
 
-          const result = await axiosJWT.post(
-            "/apisirs6v2/rlempattitiksatu",
-            dataReady,
-            customConfig
-          );
-          toast("Data Berhasil Disimpan", {
-            position: toast.POSITION.TOP_RIGHT,
-          });
-          setTimeout(() => {
-            navigate('/rl41')
-        }, 1000);
-        } catch (error) {
-          toast(
-            `Data tidak bisa disimpan karena ,${error.response.data.message}`,
-            {
-              position: toast.POSITION.TOP_RIGHT,
-            }
-          );
-          setButtonStatus(false);
-        }
-      } else {
+    if (totalMati <= total) {
+      try {
+        const customConfig = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const result = await axiosJWT.post(
+          "/apisirs6v2/rlempattitiksatu",
+          dataReady,
+          customConfig
+        );
+        toast("Data Berhasil Disimpan", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setTimeout(() => {
+          navigate('/rl41')
+      }, 1000);
+      } catch (error) {
         toast(
-          `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
+          `Data tidak bisa disimpan karena ,${error.response.data.message}`,
           {
             position: toast.POSITION.TOP_RIGHT,
           }
         );
         setButtonStatus(false);
       }
+    } else {
+      toast(
+        `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
+        {
+          position: toast.POSITION.TOP_RIGHT,
+        }
+      );
+      setButtonStatus(false);
     }
-    
-
-    
   };
 
   const maxLengthCheck = (object) => {
@@ -567,14 +558,14 @@ const FormTambahRL41 = () => {
                   <Spinner animation="grow" variant="success"></Spinner>
                 )}
               </div>
-              <div className={style.tableContainer}>
-                <Table className={style.rlTable}>
-                  <thead>
-                    <tr>
-                      <th>No.</th>
-                      <th>Code ICD 10</th>
-                      <th>Deskripsi ICD 10</th>
-                      <th>Action</th>
+              <div className={style['table-container']}>
+              <table responsive className={style['table']} style={{ width: "100%"}}>
+                  <thead className={style['thead']}>
+                    <tr className="main-header-row">
+                      <th style={{ width: "5%"}} >No.</th>
+                      <th style={{ width: "10%"}}>Code ICD 10</th>
+                      <th style={{ width: "40%"}}>Deskripsi ICD 10</th>
+                      <th style={{ width: "10%"}}>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -582,7 +573,7 @@ const FormTambahRL41 = () => {
                       return (
                         <tr key={value.id}>
                           <td>{index + 1}</td>
-                          <td style={{ textAlign: "left" }}>{value.icd_code}</td>
+                          <td style={{ textAlign: "center" }}>{value.icd_code}</td>
                           <td style={{ textAlign: "left" }}>{value.description_code}</td>
                           <td>
                             <button
@@ -596,7 +587,7 @@ const FormTambahRL41 = () => {
                       );
                     })}
                   </tbody>
-                </Table>
+                </table>
               </div>
             </div>
           </div>
@@ -643,7 +634,7 @@ const FormTambahRL41 = () => {
                         className="form-control"
                         id="bulan"
                         onChange={(e) => changeHandlerSingle(e)}
-                      ><option value="00">--PILIH BULAN--</option>
+                      >
                         <option value="01">Januari</option>
                         <option value="02">Februari</option>
                         <option value="03">Maret</option>
@@ -682,7 +673,7 @@ const FormTambahRL41 = () => {
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
                     </div>
-                    <Table className={style.rlTable}>
+                    <Table className={style['table-container']}>
                       <thead>
                         <tr>
                           <th>No.</th>
