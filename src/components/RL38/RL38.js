@@ -744,7 +744,7 @@ const RL38 = () => {
                 </th>
                 <th
                   rowSpan={2}
-                  style={{ textAlign: "center", verticalAlign: "middle" }}
+                  style={{ width: "30%", textAlign: "center", verticalAlign: "middle" }}
                 >
                   Jenis Pemeriksaan
                 </th>
@@ -755,7 +755,7 @@ const RL38 = () => {
                   Rata-Rata Pemeriksaan
                 </th>
               </tr>
-              <tr className="subheader-row">
+              <tr className={style['subheader-row']}>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
                 <th style={{ textAlign: "center" }}>Perempuan</th>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
