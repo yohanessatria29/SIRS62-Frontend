@@ -20,7 +20,6 @@ const FormTambahRL32 = () => {
     const [token, setToken] = useState('')
     const [expire, setExpire] = useState('')
     const [buttonStatus, setButtonStatus] = useState(false)
-    const [statusTidakAdaData, setStatusTidakAdaData] = useState(null)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -209,10 +208,10 @@ const FormTambahRL32 = () => {
                 if (newDataRL[index].id !== 100) {
                     newDataRL[index].disabledInput = false
                 }
-                setStatusTidakAdaData(true)
+                // setStatusTidakAdaData(true)
             } else if (event.target.checked === false) {
                 newDataRL[index].disabledInput = true
-                setStatusTidakAdaData(false)
+                // setStatusTidakAdaData(false)
             }
             newDataRL[index].checked = event.target.checked
         } else if (name === 'pasienAwalBulan') {
@@ -415,7 +414,7 @@ const FormTambahRL32 = () => {
     }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <h2>RL. 3.2</h2>
             <form id="formInputRLRawatInap" onSubmit={Simpan}>
                 <div className="row">
