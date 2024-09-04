@@ -323,7 +323,7 @@ export const FormUbahRL37 = () => {
     }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={updateDataRLTigaTitikTujuh}>
                 <div className="row">
                     <div className="col-md-6">

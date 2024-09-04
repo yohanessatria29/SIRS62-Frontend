@@ -344,7 +344,7 @@ const FormTambahRL37 = () => {
     }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">
@@ -427,7 +427,7 @@ const FormTambahRL37 = () => {
                             responsive
                             style={{ width: "200%" }}
                         > */}
-                        <div className="table-container mt-12 mb-12">
+                        <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
                         <table className={style.table}
                             striped
                             bordered
@@ -437,9 +437,9 @@ const FormTambahRL37 = () => {
                             <thead className={style.thead}>
                                 {/* <tr> */}
                                 <tr className="main-header-row">
-                                    <th rowSpan="2" style={{ "width": "50px" }}>No.</th>
-                                    <th rowSpan="2" style={{ "width": "35px" }}></th>
-                                    <th className="sticky-header" rowSpan="2" style={{ "width": "300px" }}>Jenis Kegiatan</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "50px" }}>No.</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "35px" }}></th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "300px" }}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>
                                     <th >Rujukan Medis Puskesmas</th>
@@ -514,15 +514,15 @@ const FormTambahRL37 = () => {
                                     }
                                     return (
                                         <tr key={value.id}>
-                                            <td >
+                                            <td className={style['sticky-column']} >
                                                 <input type='hidden' name='id'  value={value.id} disabled={true}/>
                                                 {/* <input type='text' name='no' className="form-control" value={value.no} disabled={true}/> */}
                                                 {value.no}
                                             </td>
-                                            <td style={{textAlign: "center", verticalAlign: "middle"}}>
+                                            <td className={style['sticky-column']} style={{textAlign: "center", verticalAlign: "middle"}}>
                                                 <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked} disabled={disabled} style={{display: visibled}}/>
                                             </td>
-                                            <td  className="sticky-column">
+                                            <td  className={style['sticky-column']}>
                                                 {/* <input type="text" name="jenisKegiatan" className="form-control" value={value.jenisKegiatan} disabled={true} /> */}
                                                 {value.jenisKegiatan}
                                             </td>
