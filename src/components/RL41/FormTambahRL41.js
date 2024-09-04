@@ -26,7 +26,7 @@ const FormTambahRL41 = () => {
   const [spinnerSearch, setSpinnerSearch] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     refreshToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +75,7 @@ const FormTambahRL41 = () => {
       setAlamatRS(response.data.data.alamat);
       setNamaPropinsi(response.data.data.provinsi_nama);
       setNamaKabKota(response.data.data.kab_kota_nama);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const CariPenyakit = async (e) => {
@@ -400,7 +400,7 @@ const FormTambahRL41 = () => {
         });
         setTimeout(() => {
           navigate('/rl41')
-      }, 1000);
+        }, 1000);
       } catch (error) {
         toast(
           `Data tidak bisa disimpan karena ,${error.response.data.message}`,
@@ -431,7 +431,7 @@ const FormTambahRL41 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
       <div className="row">
         <div className="col-md-6">
           <div className="card">
@@ -559,13 +559,13 @@ const FormTambahRL41 = () => {
                 )}
               </div>
               <div className={style['table-container']}>
-              <table responsive className={style['table']} style={{ width: "100%"}}>
+                <table responsive className={style['table']} style={{ width: "100%" }}>
                   <thead className={style['thead']}>
                     <tr className="main-header-row">
-                      <th style={{ width: "5%"}} >No.</th>
-                      <th style={{ width: "10%"}}>Code ICD 10</th>
-                      <th style={{ width: "40%"}}>Deskripsi ICD 10</th>
-                      <th style={{ width: "10%"}}>Action</th>
+                      <th style={{ width: "5%" }} >No.</th>
+                      <th style={{ width: "10%" }}>Code ICD 10</th>
+                      <th style={{ width: "40%" }}>Deskripsi ICD 10</th>
+                      <th style={{ width: "10%" }}>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -673,9 +673,10 @@ const FormTambahRL41 = () => {
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
                     </div>
-                    <Table className={style['table-container']}>
-                      <thead>
-                        <tr>
+                    <div className={style['table-container']}>
+                    <table responsive className={style['table']} style={{ width: "100%" }}>
+                      <thead className={style['thead']}>
+                        <tr className="main-header-row">
                           <th>No.</th>
                           <th>Golongan Berdasarkan Umur</th>
                           <th>Laki Laki</th>
@@ -730,7 +731,8 @@ const FormTambahRL41 = () => {
                           });
                         })}
                       </tbody>
-                    </Table>
+                    </table>
+                    </div>
                   </div>
                   <div className="mt-3 mb-3">
                     <ToastContainer />
