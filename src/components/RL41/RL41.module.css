@@ -77,3 +77,78 @@
     left: 0;
     z-index: 1; /* Ensures sticky column is above other content */
 }
+
+
+/* view */
+.table thead th.sticky-header-view:nth-child(1)
+{
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 0;
+    z-index: 4; /* Above both header and body content */
+}
+.table thead th.sticky-header-view:nth-child(2)
+{
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 52px;
+    z-index: 4; /* Above both header and body content */
+}
+.table thead th.sticky-header-view:nth-child(3) {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 205px;
+    z-index: 4; /* Above both header and body content */
+}
+
+.table thead th.sticky-header-view:nth-child(4) {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 287px;
+    z-index: 4; /* Above both header and body content */
+}
+
+.table tbody tr td.sticky-column-view:nth-child(1)
+{
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 0;
+    z-index: 3; /* Above both header and body content */
+}
+.table tbody tr td.sticky-column-view:nth-child(2)
+{
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 52px;
+    z-index: 3; /* Above both header and body content */
+}
+.table tbody tr td.sticky-column-view:nth-child(3) {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 205px;
+    z-index: 3; /* Above both header and body content */
+}
+
+.table tbody tr td.sticky-column-view:nth-child(4) {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 287px;
+    z-index: 3; /* Above both header and body content */
+}
+
+.table .sticky-header-view {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0; /* Sticky header */
+    z-index: 2; /* Above table content */
+    background-color: #fbfefe;
+    color: #59636e;
+}
+
+.table .sticky-column-view {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    left: 0;
+    z-index: 0; /* Ensures sticky column is above other content */
+    background-color: #fbfefe;
+}

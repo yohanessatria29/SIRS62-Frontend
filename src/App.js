@@ -147,31 +147,31 @@ function App() {
         <Route path="/rl33/tambah" element={<><NavigationBar/><FormTambahRL33/><Footer/></>}/>
         <Route path="/rl33/ubah/:id" element={<><NavigationBar/><FormUbahRL33/><Footer/></>}/>
 
-        <Route path="/rl34" element={<><NavigationBar/><RL34/></>}/>
+        <Route path="/rl34" element={<><NavigationBar/><RL34/><Footer/></>}/>
         <Route path="/rl34/tambah" element={<><NavigationBar/><FormTambahRL34/><Footer/></>}/>
         <Route path="/rl34/ubah/:id" element={<><NavigationBar/><FormUbahRL34/><Footer/></>}/>
 
-        <Route path="/rl35" element={<><NavigationBar/><RL35/></>}/>
+        <Route path="/rl35" element={<><NavigationBar/><RL35/><Footer/></>}/>
         <Route path="/rl35/tambah"element={<><NavigationBar/><FormTambahRL35/><Footer/></>}/>
         <Route path="/rl35/ubah/:id" element={<><NavigationBar/><FormUbahRL35 /><Footer/></>}/>
 
-        <Route path="/rl36" element={<><NavigationBar/><RL36/></>}/>
+        <Route path="/rl36" element={<><NavigationBar/><RL36/><Footer/></>}/>
         <Route path="/rl36/tambah" element={<><NavigationBar/><FormTambahRL36/><Footer/></>}/>
         <Route path="/rl36/ubah/:id" element={<><NavigationBar/><FormUbahRL36/><Footer/></>}/>
 
-        <Route path="/rl37" element={<><NavigationBar/><RL37/></>}/>
+        <Route path="/rl37" element={<><NavigationBar/><RL37/><Footer/></>}/>
         <Route path="/rl37/tambah" element={<><NavigationBar/><FormTambahRL37/><Footer/></>}/>
         <Route path="/rl37/ubah/:id" element={<><NavigationBar/><FormUbahRL37/><Footer/></>}/>
 
-        <Route path="/rl38" element={<><NavigationBar/><RL38/></>}/>
+        <Route path="/rl38" element={<><NavigationBar/><RL38/><Footer/></>}/>
         <Route path="/rl38/tambah"element={<><NavigationBar/><FormTambahRL38/><Footer/></>}/>
         <Route path="/rl38/ubah/:id" element={<><NavigationBar/><FormEditRL38 /><Footer/></>}/>
 
-        <Route path="/rl39" element={<><NavigationBar/><RL39/></>}/>
+        <Route path="/rl39" element={<><NavigationBar/><RL39/><Footer/></>}/>
         <Route path="/rl39/tambah" element={<><NavigationBar/><FormTambahRL39/><Footer/></>}/>
         <Route path="/rl39/ubah/:id" element={<><NavigationBar/><FormUbahRL39/><Footer/></>}/>
 
-        <Route path="/rl310" element={<><NavigationBar/><RL310/></>}/>
+        <Route path="/rl310" element={<><NavigationBar/><RL310/><Footer/></>}/>
         <Route path="/rl310/tambah" element={<><NavigationBar/><FormTambahRL310/><Footer/></>}/>
         <Route path="/rl310/ubah/:id" element={<><NavigationBar/><FormEditRL310/><Footer/></>}/>
         

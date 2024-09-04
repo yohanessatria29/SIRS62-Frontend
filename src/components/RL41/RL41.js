@@ -644,22 +644,26 @@ const RL41 = () => {
                 <th 
                   rowSpan={3}
                   style={{ width: "1%", verticalAlign: "middle" }}
+                  className={style['sticky-header-view']}
                 >
                   No.
                 </th>
                 <th
                   rowSpan={3}
                   style={{ width: "3%", verticalAlign: "middle" }}
+                  className={style['sticky-header-view']}
                 >
                   Aksi
                 </th>
                 <th
+                className={style['sticky-header-view']}
                   rowSpan={3}
                   style={{ textAlign: "center", verticalAlign: "middle" }}
                 >
                   Kode ICD-10
                 </th>
                 <th
+                className={style['sticky-header-view']}
                   rowSpan={3}
                   style={{ width: "5.5%", textAlign: "left", verticalAlign: "middle" }}
                 >
@@ -826,10 +830,10 @@ const RL41 = () => {
               {dataRL.map((value, index) => {
                 return (
                   <tr style={{ verticalAlign: "center" }} key={value.id}>
-                    <td style={{ textAlign: "center" }}>
+                    <td  className={style['sticky-column-view']} style={{ textAlign: "center" }}>
                       <label>{index + 1}</label>
                     </td>
-                    <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    <td className={style['sticky-column-view']} style={{ textAlign: "center", verticalAlign: "middle" }}>
                       <ToastContainer />
                       <div style={{ display: "flex", alignItems: "center", width: "100%" }}>
                         <button
@@ -858,10 +862,10 @@ const RL41 = () => {
                         </Link>
                       </div>
                     </td>
-                    <td style={{ textAlign: "center" }}>
+                    <td className={style['sticky-column-view']} style={{ textAlign: "center" }}>
                       <label>{value.icd.icd_code}</label>
                     </td>
-                    <td style={{ textAlign: "left" }}>
+                    <td  className={style['sticky-column-view']} style={{ textAlign: "left" }}>
                       <label>{value.icd.description_code}</label>
                     </td>
                     <td>
