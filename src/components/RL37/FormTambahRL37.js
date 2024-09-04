@@ -136,6 +136,7 @@ const FormTambahRL37 = () => {
                 newDataRL[index].disabledInput = true
             }
             newDataRL[index].checked = event.target.checked
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmRumahSakit') {
             if(event.target.value === ''){
                     
@@ -144,6 +145,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmRumahSakit = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmBidan) + parseInt(dataRL[index].rmPuskesmas) + parseInt(dataRL[index].rmFaskesLainnya)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmBidan') {
             if(event.target.value === ''){
                     
@@ -152,6 +154,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmBidan = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmRumahSakit) + parseInt(dataRL[index].rmPuskesmas) + parseInt(dataRL[index].rmFaskesLainnya)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmPuskesmas') {
             if(event.target.value === ''){
                     
@@ -160,6 +163,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmPuskesmas = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmBidan) + parseInt(dataRL[index].rmRumahSakit) + parseInt(dataRL[index].rmFaskesLainnya)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmFaskesLainnya') {
             if(event.target.value === ''){
                     
@@ -168,6 +172,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmFaskesLainnya = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmBidan) + parseInt(dataRL[index].rmPuskesmas) + parseInt(dataRL[index].rmRumahSakit)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmHidup') {
             if(event.target.value === ''){
                     
@@ -175,6 +180,7 @@ const FormTambahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             newDataRL[index].rmHidup = parseInt(event.target.value)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmMati') {
             if(event.target.value === ''){
                     
