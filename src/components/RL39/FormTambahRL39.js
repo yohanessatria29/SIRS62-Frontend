@@ -14,7 +14,7 @@ const FormTambahRL39 = () => {
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
     const [namaKabKota, setNamaKabKota] = useState('')
-    const [bulan, setBulan] = useState(1)
+    const [bulan, setBulan] = useState(0)
     const [tahun, setTahun] = useState('2025')
     const [daftarBulan, setDaftarBulan] = useState([])
     // const [namaKelompokJenisKegiatan, setnamaKelompokJenisKegiatan] = useState([])
@@ -83,6 +83,10 @@ const FormTambahRL39 = () => {
     }
     const getBulan = async () => {
         const results = []
+        results.push({
+            key: "--Pilih Bulan--",
+            value: "0",
+        })
         results.push({
             key: "Januari",
             value: "1",
@@ -223,7 +227,13 @@ const FormTambahRL39 = () => {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            
+            if( bulan==='00' || bulan == 0 ){
+                toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+                setButtonStatus(false);
+                setSpinner(false)
+              }else{
             await axiosJWT.post('/apisirs6v2/rltigatitiksembilan',{
                 periodeBulan: parseInt(bulan),
                 periodeTahun: parseInt(tahun),
@@ -238,6 +248,7 @@ const FormTambahRL39 = () => {
             setTimeout(() => {
                 navigate('/rl39')
             }, 1000);
+        }
         } catch (error) {
             toast(`Data tidak bisa disimpan karena ,${error.response.data.message}`, {
                 position: toast.POSITION.TOP_RIGHT
