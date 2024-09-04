@@ -474,7 +474,7 @@ export const RL317 = () => {
 
 
     return (
-        <div className="container" style={{ marginTop: "70px" }}>
+        <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
         <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
             <Modal.Header closeButton>
                 <Modal.Title>Filter</Modal.Title>
@@ -713,11 +713,11 @@ export const RL317 = () => {
                 >
                      <thead>
                              <tr>
-                                 <th style={{ "width": "5%" }}>No Golongan Obat</th>
-                                 <th style={{ "width": "7%" }}> </th>
-                                 <th style={{ "width": "10%" }}>Golongan Obat</th>
-                                 <th style={{ "width": "5%" }}>JUMLAH ITEM OBAT</th>
-                                 <th style={{ "width": "5%" }}>JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT</th>
+                                 <th style={{ "width": "1.5%" }}>No Golongan Obat</th>
+                                 <th style={{ "width": "0.7%" }}>Aksi</th>
+                                 <th style={{ "width": "7%" }}>Golongan Obat</th>
+                                 <th style={{ "width": "4%" }}>JUMLAH ITEM OBAT</th>
+                                 <th style={{ "width": "4%" }}>JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT</th>
 
                              </tr>
                          </thead>

@@ -236,7 +236,7 @@ if(obat1 >= rs1 && obat2 >= rs2 && obat3 >= rs3 && obat4 >= rs4){
       }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">

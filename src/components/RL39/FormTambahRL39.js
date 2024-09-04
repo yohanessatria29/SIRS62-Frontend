@@ -271,7 +271,7 @@ const FormTambahRL39 = () => {
         setBulan(e.target.value)
     }
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">

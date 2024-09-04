@@ -339,7 +339,7 @@ const RL52 = () => {
   };
 
     return (
-        <div className="container" style={{ marginTop: "70px" }}>
+        <div className="container" style={{ marginTop: "70px" , marginBottom: "70px"}}>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>

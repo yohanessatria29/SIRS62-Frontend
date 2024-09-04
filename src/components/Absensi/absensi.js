@@ -155,7 +155,7 @@ const Absensi = () => {
     }
 
     return (
-        <div className="container" style={{ marginTop: "70px" }}>
+        <div className="container" style={{ marginTop: "70px" , marginBottom: "70px" }}>
             <form onSubmit={Cari}>
                 <div className="row">
                     <div className="col-md-6">

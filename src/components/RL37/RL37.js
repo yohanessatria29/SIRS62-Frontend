@@ -1066,7 +1066,7 @@ const RL37 = () => {
     }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
                 <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
                     <Modal.Header closeButton>
                         <Modal.Title>Filter</Modal.Title>
@@ -1306,8 +1306,8 @@ const RL37 = () => {
                                 }).join(', ')}
                             </h5>
                         </div>
-
-                        <Table
+                        <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
+                        <table
                             className={style.table}
                             striped
                             bordered
@@ -1316,10 +1316,10 @@ const RL37 = () => {
                             ref={tableRef}
                           >
                             <thead className={style.thead}>
-                                <tr>
-                                    <th style={{"width": "2.5%"}}>No.</th>
-                                    <th style={{"width": "6%"}}>Aksi</th>
-                                    <th style={{"width": "10%"}}>Jenis Kegiatan</th>
+                                <tr className="main-header-row">
+                                    <th className={style['sticky-header-view']} style={{"width": "2.5%"}}>No.</th>
+                                    <th className={style['sticky-header-view']} style={{"width": "6%"}}>Aksi</th>
+                                    <th className={style['sticky-header-view']} style={{"width": "10%"}}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>
                                     <th >Rujukan Medis Puskesmas</th>
@@ -1348,9 +1348,9 @@ const RL37 = () => {
                                         // color:"#354259"
                                       }}
                                     >
-                                      <td>{value.groupId}</td>
-                                      <td></td>
-                                      <td>{value.groupNama}</td>
+                                      <td className={style['sticky-column-view']} >{value.groupId}</td>
+                                      <td className={style['sticky-column-view']}></td>
+                                      <td className={style['sticky-column-view']}>{value.groupNama}</td>
                                       <td>{value.groupRmRumahSakit}</td>
                                       <td>{value.groupRmBidan}</td>
                                       <td>{value.groupRmPuskesmas}</td>
@@ -1378,9 +1378,9 @@ const RL37 = () => {
                                               // color:"#354259"
                                             }}
                                           >
-                                            <td>{value2.subGroupNo}</td>
-                                            <td></td>
-                                            <td>{value2.subGroupNama}</td>
+                                            <td className={style['sticky-column-view']}>{value2.subGroupNo}</td>
+                                            <td className={style['sticky-column-view']}></td>
+                                            <td className={style['sticky-column-view']}>{value2.subGroupNama}</td>
                                             <td>{value2.subGroupRmRumahSakit}</td>
                                             <td>{value2.subGroupRmBidan}</td>
                                             <td>{value2.subGroupRmPuskesmas}</td>
@@ -1405,8 +1405,8 @@ const RL37 = () => {
                                                   fontWeight: "bold",
                                                 }}
                                               >
-                                                <td>{value3.jenisKegiatanNo}</td>
-                                                <td>
+                                                <td className={style['sticky-column-view']}>{value3.jenisKegiatanNo}</td>
+                                                <td className={style['sticky-column-view']}>
                                                   <ToastContainer />
                                                   <div style={{display: "flex"}}>
                                                   <button className="btn btn-danger" style={{margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663"}} type='button' onClick={(e) => hapus(value3.id, value3.tahun)}>Hapus</button>
@@ -1415,7 +1415,7 @@ const RL37 = () => {
                                                   </Link>
                                                   </div>
                                                 </td>
-                                                <td>{value3.jenisKegiatanNama}</td>
+                                                <td className={style['sticky-column-view']}>{value3.jenisKegiatanNama}</td>
                                                 <td>{value3.rmRumahSakit}</td>
                                                 <td>{value3.rmBidan}</td>
                                                 <td>{value3.rmPuskesmas}</td>
@@ -1440,7 +1440,8 @@ const RL37 = () => {
                                 );
                               })}
                             </tbody>
-                        </Table>
+                        </table>
+                        </div>
                     </div>
                 </div>
         </div>
