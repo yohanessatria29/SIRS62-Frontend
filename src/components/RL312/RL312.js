@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL312 = () => {
   // const [tahun, setTahun] = useState("");
@@ -32,6 +33,8 @@ const RL312 = () => {
   const [totalsedang, settotalsedang] = useState(0);
   const [totalkecil, settotalkecil] = useState(0);
   const [totalall, settotalall] = useState(0);
+  const tableRef = useRef(null);
+  const [namafile, setNamaFile] = useState("");
 
   useEffect(() => {
     refreshToken();
@@ -243,6 +246,12 @@ const RL312 = () => {
       // setDataRL(dataRLTigaTitikDuaBelasDetails);
 
       setDataRL(rlTigaTitikDuaBelasDetails);
+
+      setNamaFile(
+        "RL312_" +
+          rumahSakit.id +
+          "_".concat(String(tahun).concat("-").concat(bulan).concat("-01"))
+      );
       setRumahSakit(null);
       handleClose();
     } catch (error) {
@@ -390,8 +399,10 @@ const RL312 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
-      <h1>RL 3.12</h1>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -632,6 +643,9 @@ const RL312 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+          <span style={{ color: "gray" }}>
+            <h4>RL 3.12 - Pembedahan</h4>
+          </span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -660,6 +674,26 @@ const RL312 = () => {
             >
               Filter
             </button>
+
+            <DownloadTableExcel
+              filename={namafile}
+              sheet="data RL 312"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button
+                className="btn"
+                style={{
+                  fontSize: "18px",
+                  marginLeft: "5px",
+                  backgroundColor: "#779D9E",
+                  color: "#FFFFFF",
+                }}
+              >
+                {" "}
+                Download
+              </button>
+            </DownloadTableExcel>
           </div>
 
           <div>
@@ -677,6 +711,7 @@ const RL312 = () => {
             striped
             responsive
             style={{ width: "100%" }}
+            ref={tableRef}
           >
             <thead>
               <tr>
@@ -694,15 +729,18 @@ const RL312 = () => {
               {dataRL.map((value, index) => {
                 return (
                   <tr key={value.id}>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      <p>{index + 1}</p>
+                      {/* <input
                         type="text"
                         name="id"
                         className="form-control"
                         value={index + 1}
                         disabled={true}
                         style={{ textAlign: "center" }}
-                      />
+                      /> */}
                     </td>
                     <td
                       style={{ textAlign: "center", verticalAlign: "middle" }}
@@ -746,59 +784,77 @@ const RL312 = () => {
                         <></>
                       )}
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="jenisSpesialisasi"
                         className="form-control"
                         value={value.nama_spesialisasi}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.nama_spesialisasi}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="khusus"
                         className="form-control"
                         value={value.khusus}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.khusus}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="besar"
                         className="form-control"
                         value={value.besar}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.besar}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="sedang"
                         className="form-control"
                         value={value.sedang}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.sedang}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="kecil"
                         className="form-control"
                         value={value.kecil}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.kecil}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="total"
                         className="form-control"
                         value={value.total}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.total}</p>
                     </td>
                   </tr>
                 );
@@ -813,51 +869,60 @@ const RL312 = () => {
                   <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                     <h6>TOTAL</h6>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalKhusus"
                       className="form-control"
                       value={totalkhusus}
                       disabled={true}
-                    />
+                    /> */}
+                    <p>{totalkhusus}</p>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalBesar"
                       className="form-control"
                       value={totalbesar}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalbesar}</p>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalSedang"
                       className="form-control"
                       value={totalsedang}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalsedang}</p>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalKecil"
                       className="form-control"
                       value={totalkecil}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalkecil}</p>
                   </td>
 
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalAll"
                       className="form-control"
                       value={totalall}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalall}</p>
                   </td>
                 </tr>
               ) : (

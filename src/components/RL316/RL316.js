@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL316 = () => {
   const [tahun, setTahun] = useState("");
@@ -24,6 +25,8 @@ const RL316 = () => {
   const [show, setShow] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const tableRef = useRef(null);
+  const [namafile, setNamaFile] = useState("");
 
   const [pelayananKbPaskaPersalinan, setpelayanankbpaskapersalinan] =
     useState(0);
@@ -171,6 +174,7 @@ const RL316 = () => {
       // setDataRL(dataRLTigaTitikDuaBelasDetails);
 
       setDataRL(rlTigaTitikEnamBelasDetails);
+      setNamaFile("RL316_" + rumahSakit.id + "_".concat(String(tahun)));
       setRumahSakit(null);
       handleClose();
     } catch (error) {
@@ -522,6 +526,9 @@ const RL316 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+          <span style={{ color: "gray" }}>
+            <h4>RL 3.16 - Keluarga Berencana</h4>
+          </span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -550,6 +557,26 @@ const RL316 = () => {
             >
               Filter
             </button>
+
+            <DownloadTableExcel
+              filename={namafile}
+              sheet="data RL 316"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button
+                className="btn"
+                style={{
+                  fontSize: "18px",
+                  marginLeft: "5px",
+                  backgroundColor: "#779D9E",
+                  color: "#FFFFFF",
+                }}
+              >
+                {" "}
+                Download
+              </button>
+            </DownloadTableExcel>
           </div>
 
           <div>
@@ -567,6 +594,7 @@ const RL316 = () => {
             striped
             responsive
             style={{ width: "200%" }}
+            ref={tableRef}
           >
             <thead>
               <tr>
