@@ -4,15 +4,11 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
 import style from './RL35.module.css'
 import { HiSaveAs } from 'react-icons/hi'
-import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri'
-import { AiFillFileAdd } from 'react-icons/ai'
 import { confirmAlert } from 'react-confirm-alert'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table'
 import { DownloadTableExcel } from "react-export-table-to-excel"
 
 const RL35 = () => {
@@ -473,7 +469,7 @@ const RL35 = () => {
     }
 
     return (
-        <div className="container" style={{ marginTop: "70px" }}>
+        <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
             <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Filter</Modal.Title>
@@ -714,10 +710,10 @@ const RL35 = () => {
                     <div className={style['table-container']}>
                     <table
                             responsive
-                            style={{ width: "100%" }}
+                            className={style.table}
                         >
                         <thead>
-                            <tr className="main-header-row">
+                            <tr className={style.thead}>
                                 <th rowSpan={2}
                                     style={{ width: "4%", verticalAlign: "middle" }} >No.</th>
                                 <th rowSpan={2}
@@ -728,7 +724,7 @@ const RL35 = () => {
                                 <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Luar Kota</th>
                                 <th rowSpan={2} style={{ verticalAlign: "middle" }}>Total Kunjungan </th>
                             </tr>
-                            <tr className="subheader-row">
+                            <tr className={style['subheader-row']}>
                                 <th style={{ verticalAlign: "middle" }}>Laki-Laki</th>
                                 <th style={{ verticalAlign: "middle" }}>Perempuan</th>
                                 <th style={{ verticalAlign: "middle" }}>Laki-Laki</th>

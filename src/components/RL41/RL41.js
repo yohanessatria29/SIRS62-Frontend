@@ -363,7 +363,7 @@ const RL41 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div className="container" style={{ marginTop: "70px",marginBottom: "70px" }}>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -649,7 +649,7 @@ const RL41 = () => {
                 </th>
                 <th
                   rowSpan={3}
-                  style={{ width: "2.5%", verticalAlign: "middle" }}
+                  style={{ width: "3%", verticalAlign: "middle" }}
                 >
                   Aksi
                 </th>
@@ -763,7 +763,7 @@ const RL41 = () => {
                   ≥ 85 Tahun{" "}
                 </th>
               </tr>
-              <tr className={style['subheader-row']}>
+              <tr className={style['subsubheader-row']}>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>
                 <th style={{ textAlign: "center" }}>Perempuan</th>
                 <th style={{ textAlign: "center" }}>Laki-Laki</th>

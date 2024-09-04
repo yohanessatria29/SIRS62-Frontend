@@ -1,5 +1,5 @@
 .table-container {
-    max-height: 1000px;
+    max-height: 500px;
     /* Adjust the height as needed */
     overflow-y: auto;
 }
@@ -8,17 +8,20 @@
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif; /* Set font family */
     /* Ensures column widths are consistent */
 }
 
-.th,
-.td {
+.table th,
+.table td {
     padding: 8px;
     border: 1px solid #ddd;
 }
 
-.thead th {
-    background-color: #f4f4f4;
+.table thead th {
+    background-color: #fbfefe;
+    color: #59636e;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -30,38 +33,36 @@
     vertical-align: middle;
 }
 
-.subheader-row th {
-    background-color: #f4f4f4;
+.table .subheader-row th {
+    background-color: #fbfefe;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
-    top: 30px;
+    top: 40px;
     /* Adjust this to the height of the main header row */
     z-index: 1;
     /* Ensures the subheader is below the main header */
 }
 
-.thead th.sticky-header:nth-child(1),
-.thead th.sticky-header:nth-child(2),
-.thead th.sticky-header:nth-child(3) {
+.table thead th.sticky-header:nth-child(1),
+.table thead th.sticky-header:nth-child(2),
+.table thead th.sticky-header:nth-child(3) {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
     z-index: 3; /* Above both header and body content */
 }
 
-.sticky-header {
+.table .sticky-header {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0; /* Sticky header */
-    background-color: #f4f4f4;
     z-index: 2; /* Above table content */
 }
 
-.sticky-column {
+.table .sticky-column {
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
-    background-color: #f4f4f4;
     z-index: 1; /* Ensures sticky column is above other content */
 }
