@@ -522,7 +522,7 @@ const RL311 = () => {
 
             <DownloadTableExcel
               filename={namafile}
-              sheet="data RL 35"
+              sheet="data RL 311"
               currentTableRef={tableRef.current}
             >
               {/* <button> Export excel </button> */}

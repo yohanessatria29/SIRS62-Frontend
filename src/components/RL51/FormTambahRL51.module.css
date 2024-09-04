@@ -1,52 +1,198 @@
-/* .rlTable {
+.table-container {
+  max-height: 100px;
+  /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
+.table {
+  width: 200%;
   border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 15px;
+  font-family: "Times New Roman", Times, serif; /* Set font family */
+  /* Ensures column widths are consistent */
+}
+
+.tablesearch {
   width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 15px;
+  font-family: "Times New Roman", Times, serif; /* Set font family */
+  /* Ensures column widths are consistent */
 }
-.rlTable td,
-.rlTable th {
+
+.table th,
+.table td {
+  padding: 8px;
   border: 1px solid #ddd;
-  padding: 4px;
-  white-space: inherit;
-  word-wrap: break-word;
 }
-.rlTable tr:nth-child(even) {
-  background-color: #f2f2f2;
+
+.tablesearch th,
+.tablesearch td {
+  padding: 8px;
+  border: 1px solid #ddd;
 }
-.rlTable tr:hover {
-  background-color: #fcfee4;
-}
-.rlTable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center !important;
+
+.table thead th {
   background-color: #779d9e;
   color: white;
-  vertical-align: middle;
-} */
-
-.rlTable {
-  border-collapse: collapse;
-  width: 100%;
-}
-.rlTable td,
-.rlTable th {
-  border: 1px dotted #779d9e;
-  font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 4px;
-  vertical-align: middle;
+  position: -webkit-sticky;
+  /* For Safari */
+  position: sticky;
+  top: 0;
+  /* Keeps the main header at the top */
+  z-index: 2;
+  /* Ensures the main header is above other content */
   text-align: center;
+  vertical-align: middle;
 }
-.rlTable tr:nth-child(even) {
-  background-color: #f2f2f2;
+
+.tablesearch thead th {
+  background-color: #779d9e;
+  color: white;
+  position: -webkit-sticky;
+  /* For Safari */
+  position: sticky;
+  top: 0;
+  /* Keeps the main header at the top */
+  z-index: 2;
+  /* Ensures the main header is above other content */
+  text-align: center;
+  vertical-align: middle;
 }
-.rlTable tr:hover {
-  background-color: #ddd;
-}
-.rlTable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: center !important;
+
+.table .subheader-row th {
   background-color: #fbfefe;
-  color: black;
+  position: -webkit-sticky;
+  /* For Safari */
+  position: sticky;
+  top: 40px;
+  /* Adjust this to the height of the main header row */
+  z-index: 1;
+  /* Ensures the subheader is below the main header */
+}
+
+.table thead th.sticky-header:nth-child(1) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 0;
+  z-index: 4; /* Above both header and body content */
+}
+.table thead th.sticky-header:nth-child(2) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 50px;
+  z-index: 4; /* Above both header and body content */
+}
+.table thead th.sticky-header:nth-child(3) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 80px;
+  z-index: 4; /* Above both header and body content */
+}
+
+.table tbody tr td.sticky-column:nth-child(1) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 0;
+  z-index: 3; /* Above both header and body content */
+}
+.table tbody tr td.sticky-column:nth-child(2) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 50px;
+  z-index: 3; /* Above both header and body content */
+}
+.table tbody tr td.sticky-column:nth-child(3) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 80px;
+  z-index: 3; /* Above both header and body content */
+}
+
+.table .sticky-header {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0; /* Sticky header */
+  z-index: 2; /* Above table content */
+  background-color: #779d9e;
+  color: white;
+}
+
+.table .sticky-column {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 0;
+  z-index: 1; /* Ensures sticky column is above other content */
+  background-color: #fbfefe;
+}
+
+/* view */
+.table thead th.sticky-header-view:nth-child(1) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 0;
+  z-index: 4; /* Above both header and body content */
+}
+.table thead th.sticky-header-view:nth-child(2) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 73px;
+  z-index: 4; /* Above both header and body content */
+}
+.table thead th.sticky-header-view:nth-child(3) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 218px;
+  z-index: 4; /* Above both header and body content */
+}
+
+.table thead th.sticky-header-view:nth-child(4) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 363px;
+  z-index: 4; /* Above both header and body content */
+}
+
+.table tbody tr td.sticky-column-view:nth-child(1) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 0;
+  z-index: 3; /* Above both header and body content */
+}
+.table tbody tr td.sticky-column-view:nth-child(2) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 73px;
+  z-index: 3; /* Above both header and body content */
+}
+.table tbody tr td.sticky-column-view:nth-child(3) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 218px;
+  z-index: 3; /* Above both header and body content */
+}
+.table tbody tr td.sticky-column-view:nth-child(4) {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 363px;
+  z-index: 3; /* Above both header and body content */
+}
+
+.table .sticky-header-view {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0; /* Sticky header */
+  z-index: 2; /* Above table content */
+  background-color: #779d9e;
+  color: white;
+}
+
+.table .sticky-column-view {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  left: 0;
+  z-index: 0; /* Ensures sticky column is above other content */
+  background-color: #fbfefe;
 }
