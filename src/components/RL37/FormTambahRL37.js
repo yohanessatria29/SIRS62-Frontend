@@ -12,7 +12,7 @@ import Spinner from 'react-bootstrap/Spinner'
 
 const FormTambahRL37 = () => {
     const [tahun, setTahun] = useState('2025')
-    const [bulan, setBulan] = useState('01')
+    const [bulan, setBulan] = useState('00')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
@@ -295,19 +295,27 @@ const FormTambahRL37 = () => {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            const result = await axiosJWT.post('/apisirs6v2/rltigatitiktujuh',{
-                tahun: parseInt(tahun),
-                tahunDanBulan : date,
-                data: dataRLArray
-            }, customConfig)
-            console.log(result.data)
-            setSpinner(false)
-            toast('Data Berhasil Disimpan', {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            setTimeout(() => {
-                navigate('/rl37')
-            }, 1000);
+            if( bulan==='00' || bulan == 0 ){
+                toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+                setButtonStatus(false);
+                setSpinner(false)
+              }else{
+                const result = await axiosJWT.post('/apisirs6v2/rltigatitiktujuh',{
+                    tahun: parseInt(tahun),
+                    tahunDanBulan : date,
+                    data: dataRLArray
+                }, customConfig)
+                console.log(result.data)
+                setSpinner(false)
+                toast('Data Berhasil Disimpan', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                setTimeout(() => {
+                    navigate('/rl37')
+                }, 1000);
+            }
         } catch (error) {
             console.log(error)
             toast('Data Gagal Disimpan', {
@@ -385,6 +393,7 @@ const FormTambahRL37 = () => {
                                 </div>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>
                                     <select name="bulan" className="form-control" id="bulan" onChange={e => changeHandlerSingle(e)}>
+                                        <option value="00">--Pilih Bulan--</option>
                                         <option value="01">Januari</option>
                                         <option value="02">Februari</option>
                                         <option value="03">Maret</option>
@@ -484,7 +493,6 @@ const FormTambahRL37 = () => {
                                         disabledRnmMati = true
                                         disabledNRMati = true
                                         disabledDirujuk = true
-
                                         disabledrmRumahSakit = true
                                         disabledrmBidan =true
                                         disabledrmPuskesmas =true
@@ -499,17 +507,30 @@ const FormTambahRL37 = () => {
                                             disabledNRMati = true
                                             disabledDirujuk = true
                                         } else {
-                                            disabledRmMati = false
-                                            disabledRnmMati = false
-                                            disabledNRMati = false
-                                            disabledDirujuk = false
-                                            disabledrmRumahSakit = false
-                                            disabledrmBidan =false
-                                            disabledrmPuskesmas =false
-                                            disabledrmFaskesLainnya = false
-                                            disabledrmHidup = false
-                                            disabledrnmHidup = false
-                                            disablednrHidup = false
+                                            if(value.no === "2.1" || value.no === "2.2" || value.no === "3.1" || value.no === "3.2"){
+                                                disabledRmMati = false
+                                                disabledRnmMati = false
+                                                disabledNRMati = false
+                                                // disabledDirujuk = false
+                                                disabledrmRumahSakit = false
+                                                disabledrmBidan =false
+                                                disabledrmPuskesmas =false
+                                                disabledrmFaskesLainnya = false
+                                                // disabledrnmHidup = false
+                                                // disablednrHidup = false
+                                            }else{
+                                                disabledRmMati = false
+                                                disabledRnmMati = false
+                                                disabledNRMati = false
+                                                disabledDirujuk = false
+                                                disabledrmRumahSakit = false
+                                                disabledrmBidan =false
+                                                disabledrmPuskesmas =false
+                                                disabledrmFaskesLainnya = false
+                                                disabledrnmHidup = false
+                                                disablednrHidup = false
+                                            }
+                                            
                                         }
                                     }
                                     return (
