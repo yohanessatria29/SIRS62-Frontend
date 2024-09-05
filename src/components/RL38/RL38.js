@@ -727,7 +727,7 @@ const RL38 = () => {
           </h5>
         </div>
         <div className={style['table-container']}>
-        <table className={style['table']}>
+        <table className={style['table']} ref={tableRef}>
             <thead className={style['thead']}>
               <tr className="main-header-row">
                 <th

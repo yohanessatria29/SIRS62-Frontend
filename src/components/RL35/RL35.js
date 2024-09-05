@@ -711,6 +711,7 @@ const RL35 = () => {
                     <table
                             responsive
                             className={style.table}
+                            ref={tableRef}
                         >
                         <thead>
                             <tr className={style.thead}>
