@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const FormUbahRL33 = () => {
   const navigate = useNavigate();
+  const [buttonStatus, setButtonStatus] = useState(false);
   const [tahun, setTahun] = useState("");
   const [bulan, setBulan] = useState("");
   // Data RS
@@ -172,6 +173,7 @@ export const FormUbahRL33 = () => {
       toast("Data Gagal Diupdate", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setButtonStatus(false);
     }
   };
 
@@ -275,6 +277,10 @@ export const FormUbahRL33 = () => {
     }
   };
 
+  const handleFocus = (event) => {
+    event.target.select();
+  };
+
   const preventMinus = (e) => {
     if (e.code === "Minus") {
       e.preventDefault();
@@ -292,6 +298,7 @@ export const FormUbahRL33 = () => {
 
   return (
     <div className="container" style={{ marginTop: "70px" }}>
+      <h2>RL. 3.3</h2>
       <form onSubmit={updateDataRLTigaTitikTiga}>
         <div className="row">
           <div className="col-md-6">
@@ -370,266 +377,293 @@ export const FormUbahRL33 = () => {
             </Link>
             <span style={{ color: "gray" }}>Kembali RL 3.3 Rawat Darurat</span>
 
-            <Table
-              className={style.rlTable}
-              striped
-              bordered
-              responsive
-              style={{ width: "200%" }}
-            >
-              <thead>
-                <tr>
-                  <th
-                    style={{ width: "5%", verticalAlign: "middle" }}
-                    rowSpan={2}
-                  >
-                    No Pelayanan
-                  </th>
-                  <th
-                    rowSpan={2}
-                    style={{ width: "25%", verticalAlign: "middle" }}
-                  >
-                    Nama Pelayanan
-                  </th>
-                  <th colSpan={2}>Total Pasien</th>
-                  <th colSpan={3}>Tindak Lanjut Pelayanan</th>
-                  <th colSpan={2}>Mati di IGD</th>
-                  <th colSpan={2}>DOA</th>
-                  <th colSpan={2}>Luka-luka</th>
-                  <th rowSpan={2} style={{ verticalAlign: "middle" }}>
-                    False Emergency
-                  </th>
-                </tr>
-                <tr>
-                  <th>Rujukan</th>
-                  <th>Non Rujukan</th>
-                  <th>Dirawat</th>
-                  <th>Dirujuk</th>
-                  <th>Pulang</th>
-                  <th style={{ width: "5%" }}>L</th>
-                  <th style={{ width: "5%" }}>P</th>
-                  <th style={{ width: "5%" }}>L</th>
-                  <th style={{ width: "5%" }}>P</th>
-                  <th style={{ width: "5%" }}>L</th>
-                  <th style={{ width: "5%" }}>P</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input
-                      name="no"
-                      type="text"
-                      className="form-control"
-                      id="floatingInput"
-                      placeholder="No"
-                      value={no}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      name="nama"
-                      type="text"
-                      className="form-control"
-                      id="floatingInput"
-                      placeholder="Kegiatan"
-                      value={nama}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <div className="control">
+            <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+              <table responsive className={style.table}>
+                <thead className={style.thead}>
+                  <tr className="main-header-row">
+                    <th
+                      style={{ width: "3%", verticalAlign: "middle" }}
+                      rowSpan={2}
+                      className={style["sticky-header"]}
+                    >
+                      No Pelayanan
+                    </th>
+                    <th
+                      rowSpan={2}
+                      style={{ width: "17%", verticalAlign: "middle" }}
+                      className={style["sticky-header"]}
+                    >
+                      Nama Pelayanan
+                    </th>
+                    <th style={{ width: "8%" }} colSpan={2}>
+                      Total Pasien
+                    </th>
+                    <th style={{ width: "12%" }} colSpan={3}>
+                      Tindak Lanjut Pelayanan
+                    </th>
+                    <th style={{ width: "8%" }} colSpan={2}>
+                      Mati di IGD
+                    </th>
+                    <th style={{ width: "8%" }} colSpan={2}>
+                      DOA
+                    </th>
+                    <th style={{ width: "8%" }} colSpan={2}>
+                      Luka-luka
+                    </th>
+                    <th
+                      rowSpan={2}
+                      style={{ width: "4%", verticalAlign: "middle" }}
+                    >
+                      False Emergency
+                    </th>
+                  </tr>
+                  <tr className={style["subheader-row"]}>
+                    <th style={{ width: "4%" }}>Rujukan</th>
+                    <th style={{ width: "4%" }}>Non Rujukan</th>
+                    <th style={{ width: "4%" }}>Dirawat</th>
+                    <th style={{ width: "4%" }}>Dirujuk</th>
+                    <th style={{ width: "4%" }}>Pulang</th>
+                    <th style={{ width: "4%" }}>L</th>
+                    <th style={{ width: "4%" }}>P</th>
+                    <th style={{ width: "4%" }}>L</th>
+                    <th style={{ width: "4%" }}>P</th>
+                    <th style={{ width: "4%" }}>L</th>
+                    <th style={{ width: "4%" }}>P</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={style["sticky-column"]}>
                       <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
+                        name="no"
+                        type="text"
                         className="form-control"
-                        value={pasienRujukan}
-                        onChange={(e) => setPasienRujukan(e.target.value)}
-                        placeholder="pasienRujukan"
+                        id="floatingInput"
+                        placeholder="No"
+                        value={no}
+                        disabled={true}
                       />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
+                    </td>
+                    <td className={style["sticky-column"]}>
                       <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
+                        name="nama"
+                        type="text"
                         className="form-control"
-                        value={pasienNonRujukan}
-                        onChange={(e) => setPasienNonRujukan(e.target.value)}
-                        placeholder="pasienNonRujukan"
+                        id="floatingInput"
+                        placeholder="Kegiatan"
+                        value={nama}
+                        disabled={true}
                       />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={tlpDirawat}
-                        onChange={(e) => setTlpDirawat(e.target.value)}
-                        placeholder="tlpDirawat"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={tlpDirujuk}
-                        onChange={(e) => setTlpDirujuk(e.target.value)}
-                        placeholder="tlpDirujuk"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={tlpPulang}
-                        onChange={(e) => setTlpPulang(e.target.value)}
-                        placeholder="tlpPulang"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={igdLaki}
-                        onChange={(e) => setIgdLaki(e.target.value)}
-                        placeholder="igdLaki"
-                        disabled={no === "3" || no === "2.1" ? true : false}
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={igdPerempuan}
-                        onChange={(e) => setIgdPerempuan(e.target.value)}
-                        placeholder="igdPerempuan"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={doaLaki}
-                        onChange={(e) => setDoaLaki(e.target.value)}
-                        placeholder="doaLaki"
-                        disabled={no === "3" || no === "2.1" ? true : false}
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={doaPerempuan}
-                        onChange={(e) => setDoaPerempuan(e.target.value)}
-                        placeholder="doaPerempuan"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={lukaLaki}
-                        onChange={(e) => setLukaLaki(e.target.value)}
-                        placeholder="lukaLaki"
-                        disabled={no === "3" || no === "2.1" ? true : false}
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={lukaPerempuan}
-                        onChange={(e) => setLukaPerempuan(e.target.value)}
-                        placeholder="lukaPerempuan"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={falseEmergency}
-                        onChange={(e) => setFalseEmergency(e.target.value)}
-                        placeholder="falseEmergency"
-                        disabled={no < 2 ? true : false}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={pasienRujukan}
+                          onChange={(e) => setPasienRujukan(e.target.value)}
+                          placeholder="pasienRujukan"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={pasienNonRujukan}
+                          onChange={(e) => setPasienNonRujukan(e.target.value)}
+                          placeholder="pasienNonRujukan"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={tlpDirawat}
+                          onChange={(e) => setTlpDirawat(e.target.value)}
+                          placeholder="tlpDirawat"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={tlpDirujuk}
+                          onChange={(e) => setTlpDirujuk(e.target.value)}
+                          placeholder="tlpDirujuk"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={tlpPulang}
+                          onChange={(e) => setTlpPulang(e.target.value)}
+                          placeholder="tlpPulang"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={igdLaki}
+                          onChange={(e) => setIgdLaki(e.target.value)}
+                          placeholder="igdLaki"
+                          disabled={no === "3" || no === "2.1" ? true : false}
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={igdPerempuan}
+                          onChange={(e) => setIgdPerempuan(e.target.value)}
+                          placeholder="igdPerempuan"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={doaLaki}
+                          onChange={(e) => setDoaLaki(e.target.value)}
+                          placeholder="doaLaki"
+                          disabled={no === "3" || no === "2.1" ? true : false}
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={doaPerempuan}
+                          onChange={(e) => setDoaPerempuan(e.target.value)}
+                          placeholder="doaPerempuan"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={lukaLaki}
+                          onChange={(e) => setLukaLaki(e.target.value)}
+                          placeholder="lukaLaki"
+                          disabled={no === "3" || no === "2.1" ? true : false}
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={lukaPerempuan}
+                          onChange={(e) => setLukaPerempuan(e.target.value)}
+                          placeholder="lukaPerempuan"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          onFocus={handleFocus}
+                          className="form-control"
+                          value={falseEmergency}
+                          onChange={(e) => setFalseEmergency(e.target.value)}
+                          placeholder="falseEmergency"
+                          disabled={no < 2 ? true : false}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div className="mt-3 mb-3">
           <ToastContainer />
-          <button type="submit" className="btn btn-outline-success">
+          <button
+            type="submit"
+            className="btn btn-outline-success"
+            disabled={buttonStatus}
+          >
             <HiSaveAs /> Update
           </button>
         </div>
