@@ -80,7 +80,8 @@ const FormTambahRL316 = () => {
     // setSpinner(true);
     try {
       const response = await axiosJWT.get(
-        "/apisirs6v2/jenispelayanankeluargaberencana",
+        // "/apisirs6v2/jenispelayanankeluargaberencana",
+        "/apisirs6v2/rltigatitikenambelasjenispelayanankeluargaberencana",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -365,9 +366,6 @@ const FormTambahRL316 = () => {
                     No.
                   </th>
                   <th rowSpan="2" style={{ width: "1%" }}></th>
-                  <th rowSpan="2" style={{ width: "2%" }}>
-                    No
-                  </th>
                   <th rowSpan="2" style={{ width: "15%" }}>
                     Jenis Pelayanan Keluarga Berencana
                   </th>
@@ -395,7 +393,7 @@ const FormTambahRL316 = () => {
               </thead>
               <tbody>
                 {dataRL.map((value, index) => {
-                  if (value.id === 88) {
+                  if (value.id === 9) {
                     return (
                       <tr key={value.id}>
                         <td>{value.id}</td>
@@ -406,15 +404,6 @@ const FormTambahRL316 = () => {
                             className="checkbox"
                             onChange={(e) => changeHandler(e, index)}
                             checked={value.checked}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="noMetoda"
-                            className="form-control"
-                            value={value.no}
-                            disabled={true}
                           />
                         </td>
                         <td>
@@ -436,7 +425,7 @@ const FormTambahRL316 = () => {
                             className="form-control"
                             value={value.pelayananKbPaskaPersalinan}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            disabled={true}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
                             onFocus={handleFocus}
@@ -452,7 +441,7 @@ const FormTambahRL316 = () => {
                             className="form-control"
                             value={value.pelayananKbPaskaKeguguran}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            disabled={true}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
                           />
@@ -467,7 +456,7 @@ const FormTambahRL316 = () => {
                             className="form-control"
                             value={value.pelayananKbInterval}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            disabled={true}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
                           />
@@ -482,7 +471,7 @@ const FormTambahRL316 = () => {
                             className="form-control"
                             value={value.komplikasiKB}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            disabled={true}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
                             onFocus={handleFocus}
@@ -498,7 +487,7 @@ const FormTambahRL316 = () => {
                             className="form-control"
                             value={value.kegagalanKB}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            disabled={true}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
                           />
@@ -513,7 +502,7 @@ const FormTambahRL316 = () => {
                             className="form-control"
                             value={value.efekSamping}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            disabled={true}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
                           />
@@ -528,7 +517,7 @@ const FormTambahRL316 = () => {
                             className="form-control"
                             value={value.dropOut}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            disabled={true}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
                           />
@@ -546,15 +535,6 @@ const FormTambahRL316 = () => {
                             className="checkbox"
                             onChange={(e) => changeHandler(e, index)}
                             checked={value.checked}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="noMetoda"
-                            className="form-control"
-                            value={value.no}
-                            disabled={true}
                           />
                         </td>
                         <td>

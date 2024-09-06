@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import style from './FormTambahRL317.module.css'
 import { HiSaveAs } from 'react-icons/hi'
 import { Link } from "react-router-dom"
-import { IoArrowBack } from "react-icons/io5"
+// import { IoArrowBack } from "react-icons/io5"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from "react-bootstrap/esm/Spinner"
@@ -112,14 +112,17 @@ export const FormUbahRL317 = () => {
         e.preventDefault();
         setSpinner(true)
         setButtonStatus(true)
-        try {
+        
             const data = {
                 // "golonganObatId": golonganObatId,
                 "jumlahItemObat": jumlah_item_obat,
                 "jumlahItemObatRs": jumlah_item_obat_rs
                 
             }
+// console.log(jumlah_item_obat);
+if(jumlah_item_obat >= jumlah_item_obat_rs ){
 
+    try {
             const customConfig = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -144,6 +147,16 @@ export const FormUbahRL317 = () => {
             setButtonStatus(false)
             setSpinner(false)
         }
+    }else{
+        toast(
+            `Data Gagal Disimpan, Jumlah Item Obat Di Rumah Sakit tidak boleh lebih besar dari Jumlah Item Obat`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          setButtonStatus(false)
+          setSpinner(false)
+    }
         
     };
     
@@ -185,7 +198,7 @@ export const FormUbahRL317 = () => {
       }
 
   return (
-    <div className="container" style={{marginTop: "70px"}}>
+    <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
     <form onSubmit={Simpan}>
         <div className="row">
             <div className="col-md-6">
@@ -249,19 +262,35 @@ export const FormUbahRL317 = () => {
                         </td>
                         <td>{nama}
                         </td>
-                        <td><div className="control">
+                        
+                        <td> {nama === "Tidak Ada Data" &&
+                            <div className="control">
                                 <input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat" value={jumlah_item_obat} onFocus={handleFocus}
                                     onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
-                                onKeyPress={preventMinus} />
-                            </div>
+                                onKeyPress={preventMinus} disabled={true}/>
+                            </div>}
+
+                            {nama !== "Tidak Ada Data" &&
+                            <div className="control">
+                                <input type="number" min={0} maxLength={7}
+                                    onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat" value={jumlah_item_obat} onFocus={handleFocus}
+                                    onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
+                                onKeyPress={preventMinus} disabled={false}/>
+                            </div>}
                         </td>
-                        <td><div className="control">
+                        <td>{nama === "Tidak Ada Data" &&<div className="control">
                                 <input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat_rs" value={jumlah_item_obat_rs} onFocus={handleFocus}
                                     onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
-                                onKeyPress={preventMinus} />
-                            </div>
+                                onKeyPress={preventMinus} disabled={true}/>
+                            </div>}
+                            {nama !== "Tidak Ada Data" &&<div className="control">
+                                <input type="number" min={0} maxLength={7}
+                                    onInput={(e) => maxLengthCheck(e)} className="form-control" name="jumlah_item_obat_rs" value={jumlah_item_obat_rs} onFocus={handleFocus}
+                                    onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
+                                onKeyPress={preventMinus} disabled={false}/>
+                            </div>}
                         </td>
                        
                         </tr>

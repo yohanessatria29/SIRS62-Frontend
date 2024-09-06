@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
@@ -13,10 +13,12 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table'
+import { DownloadTableExcel } from "react-export-table-to-excel"
+
 
 export const RL39 = () => {
   const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [filterLabel, setFilterLabel] = useState([])
     const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -30,6 +32,8 @@ export const RL39 = () => {
     const [user, setUser] = useState({})
     const [total, setTotal] = useState(0)
     const [spinner, setSpinner]= useState(false)
+    const [namafile, setNamaFile] = useState("");
+    const tableRef = useRef(null);
     const navigate = useNavigate()
     
 
@@ -39,14 +43,14 @@ export const RL39 = () => {
         // getRL39();
         setTotal()
         getBulan()
-        const getLastYear = async () => {
-            const date = new Date()
-            setTahun(date.getFullYear() - 1)
-            return date.getFullYear() - 1
-        }
-        getLastYear().then((results) => {
+        // const getLastYear = async () => {
+        //     const date = new Date()
+        //     setTahun(date.getFullYear())
+        //     return date.getFullYear()
+        // }
+        // getLastYear().then((results) => {
             
-        })
+        // })
         // getCariTahun(202y2)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -282,6 +286,7 @@ const total = data.reduce((previousValue, currentValue) => {
 }, 0);
 setTotal(total);
 setDataRL(data);
+setNamaFile("RL39_"+rumahSakit.id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
 setSpinner(false)
 handleClose()
 
@@ -290,126 +295,6 @@ handleClose()
     }
   };
  
-//   const deleteUser = async (id) => {
-  
-//     try {
-//         const customConfig = {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         };
-//         await axiosJWT.delete(`/apisirs6v2/rltigatitiksembilan/${id}`,
-//         customConfig)
-        
-//             try {
-//                 const customConfig = {
-//                     headers: {
-//                         'Content-Type': 'application/json',
-//                         'Authorization': `Bearer ${token}`
-//                     },
-//                     params: {
-//                         tahun: tahun
-//                     }
-//                 }
-//                 const results = await axiosJWT.get('/apisirs6v2/rltigatitiksembilan',
-//                     customConfig)
-                
-//                 console.log(results)
-      
-//                 const rlTigaTitikSembilanDetails = results.data.data.map((value) => {
-//                     return value;
-//                   });
-//                   let sortedProducts = rlTigaTitikSembilanDetails.sort((p1, p2) =>
-//                         p1.jenis_kegiatan_id > p2.jenis_kegiatan_id
-//                       ? 1
-//                       : p1.jenis_kegiatan_id < p2.jenis_kegiatan_id
-//                       ? -1
-//                       : 0
-//                   );
-      
-//       let groups = [];
-//             sortedProducts.reduce(function (res, value) {
-//                 if (!res[value.group_jenis_kegiatan_id]) {
-//                     res[value.group_jenis_kegiatan_id] = {
-//                       groupId: value.group_jenis_kegiatan_id,
-//                       groupNama:
-//                         value.nama_group_jenis_kegiatan,
-//                       groupNo:
-//                         value.no_group_jenis_kegiatan,
-//                       jumlah: 0,
-                      
-//                     };
-//                     groups.push(
-//                       res[value.group_jenis_kegiatan_id]
-//                     );
-//                   }
-//                   res[value.group_jenis_kegiatan_id].jumlah +=
-//                     value.jumlah;
-                
-//                   return res;
-//             }, {});
-      
-//             let data = [];
-//             groups.forEach((element) => {
-//               if (element.groupId != null) {
-//                 const filterData = sortedProducts.filter((value, index) => {
-//                   return (
-//                     value.jenis_kegiatan_rl_tiga_titik_sembilan.group_jenis_kegiatan_rl_tiga_titik_sembilan_id ===
-//                     element.groupId
-//                   );
-//                 });
-//                 data.push({
-//                   groupNo: element.groupId,
-//                   groupNama: element.groupNama,
-//                   groupNomor:element.groupNo,
-//                   details: filterData,
-//                   subTotal: element.jumlah,
-//                 });
-//               }
-//             });
-//             const total = data.reduce((previousValue, currentValue) => {
-//               return previousValue + currentValue.subTotal;
-//             }, 0);
-//             setTotal(total);
-              
-//             setDataRL(data);
-//             console.log(data)
-//             console.log(setDataRL)
-//           } catch (error) {
-//             toast("Get Data Error", {
-//               position: toast.POSITION.TOP_RIGHT,
-//             });
-//             console.log(error);
-//           }
-//         toast('Data Berhasil Dihapus', {
-//             position: toast.POSITION.TOP_RIGHT
-//         })
-//     } catch (error) {
-//         console.log(error)
-//         toast('Data Gagal Dihapus', {
-//             position: toast.POSITION.TOP_RIGHT
-//         })
-//     }
-// }
-    
-//     const hapus = (id) => {
-//         confirmAlert({
-//             title: 'Konfirmasi Penghapusan',
-//             message: 'Apakah Anda Yakin?',
-//             buttons: [
-//                 {
-//                     label: 'Ya',
-//                     onClick: () => {
-//                         deleteUser(id, tahun)
-//                     }
-//                 },
-//                 {
-//                     label: 'Tidak'
-//                 }
-//             ]
-//         })
-//     }
-
 const deleteRL = async (id) => {
     const customConfig = {
         headers: {
@@ -613,7 +498,7 @@ const hapus = (id) => {
     }
 
     return (
-      <div className="container" style={{ marginTop: "70px" }}>
+      <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
       <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
           <Modal.Header closeButton>
               <Modal.Title>Filter</Modal.Title>
@@ -831,8 +716,19 @@ const hapus = (id) => {
                         <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                             Filter
                         </button>
+                        <DownloadTableExcel
+                            filename={namafile}
+                            sheet="Data RL 39"
+                            currentTableRef={tableRef.current}
+                        >
+                            {/* <button> Export excel </button> */}
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+                            </button>
+                        </DownloadTableExcel>
                     </div>
-                    
+                    <div className="col-md-2" style={{ fontSize: "16px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
+                        RL 3.9-Radiologi
+                        </div>
                     <div>
                         <h5 style={{fontSize: "14px"}}>
                             filtered by {filterLabel.map((value) => {
@@ -852,12 +748,13 @@ const hapus = (id) => {
                   {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                   {spinner && <Spinner animation="grow" variant="success"></Spinner>}
           </div>
-                <table className={style.rlTable}>
+                <table className={style.rlTable}
+                 ref={tableRef}>
                   
                     <thead>
                         <tr>
                         <th style={{"width": "6%"}}>No</th>
-                            <th style={{"width": "10%"}}> </th>
+                            <th style={{"width": "12%"}}> </th>
                             {/* <th style={{"width": "7%"}}>No Kegiatan</th> */}
                             <th>Jenis Kegiatan</th>
                             <th>Jumlah</th>

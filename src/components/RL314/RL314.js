@@ -730,6 +730,7 @@ const RL314 = () => {
                         >
                           Hapus
                         </button>
+                        {value.no != 0 ? (
                         <Link
                           to={`/rl314/ubah/${value.id}`}
                           className="btn btn-warning"
@@ -742,6 +743,9 @@ const RL314 = () => {
                         >
                           Ubah
                         </Link>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </td>
                     <td>{value.namaJenisKegiatan}</td>
