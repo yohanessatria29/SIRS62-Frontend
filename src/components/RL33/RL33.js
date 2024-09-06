@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import style from "./FormTambahRL33.module.css";
+import style from "./RL33.module.css";
 import { HiSaveAs } from "react-icons/hi";
+import { confirmAlert } from "react-confirm-alert";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Modal from "react-bootstrap/Modal";
-import Table from "react-bootstrap/Table";
+// import Table from 'react-bootstrap/Table'
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL33 = () => {
   const [tahun, setTahun] = useState("");
@@ -420,6 +421,57 @@ const RL33 = () => {
       total.false_emergency += parseInt(value.false_emergency);
     });
 
+  function handleDownloadExcel() {
+    const header = [
+      "No",
+      "No Pelayanan",
+      "Jenis Pelayanan",
+      "Total Pasien Rujukan",
+      "Total Pasien Non Rujukan",
+      "Tindak Lanjut Pelayanan Dirawat",
+      "Tindak Lanjut Pelayanan Dirujuk",
+      "Tindak Lanjut Pelayanan Pulang",
+      "Mati di IGD (L)",
+      "Mati di IGD (P)",
+      "DOA (L)",
+      "DOA (P)",
+      "Luka-luka (L)",
+      "Luka-luka (P)",
+      "False Emergency",
+    ];
+
+    const body = dataRL.map((value, index) => {
+      const data = [
+        index + 1,
+        value.jenis_pelayanan_rl_tiga_titik_tiga.no,
+        value.jenis_pelayanan_rl_tiga_titik_tiga.nama,
+        value.total_pasien_rujukan,
+        value.total_pasien_non_rujukan,
+        value.tlp_dirawat,
+        value.tlp_dirujuk,
+        value.tlp_pulang,
+        value.m_igd_laki,
+        value.m_igd_perempuan,
+        value.doa_laki,
+        value.doa_perempuan,
+        value.luka_laki,
+        value.luka_perempuan,
+        value.false_emergency,
+      ];
+
+      return data;
+    });
+
+    downloadExcel({
+      fileName: "RL_3_3",
+      sheet: "react-export-table-to-excel",
+      tablePayload: {
+        header,
+        body: body,
+      },
+    });
+  }
+
   return (
     <div className="container" style={{ marginTop: "70px" }}>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
@@ -640,133 +692,10 @@ const RL33 = () => {
           </Modal.Footer>
         </form>
       </Modal>
-      {/* <div className="row">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title h5">Profil Fasyankes</h5>
-              <div
-                className="form-floating"
-                style={{ width: "100%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={namaRS}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Nama</label>
-              </div>
-              <div
-                className="form-floating"
-                style={{ width: "100%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={alamatRS}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Alamat</label>
-              </div>
-              <div
-                className="form-floating"
-                style={{ width: "50%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={namaPropinsi}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Provinsi </label>
-              </div>
-              <div
-                className="form-floating"
-                style={{ width: "50%", display: "inline-block" }}
-              >
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInput"
-                  value={namaKabKota}
-                  disabled={true}
-                />
-                <label htmlFor="floatingInput">Kab/Kota</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title h5">Periode Laporan</h5>
-              <form onSubmit={Cari}>
-                <div
-                  className="form-floating"
-                  style={{ width: "100%", display: "inline-block" }}
-                >
-                  <input
-                    name="tahun"
-                    type="text"
-                    className="form-control"
-                    id="floatingInput"
-                    placeholder="Tahun"
-                    value={tahun}
-                    onChange={(e) => changeHandlerSingle(e)}
-                  />
-                  <label htmlFor="floatingInput">Tahun</label>
-                </div>
-                <div
-                  className="form-floating"
-                  style={{ width: "100%", display: "inline-block" }}
-                >
-                  <select
-                    name="bulan"
-                    className="form-control"
-                    id="bulan"
-                    value={bulan}
-                    onChange={(e) => setBulan(e.target.value)}
-                  >
-                    {months.map((value) => (
-                      <option key={value.value - 1} value={value.value}>
-                        {value.label}
-                      </option>
-                    ))}
-                  </select>
-                  <label htmlFor="floatingInput">Bulan</label>
-                </div>
-                <div className="mt-3 mb-3">
-                  <button
-                    type="submit"
-                    className="btn btn-outline-success w-100"
-                  >
-                    <HiSaveAs /> Cari
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
       <div className="row">
         <div className="col-md-12">
-          {/* <Link
-            to={`/rl33/tambah/`}
-            className="btn btn-info"
-            style={{
-              fontSize: "18px",
-              backgroundColor: "#779D9E",
-              color: "#FFFFFF",
-            }}
-          >
-            +
-          </Link>
-          <span style={{ color: "gray" }}>RL. 3.3 Rawat Darurat </span> */}
+          <h2>RL. 3.3</h2>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -795,6 +724,18 @@ const RL33 = () => {
             >
               Filter
             </button>
+            <button
+              className="btn"
+              style={{
+                fontSize: "18px",
+                marginLeft: "5px",
+                backgroundColor: "#779D9E",
+                color: "#FFFFFF",
+              }}
+              onClick={handleDownloadExcel}
+            >
+              Download
+            </button>
           </div>
 
           {filterLabel.length > 0 ? (
@@ -812,258 +753,261 @@ const RL33 = () => {
             <></>
           )}
 
-          <Table
-            className={style.rlTable}
-            striped
-            responsive
-            style={{ width: "200%" }}
-          >
-            <thead>
-              <tr>
-                <th
-                  style={{ width: "4%", verticalAlign: "middle" }}
-                  rowSpan={2}
-                >
-                  No Pelayanan
-                </th>
-                <th
-                  style={{ width: "3%", verticalAlign: "middle" }}
-                  rowSpan={2}
-                >
-                  Aksi
-                </th>
-                <th
-                  style={{ width: "20%", verticalAlign: "middle" }}
-                  rowSpan={2}
-                >
-                  Jenis Pelayanan
-                </th>
-                <th colSpan={2}>Total Pasien</th>
-                <th colSpan={3}>Tindak Lanjut Pelayanan</th>
-                <th colSpan={2}>Mati di IGD</th>
-                <th colSpan={2}>DOA</th>
-                <th colSpan={2}>Luka-luka</th>
-                <th style={{ verticalAlign: "middle" }} rowSpan={2}>
-                  False Emergency
-                </th>
-              </tr>
-              <tr>
-                <th>Rujukan</th>
-                <th>Non Rujukan</th>
-                <th>Dirawat</th>
-                <th>Dirujuk</th>
-                <th>Pulang</th>
-                <th style={{ width: "5%" }}>Laki-laki</th>
-                <th style={{ width: "5%" }}>Perempuan</th>
-                <th style={{ width: "5%" }}>Laki-laki</th>
-                <th style={{ width: "5%" }}>Perempuan</th>
-                <th style={{ width: "5%" }}>Laki-laki</th>
-                <th style={{ width: "5%" }}>Perempuan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataRL.length > 1 ? (
-                <>
-                  {dataRL.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>
-                          <input
-                            type="text"
-                            name="no"
-                            className="form-control"
-                            value={value.jenis_pelayanan_rl_tiga_titik_tiga.no}
-                            disabled={true}
-                          />
-                        </td>
-                        <td
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          <ToastContainer />
-                          {value.jenis_pelayanan_rl_tiga_titik_tiga.no != 1 &&
-                          value.jenis_pelayanan_rl_tiga_titik_tiga.no != 2 ? (
-                            <div style={{ display: "flex" }}>
-                              <button
-                                className="btn btn-danger"
-                                style={{
-                                  margin: "0 5px 0 0",
-                                  backgroundColor: "#FF6663",
-                                  border: "1px solid #FF6663",
-                                }}
-                                type="button"
-                                onClick={(e) => hapus(value.id)}
-                              >
-                                Hapus
-                              </button>
-                              <Link
-                                to={`/rl33/ubah/${value.id}`}
-                                className="btn btn-warning"
-                                style={{
-                                  margin: "0 5px 0 0",
-                                  backgroundColor: "#CFD35E",
-                                  border: "1px solid #CFD35E",
-                                  color: "#FFFFFF",
-                                }}
-                              >
-                                Ubah
-                              </Link>
-                            </div>
-                          ) : (
-                            ""
-                          )}
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="jenisKegiatan"
-                            className="form-control"
-                            value={
-                              value.jenis_pelayanan_rl_tiga_titik_tiga.nama
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="total_pasien_rujukan"
-                            className="form-control"
-                            value={value.total_pasien_rujukan}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="total_pasien_non_rujukan"
-                            className="form-control"
-                            value={value.total_pasien_non_rujukan}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="tlp_dirawat"
-                            className="form-control"
-                            value={value.tlp_dirawat}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="tlp_dirujuk"
-                            className="form-control"
-                            value={value.tlp_dirujuk}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="tlp_pulang"
-                            className="form-control"
-                            value={value.tlp_pulang}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="m_igd_laki"
-                            className="form-control"
-                            value={value.m_igd_laki}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="m_igd_perempuan"
-                            className="form-control"
-                            value={value.m_igd_perempuan}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="doa_laki"
-                            className="form-control"
-                            value={value.doa_laki}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="doa_perempuan"
-                            className="form-control"
-                            value={value.doa_perempuan}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="luka_laki"
-                            className="form-control"
-                            value={value.luka_laki}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="luka_perempuan"
-                            className="form-control"
-                            value={value.luka_perempuan}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="false_emergency"
-                            className="form-control"
-                            value={value.false_emergency}
-                            disabled={true}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  <tr>
-                    <td colSpan={3} className="text-center">
-                      <strong>Total</strong>
-                    </td>
-                    <td className="text-center">
-                      {total.total_pasien_rujukan}
-                    </td>
-                    <td className="text-center">
-                      {total.total_pasien_non_rujukan}
-                    </td>
-                    <td className="text-center">{total.tlp_dirawat}</td>
-                    <td className="text-center">{total.tlp_dirujuk}</td>
-                    <td className="text-center">{total.tlp_pulang}</td>
-                    <td className="text-center">{total.m_igd_laki}</td>
-                    <td className="text-center">{total.m_igd_perempuan}</td>
-                    <td className="text-center">{total.doa_laki}</td>
-                    <td className="text-center">{total.doa_perempuan}</td>
-                    <td className="text-center">{total.luka_laki}</td>
-                    <td className="text-center">{total.luka_perempuan}</td>
-                    <td className="text-center">{total.false_emergency}</td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-            </tbody>
-          </Table>
+          <div className={style["table-container"]}>
+            <table className={style.table} responsive>
+              <thead className={style.thead}>
+                <tr>
+                  <th
+                    style={{ width: "4%", verticalAlign: "middle" }}
+                    rowSpan={2}
+                    className={style["sticky-header"]}
+                  >
+                    No Pelayanan
+                  </th>
+                  <th
+                    style={{ width: "3%", verticalAlign: "middle" }}
+                    rowSpan={2}
+                    className={style["sticky-header"]}
+                  >
+                    Aksi
+                  </th>
+                  <th
+                    style={{ width: "20%", verticalAlign: "middle" }}
+                    rowSpan={2}
+                    className={style["sticky-header"]}
+                  >
+                    Jenis Pelayanan
+                  </th>
+                  <th colSpan={2}>Total Pasien</th>
+                  <th colSpan={3}>Tindak Lanjut Pelayanan</th>
+                  <th colSpan={2}>Mati di IGD</th>
+                  <th colSpan={2}>DOA</th>
+                  <th colSpan={2}>Luka-luka</th>
+                  <th style={{ verticalAlign: "middle" }} rowSpan={2}>
+                    False Emergency
+                  </th>
+                </tr>
+                <tr className={style["subheader-row"]}>
+                  <th>Rujukan</th>
+                  <th>Non Rujukan</th>
+                  <th>Dirawat</th>
+                  <th>Dirujuk</th>
+                  <th>Pulang</th>
+                  <th style={{ width: "5%" }}>Laki-laki</th>
+                  <th style={{ width: "5%" }}>Perempuan</th>
+                  <th style={{ width: "5%" }}>Laki-laki</th>
+                  <th style={{ width: "5%" }}>Perempuan</th>
+                  <th style={{ width: "5%" }}>Laki-laki</th>
+                  <th style={{ width: "5%" }}>Perempuan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataRL.length > 1 ? (
+                  <>
+                    {dataRL.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="no"
+                              className="form-control"
+                              value={
+                                value.jenis_pelayanan_rl_tiga_titik_tiga.no
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td
+                            className={style["sticky-column"]}
+                            style={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <ToastContainer />
+                            {value.jenis_pelayanan_rl_tiga_titik_tiga.no != 1 &&
+                            value.jenis_pelayanan_rl_tiga_titik_tiga.no != 2 ? (
+                              <div style={{ display: "flex" }}>
+                                <button
+                                  className="btn btn-danger"
+                                  style={{
+                                    margin: "0 5px 0 0",
+                                    backgroundColor: "#FF6663",
+                                    border: "1px solid #FF6663",
+                                  }}
+                                  type="button"
+                                  onClick={(e) => hapus(value.id)}
+                                >
+                                  Hapus
+                                </button>
+                                <Link
+                                  to={`/rl33/ubah/${value.id}`}
+                                  className="btn btn-warning"
+                                  style={{
+                                    margin: "0 5px 0 0",
+                                    backgroundColor: "#CFD35E",
+                                    border: "1px solid #CFD35E",
+                                    color: "#FFFFFF",
+                                  }}
+                                >
+                                  Ubah
+                                </Link>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="jenisKegiatan"
+                              className="form-control"
+                              value={
+                                value.jenis_pelayanan_rl_tiga_titik_tiga.nama
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="total_pasien_rujukan"
+                              className="form-control"
+                              value={value.total_pasien_rujukan}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="total_pasien_non_rujukan"
+                              className="form-control"
+                              value={value.total_pasien_non_rujukan}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="tlp_dirawat"
+                              className="form-control"
+                              value={value.tlp_dirawat}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="tlp_dirujuk"
+                              className="form-control"
+                              value={value.tlp_dirujuk}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="tlp_pulang"
+                              className="form-control"
+                              value={value.tlp_pulang}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="m_igd_laki"
+                              className="form-control"
+                              value={value.m_igd_laki}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="m_igd_perempuan"
+                              className="form-control"
+                              value={value.m_igd_perempuan}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="doa_laki"
+                              className="form-control"
+                              value={value.doa_laki}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="doa_perempuan"
+                              className="form-control"
+                              value={value.doa_perempuan}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="luka_laki"
+                              className="form-control"
+                              value={value.luka_laki}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="luka_perempuan"
+                              className="form-control"
+                              value={value.luka_perempuan}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="false_emergency"
+                              className="form-control"
+                              value={value.false_emergency}
+                              disabled={true}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr>
+                      <td colSpan={3} className="text-center">
+                        <strong>Total</strong>
+                      </td>
+                      <td className="text-center">
+                        {total.total_pasien_rujukan}
+                      </td>
+                      <td className="text-center">
+                        {total.total_pasien_non_rujukan}
+                      </td>
+                      <td className="text-center">{total.tlp_dirawat}</td>
+                      <td className="text-center">{total.tlp_dirujuk}</td>
+                      <td className="text-center">{total.tlp_pulang}</td>
+                      <td className="text-center">{total.m_igd_laki}</td>
+                      <td className="text-center">{total.m_igd_perempuan}</td>
+                      <td className="text-center">{total.doa_laki}</td>
+                      <td className="text-center">{total.doa_perempuan}</td>
+                      <td className="text-center">{total.luka_laki}</td>
+                      <td className="text-center">{total.luka_perempuan}</td>
+                      <td className="text-center">{total.false_emergency}</td>
+                    </tr>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
