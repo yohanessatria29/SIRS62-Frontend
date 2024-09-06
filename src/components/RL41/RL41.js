@@ -624,7 +624,7 @@ const RL41 = () => {
               <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
               </button>
             </DownloadTableExcel>
-            <span style={{ color: "gray" }}> RL 4.1 -  Morbiditas Pasien Rawat Inap</span>
+            <span style={{ color: "gray" , fontSize:"20px"}}> RL 4.1 -  Morbiditas Pasien Rawat Inap</span>
           </div>
         </div>
         <div>

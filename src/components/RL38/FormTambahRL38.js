@@ -244,7 +244,7 @@ const FormTambahRL38 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div className="container" style={{ marginTop: "70px" , marginBottom:"100px"}}>
       <form onSubmit={Simpan}>
         <div className="row">
           <div className="col-md-6">

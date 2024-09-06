@@ -441,7 +441,7 @@ const RL38 = () => {
     });
   };
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div className="container" style={{ marginTop: "70px" , marginBottom: "100px"}}>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -713,7 +713,7 @@ const RL38 = () => {
                 Download
               </button>
             </DownloadTableExcel>
-            <span style={{ color: "gray" }}> RL 3.8 - Laboratorium</span>
+            <span style={{ color: "gray", fontSize:"20px" }}> RL 3.8 - Laboratorium</span>
           </div>
         </div>
         <div>

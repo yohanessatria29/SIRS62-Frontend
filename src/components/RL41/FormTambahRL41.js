@@ -431,7 +431,7 @@ const FormTambahRL41 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
+    <div className="container" style={{ marginTop: "70px", marginBottom: "100px" }}>
       <div className="row">
         <div className="col-md-6">
           <div className="card">

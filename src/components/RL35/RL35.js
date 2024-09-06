@@ -696,7 +696,7 @@ const RL35 = () => {
                             <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
                             </button>
                         </DownloadTableExcel>
-                        <span style={{ color: "gray" }}> RL 3.5 -  Kunjungan</span>
+                        <span style={{ color: "gray", fontSize:"20px" }}> RL 3.5 -  Kunjungan</span>
                     </div>
                     <div>
                         <h5 style={{ fontSize: "14px" }}>
