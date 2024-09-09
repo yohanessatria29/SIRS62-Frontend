@@ -287,7 +287,10 @@ const FormTambahRL312 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <h1>RL 3.12</h1>
       <form onSubmit={Simpan}>
         <div className="row">

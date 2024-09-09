@@ -256,7 +256,10 @@ const FormTambahRL316 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <form onSubmit={Simpan}>
         <div className="row">
           <div className="col-md-6">
@@ -359,14 +362,26 @@ const FormTambahRL316 = () => {
               Kembali RL 3.16 Keluarga Berencana
             </span>
 
-            <Table className={style.rlTable}>
+            <Table className={style.table}>
               <thead>
                 <tr>
-                  <th rowSpan="2" style={{ width: "2%" }}>
+                  <th
+                    className={style["sticky-header"]}
+                    rowSpan="2"
+                    style={{ width: "1%" }}
+                  >
                     No.
                   </th>
-                  <th rowSpan="2" style={{ width: "1%" }}></th>
-                  <th rowSpan="2" style={{ width: "15%" }}>
+                  <th
+                    className={style["sticky-header"]}
+                    rowSpan="2"
+                    style={{ width: "1%" }}
+                  ></th>
+                  <th
+                    className={style["sticky-header"]}
+                    rowSpan="2"
+                    style={{ width: "8%" }}
+                  >
                     Jenis Pelayanan Keluarga Berencana
                   </th>
                   <th colSpan="3" style={{ width: "5%" }}>
@@ -396,8 +411,22 @@ const FormTambahRL316 = () => {
                   if (value.id === 9) {
                     return (
                       <tr key={value.id}>
-                        <td>{value.id}</td>
-                        <td>
+                        <td
+                          className={style["sticky-column"]}
+                          style={{
+                            textAlign: "center",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {value.id}
+                        </td>
+                        <td
+                          className={style["sticky-column"]}
+                          style={{
+                            textAlign: "center",
+                            verticalAlign: "middle",
+                          }}
+                        >
                           <input
                             type="checkbox"
                             name="check"
@@ -406,7 +435,7 @@ const FormTambahRL316 = () => {
                             checked={value.checked}
                           />
                         </td>
-                        <td>
+                        <td className={style["sticky-column"]}>
                           <input
                             type="text"
                             name="JenisPelayananKeluargaBerencana"
@@ -527,8 +556,22 @@ const FormTambahRL316 = () => {
                   } else {
                     return (
                       <tr key={value.id}>
-                        <td>{value.id}</td>
-                        <td>
+                        <td
+                          className={style["sticky-column"]}
+                          style={{
+                            textAlign: "center",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          {value.id}
+                        </td>
+                        <td
+                          className={style["sticky-column"]}
+                          style={{
+                            textAlign: "center",
+                            verticalAlign: "middle",
+                          }}
+                        >
                           <input
                             type="checkbox"
                             name="check"
@@ -537,7 +580,7 @@ const FormTambahRL316 = () => {
                             checked={value.checked}
                           />
                         </td>
-                        <td>
+                        <td className={style["sticky-column"]}>
                           <input
                             type="text"
                             name="JenisPelayananKeluargaBerencana"
