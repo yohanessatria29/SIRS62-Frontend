@@ -324,7 +324,10 @@ const RL316 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -589,20 +592,35 @@ const RL316 = () => {
                 .join(", ")}
             </h5>
           </div>
-          <Table
-            className={style.rlTable}
-            striped
-            responsive
+          <table
+            className={style.table}
+            // striped
+            // bordered
+            // responsive
             style={{ width: "200%" }}
             ref={tableRef}
           >
-            <thead>
-              <tr>
-                <th rowSpan="2" style={{ width: "4%" }}>
+            <thead className={style.thead}>
+              <tr className="main-header-row">
+                <th
+                  className={style["sticky-header-view"]}
+                  rowSpan="2"
+                  style={{ width: "1%" }}
+                >
                   No.
                 </th>
-                <th rowSpan="2" style={{ width: "3%" }}></th>
-                <th rowSpan="4" style={{ width: "10%" }}>
+                <th
+                  className={style["sticky-header-view"]}
+                  rowSpan="2"
+                  style={{ width: "2%" }}
+                >
+                  Aksi
+                </th>
+                <th
+                  className={style["sticky-header-view"]}
+                  rowSpan="2"
+                  style={{ width: "5%" }}
+                >
                   Jenis Pelayanan Keluarga Berencana
                 </th>
                 <th colSpan="4" style={{ width: "5%" }}>
@@ -632,17 +650,22 @@ const RL316 = () => {
               {dataRL.map((value, index) => {
                 return (
                   <tr key={value.id}>
-                    <td>
-                      <input
+                    <td
+                      className={style["sticky-column-view"]}
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="id"
                         className="form-control"
                         value={index + 1}
                         disabled={true}
                         style={{ textAlign: "center" }}
-                      />
+                      /> */}
+                      <p>{index + 1}</p>
                     </td>
                     <td
+                      className={style["sticky-column-view"]}
                       style={{ textAlign: "center", verticalAlign: "middle" }}
                     >
                       <ToastContainer />
@@ -684,86 +707,115 @@ const RL316 = () => {
                         <></>
                       )}
                     </td>
-                    <td>
-                      <input
+                    <td
+                      className={style["sticky-column-view"]}
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="jenisSpesialisasi"
                         className="form-control"
                         value={value.nama}
                         disabled={true}
-                      />
+                      /> */}
+
+                      <p>{value.nama}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="pelayananKbPaskaPersalinan"
                         className="form-control"
                         value={value.pelayanan_kb_paska_persalinan}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.pelayanan_kb_paska_persalinan}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="pelayananKbPaskaKeguguran"
                         className="form-control"
                         value={value.pelayanan_kb_paska_keguguran}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.pelayanan_kb_paska_keguguran}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="pelayananKbInterval"
                         className="form-control"
                         value={value.pelayanan_kb_interval}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.pelayanan_kb_interval}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="pelayananKbTotal"
                         className="form-control"
                         value={value.pelayanan_kb_total}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.pelayanan_kb_total}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="komplikasiKB"
                         className="form-control"
                         value={value.komplikasi_kb}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.komplikasi_kb}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="kegagalanKB"
                         className="form-control"
                         value={value.kegagalan_kb}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.kegagalan_kb}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="efekSamping"
                         className="form-control"
                         value={value.efek_samping}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.efek_samping}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="dropOut"
                         className="form-control"
                         value={value.drop_out}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.drop_out}</p>
                     </td>
                   </tr>
                 );
@@ -771,7 +823,7 @@ const RL316 = () => {
 
               {dataRL.length > 0 ? <tr></tr> : <></>}
             </tbody>
-          </Table>
+          </table>
         </div>
       </div>
     </div>

@@ -245,7 +245,10 @@ export const FormEditRL316 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <form onSubmit={UpdateRLTigaTitikDuaBelas}>
         <div className="row">
           <div className="col-md-6">
@@ -345,13 +348,21 @@ export const FormEditRL316 = () => {
                 <Spinner animation="grow" variant="success"></Spinner>
               )}
             </div> */}
-            <Table className={style.rlTable}>
+            <Table className={style.table}>
               <thead>
                 <tr>
-                  <th rowSpan="2" style={{ width: "2%" }}>
+                  <th
+                    className={style["sticky-header-ubah"]}
+                    rowSpan="2"
+                    style={{ width: "1%" }}
+                  >
                     No
                   </th>
-                  <th rowSpan="2" style={{ width: "15%" }}>
+                  <th
+                    className={style["sticky-header-ubah"]}
+                    rowSpan="2"
+                    style={{ width: "8%" }}
+                  >
                     Jenis Pelayanan Keluarga Berencana
                   </th>
                   <th colSpan="3" style={{ width: "5%" }}>
@@ -378,7 +389,7 @@ export const FormEditRL316 = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>
+                  <td className={style["sticky-column-ubah"]}>
                     <input
                       name="noMetoda"
                       type="text"
@@ -389,7 +400,7 @@ export const FormEditRL316 = () => {
                       disabled={true}
                     />
                   </td>
-                  <td>
+                  <td className={style["sticky-column-ubah"]}>
                     <input
                       name="jenisPelayanan"
                       type="text"
