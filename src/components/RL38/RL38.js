@@ -441,7 +441,7 @@ const RL38 = () => {
     });
   };
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div className="container" style={{ marginTop: "70px" , marginBottom: "100px"}}>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -666,6 +666,9 @@ const RL38 = () => {
 
       <div className="row">
         <div className="col-md-12">
+          <span style={{ color: "gray" }}>
+            <h4>RL 3.8 - Laboratorium</h4>
+          </span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -713,15 +716,14 @@ const RL38 = () => {
                 Download
               </button>
             </DownloadTableExcel>
-            <span style={{ color: "gray" }}> RL 3.8 - Laboratorium</span>
           </div>
         </div>
         <div>
           <h5 style={{ fontSize: "14px" }}>
-            filtered by{" "}
+         
             {filterLabel
               .map((value) => {
-                return value;
+                return   "filtered by"+ value;
               })
               .join(", ")}
           </h5>
