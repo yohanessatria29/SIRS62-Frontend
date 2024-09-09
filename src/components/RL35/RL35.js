@@ -673,6 +673,7 @@ const RL35 = () => {
 
             <div className="row">
                 <div className="col-md-12">
+                <span style={{ color: "gray"}}><h4> RL 3.5 -  Kunjungan</h4></span>
                     <div style={{ marginBottom: "10px" }}>
                         {
                             user.jenisUserId === 4 ? (
@@ -696,13 +697,13 @@ const RL35 = () => {
                             <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
                             </button>
                         </DownloadTableExcel>
-                        <span style={{ color: "gray", fontSize:"20px" }}> RL 3.5 -  Kunjungan</span>
+                        
                     </div>
                     <div>
                         <h5 style={{ fontSize: "14px" }}>
-                            filtered by {filterLabel.map((value) => {
+                             {filterLabel.map((value) => {
                                 return (
-                                    value
+                                  "filtered by"+  value
                                 )
                             }).join(', ')}
                         </h5>

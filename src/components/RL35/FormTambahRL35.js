@@ -340,7 +340,7 @@ const FormTambahRL35 = () => {
                                 <h5 className="card-title h5">Periode Laporan</h5>
                                 <div className="form-floating" style={{ width: "100%", display: "inline-block" }}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" min="2024"
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} />
+                                        placeholder="Tahun" value={tahun} disabled={true} onChange={e => changeHandlerSingle(e)} />
                                 </div>
                                 <div className="form-floating" style={{ width: "100%", display: "inline-block" }}>
                                     <select name="bulan" className="form-control" id="bulan" onChange={e => changeHandlerSingle(e)}>

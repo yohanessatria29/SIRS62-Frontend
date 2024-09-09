@@ -11,8 +11,8 @@ import { IoArrowBack } from "react-icons/io5";
 import { Spinner } from "react-bootstrap";
 
 const FormTambahRL41 = () => {
-  const [tahun, setTahun] = useState(new Date().getFullYear());
-  const [bulan, setBulan] = useState("01");
+  const [tahun, setTahun] = useState("2025");
+  const [bulan, setBulan] = useState("00");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
@@ -380,44 +380,51 @@ const FormTambahRL41 = () => {
       icdId: parseInt(e.target[1].value),
       data: [transformedObject],
     };
+    
+    if( bulan==='00' || bulan == 0 ){
+      toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setButtonStatus(false);
+    }else{
+      if (totalMati <= total) {
+        try {
+          const customConfig = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
 
-    if (totalMati <= total) {
-      try {
-        const customConfig = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const result = await axiosJWT.post(
-          "/apisirs6v2/rlempattitiksatu",
-          dataReady,
-          customConfig
-        );
-        toast("Data Berhasil Disimpan", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        setTimeout(() => {
-          navigate('/rl41')
-        }, 1000);
-      } catch (error) {
+          const result = await axiosJWT.post(
+            "/apisirs6v2/rlempattitiksatu",
+            dataReady,
+            customConfig
+          );
+          toast("Data Berhasil Disimpan", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            navigate('/rl41')
+          }, 1000);
+        } catch (error) {
+          toast(
+            `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          setButtonStatus(false);
+        }
+      } else {
         toast(
-          `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+          `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
           {
             position: toast.POSITION.TOP_RIGHT,
           }
         );
         setButtonStatus(false);
       }
-    } else {
-      toast(
-        `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
-      setButtonStatus(false);
     }
   };
 
@@ -614,7 +621,7 @@ const FormTambahRL41 = () => {
                         placeholder="Tahun"
                         value={tahun}
                         onChange={(e) => changeHandlerSingle(e)}
-                        disabled={false}
+                        disabled={true}
                       />
                       <label htmlFor="floatingInput">Tahun</label>
                       <input
@@ -634,7 +641,7 @@ const FormTambahRL41 = () => {
                         className="form-control"
                         id="bulan"
                         onChange={(e) => changeHandlerSingle(e)}
-                      >
+                      ><option value="00">--PILIH BULAN--</option>
                         <option value="01">Januari</option>
                         <option value="02">Februari</option>
                         <option value="03">Maret</option>

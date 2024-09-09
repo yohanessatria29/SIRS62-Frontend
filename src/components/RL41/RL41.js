@@ -587,6 +587,7 @@ const RL41 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+        <span style={{ color: "gray" }}> <h4>RL 4.1 -  Morbiditas Pasien Rawat Inap</h4></span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -624,15 +625,13 @@ const RL41 = () => {
               <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
               </button>
             </DownloadTableExcel>
-            <span style={{ color: "gray" , fontSize:"20px"}}> RL 4.1 -  Morbiditas Pasien Rawat Inap</span>
-          </div>
+            </div>
         </div>
         <div>
           <h5 style={{ fontSize: "14px" }}>
-            filtered by{" "}
             {filterLabel
               .map((value) => {
-                return value;
+                return  "filtered by"+ value;
               })
               .join(", ")}
           </h5>
