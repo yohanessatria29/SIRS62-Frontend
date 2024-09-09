@@ -522,8 +522,10 @@ const FormTambahRL37 = () => {
                                                 disabledrmBidan =false
                                                 disabledrmPuskesmas =false
                                                 disabledrmFaskesLainnya = false
+                                                value.rmHidup = 0
+                                                value.rmMati = value.rmRumahSakit+value.rmBidan+value.rmPuskesmas+value.rmFaskesLainnya
                                                 // disabledrnmHidup = false
-                                                // disablednrHidup = false
+                                                disabledRmMati = true
                                             }else{
                                                 disabledRmMati = false
                                                 disabledRnmMati = false

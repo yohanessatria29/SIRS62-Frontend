@@ -340,6 +340,7 @@ const RL52 = () => {
 
     return (
         <div className="container" style={{ marginTop: "70px" , marginBottom: "70px"}}>
+         <h4 style={{  color: "grey" }}> <span> RL 5.2 10 Besar Kasus Baru Penyakit Rawat Jalan</span></h4>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -582,9 +583,6 @@ const RL52 = () => {
             </button>
              <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button>
           </div>
-          <div className="col-md-3" style={{ fontSize: "14px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
-                RL 5.2 10 Besar Kasus Baru Penyakit Rawat Jalan
-                        </div>
         </div>
         
         <div>

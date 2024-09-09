@@ -100,6 +100,12 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmRumahSakit(parseInt(event.target.value))
+            console.log(no);
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
         } else if (name === 'rmBidan') {
             if(event.target.value === ''){
@@ -108,6 +114,11 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmBidan(parseInt(event.target.value))
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmRumahSakit) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmRumahSakit) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmRumahSakit) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
         } else if (name === 'rmPuskesmas') {
             if(event.target.value === ''){
@@ -116,6 +127,11 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmPuskesmas(parseInt(event.target.value))
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmRumahSakit) + parseInt(rmFaskesLainnya))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmRumahSakit) + parseInt(rmFaskesLainnya))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmRumahSakit) + parseInt(rmFaskesLainnya))
         } else if (name === 'rmFaskesLainnya') {
             if(event.target.value === ''){
@@ -124,6 +140,11 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmFaskesLainnya(parseInt(event.target.value))
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmRumahSakit))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmRumahSakit))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmRumahSakit))
         } else if (name === 'rmHidup') {
             if(event.target.value === ''){
@@ -322,6 +343,9 @@ export const FormUbahRL37 = () => {
         }
     }
 
+    
+    
+
     return (
         <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={updateDataRLTigaTitikTujuh}>
@@ -395,7 +419,7 @@ export const FormUbahRL37 = () => {
                         >
                             <thead className={style.thead}>
                                 <tr>
-                                    <th style={{"width": "2.5%"}}>No.</th>
+                                    <th style={{"width": "3%"}}>No.</th>
                                     <th style={{"width": "12%"}}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>
@@ -414,6 +438,7 @@ export const FormUbahRL37 = () => {
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 <tr key={id}>
                                     {
                                         // console.log(disabledDirujuk)
@@ -424,10 +449,13 @@ export const FormUbahRL37 = () => {
                                     <td>
                                         <input type="text" name="jenisKegiatan" className="form-control" value={nama} disabled={true} />
                                     </td>
-                                    <td>
+                                   
+                                    
+                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmRumahSakit" className="form-control" value={rmRumahSakit} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={false}/>
                                     </td>
+                                    
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmBidan" className="form-control" value={rmBidan} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
@@ -442,20 +470,34 @@ export const FormUbahRL37 = () => {
                                     </td>
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmHidup" className="form-control" value={rmHidup} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
                                     </td>
+                                     {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmMati" className="form-control" value={rmMati} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={disabledRmMati} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    :
+                                    <td>
+                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmMati" className="form-control" value={rmMati} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={false} />
+                                    </td>
+                                    }
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmTotal" className="form-control" value={rmTotal} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
                                     <td>
+                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmHidup" className="form-control" value={rnmHidup} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
+                                    </td>
+                                        :
+                                        <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmHidup" className="form-control" value={rnmHidup} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                     </td>
+                                        }
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmMati" className="form-control" value={rnmMati} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={disabledRnmMati} />
@@ -464,10 +506,16 @@ export const FormUbahRL37 = () => {
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmTotal" className="form-control" value={rnmTotal} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrHidup" className="form-control" value={nrHidup} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
                                     </td>
+                                    :
+                                    <td>
+                                    <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrHidup" className="form-control" value={nrHidup} 
+                                        onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                </td>}
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrMati" className="form-control" value={nrMati} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={disabledNrMati} />
@@ -476,10 +524,17 @@ export const FormUbahRL37 = () => {
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrTotal" className="form-control" value={nrTotal} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
+                                    <td>
+                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="dirujuk" className="form-control" value={dirujuk} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
+                                    </td>
+                                    :
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="dirujuk" className="form-control" value={dirujuk} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                     </td>
+                                    }
                                 </tr>
                             </tbody>
                         </Table>

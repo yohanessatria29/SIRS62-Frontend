@@ -1067,6 +1067,7 @@ const RL37 = () => {
 
     return (
         <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
+           <h4 style={{  color: "grey" }}> <span> RL 3.7-Neonatal, Bayi dan Balita </span></h4>
                 <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
                     <Modal.Header closeButton>
                         <Modal.Title>Filter</Modal.Title>
@@ -1294,9 +1295,9 @@ const RL37 = () => {
                             </button>
                         </DownloadTableExcel>
                         </div>
-                        <div className="col-md-2" style={{ fontSize: "14px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
-                        RL 3.7-Neonatal, Bayi dan Balita
-                        </div>
+                        {/* <div className="col-md-2" style={{ fontSize: "14px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
+                       
+                        </div> */}
                         <div>
                             <h5 style={{fontSize: "14px"}}>
                             filtered by {filterLabel.map((value) => {
@@ -1408,11 +1409,15 @@ const RL37 = () => {
                                                 <td className={style['sticky-column-view']}>{value3.jenisKegiatanNo}</td>
                                                 <td className={style['sticky-column-view']}>
                                                   <ToastContainer />
+                                                  
                                                   <div style={{display: "flex"}}>
                                                   <button className="btn btn-danger" style={{margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663"}} type='button' onClick={(e) => hapus(value3.id, value3.tahun)}>Hapus</button>
+                                                  {value3.jenisKegiatanNo === "0"  ?
+                                                  '':
                                                   <Link to={`/rl37/ubah/${value3.id}`} className='btn btn-warning' style={{margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color:"#FFFFFF"}} >
                                                     Ubah
                                                   </Link>
+                                                   }
                                                   </div>
                                                 </td>
                                                 <td className={style['sticky-column-view']}>{value3.jenisKegiatanNama}</td>

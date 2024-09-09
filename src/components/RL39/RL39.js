@@ -499,6 +499,7 @@ const hapus = (id) => {
 
     return (
       <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
+        <h4 style={{  color: "grey" }}> <span> RL 3.9-Radiologi</span></h4>
       <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
           <Modal.Header closeButton>
               <Modal.Title>Filter</Modal.Title>
@@ -726,9 +727,7 @@ const hapus = (id) => {
                             </button>
                         </DownloadTableExcel>
                     </div>
-                    <div className="col-md-2" style={{ fontSize: "16px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
-                        RL 3.9-Radiologi
-                        </div>
+                    
                     <div>
                         <h5 style={{fontSize: "14px"}}>
                             filtered by {filterLabel.map((value) => {
@@ -792,9 +791,13 @@ const hapus = (id) => {
                                 {user.jenisUserId === 4 ? (
                                 <div style={{ display: "flex" }}>
                                                     <button className="btn btn-danger" style={{ margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663" }} type='button' onClick={(e) => hapus(value2.id)}>Hapus</button>
+                                                    {value2.no_jenis_kegiatan==="0" ?
+                                                    '': 
+                                                    
                                                     <Link to={`/rl39/ubah/${value2.id}`} className='btn btn-warning' style={{ margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color: "#FFFFFF" }} >
                                                         Ubah
                                                     </Link>
+                                                    }
                                                 </div>
                                                 
                                             ) : (
