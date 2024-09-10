@@ -1041,6 +1041,7 @@ const RL36 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+          <h2>RL. 3.6 Kebidanan</h2>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -1068,6 +1069,18 @@ const RL36 = () => {
               onClick={handleShow}
             >
               Filter
+            </button>
+            <button
+              className="btn"
+              style={{
+                fontSize: "18px",
+                marginLeft: "5px",
+                backgroundColor: "#779D9E",
+                color: "#FFFFFF",
+              }}
+              // onClick={handleDownloadExcel}
+            >
+              Download
             </button>
           </div>
           <div>

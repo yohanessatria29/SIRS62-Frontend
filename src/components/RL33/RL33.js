@@ -695,7 +695,7 @@ const RL33 = () => {
 
       <div className="row">
         <div className="col-md-12">
-          <h2>RL. 3.3</h2>
+          <h2>RL. 3.3 Rawat Darurat</h2>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
