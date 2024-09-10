@@ -617,7 +617,7 @@ const RL32 = () => {
             </Modal>
             <div className="row">
                 <div className="col-md-12">
-                    <h2>RL. 3.2</h2>
+                    <h4><span style={{ color: "gray" }}>RL. 3.2 Rawat Inap</span></h4>
                     <div style={{marginBottom: "10px"}}>
                         {
                             user.jenisUserId === 4 ? (
@@ -637,16 +637,23 @@ const RL32 = () => {
                     
                     <div>
                         <h5 style={{fontSize: "14px"}}>
-                            filtered by {filterLabel.map((value) => {
-                                return(
-                                    value
+                            {
+                                filterLabel.length > 0 ? (
+                                    <>
+                                        filtered by {filterLabel.map((value) => {
+                                            return(
+                                                value
+                                            )
+                                        }).join(', ')}
+                                    </>
+                                ) : (
+                                    <></>
                                 )
-                            }).join(', ')}
+                            }
                         </h5>
                     </div>
                     <div className={style['table-container']}>
                         <table
-                            responsive
                             className={style.table}
                         >
                             <thead className={style.thead}>
