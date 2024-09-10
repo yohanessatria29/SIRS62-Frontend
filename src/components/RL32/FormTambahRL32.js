@@ -487,7 +487,6 @@ const FormTambahRL32 = () => {
                         <span style={{color: "gray"}}>Kembali RL 3.2 Rawat Inap</span>
                         <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
                             <table
-                                responsive
                                 className={style.table}
                             >
                                 <thead className={style.thead}>
@@ -608,13 +607,6 @@ const FormTambahRL32 = () => {
                                 </tbody>
                             </table>
                         </div>
-
-
-
-
-
-
-                        
                     </div>
                 </div>
                 <div className="mt-3 mb-3">

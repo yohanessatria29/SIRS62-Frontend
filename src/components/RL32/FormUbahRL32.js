@@ -475,7 +475,7 @@ const FormUbahRL32 = () => {
             }, 1000);
         } catch (error) {
             console.log(error)
-            toast('Data Gagal Disimpan', {
+            toast(`Data tidak bisa disimpan karena ,${error.response.data.message}`, {
                 position: toast.POSITION.TOP_RIGHT
             })
 
