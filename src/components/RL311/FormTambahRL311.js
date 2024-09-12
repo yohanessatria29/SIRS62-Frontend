@@ -15,7 +15,7 @@ const FormTambahRL311 = () => {
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
   const [namaKabKota, setNamaKabKota] = useState("");
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [dataRL, setDataRL] = useState([]);
   const [token, setToken] = useState("");
   const [expire, setExpire] = useState("");
@@ -25,8 +25,9 @@ const FormTambahRL311 = () => {
   useEffect(() => {
     refreshToken();
     getRLTigaTitikSebelasTemplate();
-    const date = new Date();
-    setTahun(date.getFullYear());
+    // const date = new Date();
+    // setTahun(date.getFullYear());
+
     // setTahun(date.getFullYear() - 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
