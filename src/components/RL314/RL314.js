@@ -16,6 +16,7 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { Spinner, Modal } from "react-bootstrap";
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL314 = () => {
   const [tahun, setTahun] = useState("");
@@ -69,6 +70,35 @@ const RL314 = () => {
       }
     }
   };
+
+  function handleDownloadExcel() {
+    const header = [
+      "No",
+      "No Kegiatan",
+      "Jenis Kegiatan",
+      "Jumlah",
+    ];
+
+    const body = dataRL.map((value, index) => {
+      const data = [
+        index + 1,
+        value.jenisKegiatanRLTigaTitikEmpatBelasId,
+        value.namaJenisKegiatan,
+        value.jumlah,
+      ];
+
+      return data;
+    });
+
+    downloadExcel({
+      fileName: "RL_3_14",
+      sheet: "react-export-table-to-excel",
+      tablePayload: {
+        header,
+        body: body,
+      },
+    });
+  }
 
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
@@ -438,6 +468,7 @@ const RL314 = () => {
 
   return (
     <div className="container" style={{ marginTop: "70px" }}>
+      <h2>RL 3.14 Pelayanan Khusus</h2>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -665,6 +696,18 @@ const RL314 = () => {
               onClick={handleShow}
             >
               Filter
+            </button>
+            <button
+              className="btn"
+              style={{
+                fontSize: "18px",
+                marginLeft: "5px",
+                backgroundColor: "#779D9E",
+                color: "#FFFFFF",
+              }}
+              onClick={handleDownloadExcel}
+            >
+              Download
             </button>
           </div>
         </div>
