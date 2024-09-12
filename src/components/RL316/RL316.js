@@ -38,8 +38,8 @@ const RL316 = () => {
     refreshToken();
     const getLastYear = async () => {
       const date = new Date();
-      setTahun(date.getFullYear() - 1);
-      return date.getFullYear() - 1;
+      setTahun(date.getFullYear());
+      return date.getFullYear();
     };
     getLastYear().then((results) => {
       // getDataRLTigaTitikDuaBelas(results);
@@ -584,77 +584,81 @@ const RL316 = () => {
 
           <div>
             <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
+              {filterLabel.length > 0 ? (
+                <>
+                  filtered by{" "}
+                  {filterLabel
+                    .map((value) => {
+                      return value;
+                    })
+                    .join(", ")}
+                </>
+              ) : (
+                <></>
+              )}
             </h5>
           </div>
-          <table
-            className={style.table}
-            // striped
-            // bordered
-            // responsive
-            style={{ width: "200%" }}
-            ref={tableRef}
-          >
-            <thead className={style.thead}>
-              <tr className="main-header-row">
-                <th
-                  className={style["sticky-header-view"]}
-                  rowSpan="2"
-                  style={{ width: "1%" }}
-                >
-                  No.
-                </th>
-                <th
-                  className={style["sticky-header-view"]}
-                  rowSpan="2"
-                  style={{ width: "2%" }}
-                >
-                  Aksi
-                </th>
-                <th
-                  className={style["sticky-header-view"]}
-                  rowSpan="2"
-                  style={{ width: "5%" }}
-                >
-                  Jenis Pelayanan Keluarga Berencana
-                </th>
-                <th colSpan="4" style={{ width: "5%" }}>
-                  Pelayanan KB
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Komplikasi KB
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Kegagalan KB
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Efek Samping
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Drop Out
-                </th>
-              </tr>
-              <tr>
-                <th style={{ width: "5%" }}>{"Pasca Persalinan"}</th>
-                <th style={{ width: "5%" }}>{"Pasca Keguguran"}</th>
-                <th style={{ width: "5%" }}>{"Interval"}</th>
-                <th style={{ width: "5%" }}>{"Total"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataRL.map((value, index) => {
-                return (
-                  <tr key={value.id}>
-                    <td
-                      className={style["sticky-column-view"]}
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+          <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+            <table
+              className={style.table}
+              style={{ width: "200%" }}
+              ref={tableRef}
+            >
+              <thead className={style.thead}>
+                <tr className="main-header-row">
+                  <th
+                    className={style["sticky-header-view"]}
+                    rowSpan="2"
+                    style={{ width: "1%" }}
+                  >
+                    No.
+                  </th>
+                  <th
+                    className={style["sticky-header-view"]}
+                    rowSpan="2"
+                    style={{ width: "2%" }}
+                  >
+                    Aksi
+                  </th>
+                  <th
+                    className={style["sticky-header-view"]}
+                    rowSpan="2"
+                    style={{ width: "5%" }}
+                  >
+                    Jenis Pelayanan Keluarga Berencana
+                  </th>
+                  <th colSpan="4" style={{ width: "5%" }}>
+                    Pelayanan KB
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Komplikasi KB
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Kegagalan KB
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Efek Samping
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Drop Out
+                  </th>
+                </tr>
+                <tr>
+                  <th style={{ width: "5%" }}>{"Pasca Persalinan"}</th>
+                  <th style={{ width: "5%" }}>{"Pasca Keguguran"}</th>
+                  <th style={{ width: "5%" }}>{"Interval"}</th>
+                  <th style={{ width: "5%" }}>{"Total"}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataRL.map((value, index) => {
+                  return (
+                    <tr key={value.id}>
+                      <td
+                        className={style["sticky-column-view"]}
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="id"
                         className="form-control"
@@ -662,56 +666,59 @@ const RL316 = () => {
                         disabled={true}
                         style={{ textAlign: "center" }}
                       /> */}
-                      <p>{index + 1}</p>
-                    </td>
-                    <td
-                      className={style["sticky-column-view"]}
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      <ToastContainer />
-                      {/* <RiDeleteBin5Fill  size={20} onClick={(e) => hapus(value.id)} style={{color: "gray", cursor: "pointer", marginRight: "5px"}} /> */}
-                      {user.jenisUserId === 4 ? (
-                        <div
-                          style={{ display: "flex", justifyContent: "center" }}
-                        >
-                          <button
-                            className="btn btn-danger"
+                        <p>{index + 1}</p>
+                      </td>
+                      <td
+                        className={style["sticky-column-view"]}
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        <ToastContainer />
+                        {/* <RiDeleteBin5Fill  size={20} onClick={(e) => hapus(value.id)} style={{color: "gray", cursor: "pointer", marginRight: "5px"}} /> */}
+                        {user.jenisUserId === 4 ? (
+                          <div
                             style={{
-                              margin: "0 5px 0 0",
-                              backgroundColor: "#FF6663",
-                              border: "1px solid #FF6663",
+                              display: "flex",
+                              justifyContent: "center",
                             }}
-                            type="button"
-                            onClick={(e) => deleteConfirmation(value.id)}
                           >
-                            Hapus
-                          </button>
-                          {value.id_metoda != 9 ? (
-                            <Link
-                              to={`/rl316/ubah/${value.id}`}
-                              className="btn btn-warning"
+                            <button
+                              className="btn btn-danger"
                               style={{
                                 margin: "0 5px 0 0",
-                                backgroundColor: "#CFD35E",
-                                border: "1px solid #CFD35E",
-                                color: "#FFFFFF",
+                                backgroundColor: "#FF6663",
+                                border: "1px solid #FF6663",
                               }}
+                              type="button"
+                              onClick={(e) => deleteConfirmation(value.id)}
                             >
-                              Ubah
-                            </Link>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                    </td>
-                    <td
-                      className={style["sticky-column-view"]}
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                              Hapus
+                            </button>
+                            {value.id_metoda != 9 ? (
+                              <Link
+                                to={`/rl316/ubah/${value.id}`}
+                                className="btn btn-warning"
+                                style={{
+                                  margin: "0 5px 0 0",
+                                  backgroundColor: "#CFD35E",
+                                  border: "1px solid #CFD35E",
+                                  color: "#FFFFFF",
+                                }}
+                              >
+                                Ubah
+                              </Link>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </td>
+                      <td
+                        className={style["sticky-column-view"]}
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="jenisSpesialisasi"
                         className="form-control"
@@ -719,111 +726,112 @@ const RL316 = () => {
                         disabled={true}
                       /> */}
 
-                      <p>{value.nama}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.nama}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbPaskaPersalinan"
                         className="form-control"
                         value={value.pelayanan_kb_paska_persalinan}
                         disabled={true}
                       /> */}
-                      <p>{value.pelayanan_kb_paska_persalinan}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.pelayanan_kb_paska_persalinan}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbPaskaKeguguran"
                         className="form-control"
                         value={value.pelayanan_kb_paska_keguguran}
                         disabled={true}
                       /> */}
-                      <p>{value.pelayanan_kb_paska_keguguran}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.pelayanan_kb_paska_keguguran}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbInterval"
                         className="form-control"
                         value={value.pelayanan_kb_interval}
                         disabled={true}
                       /> */}
-                      <p>{value.pelayanan_kb_interval}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.pelayanan_kb_interval}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbTotal"
                         className="form-control"
                         value={value.pelayanan_kb_total}
                         disabled={true}
                       /> */}
-                      <p>{value.pelayanan_kb_total}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.pelayanan_kb_total}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="komplikasiKB"
                         className="form-control"
                         value={value.komplikasi_kb}
                         disabled={true}
                       /> */}
-                      <p>{value.komplikasi_kb}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.komplikasi_kb}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="kegagalanKB"
                         className="form-control"
                         value={value.kegagalan_kb}
                         disabled={true}
                       /> */}
-                      <p>{value.kegagalan_kb}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.kegagalan_kb}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="efekSamping"
                         className="form-control"
                         value={value.efek_samping}
                         disabled={true}
                       /> */}
-                      <p>{value.efek_samping}</p>
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      {/* <input
+                        <p>{value.efek_samping}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="dropOut"
                         className="form-control"
                         value={value.drop_out}
                         disabled={true}
                       /> */}
-                      <p>{value.drop_out}</p>
-                    </td>
-                  </tr>
-                );
-              })}
+                        <p>{value.drop_out}</p>
+                      </td>
+                    </tr>
+                  );
+                })}
 
-              {dataRL.length > 0 ? <tr></tr> : <></>}
-            </tbody>
-          </table>
+                {dataRL.length > 0 ? <tr></tr> : <></>}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

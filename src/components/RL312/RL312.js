@@ -698,12 +698,18 @@ const RL312 = () => {
 
           <div>
             <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
+              {filterLabel.length > 0 ? (
+                <>
+                  filtered by{" "}
+                  {filterLabel
+                    .map((value) => {
+                      return value;
+                    })
+                    .join(", ")}
+                </>
+              ) : (
+                <></>
+              )}
             </h5>
           </div>
           <Table

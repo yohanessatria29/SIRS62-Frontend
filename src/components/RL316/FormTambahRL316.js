@@ -26,7 +26,7 @@ const FormTambahRL316 = () => {
     refreshToken();
     getRLTigaTitikEnamBelasTemplate();
     const date = new Date();
-    setTahun(date.getFullYear() - 1);
+    setTahun(date.getFullYear());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -362,347 +362,349 @@ const FormTambahRL316 = () => {
               Kembali RL 3.16 Keluarga Berencana
             </span>
 
-            <Table className={style.table}>
-              <thead>
-                <tr>
-                  <th
-                    className={style["sticky-header"]}
-                    rowSpan="2"
-                    style={{ width: "1%" }}
-                  >
-                    No.
-                  </th>
-                  <th
-                    className={style["sticky-header"]}
-                    rowSpan="2"
-                    style={{ width: "1%" }}
-                  ></th>
-                  <th
-                    className={style["sticky-header"]}
-                    rowSpan="2"
-                    style={{ width: "8%" }}
-                  >
-                    Jenis Pelayanan Keluarga Berencana
-                  </th>
-                  <th colSpan="3" style={{ width: "5%" }}>
-                    Pelayanan KB
-                  </th>
-                  <th rowSpan="2" style={{ width: "5%" }}>
-                    Komplikasi KB
-                  </th>
-                  <th rowSpan="2" style={{ width: "5%" }}>
-                    Kegagalan KB
-                  </th>
-                  <th rowSpan="2" style={{ width: "5%" }}>
-                    Efek Samping
-                  </th>
-                  <th rowSpan="2" style={{ width: "5%" }}>
-                    Drop Out
-                  </th>
-                </tr>
-                <tr>
-                  <th style={{ width: "5%" }}>{"Paska Persalinan"}</th>
-                  <th style={{ width: "5%" }}>{"Paska Keguguran"}</th>
-                  <th style={{ width: "5%" }}>{"Interval"}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dataRL.map((value, index) => {
-                  if (value.id === 9) {
-                    return (
-                      <tr key={value.id}>
-                        <td
-                          className={style["sticky-column"]}
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {value.id}
-                        </td>
-                        <td
-                          className={style["sticky-column"]}
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            name="check"
-                            className="checkbox"
-                            onChange={(e) => changeHandler(e, index)}
-                            checked={value.checked}
-                          />
-                        </td>
-                        <td className={style["sticky-column"]}>
-                          <input
-                            type="text"
-                            name="JenisPelayananKeluargaBerencana"
-                            className="form-control"
-                            value={value.JenisPelayananKeluargaBerencana}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="pelayananKbPaskaPersalinan"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.pelayananKbPaskaPersalinan}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={true}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                            onFocus={handleFocus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="pelayananKbPaskaKeguguran"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.pelayananKbPaskaKeguguran}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={true}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="pelayananKbInterval"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.pelayananKbInterval}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={true}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="komplikasiKB"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.komplikasiKB}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={true}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                            onFocus={handleFocus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="kegagalanKB"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.kegagalanKB}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={true}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="efekSamping"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.efekSamping}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={true}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="dropOut"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.dropOut}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={true}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  } else {
-                    return (
-                      <tr key={value.id}>
-                        <td
-                          className={style["sticky-column"]}
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          {value.id}
-                        </td>
-                        <td
-                          className={style["sticky-column"]}
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          <input
-                            type="checkbox"
-                            name="check"
-                            className="checkbox"
-                            onChange={(e) => changeHandler(e, index)}
-                            checked={value.checked}
-                          />
-                        </td>
-                        <td className={style["sticky-column"]}>
-                          <input
-                            type="text"
-                            name="JenisPelayananKeluargaBerencana"
-                            className="form-control"
-                            value={value.JenisPelayananKeluargaBerencana}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="pelayananKbPaskaPersalinan"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.pelayananKbPaskaPersalinan}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                            onFocus={handleFocus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="pelayananKbPaskaKeguguran"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.pelayananKbPaskaKeguguran}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="pelayananKbInterval"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.pelayananKbInterval}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
+            <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+              <Table className={style.table}>
+                <thead>
+                  <tr>
+                    <th
+                      className={style["sticky-header"]}
+                      rowSpan="2"
+                      style={{ width: "1%" }}
+                    >
+                      No.
+                    </th>
+                    <th
+                      className={style["sticky-header"]}
+                      rowSpan="2"
+                      style={{ width: "1%" }}
+                    ></th>
+                    <th
+                      className={style["sticky-header"]}
+                      rowSpan="2"
+                      style={{ width: "8%" }}
+                    >
+                      Jenis Pelayanan Keluarga Berencana
+                    </th>
+                    <th colSpan="3" style={{ width: "5%" }}>
+                      Pelayanan KB
+                    </th>
+                    <th rowSpan="2" style={{ width: "5%" }}>
+                      Komplikasi KB
+                    </th>
+                    <th rowSpan="2" style={{ width: "5%" }}>
+                      Kegagalan KB
+                    </th>
+                    <th rowSpan="2" style={{ width: "5%" }}>
+                      Efek Samping
+                    </th>
+                    <th rowSpan="2" style={{ width: "5%" }}>
+                      Drop Out
+                    </th>
+                  </tr>
+                  <tr>
+                    <th style={{ width: "5%" }}>{"Paska Persalinan"}</th>
+                    <th style={{ width: "5%" }}>{"Paska Keguguran"}</th>
+                    <th style={{ width: "5%" }}>{"Interval"}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataRL.map((value, index) => {
+                    if (value.id === 9) {
+                      return (
+                        <tr key={value.id}>
+                          <td
+                            className={style["sticky-column"]}
+                            style={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {value.id}
+                          </td>
+                          <td
+                            className={style["sticky-column"]}
+                            style={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              name="check"
+                              className="checkbox"
+                              onChange={(e) => changeHandler(e, index)}
+                              checked={value.checked}
+                            />
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="JenisPelayananKeluargaBerencana"
+                              className="form-control"
+                              value={value.JenisPelayananKeluargaBerencana}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="pelayananKbPaskaPersalinan"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.pelayananKbPaskaPersalinan}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={true}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                              onFocus={handleFocus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="pelayananKbPaskaKeguguran"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.pelayananKbPaskaKeguguran}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={true}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="pelayananKbInterval"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.pelayananKbInterval}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={true}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="komplikasiKB"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.komplikasiKB}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={true}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                              onFocus={handleFocus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="kegagalanKB"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.kegagalanKB}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={true}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="efekSamping"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.efekSamping}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={true}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="dropOut"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.dropOut}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={true}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    } else {
+                      return (
+                        <tr key={value.id}>
+                          <td
+                            className={style["sticky-column"]}
+                            style={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            {value.id}
+                          </td>
+                          <td
+                            className={style["sticky-column"]}
+                            style={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              name="check"
+                              className="checkbox"
+                              onChange={(e) => changeHandler(e, index)}
+                              checked={value.checked}
+                            />
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="JenisPelayananKeluargaBerencana"
+                              className="form-control"
+                              value={value.JenisPelayananKeluargaBerencana}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="pelayananKbPaskaPersalinan"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.pelayananKbPaskaPersalinan}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={value.disabledInput}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                              onFocus={handleFocus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="pelayananKbPaskaKeguguran"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.pelayananKbPaskaKeguguran}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={value.disabledInput}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="pelayananKbInterval"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.pelayananKbInterval}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={value.disabledInput}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
 
-                        <td>
-                          <input
-                            type="number"
-                            name="komplikasiKB"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.komplikasiKB}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                            onFocus={handleFocus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="kegagalanKB"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.kegagalanKB}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="efekSamping"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.efekSamping}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="number"
-                            name="dropOut"
-                            min={0}
-                            maxLength={7}
-                            onInput={(e) => maxLengthCheck(e)}
-                            className="form-control"
-                            value={value.dropOut}
-                            onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
-                            onPaste={preventPasteNegative}
-                            onKeyPress={preventMinus}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  }
-                })}
-              </tbody>
-            </Table>
+                          <td>
+                            <input
+                              type="number"
+                              name="komplikasiKB"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.komplikasiKB}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={value.disabledInput}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                              onFocus={handleFocus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="kegagalanKB"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.kegagalanKB}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={value.disabledInput}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="efekSamping"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.efekSamping}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={value.disabledInput}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="number"
+                              name="dropOut"
+                              min={0}
+                              maxLength={7}
+                              onInput={(e) => maxLengthCheck(e)}
+                              className="form-control"
+                              value={value.dropOut}
+                              onChange={(e) => changeHandler(e, index)}
+                              disabled={value.disabledInput}
+                              onPaste={preventPasteNegative}
+                              onKeyPress={preventMinus}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    }
+                  })}
+                </tbody>
+              </Table>
+            </div>
             <div className="mt-3 mb-3">
               <ToastContainer />
               <button
