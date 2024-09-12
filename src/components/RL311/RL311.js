@@ -162,12 +162,12 @@ const RL311 = () => {
         dataRLTigaTitikSebelasDetails.push(element);
       });
 
-      setNamaFile(
-        "rl11_" + results.data.data[0].rs_id + "_".concat(String(tahun))
-      );
       settotalall(total);
       setDataRL(rlTigaTitikSebelasDetails);
       setRumahSakit(null);
+
+      setNamaFile("rl11_" + rumahSakit.id + "_".concat(String(tahun)));
+
       handleClose();
     } catch (error) {
       console.log(error);
@@ -286,7 +286,10 @@ const RL311 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -543,12 +546,18 @@ const RL311 = () => {
 
           <div>
             <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
+              {filterLabel.length > 0 ? (
+                <>
+                  filtered by{" "}
+                  {filterLabel
+                    .map((value) => {
+                      return value;
+                    })
+                    .join(", ")}
+                </>
+              ) : (
+                <></>
+              )}
             </h5>
           </div>
           <Table
