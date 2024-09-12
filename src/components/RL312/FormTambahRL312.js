@@ -15,7 +15,7 @@ const FormTambahRL312 = () => {
   const [namaKabKota, setNamaKabKota] = useState("");
   // const [tahun, setTahun] = useState("");
   const [bulan, setBulan] = useState(1);
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [daftarBulan, setDaftarBulan] = useState([]);
   const [dataRL, setDataRL] = useState([]);
   const [token, setToken] = useState("");
@@ -27,8 +27,8 @@ const FormTambahRL312 = () => {
     refreshToken();
     getRLTigaTitikDuaBelasTemplate();
     getBulan();
-    const date = new Date();
-    setTahun(date.getFullYear());
+    // const date = new Date();
+    // setTahun(date.getFullYear());
     // setTahun(date.getFullYear() - 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

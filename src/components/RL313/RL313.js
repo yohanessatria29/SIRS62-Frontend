@@ -13,7 +13,7 @@ import Table from "react-bootstrap/Table";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL313 = () => {
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
   const [daftarRumahSakit, setDaftarRumahSakit] = useState([]);
@@ -40,14 +40,14 @@ const RL313 = () => {
 
   useEffect(() => {
     refreshToken();
-    const getLastYear = async () => {
-      const date = new Date();
-      // setTahun(date.getFullYear() - 1);
-      // return date.getFullYear() - 1;
-      setTahun(date.getFullYear());
-      return date.getFullYear();
-    };
-    getLastYear().then((results) => {});
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   // setTahun(date.getFullYear() - 1);
+    //   // return date.getFullYear() - 1;
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    // };
+    // getLastYear().then((results) => {});
 
     // getRLTigaTitikTigaTemplate()
     // eslint-disable-next-line react-hooks/exhaustive-deps

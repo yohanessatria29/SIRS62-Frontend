@@ -14,7 +14,7 @@ import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL51 = () => {
   const [bulan, setBulan] = useState(1);
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [daftarBulan, setDaftarBulan] = useState([]);
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
@@ -33,14 +33,14 @@ const RL51 = () => {
   useEffect(() => {
     refreshToken();
     getBulan();
-    const getLastYear = async () => {
-      const date = new Date();
-      setTahun(date.getFullYear());
-      return date.getFullYear();
-      // setTahun(date.getFullYear() - 1);
-      // return date.getFullYear() - 1;
-    };
-    getLastYear().then((results) => {});
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    //   // setTahun(date.getFullYear() - 1);
+    //   // return date.getFullYear() - 1;
+    // };
+    // getLastYear().then((results) => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

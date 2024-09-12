@@ -13,7 +13,7 @@ import Modal from "react-bootstrap/Modal";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL316 = () => {
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
   const [daftarRumahSakit, setDaftarRumahSakit] = useState([]);
@@ -36,14 +36,15 @@ const RL316 = () => {
 
   useEffect(() => {
     refreshToken();
-    const getLastYear = async () => {
-      const date = new Date();
-      setTahun(date.getFullYear());
-      return date.getFullYear();
-    };
-    getLastYear().then((results) => {
-      // getDataRLTigaTitikDuaBelas(results);
-    });
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    // };
+    // getLastYear().then((results) => {
+    //   // getDataRLTigaTitikDuaBelas(results);
+    // });
+
     // getRLTigaTitikTigaTemplate()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
