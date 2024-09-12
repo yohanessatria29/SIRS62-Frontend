@@ -147,7 +147,7 @@ export const RL317 = () => {
             return
         }
         const filter = []
-        filter.push("nama: ".concat(rumahSakit.nama))
+        filter.push("filtered by nama: ".concat(rumahSakit.nama))
         filter.push("periode: ".concat(String(tahun)))
         setFilterLabel(filter)
         try {
@@ -697,7 +697,7 @@ export const RL317 = () => {
 
                 <div>
                     <h5 style={{fontSize: "14px"}}>
-                        filtered by {filterLabel.map((value) => {
+                        {filterLabel.map((value) => {
                             return(
                                 value
                             )

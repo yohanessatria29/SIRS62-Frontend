@@ -202,7 +202,7 @@ const getRL = async (e) => {
       return
   }
   const filter = []
-  filter.push("nama: ".concat(rumahSakit.nama))
+  filter.push("filtered by nama: ".concat(rumahSakit.nama))
   filter.push("periode: ".concat(String(tahun).concat("-").concat(bulan)))
   setFilterLabel(filter)
   try {
@@ -730,7 +730,7 @@ const hapus = (id) => {
                     
                     <div>
                         <h5 style={{fontSize: "14px"}}>
-                            filtered by {filterLabel.map((value) => {
+                            {filterLabel.map((value) => {
                                 return(
                                     value
                                 )
