@@ -14,7 +14,7 @@ const FormTambahRL41 = () => {
   // const [tahun, setTahun] = useState(new Date().getFullYear() - 1);
   // const [tahun, setTahun] = useState(new Date().getFullYear());
   const [tahun, setTahun] = useState("2025");
-  const [bulan, setBulan] = useState("01");
+  const [bulan, setBulan] = useState("00");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
@@ -85,7 +85,6 @@ const FormTambahRL41 = () => {
     setSpinnerSearch(true);
     try {
       if (caripenyakit) {
-        // console.log("ada");
         const response = await axiosJWT.get(
           "/apisirs6v2/icd/rawat_jalan/find?search=" + caripenyakit,
           {
@@ -394,47 +393,52 @@ const FormTambahRL41 = () => {
       data: [transformedObject],
     };
 
-    // console.log(datainput[0]);
-
-    if (total <= totalkunjungan) {
-      //   console.log(totalkunjungan);
-      //   console.log(total);
-      // console.log(dataReady);
-      try {
-        const customConfig = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        const result = await axiosJWT.post(
-          "/apisirs6v2/rllimatitiksatu",
-          dataReady,
-          customConfig
-        );
-        toast("Data Berhasil Disimpan", {
+    if (bulan === "00" || bulan == 0) {
+      toast(
+        `Data tidak bisa disimpan karena belum pilih periode bulan laporan`,
+        {
           position: toast.POSITION.TOP_RIGHT,
-        });
-        setTimeout(() => {
-          navigate("/rl51");
-        }, 1000);
-      } catch (error) {
+        }
+      );
+      setButtonStatus(false);
+    } else {
+      if (total <= totalkunjungan) {
+        try {
+          const customConfig = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
+          const result = await axiosJWT.post(
+            "/apisirs6v2/rllimatitiksatu",
+            dataReady,
+            customConfig
+          );
+          toast("Data Berhasil Disimpan", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            navigate("/rl51");
+          }, 1000);
+        } catch (error) {
+          toast(
+            `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          setButtonStatus(false);
+        }
+      } else {
         toast(
-          `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+          `Data Gagal Disimpan, Data Jumlah Pasien Baru Lebih Dari Jumlah Kunjungan Pasien`,
           {
             position: toast.POSITION.TOP_RIGHT,
           }
         );
         setButtonStatus(false);
       }
-    } else {
-      toast(
-        `Data Gagal Disimpan, Data Jumlah Pasien Baru Lebih Dari Jumlah Kunjungan Pasien`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
-      setButtonStatus(false);
     }
   };
 
@@ -583,9 +587,13 @@ const FormTambahRL41 = () => {
                   <Spinner animation="grow" variant="success"></Spinner>
                 )}
               </div>
-              <div className="table-container">
-                <table className={style.tablesearch}>
-                  <thead className={style.thead}>
+              <div className={style["table-container"]}>
+                <table
+                  responsive
+                  className={style["table"]}
+                  style={{ width: "100%" }}
+                >
+                  <thead className={style["thead"]}>
                     <tr className="main-header-row">
                       <th style={{ width: "8%" }}>No.</th>
                       <th style={{ width: "20%" }}>Code ICD 10</th>
@@ -672,6 +680,7 @@ const FormTambahRL41 = () => {
                         id="bulan"
                         onChange={(e) => changeHandlerSingle(e)}
                       >
+                        <option value="00">--PILIH BULAN--</option>
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Maret</option>
@@ -690,7 +699,6 @@ const FormTambahRL41 = () => {
                   </div>
                   <div className="container mt-3">
                     <div className="container" style={{ textAlign: "center" }}>
-                      {/* <h5>test</h5> */}
                       {spinner && (
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
@@ -710,65 +718,71 @@ const FormTambahRL41 = () => {
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
                     </div>
-                    <table className={style.tablesearch}>
-                      <thead>
-                        <tr>
-                          <th style={{ width: "8%" }}>No.</th>
-                          <th>Golongan Berdasarkan Umur</th>
-                          <th>Laki Laki</th>
-                          <th>Perempuan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {datainput.map((value) => {
-                          return value.label.map((test, no) => {
-                            const isPerempuanDisabled =
-                              value.statusPerempuan === 0;
-                            const isLakiDisabled = value.statusLaki === 0;
-                            return (
-                              <tr key={no}>
-                                <td>{no + 1}</td>
-                                <td style={{ textAlign: "left" }}>
-                                  <label>{test.label}</label>
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    name={test.namaL}
-                                    className="input is-primary is-small form-control"
-                                    defaultValue={0}
-                                    min={0}
-                                    maxLength={7}
-                                    onInput={(e) => maxLengthCheck(e)}
-                                    onPaste={preventPasteNegative}
-                                    onKeyPress={preventMinus}
-                                    onChange={(e) => changeHandler(e, no)}
-                                    onFocus={handleFocus}
-                                    disabled={isLakiDisabled}
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    name={test.namaP}
-                                    className="input is-primary is-small form-control"
-                                    defaultValue={0}
-                                    min={0}
-                                    maxLength={7}
-                                    onInput={(e) => maxLengthCheck(e)}
-                                    onPaste={preventPasteNegative}
-                                    onKeyPress={preventMinus}
-                                    onChange={(e) => changeHandler(e, no)}
-                                    onFocus={handleFocus}
-                                    disabled={isPerempuanDisabled}
-                                  />
-                                </td>
-                              </tr>
-                            );
-                          });
-                        })}
-                      </tbody>
-                    </table>
+                    <div className={style["table-container"]}>
+                      <table
+                        responsive
+                        className={style["table"]}
+                        style={{ width: "100%" }}
+                      >
+                        <thead className={style["thead"]}>
+                          <tr className="main-header-row">
+                            <th style={{ width: "8%" }}>No.</th>
+                            <th>Golongan Berdasarkan Umur</th>
+                            <th>Laki Laki</th>
+                            <th>Perempuan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {datainput.map((value) => {
+                            return value.label.map((test, no) => {
+                              const isPerempuanDisabled =
+                                value.statusPerempuan === 0;
+                              const isLakiDisabled = value.statusLaki === 0;
+                              return (
+                                <tr key={no}>
+                                  <td>{no + 1}</td>
+                                  <td style={{ textAlign: "left" }}>
+                                    <label>{test.label}</label>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      name={test.namaL}
+                                      className="input is-primary is-small form-control"
+                                      defaultValue={0}
+                                      min={0}
+                                      maxLength={7}
+                                      onInput={(e) => maxLengthCheck(e)}
+                                      onPaste={preventPasteNegative}
+                                      onKeyPress={preventMinus}
+                                      onChange={(e) => changeHandler(e, no)}
+                                      onFocus={handleFocus}
+                                      disabled={isLakiDisabled}
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      name={test.namaP}
+                                      className="input is-primary is-small form-control"
+                                      defaultValue={0}
+                                      min={0}
+                                      maxLength={7}
+                                      onInput={(e) => maxLengthCheck(e)}
+                                      onPaste={preventPasteNegative}
+                                      onKeyPress={preventMinus}
+                                      onChange={(e) => changeHandler(e, no)}
+                                      onFocus={handleFocus}
+                                      disabled={isPerempuanDisabled}
+                                    />
+                                  </td>
+                                </tr>
+                              );
+                            });
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                   <div className="mt-3 mb-3">
                     <ToastContainer />
