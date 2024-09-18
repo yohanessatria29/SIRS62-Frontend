@@ -758,21 +758,21 @@ const RL33 = () => {
               <thead className={style.thead}>
                 <tr>
                   <th
-                    style={{ width: "4%", verticalAlign: "middle" }}
+                    style={{ width: "2%" }}
                     rowSpan={2}
                     className={style["sticky-header"]}
                   >
                     No Pelayanan
                   </th>
                   <th
-                    style={{ width: "3%", verticalAlign: "middle" }}
+                    style={{ width: "6%" }}
                     rowSpan={2}
                     className={style["sticky-header"]}
                   >
                     Aksi
                   </th>
                   <th
-                    style={{ width: "20%", verticalAlign: "middle" }}
+                    style={{ width: "20%" }}
                     rowSpan={2}
                     className={style["sticky-header"]}
                   >

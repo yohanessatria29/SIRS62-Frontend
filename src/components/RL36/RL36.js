@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import style from "./FormTambahRL36.module.css";
+import style from "./RL36.module.css";
 import { HiSaveAs } from "react-icons/hi";
-import { RiDeleteBin5Fill, RiEdit2Fill } from "react-icons/ri";
-import { AiFillFileAdd } from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import Table from "react-bootstrap/Table";
-import Spinner from "react-bootstrap/Spinner";
+// import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL36 = () => {
   const [bulan, setBulan] = useState(1);
@@ -36,13 +34,10 @@ const RL36 = () => {
     getBulan();
     const getLastYear = async () => {
       const date = new Date();
-      setTahun(date.getFullYear());
+      setTahun("2025");
       return date.getFullYear();
     };
-    getLastYear().then((results) => {
-      // getDataRLTigaTitikEnam(results)
-    });
-
+    getLastYear().then((results) => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -815,6 +810,8 @@ const RL36 = () => {
     }
   };
 
+  function handleDownloadExcel() {}
+
   return (
     <div className="container" style={{ marginTop: "70px" }}>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
@@ -1078,7 +1075,7 @@ const RL36 = () => {
                 backgroundColor: "#779D9E",
                 color: "#FFFFFF",
               }}
-              // onClick={handleDownloadExcel}
+              onClick={handleDownloadExcel}
             >
               Download
             </button>
@@ -1094,443 +1091,468 @@ const RL36 = () => {
             </h5>
           </div>
 
-          <Table
-            className={style.rlTable}
-            striped
-            bordered
-            responsive
-            style={{ width: "200%" }}
-          >
-            <thead>
-              <tr>
-                <th
-                  style={{ width: "2.5%" }}
-                  rowSpan={2}
-                  className="align-middle"
-                >
-                  No.
-                </th>
-                <th
-                  style={{ width: "2.5%" }}
-                  rowSpan={2}
-                  className="align-middle"
-                >
-                  Aksi
-                </th>
-                <th
-                  style={{ width: "10%" }}
-                  rowSpan={2}
-                  className="align-middle"
-                >
-                  Jenis Kegiatan
-                </th>
-                <th colSpan={7} className="text-center">
-                  Rujukan Medis
-                </th>
-                <th colSpan={3} className="text-center">
-                  Rujukan Non Medis
-                </th>
-                <th colSpan={3} className="text-center">
-                  Non Rujukan
-                </th>
-                <th rowSpan={2} className="align-middle">
-                  Dirujuk
-                </th>
-              </tr>
-              <tr>
-                <th className="align-middle">Rumah Sakit</th>
-                <th className="align-middle">Bidan</th>
-                <th className="align-middle">Puskesmas</th>
-                <th className="align-middle">Faskes Lainnya</th>
-                <th className="align-middle">Jumlah Hidup</th>
-                <th className="align-middle">Jumlah Mati</th>
-                <th className="align-middle">Total Rujukan Medis</th>
-                <th className="align-middle">Jumlah Hidup</th>
-                <th className="align-middle">Jumlah Mati</th>
-                <th className="align-middle">Total Rujukan Non Medis</th>
-                <th className="align-middle">Jumlah Hidup</th>
-                <th className="align-middle">Jumlah Mati</th>
-                <th className="align-middle">Total Non Rujukan</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                //eslint-disable-next-line
-                dataRL.map((value, index) => {
-                  if (value.groupNama != null) {
-                    return (
-                      <React.Fragment key={index}>
-                        <tr
-                          style={{
-                            textAlign: "center",
-                            backgroundColor: "#C4DFAA",
-                            fontWeight: "bold",
-                            // color:"#354259"
-                          }}
-                        >
-                          <td>
-                            <input
-                              type="text"
-                              name="id"
-                              className="form-control"
-                              value={value.groupNo}
-                              disabled={true}
-                            />
-                          </td>
-                          <td></td>
-                          <td>{value.groupNama}</td>
+          <div className={style["table-container"]}>
+            <table responsive className={style.table}>
+              <thead className={style.thead}>
+                <tr>
+                  <th
+                    style={{ width: "2" }}
+                    rowSpan={2}
+                    className={style["sticky-header"]}
+                  >
+                    No.
+                  </th>
+                  <th
+                    style={{ width: "6%" }}
+                    rowSpan={2}
+                    className={style["sticky-header"]}
+                  >
+                    Aksi
+                  </th>
+                  <th
+                    style={{ width: "15%" }}
+                    rowSpan={2}
+                    className={style["sticky-header"]}
+                  >
+                    Jenis Kegiatan
+                  </th>
+                  <th colSpan={7} className="text-center">
+                    Rujukan Medis
+                  </th>
+                  <th colSpan={3} className="text-center">
+                    Rujukan Non Medis
+                  </th>
+                  <th colSpan={3} className="text-center">
+                    Non Rujukan
+                  </th>
+                  <th rowSpan={2} className="align-middle">
+                    Dirujuk
+                  </th>
+                </tr>
+                <tr className={style["subheader-row"]}>
+                  <th className="align-middle">Rumah Sakit</th>
+                  <th className="align-middle">Bidan</th>
+                  <th className="align-middle">Puskesmas</th>
+                  <th className="align-middle">Faskes Lainnya</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Rujukan Medis</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Rujukan Non Medis</th>
+                  <th className="align-middle">Jumlah Hidup</th>
+                  <th className="align-middle">Jumlah Mati</th>
+                  <th className="align-middle">Total Non Rujukan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  //eslint-disable-next-line
+                  dataRL.map((value, index) => {
+                    if (value.groupNama != null) {
+                      return (
+                        <React.Fragment key={index}>
+                          <tr
+                            style={{
+                              textAlign: "center",
+                              backgroundColor: "#C4DFAA",
+                              fontWeight: "bold",
+                              // color:"#354259"
+                            }}
+                          >
+                            <td className={style["sticky-column"]}>
+                              <input
+                                type="text"
+                                name="id"
+                                className="form-control"
+                                value={value.groupNo}
+                                disabled={true}
+                              />
+                            </td>
+                            <td className={style["sticky-column"]}></td>
+                            <td className={style["sticky-column"]}>
+                              {/* {value.groupNama} */}
+                              <input
+                                type="text"
+                                name="jenisPelayanan"
+                                className="form-control"
+                                value={value.groupNama}
+                                disabled={true}
+                              />
+                            </td>
 
-                          <td>
-                            <input
-                              type="text"
-                              name="rmRumahSakit"
-                              className="form-control"
-                              value={value.subTotalRmRumahSakit}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rmBidan"
-                              className="form-control"
-                              value={value.subTotalRmBidan}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rmPuskesmas"
-                              className="form-control"
-                              value={value.subTotalRmPuskesmas}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rmFaskesLainnya"
-                              className="form-control"
-                              value={value.subTotalRmFaskesLainnya}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rmHidup"
-                              className="form-control"
-                              value={value.subTotalRmHidup}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rmMati"
-                              className="form-control"
-                              value={value.subTotalRmMati}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rmTotal"
-                              className="form-control"
-                              value={value.subTotalRmTotal}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rnmHidup"
-                              className="form-control"
-                              value={value.subTotalRnmHidup}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rnmMati"
-                              className="form-control"
-                              value={value.subTotalRnmMati}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="rnmTotal"
-                              className="form-control"
-                              value={value.subTotalRnmTotal}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="nrHidup"
-                              className="form-control"
-                              value={value.subTotalNrHidup}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="nrMati"
-                              className="form-control"
-                              value={value.subTotalNrMati}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="nrTotal"
-                              className="form-control"
-                              value={value.subTotalNrTotal}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type="text"
-                              name="dirujuk"
-                              className="form-control"
-                              value={value.subTotalDirujuk}
-                              onChange={(e) => changeHandler(e, index)}
-                              disabled={true}
-                            />
-                          </td>
-                        </tr>
-                        {value.details.map((value2, index2) => {
-                          return (
-                            <tr key={index2}>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="id"
-                                  className="form-control"
-                                  value={
-                                    value2.jenis_kegiatan_rl_tiga_titik_enam.no
-                                  }
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <ToastContainer />
-                                <div style={{ display: "flex" }}>
-                                  <button
-                                    className="btn btn-danger"
-                                    style={{
-                                      margin: "0 5px 0 0",
-                                      backgroundColor: "#FF6663",
-                                      border: "1px solid #FF6663",
-                                    }}
-                                    type="button"
-                                    onClick={(e) =>
-                                      hapus(value2.id, value2.tahun)
+                            <td>
+                              <input
+                                type="text"
+                                name="rmRumahSakit"
+                                className="form-control"
+                                value={value.subTotalRmRumahSakit}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rmBidan"
+                                className="form-control"
+                                value={value.subTotalRmBidan}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rmPuskesmas"
+                                className="form-control"
+                                value={value.subTotalRmPuskesmas}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rmFaskesLainnya"
+                                className="form-control"
+                                value={value.subTotalRmFaskesLainnya}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rmHidup"
+                                className="form-control"
+                                value={value.subTotalRmHidup}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rmMati"
+                                className="form-control"
+                                value={value.subTotalRmMati}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rmTotal"
+                                className="form-control"
+                                value={value.subTotalRmTotal}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rnmHidup"
+                                className="form-control"
+                                value={value.subTotalRnmHidup}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rnmMati"
+                                className="form-control"
+                                value={value.subTotalRnmMati}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="rnmTotal"
+                                className="form-control"
+                                value={value.subTotalRnmTotal}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="nrHidup"
+                                className="form-control"
+                                value={value.subTotalNrHidup}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="nrMati"
+                                className="form-control"
+                                value={value.subTotalNrMati}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="nrTotal"
+                                className="form-control"
+                                value={value.subTotalNrTotal}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="dirujuk"
+                                className="form-control"
+                                value={value.subTotalDirujuk}
+                                onChange={(e) => changeHandler(e, index)}
+                                disabled={true}
+                              />
+                            </td>
+                          </tr>
+                          {value.details.map((value2, index2) => {
+                            return (
+                              <tr key={index2}>
+                                <td className={style["sticky-column"]}>
+                                  <input
+                                    type="text"
+                                    name="id"
+                                    className="form-control"
+                                    value={
+                                      value2.jenis_kegiatan_rl_tiga_titik_enam
+                                        .no
                                     }
-                                  >
-                                    Hapus
-                                  </button>
-                                  <Link
-                                    to={`/rl36/ubah/${value2.id}`}
-                                    className="btn btn-warning"
-                                    style={{
-                                      margin: "0 5px 0 0",
-                                      backgroundColor: "#CFD35E",
-                                      border: "1px solid #CFD35E",
-                                      color: "#FFFFFF",
-                                    }}
-                                  >
-                                    Ubah
-                                  </Link>
-                                </div>
-                              </td>
-                              <td>
-                                {value2.jenis_kegiatan_rl_tiga_titik_enam.nama}
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rmRumahSakit"
-                                  className="form-control"
-                                  value={value2.rmRumahSakit}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rmBidan"
-                                  className="form-control"
-                                  value={value2.rmBidan}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rmPuskesmas"
-                                  className="form-control"
-                                  value={value2.rmPuskesmas}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rmFaskesLainnya"
-                                  className="form-control"
-                                  value={value2.rmFaskesLainnya}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rmHidup"
-                                  className="form-control"
-                                  value={value2.rmHidup}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rmMati"
-                                  className="form-control"
-                                  value={value2.rmMati}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rmTotal"
-                                  className="form-control"
-                                  value={value2.rmTotal}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rnmHidup"
-                                  className="form-control"
-                                  value={value2.rnmHidup}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rnmMati"
-                                  className="form-control"
-                                  value={value2.rnmMati}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="rnmTotal"
-                                  className="form-control"
-                                  value={value2.rnmTotal}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="nrHidup"
-                                  className="form-control"
-                                  value={value2.nrHidup}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="nrMati"
-                                  className="form-control"
-                                  value={value2.nrMati}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="nrTotal"
-                                  className="form-control"
-                                  value={value2.nrTotal}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  name="dirujuk"
-                                  className="form-control"
-                                  value={value2.dirujuk}
-                                  onChange={(e) => changeHandler(e, index)}
-                                  disabled={true}
-                                />
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </React.Fragment>
-                    );
-                  }
-                  // else if (value.groupNama == null) {
-                  // return (
-                  //     <React.Fragment key={index}>
-                  //     <tr>
-                  //         <td style={{ textAlign: "left" }}>
-                  //         {value.details[0].nama}
-                  //         </td>
-                  //         <td>{value.details[0].nilai}</td>
-                  //     </tr>
-                  //     </React.Fragment>
-                  // );
-                  // }
-                })
-              }
-            </tbody>
-          </Table>
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td
+                                  className={style["sticky-column"]}
+                                  style={{
+                                    textAlign: "center",
+                                    verticalAlign: "middle",
+                                  }}
+                                >
+                                  <ToastContainer />
+                                  <div style={{ display: "flex" }}>
+                                    <button
+                                      className="btn btn-danger"
+                                      style={{
+                                        margin: "0 5px 0 0",
+                                        backgroundColor: "#FF6663",
+                                        border: "1px solid #FF6663",
+                                      }}
+                                      type="button"
+                                      onClick={(e) =>
+                                        hapus(value2.id, value2.tahun)
+                                      }
+                                    >
+                                      Hapus
+                                    </button>
+                                    <Link
+                                      to={`/rl36/ubah/${value2.id}`}
+                                      className="btn btn-warning"
+                                      style={{
+                                        margin: "0 5px 0 0",
+                                        backgroundColor: "#CFD35E",
+                                        border: "1px solid #CFD35E",
+                                        color: "#FFFFFF",
+                                      }}
+                                    >
+                                      Ubah
+                                    </Link>
+                                  </div>
+                                </td>
+                                <td className={style["sticky-column"]}>
+                                  {/* {
+                                    value2.jenis_kegiatan_rl_tiga_titik_enam
+                                      .nama
+                                  } */}
+                                  <input
+                                    type="text"
+                                    name="jenisPelayanan"
+                                    className="form-control"
+                                    value={
+                                      value2.jenis_kegiatan_rl_tiga_titik_enam
+                                        .nama
+                                    }
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rmRumahSakit"
+                                    className="form-control"
+                                    value={value2.rmRumahSakit}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rmBidan"
+                                    className="form-control"
+                                    value={value2.rmBidan}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rmPuskesmas"
+                                    className="form-control"
+                                    value={value2.rmPuskesmas}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rmFaskesLainnya"
+                                    className="form-control"
+                                    value={value2.rmFaskesLainnya}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rmHidup"
+                                    className="form-control"
+                                    value={value2.rmHidup}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rmMati"
+                                    className="form-control"
+                                    value={value2.rmMati}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rmTotal"
+                                    className="form-control"
+                                    value={value2.rmTotal}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rnmHidup"
+                                    className="form-control"
+                                    value={value2.rnmHidup}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rnmMati"
+                                    className="form-control"
+                                    value={value2.rnmMati}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="rnmTotal"
+                                    className="form-control"
+                                    value={value2.rnmTotal}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="nrHidup"
+                                    className="form-control"
+                                    value={value2.nrHidup}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="nrMati"
+                                    className="form-control"
+                                    value={value2.nrMati}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="nrTotal"
+                                    className="form-control"
+                                    value={value2.nrTotal}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="dirujuk"
+                                    className="form-control"
+                                    value={value2.dirujuk}
+                                    onChange={(e) => changeHandler(e, index)}
+                                    disabled={true}
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </React.Fragment>
+                      );
+                    }
+                    // else if (value.groupNama == null) {
+                    // return (
+                    //     <React.Fragment key={index}>
+                    //     <tr>
+                    //         <td style={{ textAlign: "left" }}>
+                    //         {value.details[0].nama}
+                    //         </td>
+                    //         <td>{value.details[0].nilai}</td>
+                    //     </tr>
+                    //     </React.Fragment>
+                    // );
+                    // }
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
