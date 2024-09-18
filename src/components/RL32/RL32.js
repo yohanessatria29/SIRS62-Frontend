@@ -696,7 +696,7 @@ const RL32 = () => {
           <div className={style["table-container"]}>
             <table responsive className={style.table}>
               <thead className={style.thead}>
-                <tr className="">
+                <tr>
                   <th
                     className={style["sticky-header"]}
                     rowSpan="2"

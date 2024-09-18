@@ -736,7 +736,7 @@ const FormTambahRL33 = () => {
                 <thead className={style.thead}>
                   <tr className="main-header-row">
                     <th
-                      style={{ width: "2%", verticalAlign: "middle" }}
+                      style={{ width: "2%" }}
                       className={style["sticky-header"]}
                       rowSpan={2}
                     >
@@ -748,14 +748,14 @@ const FormTambahRL33 = () => {
                       className={style["sticky-header"]}
                     ></th>
                     <th
-                      style={{ width: "3%", verticalAlign: "middle" }}
+                      style={{ width: "3%" }}
                       className={style["sticky-header"]}
                       rowSpan={2}
                     >
                       No Pelayanan
                     </th>
                     <th
-                      style={{ width: "8%", verticalAlign: "middle" }}
+                      style={{ width: "8%" }}
                       className={style["sticky-header"]}
                       rowSpan={2}
                     >

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import style from "./FormTambahRL36.module.css";
+import style from "./FormUbahRL36.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { IoArrowBack } from "react-icons/io5";
 import { ToastContainer, toast } from "react-toastify";
@@ -356,6 +356,7 @@ export const FormUbahRL36 = () => {
 
   return (
     <div className="container" style={{ marginTop: "70px" }}>
+      <h2>RL. 3.6</h2>
       <form onSubmit={updateDataRLTigaTitikEnam}>
         <div className="row">
           <div className="col-md-6">
@@ -466,7 +467,7 @@ export const FormUbahRL36 = () => {
                 style={{ color: "gray", cursor: "pointer" }}
               />
               <span style={{ color: "gray" }}>
-                Ubah data RL 3.6 - Kebidanan
+                Kembali ke RL 3.6 - Kebidanan
               </span>
             </Link>
             <div className="container" style={{ textAlign: "center" }}>
@@ -489,301 +490,336 @@ export const FormUbahRL36 = () => {
                 <Spinner animation="grow" variant="success"></Spinner>
               )}
             </div>
-            <Table
-              className={style.rlTable}
-              striped
-              bordered
-              responsive
-              style={{ width: "200%" }}
-            >
-              <thead>
-                <tr>
-                  <th
-                    style={{ width: "2.5%" }}
-                    rowSpan={2}
-                    className="align-middle"
-                  >
-                    No.
-                  </th>
-                  <th
-                    style={{ width: "10%" }}
-                    rowSpan={2}
-                    className="align-middle"
-                  >
-                    Jenis Kegiatan
-                  </th>
-                  <th colSpan={7} className="text-center">
-                    Rujukan Medis
-                  </th>
-                  <th colSpan={3} className="text-center">
-                    Rujukan Non Medis
-                  </th>
-                  <th colSpan={3} className="text-center">
-                    Non Rujukan
-                  </th>
-                  <th rowSpan={2} className="align-middle">
-                    Dirujuk
-                  </th>
-                </tr>
-                <tr>
-                  <th className="align-middle">Rumah Sakit</th>
-                  <th className="align-middle">Bidan</th>
-                  <th className="align-middle">Puskesmas</th>
-                  <th className="align-middle">Faskes Lainnya</th>
-                  <th className="align-middle">Jumlah Hidup</th>
-                  <th className="align-middle">Jumlah Mati</th>
-                  <th className="align-middle">Total Rujukan Medis</th>
-                  <th className="align-middle">Jumlah Hidup</th>
-                  <th className="align-middle">Jumlah Mati</th>
-                  <th className="align-middle">Total Rujukan Non Medis</th>
-                  <th className="align-middle">Jumlah Hidup</th>
-                  <th className="align-middle">Jumlah Mati</th>
-                  <th className="align-middle">Total Non Rujukan</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr key={id}>
-                  {
-                    // console.log(disabledDirujuk)
-                  }
-                  <td>
-                    <input
-                      type="text"
-                      name="id"
-                      className="form-control"
-                      value="1"
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="jenisKegiatan"
-                      className="form-control"
-                      value={nama}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rmRumahSakit"
-                      className="form-control"
-                      value={rmRumahSakit}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rmBidan"
-                      className="form-control"
-                      value={rmBidan}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rmPuskesmas"
-                      className="form-control"
-                      value={rmPuskesmas}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rmFaskesLainnya"
-                      className="form-control"
-                      value={rmFaskesLainnya}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rmHidup"
-                      className="form-control"
-                      value={rmHidup}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rmMati"
-                      className="form-control"
-                      value={rmMati}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      disabled={disabledRmMati}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rmTotal"
-                      className="form-control"
-                      value={rmTotal}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rnmHidup"
-                      className="form-control"
-                      value={rnmHidup}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rnmMati"
-                      className="form-control"
-                      value={rnmMati}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      disabled={disabledRnmMati}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="rnmTotal"
-                      className="form-control"
-                      value={rnmTotal}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="nrHidup"
-                      className="form-control"
-                      value={nrHidup}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="nrMati"
-                      className="form-control"
-                      value={nrMati}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      disabled={disabledNrMati}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="nrTotal"
-                      className="form-control"
-                      value={nrTotal}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      onFocus={handleFocus}
-                      maxLength={7}
-                      onInput={(e) => maxLengthCheck(e)}
-                      name="dirujuk"
-                      className="form-control"
-                      value={dirujuk}
-                      onChange={(e) => changeHandler(e)}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+            <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+              <table responsive className={style.table}>
+                <thead className={style.thead}>
+                  <tr className="main-header-row">
+                    <th
+                      style={{ width: "2%" }}
+                      rowSpan={2}
+                      className={style["sticky-header"]}
+                    >
+                      No.
+                    </th>
+                    <th
+                      style={{ width: "15%" }}
+                      rowSpan={2}
+                      className={style["sticky-header"]}
+                    >
+                      Jenis Kegiatan
+                    </th>
+                    <th
+                      colSpan={7}
+                      className="text-center"
+                      style={{ width: "35%" }}
+                    >
+                      Rujukan Medis
+                    </th>
+                    <th
+                      colSpan={3}
+                      className="text-center"
+                      style={{ width: "15%" }}
+                    >
+                      Rujukan Non Medis
+                    </th>
+                    <th
+                      colSpan={3}
+                      className="text-center"
+                      style={{ width: "15%" }}
+                    >
+                      Non Rujukan
+                    </th>
+                    <th
+                      rowSpan={2}
+                      className="align-middle"
+                      style={{ width: "5%" }}
+                    >
+                      Dirujuk
+                    </th>
+                  </tr>
+                  <tr className={style["subheader-row"]}>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Rumah Sakit
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Bidan
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Puskesmas
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Faskes Lainnya
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Jumlah Hidup
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Jumlah Mati
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Total Rujukan Medis
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Jumlah Hidup
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Jumlah Mati
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Total Rujukan Non Medis
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Jumlah Hidup
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Jumlah Mati
+                    </th>
+                    <th style={{ width: "5%" }} className="align-middle">
+                      Total Non Rujukan
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr key={id}>
+                    <td className={style["sticky-column"]}>
+                      <input
+                        type="text"
+                        name="id"
+                        className="form-control"
+                        value="1"
+                        disabled={true}
+                      />
+                    </td>
+                    <td className={style["sticky-column"]}>
+                      <input
+                        type="text"
+                        name="jenisKegiatan"
+                        className="form-control"
+                        value={nama}
+                        disabled={true}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rmRumahSakit"
+                        className="form-control"
+                        value={rmRumahSakit}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rmBidan"
+                        className="form-control"
+                        value={rmBidan}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rmPuskesmas"
+                        className="form-control"
+                        value={rmPuskesmas}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rmFaskesLainnya"
+                        className="form-control"
+                        value={rmFaskesLainnya}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rmHidup"
+                        className="form-control"
+                        value={rmHidup}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        disabled={true}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rmMati"
+                        className="form-control"
+                        value={rmMati}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        disabled={disabledRmMati}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rmTotal"
+                        className="form-control"
+                        value={rmTotal}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        disabled={true}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rnmHidup"
+                        className="form-control"
+                        value={rnmHidup}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rnmMati"
+                        className="form-control"
+                        value={rnmMati}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        disabled={disabledRnmMati}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="rnmTotal"
+                        className="form-control"
+                        value={rnmTotal}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        disabled={true}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="nrHidup"
+                        className="form-control"
+                        value={nrHidup}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="nrMati"
+                        className="form-control"
+                        value={nrMati}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        disabled={disabledNrMati}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="nrTotal"
+                        className="form-control"
+                        value={nrTotal}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        disabled={true}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        min="0"
+                        onFocus={handleFocus}
+                        maxLength={7}
+                        onInput={(e) => maxLengthCheck(e)}
+                        name="dirujuk"
+                        className="form-control"
+                        value={dirujuk}
+                        onChange={(e) => changeHandler(e)}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div className="mt-3 mb-3">
