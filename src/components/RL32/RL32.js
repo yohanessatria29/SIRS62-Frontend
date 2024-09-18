@@ -413,6 +413,104 @@ const RL32 = () => {
         })
     }
 
+    const calculateTotalPasienAwalBulan = (data) => {
+        return data.reduce((sum, item) => sum + item.pasien_awal_bulan, 0);
+    }
+
+    const calculateTotalPasienMasuk = (data) => {
+        return data.reduce((sum, item) => sum + item.pasien_masuk, 0);
+    }
+
+    const calculateTotalPasienPindahan = (data) => {
+        return data.reduce((sum, item) => sum + item.pasien_pindahan, 0);
+    }
+
+    const calculateTotalPasienDipindahkan = (data) => {
+        return data.reduce((sum, item) => sum + item.pasien_dipindahkan, 0);
+    }
+
+    const calculateTotalPasienKeluarHidup = (data) => {
+        return data.reduce((sum, item) => sum + item.pasien_keluar_hidup, 0);
+    }
+
+    const calculateTotalPasienKeluarMatiKurangDari48Jam = (data) => {
+        return data.reduce((sum, item) => sum + item.pasien_keluar_mati_kurang_dari_48_jam, 0);
+    }
+
+    const calculateTotalPasienMatiLebihDariAtauSamaDengan48Jam = (data) => {
+        return data.reduce((sum, item) => sum + item.pasien_keluar_mati_lebih_dari_atau_sama_dengan_48_jam, 0);
+    }
+
+    const calculateTotalJumlahDirawat = (data) => {
+        return data.reduce((sum, item) => sum + item.jumlah_lama_dirawat, 0);
+    }
+
+    const calculateTotalPasienAkhirBulan = (data) => {
+        return data.reduce((sum, item) => sum + 
+        (parseInt(item.pasien_awal_bulan) +
+        parseInt(item.pasien_masuk) + parseInt(item.pasien_pindahan)) -
+        (parseInt(item.pasien_dipindahkan) +  parseInt(item.pasien_keluar_hidup) +
+            parseInt(item.pasien_keluar_mati_kurang_dari_48_jam) +
+            parseInt(item.pasien_keluar_mati_lebih_dari_atau_sama_dengan_48_jam)
+        ), 0);
+    }
+
+    const calculateTotalHariPerawatan = (data) => {
+        return data.reduce((sum, item) => sum + 
+        parseInt(item.rincian_hari_perawatan_kelas_VVIP) + 
+        parseInt(item.rincian_hari_perawatan_kelas_VIP) +
+        parseInt(item.rincian_hari_perawatan_kelas_1) +
+        parseInt(item.rincian_hari_perawatan_kelas_2) +
+        parseInt(item.rincian_hari_perawatan_kelas_3) +
+        parseInt(item.rincian_hari_perawatan_kelas_khusus), 0);
+    }
+
+    const calculateTotalKelasVVIP = (data) => {
+        return data.reduce((sum, item) => sum + item.rincian_hari_perawatan_kelas_VVIP, 0);
+    }
+
+    const calculateTotalKelasVIP = (data) => {
+        return data.reduce((sum, item) => sum + item.rincian_hari_perawatan_kelas_VIP, 0);
+    }
+
+    const calculateTotalKelas1 = (data) => {
+        return data.reduce((sum, item) => sum + item.rincian_hari_perawatan_kelas_1, 0);
+    }
+
+    const calculateTotalKelas2 = (data) => {
+        return data.reduce((sum, item) => sum + item.rincian_hari_perawatan_kelas_2, 0);
+    }
+
+    const calculateTotalKelas3 = (data) => {
+        return data.reduce((sum, item) => sum + item.rincian_hari_perawatan_kelas_3, 0);
+    }
+
+    const calculateTotalKelasKhusus = (data) => {
+        return data.reduce((sum, item) => sum + item.rincian_hari_perawatan_kelas_khusus, 0);
+    }
+
+    const calculateTotalJumlahAlokasiTempatTidurAwalBulan = (data) => {
+        return data.reduce((sum, item) => sum + item.jumlah_alokasi_tempat_tidur_awal_bulan, 0);
+    }
+
+    const totalPasienAwalBulan = calculateTotalPasienAwalBulan(dataRL);
+    const totalPasienMasuk = calculateTotalPasienMasuk(dataRL);
+    const totalPasienPindahan = calculateTotalPasienPindahan(dataRL);
+    const totalPasienDipindahkan = calculateTotalPasienDipindahkan(dataRL);
+    const totalPasienKeluarHidup = calculateTotalPasienKeluarHidup(dataRL);
+    const totalPasienKeluarMatiKurangDari48Jam = calculateTotalPasienKeluarMatiKurangDari48Jam(dataRL);
+    const totalPasienKeluarMatiLebihDariAtauSamaDengan48Jam = calculateTotalPasienMatiLebihDariAtauSamaDengan48Jam(dataRL);
+    const totalJumlahDirawat = calculateTotalJumlahDirawat(dataRL);
+    const totalPasienAkhirBulan = calculateTotalPasienAkhirBulan(dataRL)
+    const totalHariPerawatan = calculateTotalHariPerawatan(dataRL)
+    const totalKelasVVIP = calculateTotalKelasVVIP(dataRL)
+    const totalKelasVIP = calculateTotalKelasVIP(dataRL)
+    const totalKelas1 = calculateTotalKelas1(dataRL)
+    const totalKelas2 = calculateTotalKelas2(dataRL)
+    const totalKelas3 = calculateTotalKelas3(dataRL)
+    const totalKelasKhusus = calculateTotalKelasKhusus(dataRL)
+    const totalTotalJumlahAlokasiTempatTidurAwalBulan = calculateTotalJumlahAlokasiTempatTidurAwalBulan(dataRL)
+
     return (
         <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
             <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
@@ -708,7 +806,7 @@ const RL32 = () => {
                                                     )
                                                 }
                                             </td>
-                                            <td className={style['sticky-column']}>
+                                            <td className={style['sticky-column']} style={ {background: "white"}}>
                                                 <input type="text" name="jenisPelayanan" className="form-control" value={value.nama_jenis_pelayanan}
                                                     disabled={true} />
                                             </td>
@@ -767,6 +865,53 @@ const RL32 = () => {
                                         </tr>
                                     )
                                 })}
+                                {
+                                    dataRL.length > 0 ? (
+                                        <>
+                                            <tr>
+                                                <td className={style['sticky-column']}></td>
+                                                <td className={style['sticky-column']}></td>
+                                                <td className={style['sticky-column']} style={ {background: "white"}}>Total</td>
+                                                <td><input type="text" name="totalJenisPelayanan" className="form-control" value={totalPasienAwalBulan}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalPasienMasuk" className="form-control" value={totalPasienMasuk}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalPasienPindahan" className="form-control" value={totalPasienPindahan}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalPasienDipindahkan" className="form-control" value={totalPasienDipindahkan}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalPasienKeluarHidup" className="form-control" value={totalPasienKeluarHidup}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalPasienKeluarMatiKurangDari48Jam" className="form-control" value={totalPasienKeluarMatiKurangDari48Jam}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalPasienKeluarMatiLebihDariAtauSamaDengan48Jam" className="form-control" value={totalPasienKeluarMatiLebihDariAtauSamaDengan48Jam}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalJumlahDirawat" className="form-control" value={totalJumlahDirawat}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalPasienAkhirBulan" className="form-control" value={totalPasienAkhirBulan}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalHariPerawatan" className="form-control" value={totalHariPerawatan}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalKelasVVIP" className="form-control" value={totalKelasVVIP}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalKelasVIP" className="form-control" value={totalKelasVIP}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalKelas1" className="form-control" value={totalKelas1}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalKelas2" className="form-control" value={totalKelas2}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalKelas3" className="form-control" value={totalKelas3}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalKelasKhusus" className="form-control" value={totalKelasKhusus}
+                                                disabled={true} /></td>
+                                                <td><input type="text" name="totalJumlahAlokasiTTAwalBulan" className="form-control" value={totalTotalJumlahAlokasiTempatTidurAwalBulan}
+                                                disabled={true} /></td>
+                                            </tr>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                             </tbody>
                         </table>
                     </div>
