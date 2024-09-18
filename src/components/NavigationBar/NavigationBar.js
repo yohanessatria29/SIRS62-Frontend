@@ -162,6 +162,11 @@ const NavigationBar = () => {
                                 RL 5.3 10 Besar Kunjungan Penyakit Rawat Jalan
                             </NavDropdown.Item>
                         </NavDropdown>
+                        <NavDropdown title="Absensi" id="basic-nav-dropdown">
+                            <NavDropdown.Item as={Link} to="/Absensi">
+                               Absensi Tahun 2025 
+                            </NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
 

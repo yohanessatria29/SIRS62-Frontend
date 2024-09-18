@@ -18,7 +18,7 @@ export const FormUbahRL37 = () => {
     const [namaKabKota, setNamaKabKota] = useState('')
     // const [jenisKegiatan, setJeniskegiatan] = useState('')
     
-    // const [no, setNo] = useState('')
+    const [no, setNo] = useState('')
     const [nama, setNama] = useState('')
     const [rmRumahSakit, setRmRumahSakit] = useState('')
     const [rmBidan, setRmBidan] = useState('')
@@ -100,6 +100,12 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmRumahSakit(parseInt(event.target.value))
+            console.log(no);
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
         } else if (name === 'rmBidan') {
             if(event.target.value === ''){
@@ -108,6 +114,11 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmBidan(parseInt(event.target.value))
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmRumahSakit) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmRumahSakit) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmRumahSakit) + parseInt(rmPuskesmas) + parseInt(rmFaskesLainnya))
         } else if (name === 'rmPuskesmas') {
             if(event.target.value === ''){
@@ -116,6 +127,11 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmPuskesmas(parseInt(event.target.value))
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmRumahSakit) + parseInt(rmFaskesLainnya))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmRumahSakit) + parseInt(rmFaskesLainnya))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmRumahSakit) + parseInt(rmFaskesLainnya))
         } else if (name === 'rmFaskesLainnya') {
             if(event.target.value === ''){
@@ -124,6 +140,11 @@ export const FormUbahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             setRmFaskesLainnya(parseInt(event.target.value))
+            if(no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2"){
+                setRmMati(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmRumahSakit))
+            }else{
+                setRmHidup(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmRumahSakit))
+            }
             setRmTotal(parseInt(event.target.value) + parseInt(rmBidan) + parseInt(rmPuskesmas) + parseInt(rmRumahSakit))
         } else if (name === 'rmHidup') {
             if(event.target.value === ''){
@@ -274,8 +295,9 @@ export const FormUbahRL37 = () => {
                 Authorization: `Bearer ${token}`
             }
         })
+        // console.log(response);
         setNama(response.data.data.jenis_kegiatan_rl_tiga_titik_tujuh.nama);
-        // setNo(response.data.data.jenis_kegiatan.id);
+        setNo(response.data.data.jenis_kegiatan_rl_tiga_titik_tujuh.no);
         // setJeniskegiatan(response.data.data.rl_tiga_titik_lima_id);
         setRmRumahSakit(response.data.data.rmRumahSakit);
         setRmBidan(response.data.data.rmBidan);
@@ -321,8 +343,11 @@ export const FormUbahRL37 = () => {
         }
     }
 
+    
+    
+
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={updateDataRLTigaTitikTujuh}>
                 <div className="row">
                     <div className="col-md-6">
@@ -352,7 +377,7 @@ export const FormUbahRL37 = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    {/* <div className="col-md-6">
                         <div className="card">
                             <div className="card-body">
                                 <h5 className="card-title h5">Periode Laporan</h5>
@@ -368,14 +393,14 @@ export const FormUbahRL37 = () => {
                                     </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="row mt-3 mb-3">
                     <div className="col-md-12">
                         {/* <h3>Ubah data RL 5.1 -  Pengunjung</h3> */}
                         <Link to={`/rl37/`} style={{textDecoration: "none"}}>
                             <IoArrowBack size={30} style={{color:"gray",cursor: "pointer"}}/>
-                            <span style={{color: "gray"}}>Ubah data RL 3.6 - Kebidanan</span>
+                            <span style={{color: "gray"}}>Ubah data RL 3.7 - Neonatal, Bayi dan Balita</span>
                         </Link>
                         <div className="container" style={{ textAlign: "center" }}>
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
@@ -386,16 +411,16 @@ export const FormUbahRL37 = () => {
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                         </div>
                         <Table
-                            className={style.rlTable}
+                            className={style.table}
                             striped
                             bordered
                             responsive
                             style={{ width: "200%" }}
                         >
-                            <thead>
+                            <thead className={style.thead}>
                                 <tr>
-                                    <th style={{"width": "2.5%"}}>No.</th>
-                                    <th style={{"width": "10%"}}>Jenis Kegiatan</th>
+                                    <th style={{"width": "3%"}}>No.</th>
+                                    <th style={{"width": "12%"}}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>
                                     <th >Rujukan Medis Puskesmas</th>
@@ -413,20 +438,24 @@ export const FormUbahRL37 = () => {
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 <tr key={id}>
                                     {
                                         // console.log(disabledDirujuk)
                                     }
                                     <td>
-                                        <input type='text' name='id' className="form-control" value="1" disabled={true}/>
+                                        <input type='text' name='id' className="form-control" value={no} disabled={true}/>
                                     </td>
                                     <td>
                                         <input type="text" name="jenisKegiatan" className="form-control" value={nama} disabled={true} />
                                     </td>
-                                    <td>
+                                   
+                                    
+                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmRumahSakit" className="form-control" value={rmRumahSakit} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={false}/>
                                     </td>
+                                    
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmBidan" className="form-control" value={rmBidan} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
@@ -441,20 +470,34 @@ export const FormUbahRL37 = () => {
                                     </td>
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmHidup" className="form-control" value={rmHidup} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
                                     </td>
+                                     {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmMati" className="form-control" value={rmMati} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={disabledRmMati} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    :
+                                    <td>
+                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmMati" className="form-control" value={rmMati} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={false} />
+                                    </td>
+                                    }
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rmTotal" className="form-control" value={rmTotal} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
                                     <td>
+                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmHidup" className="form-control" value={rnmHidup} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
+                                    </td>
+                                        :
+                                        <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmHidup" className="form-control" value={rnmHidup} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                     </td>
+                                        }
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmMati" className="form-control" value={rnmMati} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={disabledRnmMati} />
@@ -463,10 +506,16 @@ export const FormUbahRL37 = () => {
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="rnmTotal" className="form-control" value={rnmTotal} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrHidup" className="form-control" value={nrHidup} 
-                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
                                     </td>
+                                    :
+                                    <td>
+                                    <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrHidup" className="form-control" value={nrHidup} 
+                                        onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                </td>}
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrMati" className="form-control" value={nrMati} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={disabledNrMati} />
@@ -475,10 +524,17 @@ export const FormUbahRL37 = () => {
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="nrTotal" className="form-control" value={nrTotal} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true} />
                                     </td>
+                                    {no === "2.1" || no === "2.2" || no === "3.1" || no === "3.2" ?
+                                    <td>
+                                        <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="dirujuk" className="form-control" value={dirujuk} 
+                                            onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} disabled={true}/>
+                                    </td>
+                                    :
                                     <td>
                                         <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)}  name="dirujuk" className="form-control" value={dirujuk} 
                                             onChange={e => changeHandler(e)} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                     </td>
+                                    }
                                 </tr>
                             </tbody>
                         </Table>

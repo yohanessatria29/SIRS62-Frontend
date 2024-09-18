@@ -11,8 +11,8 @@ import Table from 'react-bootstrap/Table'
 import Spinner from 'react-bootstrap/Spinner'
 
 const FormTambahRL37 = () => {
-    const [tahun, setTahun] = useState('')
-    const [bulan, setBulan] = useState('01')
+    const [tahun, setTahun] = useState('2025')
+    const [bulan, setBulan] = useState('00')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
@@ -28,7 +28,7 @@ const FormTambahRL37 = () => {
         refreshToken()
         getRLTigaTitikTujuhTemplate()
         const date = new Date();
-        setTahun(date.getFullYear())
+        // setTahun(date.getFullYear())
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -118,7 +118,12 @@ const FormTambahRL37 = () => {
     }
 
     const changeHandlerSingle = (event) => {
-        setTahun(parseInt(event.target.value))
+        const name = event.target.name
+        if (name === 'tahun') {
+            setTahun(parseInt(event.target.value))
+        } else if (name === 'bulan') {
+            setBulan(parseInt(event.target.value))
+        }
     }
 
     const changeHandler = (event, index) => {
@@ -131,6 +136,7 @@ const FormTambahRL37 = () => {
                 newDataRL[index].disabledInput = true
             }
             newDataRL[index].checked = event.target.checked
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmRumahSakit') {
             if(event.target.value === ''){
                     
@@ -139,6 +145,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmRumahSakit = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmBidan) + parseInt(dataRL[index].rmPuskesmas) + parseInt(dataRL[index].rmFaskesLainnya)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmBidan') {
             if(event.target.value === ''){
                     
@@ -147,6 +154,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmBidan = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmRumahSakit) + parseInt(dataRL[index].rmPuskesmas) + parseInt(dataRL[index].rmFaskesLainnya)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmPuskesmas') {
             if(event.target.value === ''){
                     
@@ -155,6 +163,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmPuskesmas = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmBidan) + parseInt(dataRL[index].rmRumahSakit) + parseInt(dataRL[index].rmFaskesLainnya)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmFaskesLainnya') {
             if(event.target.value === ''){
                     
@@ -163,6 +172,7 @@ const FormTambahRL37 = () => {
                 }
             newDataRL[index].rmFaskesLainnya = parseInt(event.target.value)
             newDataRL[index].rmTotal = parseInt(event.target.value) + parseInt(dataRL[index].rmBidan) + parseInt(dataRL[index].rmPuskesmas) + parseInt(dataRL[index].rmRumahSakit)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmHidup') {
             if(event.target.value === ''){
                     
@@ -170,6 +180,7 @@ const FormTambahRL37 = () => {
                 event.target.select(event.target.value)
                 }
             newDataRL[index].rmHidup = parseInt(event.target.value)
+            newDataRL[index].rmHidup = parseInt(dataRL[index].rmTotal) - parseInt(dataRL[index].rmMati)
         } else if (name === 'rmMati') {
             if(event.target.value === ''){
                     
@@ -290,19 +301,27 @@ const FormTambahRL37 = () => {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            const result = await axiosJWT.post('/apisirs6v2/rltigatitiktujuh',{
-                tahun: parseInt(tahun),
-                tahunDanBulan : date,
-                data: dataRLArray
-            }, customConfig)
-            console.log(result.data)
-            setSpinner(false)
-            toast('Data Berhasil Disimpan', {
-                position: toast.POSITION.TOP_RIGHT
-            })
-            setTimeout(() => {
-                navigate('/rl37')
-            }, 1000);
+            if( bulan==='00' || bulan == 0 ){
+                toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+                setButtonStatus(false);
+                setSpinner(false)
+              }else{
+                const result = await axiosJWT.post('/apisirs6v2/rltigatitiktujuh',{
+                    tahun: parseInt(tahun),
+                    tahunDanBulan : date,
+                    data: dataRLArray
+                }, customConfig)
+                console.log(result.data)
+                setSpinner(false)
+                toast('Data Berhasil Disimpan', {
+                    position: toast.POSITION.TOP_RIGHT
+                })
+                setTimeout(() => {
+                    navigate('/rl37')
+                }, 1000);
+            }
         } catch (error) {
             console.log(error)
             toast('Data Gagal Disimpan', {
@@ -339,7 +358,7 @@ const FormTambahRL37 = () => {
     }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">
@@ -375,11 +394,12 @@ const FormTambahRL37 = () => {
                                 <h5 className="card-title h5">Periode Laporan</h5>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" min="2024"
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)}/>
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true}/>
                                     <label htmlFor="floatingInput">Tahun</label>
                                 </div>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>
                                     <select name="bulan" className="form-control" id="bulan" onChange={e => changeHandlerSingle(e)}>
+                                        <option value="00">--Pilih Bulan--</option>
                                         <option value="01">Januari</option>
                                         <option value="02">Februari</option>
                                         <option value="03">Maret</option>
@@ -415,18 +435,26 @@ const FormTambahRL37 = () => {
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                             {spinner && <Spinner animation="grow" variant="success"></Spinner>}
                         </div>
-                        <Table
+                        {/* <Table
                             className={style.rlTable}
                             striped
                             bordered
                             responsive
                             style={{ width: "200%" }}
-                        >
-                            <thead>
-                                <tr>
-                                    <th style={{"width": "2.5%"}}>No.</th>
-                                    <th ></th>
-                                    <th style={{"width": "10%"}}>Jenis Kegiatan</th>
+                        > */}
+                        <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
+                        <table className={style.table}
+                            striped
+                            bordered
+                            responsive
+                            
+                            style={{ width: "200%" }}>
+                            <thead className={style.thead}>
+                                {/* <tr> */}
+                                <tr className="main-header-row">
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "50px" }}>No.</th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "35px" }}></th>
+                                    <th className={style['sticky-header']} rowSpan="2" style={{ "width": "300px" }}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>
                                     <th >Rujukan Medis Puskesmas</th>
@@ -451,7 +479,13 @@ const FormTambahRL37 = () => {
                                     let disabledRnmMati = true
                                     let disabledNRMati = true
                                     let disabledDirujuk = true
-                                    
+                                    let disabledrmRumahSakit = true
+                                    let disabledrmBidan = true
+                                    let disabledrmPuskesmas = true
+                                    let disabledrmFaskesLainnya = true
+                                    let disabledrmHidup = true
+                                    let disabledrnmHidup = true
+                                    let disablednrHidup = true
                                     // if(value.no == 1 || value.no == 2 || value.no == 3){
                                     //     disabled = true
                                     //     visibled = "none" 
@@ -460,11 +494,18 @@ const FormTambahRL37 = () => {
                                     //     visibled = "block"
                                     // }
 
-                                    if(value.no == '2.100' ){
+                                    if(value.no === "0" ){
                                         disabledRmMati = true
                                         disabledRnmMati = true
                                         disabledNRMati = true
                                         disabledDirujuk = true
+                                        disabledrmRumahSakit = true
+                                        disabledrmBidan =true
+                                        disabledrmPuskesmas =true
+                                        disabledrmFaskesLainnya = true
+                                        disabledrmHidup = true
+                                        disabledrnmHidup = true
+                                        disablednrHidup = true
                                     } else {
                                         if(value.checked === false){
                                             disabledRmMati = true
@@ -472,45 +513,67 @@ const FormTambahRL37 = () => {
                                             disabledNRMati = true
                                             disabledDirujuk = true
                                         } else {
-                                            disabledRmMati = false
-                                            disabledRnmMati = false
-                                            disabledNRMati = false
-                                            disabledDirujuk = false
+                                            if(value.no === "2.1" || value.no === "2.2" || value.no === "3.1" || value.no === "3.2"){
+                                                disabledRmMati = false
+                                                disabledRnmMati = false
+                                                disabledNRMati = false
+                                                // disabledDirujuk = false
+                                                disabledrmRumahSakit = false
+                                                disabledrmBidan =false
+                                                disabledrmPuskesmas =false
+                                                disabledrmFaskesLainnya = false
+                                                value.rmHidup = 0
+                                                value.rmMati = value.rmRumahSakit+value.rmBidan+value.rmPuskesmas+value.rmFaskesLainnya
+                                                // disabledrnmHidup = false
+                                                disabledRmMati = true
+                                            }else{
+                                                disabledRmMati = false
+                                                disabledRnmMati = false
+                                                disabledNRMati = false
+                                                disabledDirujuk = false
+                                                disabledrmRumahSakit = false
+                                                disabledrmBidan =false
+                                                disabledrmPuskesmas =false
+                                                disabledrmFaskesLainnya = false
+                                                disabledrnmHidup = false
+                                                disablednrHidup = false
+                                            }
+                                            
                                         }
                                     }
                                     return (
                                         <tr key={value.id}>
-                                            <td>
-                                                <input type='hidden' name='id' className="form-control" value={value.id} disabled={true}/>
+                                            <td className={style['sticky-column']} >
+                                                <input type='hidden' name='id'  value={value.id} disabled={true}/>
                                                 {/* <input type='text' name='no' className="form-control" value={value.no} disabled={true}/> */}
                                                 {value.no}
                                             </td>
-                                            <td style={{textAlign: "center", verticalAlign: "middle"}}>
+                                            <td className={style['sticky-column']} style={{textAlign: "center", verticalAlign: "middle"}}>
                                                 <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked} disabled={disabled} style={{display: visibled}}/>
                                             </td>
-                                            <td>
+                                            <td  className={style['sticky-column']}>
                                                 {/* <input type="text" name="jenisKegiatan" className="form-control" value={value.jenisKegiatan} disabled={true} /> */}
                                                 {value.jenisKegiatan}
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmRumahSakit" className="form-control" value={value.rmRumahSakit} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmRumahSakit} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmBidan" className="form-control" value={value.rmBidan} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmBidan} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmPuskesmas" className="form-control" value={value.rmPuskesmas} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmPuskesmas} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmFaskesLainnya" className="form-control" value={value.rmFaskesLainnya} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmFaskesLainnya} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmHidup" className="form-control" value={value.rmHidup} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrmHidup} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rmMati" className="form-control" value={value.rmMati} 
@@ -522,7 +585,7 @@ const FormTambahRL37 = () => {
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rnmHidup" className="form-control" value={value.rnmHidup} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disabledrnmHidup} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="rnmMati" className="form-control" value={value.rnmMati} 
@@ -534,7 +597,7 @@ const FormTambahRL37 = () => {
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="nrHidup" className="form-control" value={value.nrHidup} 
-                                                        onChange={e => changeHandler(e, index)} disabled={value.disabledInput} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
+                                                        onChange={e => changeHandler(e, index)} disabled={disablednrHidup} onPaste={preventPasteNegative} onKeyPress={preventMinus} />
                                             </td>
                                             <td>
                                                 <input type="number" min="0" onFocus={handleFocus} maxLength={7} onInput={(e) => maxLengthCheck(e)} name="nrMati" className="form-control" value={value.nrMati} 
@@ -552,7 +615,8 @@ const FormTambahRL37 = () => {
                                     )
                                 }) }
                             </tbody>
-                        </Table>
+                        </table>
+                        </div>
                     </div>
                 </div>
                 <div className="mt-3 mb-3">

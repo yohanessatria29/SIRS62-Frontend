@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
-import style from './FormTambahRL35.module.css'
+import style from './RL35.module.css'
 import { HiSaveAs } from 'react-icons/hi'
-import { RiDeleteBin5Fill, RiEdit2Fill } from 'react-icons/ri'
-import { AiFillFileAdd } from 'react-icons/ai'
 import { confirmAlert } from 'react-confirm-alert'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table'
+import { DownloadTableExcel } from "react-export-table-to-excel"
 
 const RL35 = () => {
     const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [filterLabel, setFilterLabel] = useState([])
     const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -29,28 +26,30 @@ const RL35 = () => {
     const [show, setShow] = useState(false);
     const [user, setUser] = useState({})
     const navigate = useNavigate()
-    const [spinner, setSpinner]= useState(false)
-    const [total_kunjungan_pasien_dalam_kabkota, setTotalKunjunganPasienDalamKabkota] = useState(0)
-    const [total_kunjungan_pasien_luar_kabkota, setTotalKunjunganPasienLuarKabkota] = useState(0)
+    const [spinner, setSpinner] = useState(false)
+    const [dataCount, setDataCount] = useState([])
     const [total_kunjungan, setTotalKunjungan] = useState(0)
+    const [rata_kunjungan, setRataKunjungan] = useState(0)
+    const tableRef = useRef(null);
+    const [namafile, setNamaFile] = useState("");
 
     useEffect(() => {
         refreshToken()
         getBulan()
-        const getLastYear = async () => {
-            const date = new Date()
-            setTahun(date.getFullYear())
-            return date.getFullYear()
-        }
-        getLastYear().then((results) => {
-            
-        })
+        // const getLastYear = async () => {
+        //     const date = new Date()
+        //     setTahun(date.getFullYear())
+        //     return date.getFullYear()
+        // }
+        // getLastYear().then((results) => {
+
+        // })
 
         totalPengunjung()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[dataRL])
+    }, [dataRL])
 
-    const refreshToken = async() => {
+    const refreshToken = async () => {
         try {
             const response = await axios.get('/apisirs6v2/token')
             setToken(response.data.accessToken)
@@ -59,14 +58,14 @@ const RL35 = () => {
             setExpire(decoded.exp)
             setUser(decoded)
         } catch (error) {
-            if(error.response) {
+            if (error.response) {
                 navigate('/')
             }
         }
     }
 
     const axiosJWT = axios.create()
-    axiosJWT.interceptors.request.use(async(config) => {
+    axiosJWT.interceptors.request.use(async (config) => {
         const currentDate = new Date()
         if (expire * 1000 < currentDate.getTime()) {
             const response = await axios.get('/apisirs6v2/token')
@@ -202,16 +201,16 @@ const RL35 = () => {
             if (event.target.checked === true) {
                 hapus()
             } else if (event.target.checked === false) {
-                console.log('hello2')
+                // console.log('hello2')
             }
         }
     }
 
     const getRL = async (e) => {
-        let date = (tahun+'-'+bulan+'-01')
+        let date = (tahun + '-' + bulan + '-01')
         e.preventDefault()
         setSpinner(true)
-        if (rumahSakit == null){
+        if (rumahSakit == null) {
             toast(`rumah sakit harus dipilih`, {
                 position: toast.POSITION.TOP_RIGHT
             })
@@ -234,25 +233,25 @@ const RL35 = () => {
             }
             const results = await axiosJWT.get('/apisirs6v2/rltigatitiklima',
                 customConfig)
-            
+
             // console.log(results)
 
-            const rlTigaTitikLimaDetails = results.data.data.map((value) => {
-                return value.rl_tiga_titik_lima_details
-            })
+            // const rlTigaTitikLimaDetails = results.data.data.map((value) => {
+            //     return value
+            // })
 
-            let dataRLTigaTitikLimaDetails = []
-            rlTigaTitikLimaDetails.forEach(element => {
-                element.forEach(value => {
-                    dataRLTigaTitikLimaDetails.push(value)
-                })
-            })
+            // let dataRLTigaTitikLimaDetails = []
+            // rlTigaTitikLimaDetails.forEach(element => {
+            //     element.forEach(value => {
+            //         dataRLTigaTitikLimaDetails.push(value)
+            //     })
+            // })
 
             // console.log(dataRLTigaTitikLimaDetails)
 
-            setDataRL(dataRLTigaTitikLimaDetails)
+            setDataRL(results.data.data)
+            setNamaFile("rl35_" + results.data.data[0].rs_id + "_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
             setSpinner(false)
-            
             handleClose()
         } catch (error) {
             console.log(error)
@@ -261,32 +260,98 @@ const RL35 = () => {
     }
 
     const totalPengunjung = () => {
-        console.log(dataRL)
+        // console.log(dataRL)
+
         let total1 = 0
         let total2 = 0
         let total3 = 0
-        dataRL.map((value, index) =>
-            {
-                if(value.jenis_kegiatan_id == 32 || value.jenis_kegiatan_id == 33){
-                    total1 = total1
-                        total2 = total2
-                        total3 = total3
-                } else {
-                    total1 = total1 + value.kunjungan_pasien_dalam_kabkota
-                        total2 = total2 + value.kunjungan_pasien_luar_kabkota
-                        total3 = total3 + value.total_kunjungan
-                }
+        let total4 = 0
+        let total5 = 0
+        let rata1 = 0
+        let rata2 = 0
+        let rata3 = 0
+        let rata4 = 0
+        let rata5 = 0
+
+        // dataRL.map((value, index) => {
+        //     if (value.jenis_kegiatan_id == 33 || value.jenis_kegiatan_id == 35) {
+        //         total1 = total1
+        //         total2 = total2
+        //         total3 = total3
+        //         total4 = total4
+        //         total5 = total5
+        //     } else {
+        //         total1 = total1 + value.kunjungan_pasien_dalam_kabkota_laki
+        //         total2 = total2 + value.kunjungan_pasien_luar_kabkota_laki
+        //         total3 = total3 + value.kunjungan_pasien_dalam_kabkota_perempuan
+        //         total4 = total4 + value.kunjungan_pasien_luar_kabkota_perempuan
+        //         total5 = total5 + value.total_kunjungan
+        //     }
+        // }
+        // )
+
+        // setTotalKunjunganPasienDalamKabkotaLaki(total1)
+        // setTotalKunjunganPasienLuarKabkotaLaki(total2)
+        // setTotalKunjunganPasienDalamKabkotaPerempuan(total3)
+        // setTotalKunjunganPasienLuarKabkotaPerempuan(total4)
+        // setTotalKunjungan(total5)
+
+        // console.log(dataRL)
+        // value.jenis_kegiatan_id == 66 || 
+
+        dataRL.map((value, index) => {
+            if (value.jenis_kegiatan_id == 35 || value.jenis_kegiatan_id == 99 || value.jenis_kegiatan_id == 66) {
+                total1 = total1
+                total2 = total2
+                total3 = total3
+                total4 = total4
+                total5 = total5
+            } else {
+                total1 = total1 + value.kunjungan_pasien_dalam_kabkota_laki
+                total2 = total2 + value.kunjungan_pasien_luar_kabkota_laki
+                total3 = total3 + value.kunjungan_pasien_dalam_kabkota_perempuan
+                total4 = total4 + value.kunjungan_pasien_luar_kabkota_perempuan
+                total5 = total5 + value.total_kunjungan
             }
-        )
-        console.log(total1)
-        console.log(total2)
-        console.log(total3)
-        setTotalKunjunganPasienDalamKabkota(total1)
-        setTotalKunjunganPasienLuarKabkota(total2)
-        setTotalKunjungan(total3)
+
+            // if(value.jenis_kegiatan_id == 34){
+            rata1 = Math.ceil(total1 / value.kunjungan_pasien_dalam_kabkota_laki)
+            rata2 = Math.ceil(total2 / value.kunjungan_pasien_luar_kabkota_laki)
+            rata3 = Math.ceil(total3 / value.kunjungan_pasien_dalam_kabkota_perempuan)
+            rata4 = Math.ceil(total4 / value.kunjungan_pasien_luar_kabkota_perempuan)
+            rata5 = Math.ceil(total5 / value.total_kunjungan)
+            // }
+        })
+
+        let newData = [{
+            id: 99,
+            jenis_kegiatan_id: 99,
+            jenis_kegiatan_nama: "Total",
+            kunjungan_pasien_dalam_kabkota_laki: total1,
+            kunjungan_pasien_luar_kabkota_laki: total2,
+            kunjungan_pasien_dalam_kabkota_perempuan: total3,
+            kunjungan_pasien_luar_kabkota_perempuan: total4,
+            total_kunjungan: total5
+        },
+        {
+            id: 77,
+            jenis_kegiatan_id: 77,
+            jenis_kegiatan_nama: "Rata-rata kunjungan per hari",
+            kunjungan_pasien_dalam_kabkota_laki: rata1,
+            kunjungan_pasien_luar_kabkota_laki: rata2,
+            kunjungan_pasien_dalam_kabkota_perempuan: rata3,
+            kunjungan_pasien_luar_kabkota_perempuan: rata4,
+            total_kunjungan: rata5
+        }]
+        setTotalKunjungan(total5)
+        setRataKunjungan(rata5)
+        setDataCount(newData)
+
+
+
     }
 
-    const hapusData = async(id) => {
+    const hapusData = async (id) => {
         const customConfig = {
             headers: {
                 'Content-Type': 'application/json',
@@ -358,7 +423,7 @@ const RL35 = () => {
         }
     }
 
-    const getProvinsi = async() => {
+    const getProvinsi = async () => {
         try {
             const customConfig = {
                 headers: {
@@ -379,7 +444,7 @@ const RL35 = () => {
         }
     }
 
-    const getKabKota = async(provinsiId) => {
+    const getKabKota = async (provinsiId) => {
         try {
             const customConfig = {
                 headers: {
@@ -404,312 +469,374 @@ const RL35 = () => {
     }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
-                <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Filter</Modal.Title>
-                    </Modal.Header>
+        <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
+            <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Filter</Modal.Title>
+                </Modal.Header>
 
-                    <form onSubmit={getRL}>
-                        <Modal.Body>
-                            {
-                                user.jenisUserId === 1 ? (
-                                    <>
-                                        <div className="form-floating" style={{ width: "100%", paddingBottom: "5px"}}>
-                                            <select
-                                                name="provinsi"
-                                                id="provinsi"
-                                                typeof="select"
-                                                className="form-select"
-                                                onChange={e => provinsiChangeHandler(e)}
-                                                >
-                                                <option key={0} value={0}>Pilih</option>
-                                                {daftarProvinsi.map((nilai) => {
-                                                    return (
+                <form onSubmit={getRL}>
+                    <Modal.Body>
+                        {
+                            user.jenisUserId === 1 ? (
+                                <>
+                                    <div className="form-floating" style={{ width: "100%", paddingBottom: "5px" }}>
+                                        <select
+                                            name="provinsi"
+                                            id="provinsi"
+                                            typeof="select"
+                                            className="form-select"
+                                            onChange={e => provinsiChangeHandler(e)}
+                                        >
+                                            <option key={0} value={0}>Pilih</option>
+                                            {daftarProvinsi.map((nilai) => {
+                                                return (
                                                     <option
                                                         key={nilai.id}
                                                         value={nilai.id}
                                                     >
                                                         {nilai.nama}
                                                     </option>
-                                                    );
-                                                })}
-                                            </select>
-                                            <label htmlFor="provinsi">Provinsi</label>
-                                        </div>
+                                                );
+                                            })}
+                                        </select>
+                                        <label htmlFor="provinsi">Provinsi</label>
+                                    </div>
 
-                                        <div className="form-floating" style={{ width: "100%", paddingBottom: "5px"}}>
-                                            <select
-                                                name="kabKota"
-                                                id="kabKota"
-                                                typeof="select"
-                                                className="form-select"
-                                                onChange={e => kabKotaChangeHandler(e)}
-                                                >
-                                                <option key={0} value={0}>Pilih</option>
-                                                {daftarKabKota.map((nilai) => {
-                                                    return (
+                                    <div className="form-floating" style={{ width: "100%", paddingBottom: "5px" }}>
+                                        <select
+                                            name="kabKota"
+                                            id="kabKota"
+                                            typeof="select"
+                                            className="form-select"
+                                            onChange={e => kabKotaChangeHandler(e)}
+                                        >
+                                            <option key={0} value={0}>Pilih</option>
+                                            {daftarKabKota.map((nilai) => {
+                                                return (
                                                     <option
                                                         key={nilai.id}
                                                         value={nilai.id}
                                                     >
                                                         {nilai.nama}
                                                     </option>
-                                                    );
-                                                })}
-                                            </select>
-                                            <label htmlFor="kabKota">Kab/Kota</label>
-                                        </div>
+                                                );
+                                            })}
+                                        </select>
+                                        <label htmlFor="kabKota">Kab/Kota</label>
+                                    </div>
 
-                                        <div className="form-floating" style={{ width: "100%", paddingBottom: "5px"}}>
-                                            <select
-                                                name="rumahSakit"
-                                                id="rumahSakit"
-                                                typeof="select"
-                                                className="form-select"
-                                                onChange={e => rumahSakitChangeHandler(e)}
-                                                >
-                                                <option key={0} value={0}>Pilih</option>
-                                                {daftarRumahSakit.map((nilai) => {
-                                                    return (
+                                    <div className="form-floating" style={{ width: "100%", paddingBottom: "5px" }}>
+                                        <select
+                                            name="rumahSakit"
+                                            id="rumahSakit"
+                                            typeof="select"
+                                            className="form-select"
+                                            onChange={e => rumahSakitChangeHandler(e)}
+                                        >
+                                            <option key={0} value={0}>Pilih</option>
+                                            {daftarRumahSakit.map((nilai) => {
+                                                return (
                                                     <option
                                                         key={nilai.id}
                                                         value={nilai.id}
                                                     >
                                                         {nilai.nama}
                                                     </option>
-                                                    );
-                                                })}
-                                            </select>
-                                            <label htmlFor="rumahSakit">Rumah Sakit</label>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                            {
-                                user.jenisUserId === 2 ? (
-                                    <>
-                                        <div className="form-floating" style={{ width: "100%", paddingBottom: "5px"}}>
-                                            <select
-                                                name="kabKota"
-                                                id="kabKota"
-                                                typeof="select"
-                                                className="form-select"
-                                                onChange={e => kabKotaChangeHandler(e)}
-                                                >
-                                                <option key={0} value={0}>Pilih</option>
-                                                {daftarKabKota.map((nilai) => {
-                                                    return (
+                                                );
+                                            })}
+                                        </select>
+                                        <label htmlFor="rumahSakit">Rumah Sakit</label>
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )
+                        }
+                        {
+                            user.jenisUserId === 2 ? (
+                                <>
+                                    <div className="form-floating" style={{ width: "100%", paddingBottom: "5px" }}>
+                                        <select
+                                            name="kabKota"
+                                            id="kabKota"
+                                            typeof="select"
+                                            className="form-select"
+                                            onChange={e => kabKotaChangeHandler(e)}
+                                        >
+                                            <option key={0} value={0}>Pilih</option>
+                                            {daftarKabKota.map((nilai) => {
+                                                return (
                                                     <option
                                                         key={nilai.id}
                                                         value={nilai.id}
                                                     >
                                                         {nilai.nama}
                                                     </option>
-                                                    );
-                                                })}
-                                            </select>
-                                            <label htmlFor="kabKota">Kab/Kota</label>
-                                        </div>
+                                                );
+                                            })}
+                                        </select>
+                                        <label htmlFor="kabKota">Kab/Kota</label>
+                                    </div>
 
-                                        <div className="form-floating" style={{ width: "100%", paddingBottom: "5px"}}>
-                                            <select
-                                                name="rumahSakit"
-                                                id="rumahSakit"
-                                                typeof="select"
-                                                className="form-select"
-                                                onChange={e => rumahSakitChangeHandler(e)}
-                                                >
-                                                <option key={0} value={0}>Pilih</option>
-                                                {daftarRumahSakit.map((nilai) => {
-                                                    return (
+                                    <div className="form-floating" style={{ width: "100%", paddingBottom: "5px" }}>
+                                        <select
+                                            name="rumahSakit"
+                                            id="rumahSakit"
+                                            typeof="select"
+                                            className="form-select"
+                                            onChange={e => rumahSakitChangeHandler(e)}
+                                        >
+                                            <option key={0} value={0}>Pilih</option>
+                                            {daftarRumahSakit.map((nilai) => {
+                                                return (
                                                     <option
                                                         key={nilai.id}
                                                         value={nilai.id}
                                                     >
                                                         {nilai.nama}
                                                     </option>
-                                                    );
-                                                })}
-                                            </select>
-                                            <label htmlFor="rumahSakit">Rumah Sakit</label>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                            {
-                                user.jenisUserId === 3 ? (
-                                    <>
-                                        <div className="form-floating" style={{ width: "100%", paddingBottom: "5px"}}>
-                                            <select
-                                                name="rumahSakit"
-                                                id="rumahSakit"
-                                                typeof="select"
-                                                className="form-select"
-                                                onChange={e => rumahSakitChangeHandler(e)}
-                                                >
-                                                <option key={0} value={0}>Pilih</option>
-                                                {daftarRumahSakit.map((nilai) => {
-                                                    return (
+                                                );
+                                            })}
+                                        </select>
+                                        <label htmlFor="rumahSakit">Rumah Sakit</label>
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )
+                        }
+                        {
+                            user.jenisUserId === 3 ? (
+                                <>
+                                    <div className="form-floating" style={{ width: "100%", paddingBottom: "5px" }}>
+                                        <select
+                                            name="rumahSakit"
+                                            id="rumahSakit"
+                                            typeof="select"
+                                            className="form-select"
+                                            onChange={e => rumahSakitChangeHandler(e)}
+                                        >
+                                            <option key={0} value={0}>Pilih</option>
+                                            {daftarRumahSakit.map((nilai) => {
+                                                return (
                                                     <option
                                                         key={nilai.id}
                                                         value={nilai.id}
                                                     >
                                                         {nilai.nama}
                                                     </option>
-                                                    );
-                                                })}
-                                            </select>
-                                            <label htmlFor="rumahSakit">Rumah Sakit</label>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <></>
-                                )
-                            }
-                            <div className="form-floating" style={{ width: "70%", display: "inline-block" }}>
-                                <select
-                                    typeof="select"
-                                    className="form-control"
-                                    onChange={bulanChangeHandler}
-                                >
-                                    {daftarBulan.map((bulan) => {
-                                        return (
-                                            <option
-                                                key={bulan.value}
-                                                name={bulan.key}
-                                                value={bulan.value}
-                                            >
-                                                {bulan.key}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                                <label>Bulan</label>
-                            </div>
-                            <div className="form-floating" style={{ width: "30%", display: "inline-block" }}>
-                                <input name="tahun" type="number" className="form-control" id="tahun"
-                                    placeholder="Tahun" value={tahun} onChange={e => tahunChangeHandler(e)} disabled={false} />
-                                <label htmlFor="tahun">Tahun</label>
-                            </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <div className="mt-3 mb-3">
-                                <ToastContainer />
-                                <button type="submit" className="btn btn-outline-success"><HiSaveAs size={20} /> Terapkan</button>
-                            </div>
-                        </Modal.Footer>
-                    </form>
-                </Modal>
-
-                <div className="row">
-                    <div className="col-md-12">
-                        <div style={{marginBottom: "10px"}}>
-                            {
-                                user.jenisUserId === 4 ? (
-                                        <Link className='btn' to={`/rl35/tambah/`} style={{ marginRight: "5px", fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }}>
-                                            +
-                                        </Link>
-                                    
-                                ) : (
-                                    <></>
-                                )
-                            }
-                            <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
-                                Filter
-                            </button>
-                        </div>
-                        <div>
-                            <h5 style={{fontSize: "14px"}}>
-                                filtered by {filterLabel.map((value) => {
-                                    return(
-                                        value
-                                    )
-                                }).join(', ')}
-                            </h5>
-                        </div>
-                        <Table className={style.rlTable}>
-                            <thead>
-                                <tr>
-                                    <th style={{"width": "5%"}}>No.</th>
-                                    <th style={{"width": "5%"}}>Aksi</th>
-                                    <th style={{"width": "40%"}}>Jenis Kegiatan</th>
-                                    <th>Kunjungan Pasien Dalam Kota</th>
-                                    <th>Kunjungan Pasien Luar Kota</th>
-                                    <th>Total Kunjungan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {dataRL.map((value, index) => {
+                                                );
+                                            })}
+                                        </select>
+                                        <label htmlFor="rumahSakit">Rumah Sakit</label>
+                                    </div>
+                                </>
+                            ) : (
+                                <></>
+                            )
+                        }
+                        <div className="form-floating" style={{ width: "70%", display: "inline-block" }}>
+                            <select
+                                typeof="select"
+                                className="form-control"
+                                onChange={bulanChangeHandler}
+                            >
+                                {daftarBulan.map((bulan) => {
                                     return (
-                                        <tr key={value.id}>
-                                            <td>
-                                                <input type='text' name='id' className="form-control" value={index + 1} disabled={true}/>
-                                            </td>
-                                            <td style={{textAlign: "center", verticalAlign: "middle"}}>
-                                                <ToastContainer />
-                                                <div style={{display: "flex"}}>
+                                        <option
+                                            key={bulan.value}
+                                            name={bulan.key}
+                                            value={bulan.value}
+                                        >
+                                            {bulan.key}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                            <label>Bulan</label>
+                        </div>
+                        <div className="form-floating" style={{ width: "30%", display: "inline-block" }}>
+                            <input name="tahun" type="number" className="form-control" id="tahun"
+                                placeholder="Tahun" value={tahun} onChange={e => tahunChangeHandler(e)} disabled={false} />
+                            <label htmlFor="tahun">Tahun</label>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className="mt-3 mb-3">
+                            <ToastContainer />
+                            <button type="submit" className="btn btn-outline-success"><HiSaveAs size={20} /> Terapkan</button>
+                        </div>
+                    </Modal.Footer>
+                </form>
+            </Modal>
+
+            <div className="row">
+                <div className="col-md-12">
+                <span style={{ color: "gray"}}><h4> RL 3.5 -  Kunjungan</h4></span>
+                    <div style={{ marginBottom: "10px" }}>
+                        {
+                            user.jenisUserId === 4 ? (
+                                <Link className='btn' to={`/rl35/tambah/`} style={{ marginRight: "5px", fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }}>
+                                    +
+                                </Link>
+
+                            ) : (
+                                <></>
+                            )
+                        }
+                        <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
+                            Filter
+                        </button>
+                        <DownloadTableExcel
+                            filename={namafile}
+                            sheet="data RL 35"
+                            currentTableRef={tableRef.current}
+                        >
+                            {/* <button> Export excel </button> */}
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+                            </button>
+                        </DownloadTableExcel>
+                        
+                    </div>
+                    <div>
+                        <h5 style={{ fontSize: "14px" }}>
+                             {filterLabel.map((value) => {
+                                return (
+                                  "filtered by"+  value
+                                )
+                            }).join(', ')}
+                        </h5>
+                    </div>
+                    <div className={style['table-container']}>
+                    <table
+                            responsive
+                            className={style.table}
+                            ref={tableRef}
+                        >
+                        <thead>
+                            <tr className={style.thead}>
+                                <th rowSpan={2}
+                                    style={{ width: "4%", verticalAlign: "middle" }} >No.</th>
+                                <th rowSpan={2}
+                                    style={{ width: "15%", verticalAlign: "middle" }}>Aksi</th>
+                                <th rowSpan={2}
+                                    style={{ width: "35%", verticalAlign: "middle" }}>Jenis Kegiatan</th>
+                                <th colSpan={2} style={{ textAlign: "center" }} >Kunjungan Pasien Dalam Kota</th>
+                                <th colSpan={2} style={{ textAlign: "center" }}>Kunjungan Pasien Luar Kota</th>
+                                <th rowSpan={2} style={{ verticalAlign: "middle" }}>Total Kunjungan </th>
+                            </tr>
+                            <tr className={style['subheader-row']}>
+                                <th style={{ verticalAlign: "middle" }}>Laki-Laki</th>
+                                <th style={{ verticalAlign: "middle" }}>Perempuan</th>
+                                <th style={{ verticalAlign: "middle" }}>Laki-Laki</th>
+                                <th style={{ verticalAlign: "middle" }}>Perempuan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {dataRL.map((value, index) => {
+                                return (
+                                    <tr key={value.id}>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {index + 1}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            <ToastContainer />
+                                            <div style={{ display: "flex" , justifyContent: "space-between", alignItems: "center", width: "100%" }}>
                                                 {/* <RiDeleteBin5Fill  size={20} onClick={(e) => hapus(value.id)} style={{color: "gray", cursor: "pointer", marginRight: "5px"}} /> */}
-                                                    <button className="btn btn-danger" style={{margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663"}} type='button' onClick={(e) => hapus(value.id)}>Hapus</button>
-                                                    <Link to={`/rl35/ubah/${value.id}`} className='btn btn-warning' style={{margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color:"#FFFFFF"}} >
-                                                        Ubah
-                                                    </Link>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <input type="text" name="jenisKegiatan" className="form-control" value={value.jenis_kegiatan_rl_tiga_titik_lima.nama} disabled={true} />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="kunjungan_pasien_dalam_kabkota" className="form-control" value={value.kunjungan_pasien_dalam_kabkota} 
-                                                onChange={e => changeHandler(e, index)} disabled={true} />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="kunjungan_pasien_luar_kabkota" className="form-control" value={value.kunjungan_pasien_luar_kabkota} 
-                                                onChange={e => changeHandler(e, index)} disabled={true} />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="total_kunjungan" className="form-control" value={value.total_kunjungan} 
-                                                onChange={e => changeHandler(e, index)} disabled={true} />
-                                            </td>
-                                        </tr>
-                                    )
-                                }) }
-                                {
-                                    total_kunjungan != 0 ?(
-                                        <tr>
-                                            <td>
-                                                <input type='text' name='id' className="form-control" value={99} disabled={true}/>
-                                            </td>
-                                            <td></td>
-                                            <td>Total</td>
-                                            <td>
-                                                <input type="text" name="kunjungan_pasien_dalam_kabkota" className="form-control" value={total_kunjungan_pasien_dalam_kabkota} 
-                                                disabled={true} />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="kunjungan_pasien_luar_kabkota" className="form-control" value={total_kunjungan_pasien_luar_kabkota} 
-                                                disabled={true} />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="total_kunjungan" className="form-control" value={total_kunjungan} 
-                                                disabled={true} />
-                                            </td>
-                                        </tr>
-                                    ) : (
-                                        <></>
-                                    )
-                                }
-                            </tbody>
-                        </Table>
+                                                <button className="btn btn-danger" style={{ margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663" , flex: "1",}} type='button' onClick={(e) => hapus(value.id)}>Hapus</button>
+                                                <Link to={`/rl35/ubah/${value.id}`} className='btn btn-warning' style={{ margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color: "#FFFFFF" , flex: "1",}} >
+                                                    Ubah
+                                                </Link>
+                                            </div>
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.jenis_kegiatan_rl_tiga_titik_lima.nama}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_dalam_kabkota_laki}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_dalam_kabkota_perempuan}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_luar_kabkota_laki}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.kunjungan_pasien_luar_kabkota_perempuan}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {value.total_kunjungan}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                            {
+                                total_kunjungan != 0 ? (
+                                    <tr>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {99}
+                                        </td>
+                                        <td></td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>Total</td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_dalam_kabkota_laki}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_dalam_kabkota_perempuan}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_luar_kabkota_laki}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].kunjungan_pasien_luar_kabkota_perempuan}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[0].total_kunjungan}
+                                        </td>
+                                    </tr>
+
+                                ) : (
+                                    <></>
+                                )
+                            }
+                            {
+                                rata_kunjungan != 0 ? (
+                                    <tr>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {77}
+                                        </td>
+                                        <td></td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>Rata-rata kunjungan per hari</td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_dalam_kabkota_laki}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_dalam_kabkota_perempuan}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_luar_kabkota_laki}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].kunjungan_pasien_luar_kabkota_perempuan}
+                                        </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                                            {dataCount[1].total_kunjungan}
+                                        </td>
+                                    </tr>
+
+                                ) : (
+                                    <></>
+                                )
+                            }
+                        </tbody>
+                    </table>
                     </div>
                 </div>
+            </div>
         </div>
     )
-    
+
 }
 
 export default RL35

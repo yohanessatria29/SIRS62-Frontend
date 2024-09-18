@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Link, useNavigate, useHistory } from "react-router-dom";
-import style from "./FormTambahRL41.module.css";
+import style from "./RL41.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,8 +11,8 @@ import { IoArrowBack } from "react-icons/io5";
 import { Spinner } from "react-bootstrap";
 
 const FormTambahRL41 = () => {
-  const [tahun, setTahun] = useState(new Date().getFullYear());
-  const [bulan, setBulan] = useState("01");
+  const [tahun, setTahun] = useState("2025");
+  const [bulan, setBulan] = useState("00");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
@@ -26,7 +26,7 @@ const FormTambahRL41 = () => {
   const [spinnerSearch, setSpinnerSearch] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     refreshToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +75,7 @@ const FormTambahRL41 = () => {
       setAlamatRS(response.data.data.alamat);
       setNamaPropinsi(response.data.data.provinsi_nama);
       setNamaKabKota(response.data.data.kab_kota_nama);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const CariPenyakit = async (e) => {
@@ -380,44 +380,51 @@ const FormTambahRL41 = () => {
       icdId: parseInt(e.target[1].value),
       data: [transformedObject],
     };
+    
+    if( bulan==='00' || bulan == 0 ){
+      toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setButtonStatus(false);
+    }else{
+      if (totalMati <= total) {
+        try {
+          const customConfig = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
 
-    if (totalMati <= total) {
-      try {
-        const customConfig = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        const result = await axiosJWT.post(
-          "/apisirs6v2/rlempattitiksatu",
-          dataReady,
-          customConfig
-        );
-        toast("Data Berhasil Disimpan", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        setTimeout(() => {
-          navigate('/rl41')
-      }, 1000);
-      } catch (error) {
+          const result = await axiosJWT.post(
+            "/apisirs6v2/rlempattitiksatu",
+            dataReady,
+            customConfig
+          );
+          toast("Data Berhasil Disimpan", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            navigate('/rl41')
+          }, 1000);
+        } catch (error) {
+          toast(
+            `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          setButtonStatus(false);
+        }
+      } else {
         toast(
-          `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+          `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
           {
             position: toast.POSITION.TOP_RIGHT,
           }
         );
         setButtonStatus(false);
       }
-    } else {
-      toast(
-        `Data Gagal Disimpan, Data Jumlah Pasien Keluar Mati Lebih Dari Jumlah Pasien Hidup dan Mati`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
-      setButtonStatus(false);
     }
   };
 
@@ -431,7 +438,7 @@ const FormTambahRL41 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div className="container" style={{ marginTop: "70px", marginBottom: "100px" }}>
       <div className="row">
         <div className="col-md-6">
           <div className="card">
@@ -558,35 +565,37 @@ const FormTambahRL41 = () => {
                   <Spinner animation="grow" variant="success"></Spinner>
                 )}
               </div>
-              <Table className={style.rlTable}>
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Code ICD 10</th>
-                    <th>Deskripsi ICD 10</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataPenyakit.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>{index + 1}</td>
-                        <td style={{ textAlign: "left" }}>{value.icd_code}</td>
-                        <td style={{ textAlign: "left" }}>{value.description_code}</td>
-                        <td>
-                          <button
-                            className="btn btn-outline-success"
-                            onClick={() => DetailPenyakit(value.id)}
-                          >
-                            Tambah
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <div className={style['table-container']}>
+                <table responsive className={style['table']} style={{ width: "100%" }}>
+                  <thead className={style['thead']}>
+                    <tr className="main-header-row">
+                      <th style={{ width: "5%" }} >No.</th>
+                      <th style={{ width: "10%" }}>Code ICD 10</th>
+                      <th style={{ width: "40%" }}>Deskripsi ICD 10</th>
+                      <th style={{ width: "10%" }}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataPenyakit.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td>{index + 1}</td>
+                          <td style={{ textAlign: "center" }}>{value.icd_code}</td>
+                          <td style={{ textAlign: "left" }}>{value.description_code}</td>
+                          <td>
+                            <button
+                              className="btn btn-outline-success"
+                              onClick={() => DetailPenyakit(value.id)}
+                            >
+                              Tambah
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -612,7 +621,7 @@ const FormTambahRL41 = () => {
                         placeholder="Tahun"
                         value={tahun}
                         onChange={(e) => changeHandlerSingle(e)}
-                        disabled={false}
+                        disabled={true}
                       />
                       <label htmlFor="floatingInput">Tahun</label>
                       <input
@@ -632,7 +641,7 @@ const FormTambahRL41 = () => {
                         className="form-control"
                         id="bulan"
                         onChange={(e) => changeHandlerSingle(e)}
-                      >
+                      ><option value="00">--PILIH BULAN--</option>
                         <option value="01">Januari</option>
                         <option value="02">Februari</option>
                         <option value="03">Maret</option>
@@ -671,9 +680,10 @@ const FormTambahRL41 = () => {
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
                     </div>
-                    <Table className={style.rlTable}>
-                      <thead>
-                        <tr>
+                    <div className={style['table-container']}>
+                    <table responsive className={style['table']} style={{ width: "100%" }}>
+                      <thead className={style['thead']}>
+                        <tr className="main-header-row">
                           <th>No.</th>
                           <th>Golongan Berdasarkan Umur</th>
                           <th>Laki Laki</th>
@@ -728,7 +738,8 @@ const FormTambahRL41 = () => {
                           });
                         })}
                       </tbody>
-                    </Table>
+                    </table>
+                    </div>
                   </div>
                   <div className="mt-3 mb-3">
                     <ToastContainer />

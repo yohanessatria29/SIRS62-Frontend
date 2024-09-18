@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,9 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL316 = () => {
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
   const [daftarRumahSakit, setDaftarRumahSakit] = useState([]);
@@ -24,6 +25,8 @@ const RL316 = () => {
   const [show, setShow] = useState(false);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const tableRef = useRef(null);
+  const [namafile, setNamaFile] = useState("");
 
   const [pelayananKbPaskaPersalinan, setpelayanankbpaskapersalinan] =
     useState(0);
@@ -33,14 +36,15 @@ const RL316 = () => {
 
   useEffect(() => {
     refreshToken();
-    const getLastYear = async () => {
-      const date = new Date();
-      setTahun(date.getFullYear() - 1);
-      return date.getFullYear() - 1;
-    };
-    getLastYear().then((results) => {
-      // getDataRLTigaTitikDuaBelas(results);
-    });
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    // };
+    // getLastYear().then((results) => {
+    //   // getDataRLTigaTitikDuaBelas(results);
+    // });
+
     // getRLTigaTitikTigaTemplate()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -162,7 +166,7 @@ const RL316 = () => {
         dataRLTigaTitikEnamBelasDetails.push(element);
         // });
       });
-      // console.log(dataRLTigaTitikDuaBelasDetails);
+      // console.log(dataRLTigaTitikEnamBelasDetails);
       let pelayanan_Kbtotal =
         pelayananKbPaskaPersalinan +
         pelayananKbPaskaKeguguran +
@@ -171,6 +175,7 @@ const RL316 = () => {
       // setDataRL(dataRLTigaTitikDuaBelasDetails);
 
       setDataRL(rlTigaTitikEnamBelasDetails);
+      setNamaFile("RL316_" + rumahSakit.id + "_".concat(String(tahun)));
       setRumahSakit(null);
       handleClose();
     } catch (error) {
@@ -320,7 +325,10 @@ const RL316 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -522,6 +530,9 @@ const RL316 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+          <span style={{ color: "gray" }}>
+            <h4>RL 3.16 - Keluarga Berencana</h4>
+          </span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -550,196 +561,278 @@ const RL316 = () => {
             >
               Filter
             </button>
+
+            <DownloadTableExcel
+              filename={namafile}
+              sheet="data RL 316"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button
+                className="btn"
+                style={{
+                  fontSize: "18px",
+                  marginLeft: "5px",
+                  backgroundColor: "#779D9E",
+                  color: "#FFFFFF",
+                }}
+              >
+                {" "}
+                Download
+              </button>
+            </DownloadTableExcel>
           </div>
 
           <div>
             <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
+              {filterLabel.length > 0 ? (
+                <>
+                  filtered by{" "}
+                  {filterLabel
+                    .map((value) => {
+                      return value;
+                    })
+                    .join(", ")}
+                </>
+              ) : (
+                <></>
+              )}
             </h5>
           </div>
-          <Table
-            className={style.rlTable}
-            striped
-            responsive
-            style={{ width: "200%" }}
-          >
-            <thead>
-              <tr>
-                <th rowSpan="2" style={{ width: "4%" }}>
-                  No.
-                </th>
-                <th rowSpan="2" style={{ width: "3%" }}></th>
-                <th rowSpan="4" style={{ width: "10%" }}>
-                  Jenis Pelayanan Keluarga Berencana
-                </th>
-                <th colSpan="4" style={{ width: "5%" }}>
-                  Pelayanan KB
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Komplikasi KB
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Kegagalan KB
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Efek Samping
-                </th>
-                <th rowSpan="2" style={{ width: "5%" }}>
-                  Drop Out
-                </th>
-              </tr>
-              <tr>
-                <th style={{ width: "5%" }}>{"Pasca Persalinan"}</th>
-                <th style={{ width: "5%" }}>{"Pasca Keguguran"}</th>
-                <th style={{ width: "5%" }}>{"Interval"}</th>
-                <th style={{ width: "5%" }}>{"Total"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataRL.map((value, index) => {
-                return (
-                  <tr key={value.id}>
-                    <td>
-                      <input
+          <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+            <table
+              className={style.table}
+              style={{ width: "200%" }}
+              ref={tableRef}
+            >
+              <thead className={style.thead}>
+                <tr className="main-header-row">
+                  <th
+                    className={style["sticky-header-view"]}
+                    rowSpan="2"
+                    style={{ width: "1%" }}
+                  >
+                    No.
+                  </th>
+                  <th
+                    className={style["sticky-header-view"]}
+                    rowSpan="2"
+                    style={{ width: "2%" }}
+                  >
+                    Aksi
+                  </th>
+                  <th
+                    className={style["sticky-header-view"]}
+                    rowSpan="2"
+                    style={{ width: "5%" }}
+                  >
+                    Jenis Pelayanan Keluarga Berencana
+                  </th>
+                  <th colSpan="4" style={{ width: "5%" }}>
+                    Pelayanan KB
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Komplikasi KB
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Kegagalan KB
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Efek Samping
+                  </th>
+                  <th rowSpan="2" style={{ width: "5%" }}>
+                    Drop Out
+                  </th>
+                </tr>
+                <tr>
+                  <th style={{ width: "5%" }}>{"Pasca Persalinan"}</th>
+                  <th style={{ width: "5%" }}>{"Pasca Keguguran"}</th>
+                  <th style={{ width: "5%" }}>{"Interval"}</th>
+                  <th style={{ width: "5%" }}>{"Total"}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataRL.map((value, index) => {
+                  return (
+                    <tr key={value.id}>
+                      <td
+                        className={style["sticky-column-view"]}
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="id"
                         className="form-control"
                         value={index + 1}
                         disabled={true}
                         style={{ textAlign: "center" }}
-                      />
-                    </td>
-                    <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
-                    >
-                      <ToastContainer />
-                      {/* <RiDeleteBin5Fill  size={20} onClick={(e) => hapus(value.id)} style={{color: "gray", cursor: "pointer", marginRight: "5px"}} /> */}
-                      {user.jenisUserId === 4 ? (
-                        <div
-                          style={{ display: "flex", justifyContent: "center" }}
-                        >
-                          <button
-                            className="btn btn-danger"
+                      /> */}
+                        <p>{index + 1}</p>
+                      </td>
+                      <td
+                        className={style["sticky-column-view"]}
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        <ToastContainer />
+                        {/* <RiDeleteBin5Fill  size={20} onClick={(e) => hapus(value.id)} style={{color: "gray", cursor: "pointer", marginRight: "5px"}} /> */}
+                        {user.jenisUserId === 4 ? (
+                          <div
                             style={{
-                              margin: "0 5px 0 0",
-                              backgroundColor: "#FF6663",
-                              border: "1px solid #FF6663",
-                            }}
-                            type="button"
-                            onClick={(e) => deleteConfirmation(value.id)}
-                          >
-                            Hapus
-                          </button>
-                          <Link
-                            to={`/rl316/edit/${value.id}`}
-                            className="btn btn-warning"
-                            style={{
-                              margin: "0 5px 0 0",
-                              backgroundColor: "#CFD35E",
-                              border: "1px solid #CFD35E",
-                              color: "#FFFFFF",
+                              display: "flex",
+                              justifyContent: "center",
                             }}
                           >
-                            Ubah
-                          </Link>
-                        </div>
-                      ) : (
-                        <></>
-                      )}
-                    </td>
-                    <td>
-                      <input
+                            <button
+                              className="btn btn-danger"
+                              style={{
+                                margin: "0 5px 0 0",
+                                backgroundColor: "#FF6663",
+                                border: "1px solid #FF6663",
+                              }}
+                              type="button"
+                              onClick={(e) => deleteConfirmation(value.id)}
+                            >
+                              Hapus
+                            </button>
+                            {value.id_metoda != 9 ? (
+                              <Link
+                                to={`/rl316/ubah/${value.id}`}
+                                className="btn btn-warning"
+                                style={{
+                                  margin: "0 5px 0 0",
+                                  backgroundColor: "#CFD35E",
+                                  border: "1px solid #CFD35E",
+                                  color: "#FFFFFF",
+                                }}
+                              >
+                                Ubah
+                              </Link>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        ) : (
+                          <></>
+                        )}
+                      </td>
+                      <td
+                        className={style["sticky-column-view"]}
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="jenisSpesialisasi"
                         className="form-control"
                         value={value.nama}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+
+                        <p>{value.nama}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbPaskaPersalinan"
                         className="form-control"
                         value={value.pelayanan_kb_paska_persalinan}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+                        <p>{value.pelayanan_kb_paska_persalinan}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbPaskaKeguguran"
                         className="form-control"
                         value={value.pelayanan_kb_paska_keguguran}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+                        <p>{value.pelayanan_kb_paska_keguguran}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbInterval"
                         className="form-control"
                         value={value.pelayanan_kb_interval}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+                        <p>{value.pelayanan_kb_interval}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="pelayananKbTotal"
                         className="form-control"
                         value={value.pelayanan_kb_total}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+                        <p>{value.pelayanan_kb_total}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="komplikasiKB"
                         className="form-control"
                         value={value.komplikasi_kb}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+                        <p>{value.komplikasi_kb}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="kegagalanKB"
                         className="form-control"
                         value={value.kegagalan_kb}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+                        <p>{value.kegagalan_kb}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="efekSamping"
                         className="form-control"
                         value={value.efek_samping}
                         disabled={true}
-                      />
-                    </td>
-                    <td>
-                      <input
+                      /> */}
+                        <p>{value.efek_samping}</p>
+                      </td>
+                      <td
+                        style={{ textAlign: "center", verticalAlign: "middle" }}
+                      >
+                        {/* <input
                         type="text"
                         name="dropOut"
                         className="form-control"
                         value={value.drop_out}
                         disabled={true}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
+                      /> */}
+                        <p>{value.drop_out}</p>
+                      </td>
+                    </tr>
+                  );
+                })}
 
-              {dataRL.length > 0 ? <tr></tr> : <></>}
-            </tbody>
-          </Table>
+                {dataRL.length > 0 ? <tr></tr> : <></>}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

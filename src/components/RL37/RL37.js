@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect ,useRef} from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
@@ -13,10 +13,12 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import Table from "react-bootstrap/Table";
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal';
+import { DownloadTableExcel } from "react-export-table-to-excel"
+
 
 const RL37 = () => {
     const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState(2025)
     const [filterLabel, setFilterLabel] = useState([])
     const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -30,18 +32,20 @@ const RL37 = () => {
     const [user, setUser] = useState({})
     const navigate = useNavigate()
     const [spinner, setSpinner]= useState(false)
+    const [namafile, setNamaFile] = useState("");
+    const tableRef = useRef(null);
 
     useEffect(() => {
         refreshToken()
         getBulan()
-        const getLastYear = async () =>{
-            const date = new Date()
-            setTahun(date.getFullYear())
-            return date.getFullYear()
-        }
-        getLastYear().then((results) => {
-            // getDataRLTigaTitikTujuh(results)
-        })
+        // const getLastYear = async () =>{
+        //     const date = new Date()
+        //     setTahun(date.getFullYear())
+        //     return date.getFullYear()
+        // }
+        // getLastYear().then((results) => {
+        //     // getDataRLTigaTitikTujuh(results)
+        // })
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -537,7 +541,7 @@ const RL37 = () => {
           return
         }
         const filter = []
-        filter.push("nama: ".concat(rumahSakit.nama))
+        filter.push("filtered by nama: ".concat(rumahSakit.nama))
         filter.push("periode: ".concat(String(tahun).concat("-").concat(bulan)))
         setFilterLabel(filter)
         try {
@@ -731,7 +735,7 @@ const RL37 = () => {
       
             console.log(satu);
             setDataRL(satu)
-
+            setNamaFile("RL37_"+rumahSakit.id+"_".concat(String(tahun).concat("-").concat(bulan).concat("-01")));
             setSpinner(false)
 
             handleClose()
@@ -774,13 +778,14 @@ const RL37 = () => {
                 );
           
                 const rlTemplate = detailkegiatan.data.data.map((value, index) => {
+                    console.log(detailkegiatan)
                   return {
                     id: value.id,
                     groupId:
-                      value.jenis_kegiatan_rl_tiga_titik_tujuh.group_jenis_kegiatan
+                      value.jenis_kegiatan_rl_tiga_titik_tujuh.group_jenis_kegiatan_rl_tiga_titik_tujuh
                         .group_jenis_kegiatan_header_rl_tiga_titik_tujuh.id,
                     groupNama:
-                      value.jenis_kegiatan_rl_tiga_titik_tujuh.group_jenis_kegiatan
+                      value.jenis_kegiatan_rl_tiga_titik_tujuh.group_jenis_kegiatan_rl_tiga_titik_tujuh
                         .group_jenis_kegiatan_header_rl_tiga_titik_tujuh.nama,
                     subGroupId: value.jenis_kegiatan_rl_tiga_titik_tujuh.group_jenis_kegiatan_rl_tiga_titik_tujuh.id,
                     subGroupNo: value.jenis_kegiatan_rl_tiga_titik_tujuh.group_jenis_kegiatan_rl_tiga_titik_tujuh.no,
@@ -942,21 +947,23 @@ const RL37 = () => {
                     groupNrMati: element.groupNrMati,
                     groupNrTotal: element.groupNrTotal,
                     groupDirujuk: element.groupDirujuk,
-                    details: filterData,
+                    details: filterData
                   });
                 });
           
                 console.log(satu);
                 
                 setDataRL(satu)
+                
             } catch (error) {
                 console.log(error)
             }
             //
 
-            toast('Data Berhasil Dihapus', {
-                position: toast.POSITION.TOP_RIGHT
-            })
+            // toast('Data Berhasil Dihapus', {
+            //     position: toast.POSITION.TOP_RIGHT
+            // })
+            
         } catch (error) {
             console.log(error)
             toast('Data Gagal Dihapus', {
@@ -1059,7 +1066,8 @@ const RL37 = () => {
     }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
+           <h4 style={{  color: "grey" }}> <span> RL 3.7-Neonatal, Bayi dan Balita </span></h4>
                 <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
                     <Modal.Header closeButton>
                         <Modal.Title>Filter</Modal.Title>
@@ -1276,29 +1284,43 @@ const RL37 = () => {
                             <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                                 Filter
                             </button>
+                            {/* <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button> */}
+                            <DownloadTableExcel
+                            filename={namafile}
+                            sheet="data RL 37"
+                            currentTableRef={tableRef.current}
+                        >
+                            {/* <button> Export excel </button> */}
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+                            </button>
+                        </DownloadTableExcel>
                         </div>
+                        {/* <div className="col-md-2" style={{ fontSize: "14px", backgroundColor: "#779D9E", color: "#FFFFFF"}}>
+                       
+                        </div> */}
                         <div>
                             <h5 style={{fontSize: "14px"}}>
-                                filtered by {filterLabel.map((value) => {
+                            {filterLabel.map((value) => {
                                     return(
                                         value
                                     )
                                 }).join(', ')}
                             </h5>
                         </div>
-
-                        <Table
-                            className={style.rlTable}
+                        <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
+                        <table
+                            className={style.table}
                             striped
                             bordered
                             responsive
                             style={{ width: "200%" }}
+                            ref={tableRef}
                           >
-                            <thead>
-                                <tr>
-                                    <th style={{"width": "2.5%"}}>No.</th>
-                                    <th style={{"width": "2.5%"}}>Aksi</th>
-                                    <th style={{"width": "10%"}}>Jenis Kegiatan</th>
+                            <thead className={style.thead}>
+                                <tr className="main-header-row">
+                                    <th className={style['sticky-header-view']} style={{"width": "2.5%"}}>No.</th>
+                                    <th className={style['sticky-header-view']} style={{"width": "6%"}}>Aksi</th>
+                                    <th className={style['sticky-header-view']} style={{"width": "10%"}}>Jenis Kegiatan</th>
                                     <th >Rujukan Medis Rumah Sakit</th>
                                     <th >Rujukan Medis Bidan</th>
                                     <th >Rujukan Medis Puskesmas</th>
@@ -1327,9 +1349,9 @@ const RL37 = () => {
                                         // color:"#354259"
                                       }}
                                     >
-                                      <td>{value.groupId}</td>
-                                      <td></td>
-                                      <td>{value.groupNama}</td>
+                                      <td className={style['sticky-column-view']} >{value.groupId}</td>
+                                      <td className={style['sticky-column-view']}></td>
+                                      <td className={style['sticky-column-view']}>{value.groupNama}</td>
                                       <td>{value.groupRmRumahSakit}</td>
                                       <td>{value.groupRmBidan}</td>
                                       <td>{value.groupRmPuskesmas}</td>
@@ -1357,9 +1379,9 @@ const RL37 = () => {
                                               // color:"#354259"
                                             }}
                                           >
-                                            <td>{value2.subGroupNo}</td>
-                                            <td></td>
-                                            <td>{value2.subGroupNama}</td>
+                                            <td className={style['sticky-column-view']}>{value2.subGroupNo}</td>
+                                            <td className={style['sticky-column-view']}></td>
+                                            <td className={style['sticky-column-view']}>{value2.subGroupNama}</td>
                                             <td>{value2.subGroupRmRumahSakit}</td>
                                             <td>{value2.subGroupRmBidan}</td>
                                             <td>{value2.subGroupRmPuskesmas}</td>
@@ -1384,17 +1406,21 @@ const RL37 = () => {
                                                   fontWeight: "bold",
                                                 }}
                                               >
-                                                <td>{value3.jenisKegiatanNo}</td>
-                                                <td>
+                                                <td className={style['sticky-column-view']}>{value3.jenisKegiatanNo}</td>
+                                                <td className={style['sticky-column-view']}>
                                                   <ToastContainer />
+                                                  
                                                   <div style={{display: "flex"}}>
                                                   <button className="btn btn-danger" style={{margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663"}} type='button' onClick={(e) => hapus(value3.id, value3.tahun)}>Hapus</button>
+                                                  {value3.jenisKegiatanNo === "0"  ?
+                                                  '':
                                                   <Link to={`/rl37/ubah/${value3.id}`} className='btn btn-warning' style={{margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color:"#FFFFFF"}} >
                                                     Ubah
                                                   </Link>
+                                                   }
                                                   </div>
                                                 </td>
-                                                <td>{value3.jenisKegiatanNama}</td>
+                                                <td className={style['sticky-column-view']}>{value3.jenisKegiatanNama}</td>
                                                 <td>{value3.rmRumahSakit}</td>
                                                 <td>{value3.rmBidan}</td>
                                                 <td>{value3.rmPuskesmas}</td>
@@ -1419,7 +1445,8 @@ const RL37 = () => {
                                 );
                               })}
                             </tbody>
-                        </Table>
+                        </table>
+                        </div>
                     </div>
                 </div>
         </div>

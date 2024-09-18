@@ -92,11 +92,9 @@ export const FormEditRL316 = () => {
         },
       }
     );
-    setNoMetoda(response.data.data.rl_tiga_titik_enam_belas_metoda_id);
-    setNamaJenisPelayanan(
-      response.data.data
-        .rl_tiga_titik_enam_belas_jenis_pelayanan_keluarga_berencana.nama
-    );
+    // console.log(response);
+    setNoMetoda(response.data.data.id_metoda);
+    setNamaJenisPelayanan(response.data.data.nama);
     setKBPaskaPersalinan(response.data.data.pelayanan_kb_paska_persalinan);
     setKBPaskaKeguguran(response.data.data.pelayanan_kb_paska_keguguran);
     setKBInterval(response.data.data.pelayanan_kb_interval);
@@ -209,10 +207,10 @@ export const FormEditRL316 = () => {
       setTimeout(() => {
         navigate("/rl316");
       }, 1000);
-      //   console.log(parseInt(khusus));
     } catch (error) {
+      console.log(error);
       setButtonStatus(false);
-      toast("Data tidak bisa disimpan karena ", {
+      toast("Data tidak bisa. ", {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
@@ -247,7 +245,10 @@ export const FormEditRL316 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <form onSubmit={UpdateRLTigaTitikDuaBelas}>
         <div className="row">
           <div className="col-md-6">
@@ -347,13 +348,21 @@ export const FormEditRL316 = () => {
                 <Spinner animation="grow" variant="success"></Spinner>
               )}
             </div> */}
-            <Table className={style.rlTable}>
+            <Table className={style.table}>
               <thead>
                 <tr>
-                  <th rowSpan="2" style={{ width: "2%" }}>
+                  <th
+                    className={style["sticky-header-ubah"]}
+                    rowSpan="2"
+                    style={{ width: "1%" }}
+                  >
                     No
                   </th>
-                  <th rowSpan="2" style={{ width: "15%" }}>
+                  <th
+                    className={style["sticky-header-ubah"]}
+                    rowSpan="2"
+                    style={{ width: "8%" }}
+                  >
                     Jenis Pelayanan Keluarga Berencana
                   </th>
                   <th colSpan="3" style={{ width: "5%" }}>
@@ -380,7 +389,7 @@ export const FormEditRL316 = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>
+                  <td className={style["sticky-column-ubah"]}>
                     <input
                       name="noMetoda"
                       type="text"
@@ -391,7 +400,7 @@ export const FormEditRL316 = () => {
                       disabled={true}
                     />
                   </td>
-                  <td>
+                  <td className={style["sticky-column-ubah"]}>
                     <input
                       name="jenisPelayanan"
                       type="text"

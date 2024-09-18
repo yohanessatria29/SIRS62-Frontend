@@ -5,7 +5,7 @@
 }
 
 .table {
-    width: 200%;
+    width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
     font-size: 15px;
@@ -20,8 +20,8 @@
 }
 
 .table thead th {
-    background-color: #fbfefe;;
-    color: grey;
+    background-color: #fbfefe;
+    color: #59636e;
     position: -webkit-sticky;
     /* For Safari */
     position: sticky;
@@ -57,7 +57,6 @@
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     top: 0; /* Sticky header */
-    background-color: white;
     z-index: 2; /* Above table content */
 }
 
@@ -65,6 +64,5 @@
     position: -webkit-sticky; /* For Safari */
     position: sticky;
     left: 0;
-    background-color: white;
     z-index: 1; /* Ensures sticky column is above other content */
 }
