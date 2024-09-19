@@ -27,7 +27,7 @@ const FormTambahRL34 = () => {
         refreshToken()
         getRLTigaTitikEmpatTemplate()
         const date = new Date();
-        setTahun(date.getFullYear())
+        setTahun(date.getFullYear() + 1)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
@@ -239,7 +239,7 @@ const FormTambahRL34 = () => {
                                 <h5 className="card-title h5">Periode Laporan</h5>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" min="2024"
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)}/>
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true} />
                                     <label htmlFor="tahun">Tahun</label>
                                 </div>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>

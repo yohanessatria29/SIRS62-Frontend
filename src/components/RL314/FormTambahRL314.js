@@ -9,7 +9,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const FormTambahRL314 = () => {
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
+    const [bulan, setBulan] = useState('1')
     const [namaRS, setNamaRS] = useState('')
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
@@ -23,7 +24,7 @@ const FormTambahRL314 = () => {
         refreshToken()
         getRLTigaTitikEmpatBelasTemplate()
         const date = new Date();
-        setTahun(date.getFullYear() - 1)
+        setTahun(date.getFullYear() + 1)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -103,7 +104,12 @@ const FormTambahRL314 = () => {
     }
     // console.log(dataRL)
     const changeHandlerSingle = (event) => {
-        setTahun(event.target.value)
+        const name = event.target.name
+        if (name === 'tahun') {
+            setTahun(parseInt(event.target.value))
+        } else if (name === 'bulan') {
+            setBulan(parseInt(event.target.value))
+        }
     }
 
     const changeHandler = (event, index) => {
@@ -140,6 +146,7 @@ const FormTambahRL314 = () => {
     }
 
     const Simpan = async (e) => {
+        let date = (tahun+'-'+bulan+'-01');
         e.preventDefault()
         try {
             const dataRLArray = dataRL.filter((value) => {
@@ -159,6 +166,7 @@ const FormTambahRL314 = () => {
             }
             const result = await axiosJWT.post('/apisirs6v2/rltigatitikempatbelas',{
                 tahun: parseInt(tahun),
+                tahunDanBulan : date,
                 data: dataRLArray
             }, customConfig);
             // console.log(result.data)
@@ -202,7 +210,7 @@ const FormTambahRL314 = () => {
       }
 
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom:"70px"}}>
             <form onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">
@@ -237,9 +245,27 @@ const FormTambahRL314 = () => {
                             <div className="card-body">
                                 <h5 className="card-title h5">Periode Laporan</h5>
                                 <div className="form-floating" style={{width:"100%", display:"inline-block"}}>
-                                    <input name="tahun" type="text" className="form-control" id="floatingInput" 
-                                        placeholder="Tahun" value={tahun} disabled={true}/>
-                                    <label htmlFor="floatingInput">Tahun</label>
+                                    <input name="tahun" type="number" className="form-control" id="floatingInput" min="2024"
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true}/>
+                                    <label htmlFor="tahun">Tahun</label>
+                                </div>
+                                
+                                <div className="form-floating" style={{width:"100%", display:"inline-block", paddingTop:"10px"}}>
+                                    <select name="bulan" className="form-control" id="bulan" onChange={e => changeHandlerSingle(e)}>
+                                        <option value="01">Januari</option>
+                                        <option value="02">Februari</option>
+                                        <option value="03">Maret</option>
+                                        <option value="04">April</option>
+                                        <option value="05">Mei</option>
+                                        <option value="06">Juni</option>
+                                        <option value="07">Juli</option>
+                                        <option value="08">Agustus</option>
+                                        <option value="09">September</option>
+                                        <option value="10">Oktober</option>
+                                        <option value="11">November</option>
+                                        <option value="12">Desember</option>
+                                    </select>
+                                    <label htmlFor="bulan">Bulan</label>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +300,7 @@ const FormTambahRL314 = () => {
                                             <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                                                 <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked} />
                                             </td>
-                                            <td >
+                                            <td style={{ textAlign: "left"}}>
                                                 {value.jenisKegiatan}
                                             </td>
                                             <td><input type="number" name="jumlah" className="form-control" value={value.jumlah}
@@ -292,7 +318,7 @@ const FormTambahRL314 = () => {
                                             <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                                                 <input type="checkbox" name='check' className="form-check-input" onChange={e => changeHandler(e, index)} checked={value.checked} />
                                             </td>
-                                            <td >
+                                            <td style={{ textAlign: "left"}}>
                                                 {value.jenisKegiatan}
                                             </td>
                                             <td><input type="number" name="jumlah" className="form-control" value={value.jumlah}

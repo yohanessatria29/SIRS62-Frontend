@@ -263,7 +263,7 @@ export const FormUbahRL314 = () => {
               </thead>
               <tbody>
                 <td style={{ textAlign: "center" }}>{No}</td>
-                <td style={{ textAlign: "center" }}>{jenisKegiatan}</td>
+                <td style={{ textAlign: "left" }}>{jenisKegiatan}</td>
                 <td>
                   <input
                     type="number"

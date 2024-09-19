@@ -638,14 +638,22 @@ const RL34 = () => {
             </button>
                         </div>
                         <div>
-                            <h5 style={{fontSize: "14px"}}>
-                                filtered by {filterLabel.map((value) => {
-                                    return(
-                                        value
-                                    )
-                                }).join(', ')}
-                            </h5>
-                        </div>
+                        <h5 style={{fontSize: "14px"}}>
+                            {
+                                filterLabel.length > 0 ? (
+                                    <>
+                                        filtered by {filterLabel.map((value) => {
+                                            return(
+                                                value
+                                            )
+                                        }).join(', ')}
+                                    </>
+                                ) : (
+                                    <></>
+                                )
+                            }
+                        </h5>
+                    </div>
 
                         <Table className={style.rlTable}>
                             <thead>
@@ -687,17 +695,9 @@ const RL34 = () => {
                                 {
                                     total != 0 ?(
                                         <tr>
-                                            <td>
-                                                <input type='text' name='id' className="form-control" value={99} disabled={true}/>
-                                            </td>
-                                            <td></td>
-                                            <td>
-                                                <input type="text" name="jenisPengunjung" className="form-control" value="Total" disabled={true} />
-                                            </td>
-                                            <td>
-                                                <input type="text" name="jumlah" className="form-control" value={total} 
-                                                    disabled={true} />
-                                            </td>
+                                        <td  colSpan={3} style={{ textAlign: "center", verticalAlign: "middle" }}>TOTAL : </td>
+                                        <td style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >{total}</td>
                                         </tr>
                                     ) : (
                                         <></>
