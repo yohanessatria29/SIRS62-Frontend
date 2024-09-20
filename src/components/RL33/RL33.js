@@ -763,7 +763,7 @@ const RL33 = () => {
               <thead className={style.thead}>
                 <tr>
                   <th
-                    style={{ width: "2%" }}
+                    style={{ width: "4%" }}
                     rowSpan={2}
                     className={style["sticky-header"]}
                   >
