@@ -199,7 +199,7 @@ export const FormUbahRL318 = () => {
     
 
   return (
-    <div className="container" style={{marginTop: "70px"}}>
+    <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
     <form onSubmit={Simpan}>
         <div className="row">
             <div className="col-md-6">
@@ -261,26 +261,50 @@ export const FormUbahRL318 = () => {
                         </td>
                         <td>{nama}
                         </td>
-                        <td><div className="control">
+                        <td>{nama === "Tidak Ada Data" &&
+                            <div className="control">
                                 <input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} className="form-control" name="rawat_jalan" value={rawat_jalan} onFocus={handleFocus}
                                     onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
-                                onKeyPress={preventMinus}/>
-                            </div>
+                                onKeyPress={preventMinus} disabled={true}/>
+                            </div>}
+                            {nama !== "Tidak Ada Data" &&
+                            <div className="control">
+                                <input type="number" min={0} maxLength={7}
+                                    onInput={(e) => maxLengthCheck(e)} className="form-control" name="rawat_jalan" value={rawat_jalan} onFocus={handleFocus}
+                                    onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
+                                onKeyPress={preventMinus}disabled={false}/>
+                            </div>}
                         </td>
-                        <td><div className="control">
+                        <td>{nama === "Tidak Ada Data" &&
+                            <div className="control">
                                 <input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} className="form-control" name="igd" value={igd} onFocus={handleFocus}
                                     onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
-                                onKeyPress={preventMinus}/>
-                            </div>
+                                onKeyPress={preventMinus} disabled={true}/>
+                            </div>}
+                            {nama !== "Tidak Ada Data" &&
+                            <div className="control">
+                                <input type="number" min={0} maxLength={7}
+                                    onInput={(e) => maxLengthCheck(e)} className="form-control" name="igd" value={igd} onFocus={handleFocus}
+                                    onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
+                                onKeyPress={preventMinus} disabled={false}/>
+                            </div>}
                         </td>
-                        <td><div className="control">
+                        <td>{nama === "Tidak Ada Data" &&
+                            <div className="control">
                                 <input type="number" min={0} maxLength={7}
                                     onInput={(e) => maxLengthCheck(e)} className="form-control" name="rawat_inap" value={rawat_inap} onFocus={handleFocus}
                                     onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
-                                onKeyPress={preventMinus}/>
-                            </div>
+                                onKeyPress={preventMinus} disabled={true}/>
+                            </div>}
+                            {nama !== "Tidak Ada Data" &&
+                            <div className="control">
+                                <input type="number" min={0} maxLength={7}
+                                    onInput={(e) => maxLengthCheck(e)} className="form-control" name="rawat_inap" value={rawat_inap} onFocus={handleFocus}
+                                    onChange={event => changeHandler(event)} onPaste={preventPasteNegative}
+                                onKeyPress={preventMinus} disabled={false}/>
+                            </div>}
                         </td>
                     </tbody>
                 </table>

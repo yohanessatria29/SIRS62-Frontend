@@ -13,6 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table'
 import Spinner from "react-bootstrap/esm/Spinner";
+import { downloadExcel } from 'react-export-table-to-excel'
 
 export const RL317 = () => {
     // const [tahun, setTahun] = useState('')
@@ -26,7 +27,7 @@ export const RL317 = () => {
     // const [token, setToken] = useState('')
     // const [expire, setExpire] = useState('')
     // const [dataRL, setDataRL] = useState([]);
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [filterLabel, setFilterLabel] = useState([])
     // const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -45,14 +46,14 @@ export const RL317 = () => {
     useEffect(() => {
         refreshToken()
         // getCariTahun(2022)
-        const getLastYear = async () => {
-            const date = new Date()
-            setTahun(date.getFullYear() - 1)
-            return date.getFullYear() - 1
-        }
-        getLastYear().then((results) => {
+        // const getLastYear = async () => {
+        //     const date = new Date()
+        //     setTahun(date.getFullYear() - 1)
+        //     return date.getFullYear() - 1
+        // }
+        // getLastYear().then((results) => {
             
-        })
+        // })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -146,7 +147,7 @@ export const RL317 = () => {
             return
         }
         const filter = []
-        filter.push("nama: ".concat(rumahSakit.nama))
+        filter.push("filtered by nama: ".concat(rumahSakit.nama))
         filter.push("periode: ".concat(String(tahun)))
         setFilterLabel(filter)
         try {
@@ -264,6 +265,35 @@ export const RL317 = () => {
         }
     }
 
+    function handleDownloadExcel() {
+        const header = [
+            "No Golongan Obat", 
+            "Golongan Obat",
+            "JUMLAH ITEM OBAT",
+            "JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT"
+        ]
+        console.log(dataRL)
+    
+            const body = dataRL.map((value, index) => {
+                console.log()
+                const data = [
+                    value.no_golongan_obat,
+                    value.nama_golongan_obat,
+                   value.jumlah_item_obat,
+                   value.jumlah_item_obat_rs
+                ]
+                return data
+            })
+    
+            downloadExcel({
+                fileName: "RL317-Farmasi Pengadaan Obat",
+                sheet: "Farmasi Pengadaan Obat",
+                tablePayload: {
+                    header,
+                    body: body,
+                },
+            })
+        }
     const getProvinsi = async() => {
         try {
             const customConfig = {
@@ -444,7 +474,8 @@ export const RL317 = () => {
 
 
     return (
-        <div className="container" style={{ marginTop: "70px" }}>
+        <div className="container" style={{ marginTop: "70px", marginBottom: "70px" }}>
+           <h4 style={{  color: "grey" }}> <span>  RL 3.17 Farmasi Pengadaan Obat </span></h4>
         <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
             <Modal.Header closeButton>
                 <Modal.Title>Filter</Modal.Title>
@@ -661,11 +692,12 @@ export const RL317 = () => {
                     <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                         Filter
                     </button>
+                    <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button>
                 </div>
-                
+
                 <div>
                     <h5 style={{fontSize: "14px"}}>
-                        filtered by {filterLabel.map((value) => {
+                        {filterLabel.map((value) => {
                             return(
                                 value
                             )
@@ -676,15 +708,15 @@ export const RL317 = () => {
                     className={style.rlTable}
                     striped
                     responsive
-                    style={{ width: "200%" }}
+                    style={{ width: "100%" }}
                 >
                      <thead>
                              <tr>
-                                 <th style={{ "width": "7%" }}>No Golongan Obat</th>
-                                 <th style={{ "width": "7%" }}> </th>
-                                 <th>Golongan Obat</th>
-                                 <th>JUMLAH ITEM OBAT</th>
-                                 <th>JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT</th>
+                                 <th style={{ "width": "1.5%" }}>No Golongan Obat</th>
+                                 <th style={{ "width": "0.7%" }}>Aksi</th>
+                                 <th style={{ "width": "7%" }}>Golongan Obat</th>
+                                 <th style={{ "width": "4%" }}>JUMLAH ITEM OBAT</th>
+                                 <th style={{ "width": "4%" }}>JUMLAH ITEM OBAT YANG TERSEDIA DI RUMAH SAKIT</th>
 
                              </tr>
                          </thead>
@@ -702,9 +734,12 @@ export const RL317 = () => {
                                             user.jenisUserId === 4 ? (
                                                 <div style={{ display: "flex" }}>
                                                     <button className="btn btn-danger" style={{ margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663" }} type='button' onClick={(e) => deleteConfirmation(value.id)}>Hapus</button>
+                                                    {value.no_golongan_obat==="0" ?
+                                                    '': 
                                                     <Link to={`/rl317/ubah/${value.id}`} className='btn btn-warning' style={{ margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color: "#FFFFFF" }} >
                                                         Ubah
                                                     </Link>
+                                                    }
                                                 </div>
                                                 
                                             ) : (
@@ -712,7 +747,7 @@ export const RL317 = () => {
                                             )
                                         }
                                     </td>
-                                    <td>{value.nama_golongan_obat}
+                                    <td><center>{ value.nama_golongan_obat}</center>
                                         </td>
                                         <td><center>{value.jumlah_item_obat}</center>
                                         </td>

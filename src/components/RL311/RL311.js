@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,9 +10,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL311 = () => {
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
   const [daftarRumahSakit, setDaftarRumahSakit] = useState([]);
@@ -25,19 +26,21 @@ const RL311 = () => {
   const [user, setUser] = useState({});
   const [totalall, settotalall] = useState(0);
   const navigate = useNavigate();
+  const tableRef = useRef(null);
+  const [namafile, setNamaFile] = useState("");
 
   useEffect(() => {
     refreshToken();
-    const getLastYear = async () => {
-      const date = new Date();
-      // setTahun(date.getFullYear() - 1);
-      // return date.getFullYear() - 1;
-      setTahun(date.getFullYear());
-      return date.getFullYear();
-    };
-    getLastYear().then((results) => {
-      // getDataRLTigaTitikSebelas(results);
-    });
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   // setTahun(date.getFullYear() - 1);
+    //   // return date.getFullYear() - 1;
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    // };
+    // getLastYear().then((results) => {
+    //   // getDataRLTigaTitikSebelas(results);
+    // });
     // getRLTigaTitikTigaTemplate()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -162,6 +165,9 @@ const RL311 = () => {
       settotalall(total);
       setDataRL(rlTigaTitikSebelasDetails);
       setRumahSakit(null);
+
+      setNamaFile("rl11_" + rumahSakit.id + "_".concat(String(tahun)));
+
       handleClose();
     } catch (error) {
       console.log(error);
@@ -280,7 +286,10 @@ const RL311 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -482,6 +491,9 @@ const RL311 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+          <span style={{ color: "gray" }}>
+            <h4>RL 3.11 - Gigi dan Mulut</h4>
+          </span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -510,53 +522,83 @@ const RL311 = () => {
             >
               Filter
             </button>
+
+            <DownloadTableExcel
+              filename={namafile}
+              sheet="data RL 311"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button
+                className="btn"
+                style={{
+                  fontSize: "18px",
+                  marginLeft: "5px",
+                  backgroundColor: "#779D9E",
+                  color: "#FFFFFF",
+                }}
+              >
+                {" "}
+                Download
+              </button>
+            </DownloadTableExcel>
           </div>
 
           <div>
             <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
+              {filterLabel.length > 0 ? (
+                <>
+                  filtered by{" "}
+                  {filterLabel
+                    .map((value) => {
+                      return value;
+                    })
+                    .join(", ")}
+                </>
+              ) : (
+                <></>
+              )}
             </h5>
           </div>
           <Table
             className={style.rlTable}
-            striped
-            responsive
+            ref={tableRef}
             style={{ width: "100%" }}
           >
             <thead>
               <tr>
-                <th rowSpan="2" style={{ width: "2%" }}>
-                  No.
-                </th>
-                <th rowSpan="2" style={{ width: "2%" }}>
-                  Aksi
-                </th>
-                <th rowSpan="2" style={{ width: "10%" }}>
+                <th style={{ whiteSpace: "nowrap", width: "1%" }}>No.</th>
+                <th style={{ whiteSpace: "nowrap", width: "2%" }}>Aksi</th>
+                <th style={{ whiteSpace: "nowrap", width: "10%" }}>
                   Jenis Kegiatan
                 </th>
-                <th rowSpan="2" style={{ width: "25%" }}>
-                  Jumlah
-                </th>
+                <th style={{ whiteSpace: "nowrap", width: "2%" }}>Jumlah</th>
               </tr>
             </thead>
+
             <tbody>
               {dataRL.map((value, index) => {
                 return (
                   <tr key={value.id}>
-                    <td>
-                      <input
+                    <td
+                      style={{
+                        textAlign: "center",
+                        verticalAlign: "middle",
+                        whiteSpace: "nowrap",
+                        width: "1%",
+                      }}
+                    >
+                      {/* <input
                         type="text"
                         name="id"
                         className="form-control"
                         value={index + 1}
                         disabled={true}
                         style={{ textAlign: "center" }}
-                      />
+                      /> */}
+                      {/* <p> */}
+                      {index + 1}
+                      {/* </p> */}
                     </td>
                     <td>
                       <ToastContainer />
@@ -598,23 +640,31 @@ const RL311 = () => {
                         <></>
                       )}
                     </td>
-                    <td>
-                      <input
+                    <td style={{ textAlign: "left", verticalAlign: "middle" }}>
+                      {/* <input
                         type="text"
                         name="jenisKegiatan"
                         className="form-control"
                         value={value.nama_jenis_kegiatan}
                         disabled={true}
-                      />
+                      /> */}
+                      {/* <p> */}
+                      {value.nama_jenis_kegiatan}
+                      {/* </p> */}
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="Jumlah"
                         className="form-control"
                         value={value.jumlah}
                         disabled={true}
-                      />
+                      /> */}
+                      {/* <p> */}
+                      {value.jumlah}
+                      {/* </p> */}
                     </td>
                   </tr>
                 );
@@ -628,14 +678,15 @@ const RL311 = () => {
                   <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                     <h6>TOTAL</h6>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="total"
                       className="form-control"
                       value={totalall}
                       disabled={true}
-                    />
+                    /> */}
+                    <p>{totalall}</p>
                   </td>
                 </tr>
               ) : (

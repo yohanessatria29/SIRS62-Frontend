@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate, Link } from 'react-router-dom'
 import style from './FormTambahRL39.module.css'
 import { HiSaveAs } from 'react-icons/hi'
-import { IoArrowBack } from 'react-icons/io5'
+// import { IoArrowBack } from 'react-icons/io5'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Spinner from 'react-bootstrap/Spinner';
@@ -14,8 +14,8 @@ const FormTambahRL39 = () => {
     const [alamatRS, setAlamatRS] = useState('')
     const [namaPropinsi, setNamaPropinsi] = useState('')
     const [namaKabKota, setNamaKabKota] = useState('')
-    const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [bulan, setBulan] = useState(0)
+    const [tahun, setTahun] = useState('2025')
     const [daftarBulan, setDaftarBulan] = useState([])
     // const [namaKelompokJenisKegiatan, setnamaKelompokJenisKegiatan] = useState([])
     const [dataRL, setDataRL] = useState([])
@@ -32,8 +32,8 @@ const FormTambahRL39 = () => {
         getRLTigaTitikSembilanTemplate()
         getBulan()
         // getKelompokJenisKegiatan()
-        const date = new Date();
-        setTahun(date.getFullYear() - 1)
+        // const date = new Date();
+        // setTahun(date.getFullYear())
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -83,6 +83,10 @@ const FormTambahRL39 = () => {
     }
     const getBulan = async () => {
         const results = []
+        results.push({
+            key: "--Pilih Bulan--",
+            value: "0",
+        })
         results.push({
             key: "Januari",
             value: "1",
@@ -223,7 +227,13 @@ const FormTambahRL39 = () => {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            
+            if( bulan==='00' || bulan == 0 ){
+                toast(`Data tidak bisa disimpan karena belum pilih periode laporan`, {
+                  position: toast.POSITION.TOP_RIGHT,
+                });
+                setButtonStatus(false);
+                setSpinner(false)
+              }else{
             await axiosJWT.post('/apisirs6v2/rltigatitiksembilan',{
                 periodeBulan: parseInt(bulan),
                 periodeTahun: parseInt(tahun),
@@ -238,6 +248,7 @@ const FormTambahRL39 = () => {
             setTimeout(() => {
                 navigate('/rl39')
             }, 1000);
+        }
         } catch (error) {
             toast(`Data tidak bisa disimpan karena ,${error.response.data.message}`, {
                 position: toast.POSITION.TOP_RIGHT
@@ -271,7 +282,7 @@ const FormTambahRL39 = () => {
         setBulan(e.target.value)
     }
     return (
-        <div className="container" style={{marginTop: "70px"}}>
+        <div className="container" style={{marginTop: "70px", marginBottom: "70px"}}>
             <form onSubmit={Simpan}>
                 <div className="row">
                     <div className="col-md-6">
@@ -327,7 +338,7 @@ const FormTambahRL39 = () => {
                                 </div>
                                 <div className="form-floating" style={{width:"50%", display:"inline-block"}}>
                                     <input name="tahun" type="number" className="form-control" id="floatingInput" 
-                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={false}/>
+                                        placeholder="Tahun" value={tahun} onChange={e => changeHandlerSingle(e)} disabled={true}/>
                                     <label>Tahun</label>
                                 </div>
                             </div>

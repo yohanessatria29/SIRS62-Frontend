@@ -13,6 +13,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
 import Spinner from "react-bootstrap/esm/Spinner";
+import { downloadExcel } from 'react-export-table-to-excel'
+
 
 export const RL318 = () => {
     // const [tahun, setTahun] = useState('2022')
@@ -26,7 +28,7 @@ export const RL318 = () => {
     // const [token, setToken] = useState('')
     // const [expire, setExpire] = useState('')
     // const [dataRL, setDataRL] = useState([]);
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState('2025')
     const [filterLabel, setFilterLabel] = useState([])
     // const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -46,14 +48,14 @@ export const RL318 = () => {
         refreshToken()
         // getDataRS()
         // getRL37();
-        const getLastYear = async () => {
-            const date = new Date()
-            setTahun(date.getFullYear() - 1)
-            return date.getFullYear() - 1
-        }
-        getLastYear().then((results) => {
+        // const getLastYear = async () => {
+        //     const date = new Date()
+        //     setTahun(date.getFullYear() - 1)
+        //     return date.getFullYear() - 1
+        // }
+        // getLastYear().then((results) => {
             
-        })
+        // })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -147,7 +149,7 @@ export const RL318 = () => {
             return
         }
         const filter = []
-        filter.push("nama: ".concat(rumahSakit.nama))
+        filter.push("filtered by nama: ".concat(rumahSakit.nama))
         filter.push("periode: ".concat(String(tahun)))
         setFilterLabel(filter)
         try {
@@ -265,6 +267,37 @@ export const RL318 = () => {
         }
     }
 
+    function handleDownloadExcel() {
+        const header = [
+            "No Golongan Obat", 
+            "Golongan Obat",
+            "Rawat Jalan",
+            "IGD",
+            "Rawat Inap"
+        ]
+        console.log(dataRL)
+    
+            const body = dataRL.map((value, index) => {
+                console.log()
+                const data = [
+                    value.no_golongan_obat,
+                    value.nama_golongan_obat,
+                   value.rawat_jalan,
+                   value.igd,
+                   value.rawat_inap
+                ]
+                return data
+            })
+    
+            downloadExcel({
+                fileName: "RL318-Farmasi Resep",
+                sheet: "Farmasi Resep",
+                tablePayload: {
+                    header,
+                    body: body,
+                },
+            })
+        }
     const getProvinsi = async() => {
         try {
             const customConfig = {
@@ -312,7 +345,8 @@ export const RL318 = () => {
 
 
     return (
-        <div className="container" style={{ marginTop: "70px" }}>
+        <div className="container" style={{ marginTop: "70px" , marginBottom: "70px"}}>
+        <h4 style={{  color: "grey" }}> <span> RL 3.18 Farmasi Resep</span>   </h4>
         <Modal show={show} onHide={handleClose} style={{position: "fixed"}}>
             <Modal.Header closeButton>
                 <Modal.Title>Filter</Modal.Title>
@@ -529,11 +563,12 @@ export const RL318 = () => {
                     <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                         Filter
                     </button>
+                    <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleDownloadExcel}>Download</button>
                 </div>
-                
+
                 <div>
                     <h5 style={{fontSize: "14px"}}>
-                        filtered by {filterLabel.map((value) => {
+                        {filterLabel.map((value) => {
                             return(
                                 value
                             )
@@ -551,8 +586,8 @@ export const RL318 = () => {
                     <Table className={style.rlTable}>
                         <thead>
                             <tr>
-                                <th style={{ "width": "7%" }}>No Golongan Obat</th>
-                                <th style={{ "width": "7%" }}> </th>
+                                <th style={{ "width": "10%" }}>No Golongan Obat</th>
+                                <th style={{ "width": "12%" }}> </th>
                                 <th>Golongan Obat</th>
                                 <th>Rawat Jalan</th>
                                 <th>IGD</th>
@@ -577,9 +612,12 @@ export const RL318 = () => {
                                             user.jenisUserId === 4 ? (
                                                 <div style={{ display: "flex" }}>
                                                     <button className="btn btn-danger" style={{ margin: "0 5px 0 0", backgroundColor: "#FF6663", border: "1px solid #FF6663" }} type='button' onClick={(e) => deleteConfirmation(value.id)}>Hapus</button>
+                                                    {value.no_golongan_obat==="0" ?
+                                                    '': 
                                                     <Link to={`/rl318/ubah/${value.id}`} className='btn btn-warning' style={{ margin: "0 5px 0 0", backgroundColor: "#CFD35E", border: "1px solid #CFD35E", color: "#FFFFFF" }} >
                                                         Ubah
                                                     </Link>
+                                                    }
                                                 </div>
                                                 
                                             ) : (

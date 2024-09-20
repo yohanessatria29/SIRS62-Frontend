@@ -11,21 +11,11 @@ import Table from "react-bootstrap/Table";
 //import { Link } from 'react-router-dom'
 
 const FormTambahRL311 = () => {
-  // const [tahun, setTahun] = useState("");
-  // const [namaRS, setNamaRS] = useState("");
-  // const [alamatRS, setAlamatRS] = useState("");
-  // const [namaPropinsi, setNamaPropinsi] = useState("");
-  // const [namaKabKota, setNamaKabKota] = useState("");
-  // const [dataRL, setDataRL] = useState([]);
-  // const [token, setToken] = useState("");
-  // const [expire, setExpire] = useState("");
-  // const navigate = useNavigate();
-
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
   const [namaKabKota, setNamaKabKota] = useState("");
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState("2025");
   const [dataRL, setDataRL] = useState([]);
   const [token, setToken] = useState("");
   const [expire, setExpire] = useState("");
@@ -35,8 +25,9 @@ const FormTambahRL311 = () => {
   useEffect(() => {
     refreshToken();
     getRLTigaTitikSebelasTemplate();
-    const date = new Date();
-    setTahun(date.getFullYear());
+    // const date = new Date();
+    // setTahun(date.getFullYear());
+
     // setTahun(date.getFullYear() - 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -180,7 +171,7 @@ const FormTambahRL311 = () => {
         },
         customConfig
       );
-      // console.log(result.data)
+
       toast("Data Berhasil Disimpan", {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -219,7 +210,10 @@ const FormTambahRL311 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <form onSubmit={Simpan}>
         <div className="row">
           <div className="col-md-6">
@@ -319,14 +313,18 @@ const FormTambahRL311 = () => {
               &lt;
             </Link>
             <span style={{ color: "gray" }}>Kembali RL 3.11 Gigi & Mulut</span>
-            <table className={style.rlTable}>
+            <table className={style.rlTable} style={{ width: "100%" }}>
               <thead>
                 <tr>
-                  <th style={{ width: "4%" }}>No.</th>
-                  <th style={{ width: "3%" }}></th>
-                  <th style={{ width: "4%" }}>No Kegiatan</th>
-                  <th style={{ width: "20%" }}>Jenis Kegiatan</th>
-                  <th>Jumlah</th>
+                  <th style={{ whiteSpace: "nowrap", width: "2%" }}>No.</th>
+                  <th style={{ whiteSpace: "nowrap", width: "1%" }}></th>
+                  <th style={{ whiteSpace: "nowrap", width: "3%" }}>
+                    No Kegiatan
+                  </th>
+                  <th style={{ whiteSpace: "nowrap", width: "20%" }}>
+                    Jenis Kegiatan
+                  </th>
+                  <th style={{ whiteSpace: "nowrap", width: "5%" }}>Jumlah</th>
                 </tr>
               </thead>
               <tbody>
@@ -341,6 +339,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={index + 1}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td
@@ -364,6 +363,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={value.no}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td>
@@ -387,7 +387,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={value.jumlah}
                             onChange={(e) => changeHandler(e, index)}
-                            disabled={value.disabledInput}
+                            // disabled={value.disabledInput}
                             disabled={true}
                           />
                         </td>
@@ -403,6 +403,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={index + 1}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td
@@ -426,6 +427,7 @@ const FormTambahRL311 = () => {
                             className="form-control"
                             value={value.no}
                             disabled={true}
+                            style={{ textAlign: "center" }}
                           />
                         </td>
                         <td>

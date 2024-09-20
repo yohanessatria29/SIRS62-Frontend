@@ -12,8 +12,9 @@ import { Spinner } from "react-bootstrap";
 
 const FormTambahRL41 = () => {
   // const [tahun, setTahun] = useState(new Date().getFullYear() - 1);
-  const [tahun, setTahun] = useState(new Date().getFullYear());
-  const [bulan, setBulan] = useState("01");
+  // const [tahun, setTahun] = useState(new Date().getFullYear());
+  const [tahun, setTahun] = useState("2025");
+  const [bulan, setBulan] = useState("00");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
   const [namaPropinsi, setNamaPropinsi] = useState("");
@@ -84,7 +85,6 @@ const FormTambahRL41 = () => {
     setSpinnerSearch(true);
     try {
       if (caripenyakit) {
-        // console.log("ada");
         const response = await axiosJWT.get(
           "/apisirs6v2/icd/rawat_jalan/find?search=" + caripenyakit,
           {
@@ -393,47 +393,52 @@ const FormTambahRL41 = () => {
       data: [transformedObject],
     };
 
-    // console.log(datainput[0]);
-
-    if (total <= totalkunjungan) {
-      //   console.log(totalkunjungan);
-      //   console.log(total);
-      // console.log(dataReady);
-      try {
-        const customConfig = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        const result = await axiosJWT.post(
-          "/apisirs6v2/rllimatitiksatu",
-          dataReady,
-          customConfig
-        );
-        toast("Data Berhasil Disimpan", {
+    if (bulan === "00" || bulan == 0) {
+      toast(
+        `Data tidak bisa disimpan karena belum pilih periode bulan laporan`,
+        {
           position: toast.POSITION.TOP_RIGHT,
-        });
-        setTimeout(() => {
-          navigate(0);
-        }, 1000);
-      } catch (error) {
+        }
+      );
+      setButtonStatus(false);
+    } else {
+      if (total <= totalkunjungan) {
+        try {
+          const customConfig = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          };
+          const result = await axiosJWT.post(
+            "/apisirs6v2/rllimatitiksatu",
+            dataReady,
+            customConfig
+          );
+          toast("Data Berhasil Disimpan", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            navigate("/rl51");
+          }, 1000);
+        } catch (error) {
+          toast(
+            `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+            {
+              position: toast.POSITION.TOP_RIGHT,
+            }
+          );
+          setButtonStatus(false);
+        }
+      } else {
         toast(
-          `Data tidak bisa disimpan karena ,${error.response.data.message}`,
+          `Data Gagal Disimpan, Data Jumlah Pasien Baru Lebih Dari Jumlah Kunjungan Pasien`,
           {
             position: toast.POSITION.TOP_RIGHT,
           }
         );
         setButtonStatus(false);
       }
-    } else {
-      toast(
-        `Data Gagal Disimpan, Data Jumlah Pasien Baru Lebih Dari Jumlah Kunjungan Pasien`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
-      setButtonStatus(false);
     }
   };
 
@@ -447,7 +452,10 @@ const FormTambahRL41 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <div className="row">
         <div className="col-md-6">
           <div className="card">
@@ -509,23 +517,27 @@ const FormTambahRL41 = () => {
           </div>
         </div>
       </div>
+
       <div className="row mt-3">
         <div className="col-md-6">
-          <Link
-            to={`/rl51/`}
-            className="btn btn-info"
-            style={{
-              fontSize: "18px",
-              backgroundColor: "#779D9E",
-              color: "#FFFFFF",
-            }}
-          >
-            {/* <IoArrowBack size={30} style={{ color: "gray", cursor: "pointer" }} /> */}
-            &lt;
-          </Link>
-          <span style={{ color: "gray" }}>
-            Kembali RL 51 Mobiditas Pasien Rawat Jalan
-          </span>
+          <div className="pb-2">
+            <Link
+              to={`/rl51/`}
+              className="btn btn-info"
+              style={{
+                fontSize: "18px",
+                backgroundColor: "#779D9E",
+                color: "#FFFFFF",
+              }}
+            >
+              {/* <IoArrowBack size={30} style={{ color: "gray", cursor: "pointer" }} /> */}
+              &lt;
+            </Link>
+            <span style={{ color: "gray" }}>
+              Kembali RL 51 Mobiditas Pasien Rawat Jalan
+            </span>
+          </div>
+
           <div className="card">
             <div className="card-body">
               <h5 className="card-title h5">Search Nama Penyakit</h5>
@@ -542,6 +554,7 @@ const FormTambahRL41 = () => {
                     placeholder="Nama Penyakit / KODE ICD 10"
                     value={caripenyakit}
                     onChange={(e) => changeHandlerCariPenyakit(e)}
+                    minLength={2}
                   />
                   <label htmlFor="floatingInput">
                     Search Nama Penyakit / KODE ICD10
@@ -574,40 +587,56 @@ const FormTambahRL41 = () => {
                   <Spinner animation="grow" variant="success"></Spinner>
                 )}
               </div>
-              <Table className={style.rlTable}>
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Code ICD 10</th>
-                    <th>Deskripsi ICD 10</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataPenyakit.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>{index + 1}</td>
-                        <td style={{ textAlign: "left" }}>{value.icd_code}</td>
-                        <td style={{ textAlign: "left" }}>
-                          {value.description_code}
-                        </td>
-                        <td>
-                          <button
-                            className="btn btn-outline-success"
-                            onClick={() => DetailPenyakit(value.id)}
+              <div className={style["table-container"]}>
+                <table
+                  responsive
+                  className={style["table"]}
+                  style={{ width: "100%" }}
+                >
+                  <thead className={style["thead"]}>
+                    <tr className="main-header-row">
+                      <th style={{ width: "8%" }}>No.</th>
+                      <th style={{ width: "20%" }}>Code ICD 10</th>
+                      <th style={{ width: "40%" }}>Deskripsi ICD 10</th>
+                      <th style={{ width: "12%" }}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dataPenyakit.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td
+                            style={{
+                              textAlign: "center",
+                              verticalAlign: "middle",
+                            }}
                           >
-                            Tambah
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+                            {index + 1}
+                          </td>
+                          <td style={{ textAlign: "left" }}>
+                            {value.icd_code}
+                          </td>
+                          <td style={{ textAlign: "left" }}>
+                            {value.description_code}
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-outline-success"
+                              onClick={() => DetailPenyakit(value.id)}
+                            >
+                              Tambah
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
+
         {datainput.length > 0 && (
           <div className="col-md-6">
             <div className="card">
@@ -651,6 +680,7 @@ const FormTambahRL41 = () => {
                         id="bulan"
                         onChange={(e) => changeHandlerSingle(e)}
                       >
+                        <option value="00">--PILIH BULAN--</option>
                         <option value="1">Januari</option>
                         <option value="2">Februari</option>
                         <option value="3">Maret</option>
@@ -669,7 +699,6 @@ const FormTambahRL41 = () => {
                   </div>
                   <div className="container mt-3">
                     <div className="container" style={{ textAlign: "center" }}>
-                      {/* <h5>test</h5> */}
                       {spinner && (
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
@@ -689,65 +718,71 @@ const FormTambahRL41 = () => {
                         <Spinner animation="grow" variant="success"></Spinner>
                       )}
                     </div>
-                    <Table className={style.rlTable}>
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>Golongan Berdasarkan Umur</th>
-                          <th>Laki Laki</th>
-                          <th>Perempuan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {datainput.map((value) => {
-                          return value.label.map((test, no) => {
-                            const isPerempuanDisabled =
-                              value.statusPerempuan === 0;
-                            const isLakiDisabled = value.statusLaki === 0;
-                            return (
-                              <tr key={no}>
-                                <td>{no + 1}</td>
-                                <td style={{ textAlign: "left" }}>
-                                  <label>{test.label}</label>
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    name={test.namaL}
-                                    className="input is-primary is-small form-control"
-                                    defaultValue={0}
-                                    min={0}
-                                    maxLength={7}
-                                    onInput={(e) => maxLengthCheck(e)}
-                                    onPaste={preventPasteNegative}
-                                    onKeyPress={preventMinus}
-                                    onChange={(e) => changeHandler(e, no)}
-                                    onFocus={handleFocus}
-                                    disabled={isLakiDisabled}
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="number"
-                                    name={test.namaP}
-                                    className="input is-primary is-small form-control"
-                                    defaultValue={0}
-                                    min={0}
-                                    maxLength={7}
-                                    onInput={(e) => maxLengthCheck(e)}
-                                    onPaste={preventPasteNegative}
-                                    onKeyPress={preventMinus}
-                                    onChange={(e) => changeHandler(e, no)}
-                                    onFocus={handleFocus}
-                                    disabled={isPerempuanDisabled}
-                                  />
-                                </td>
-                              </tr>
-                            );
-                          });
-                        })}
-                      </tbody>
-                    </Table>
+                    <div className={style["table-container"]}>
+                      <table
+                        responsive
+                        className={style["table"]}
+                        style={{ width: "100%" }}
+                      >
+                        <thead className={style["thead"]}>
+                          <tr className="main-header-row">
+                            <th style={{ width: "8%" }}>No.</th>
+                            <th>Golongan Berdasarkan Umur</th>
+                            <th>Laki Laki</th>
+                            <th>Perempuan</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {datainput.map((value) => {
+                            return value.label.map((test, no) => {
+                              const isPerempuanDisabled =
+                                value.statusPerempuan === 0;
+                              const isLakiDisabled = value.statusLaki === 0;
+                              return (
+                                <tr key={no}>
+                                  <td>{no + 1}</td>
+                                  <td style={{ textAlign: "left" }}>
+                                    <label>{test.label}</label>
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      name={test.namaL}
+                                      className="input is-primary is-small form-control"
+                                      defaultValue={0}
+                                      min={0}
+                                      maxLength={7}
+                                      onInput={(e) => maxLengthCheck(e)}
+                                      onPaste={preventPasteNegative}
+                                      onKeyPress={preventMinus}
+                                      onChange={(e) => changeHandler(e, no)}
+                                      onFocus={handleFocus}
+                                      disabled={isLakiDisabled}
+                                    />
+                                  </td>
+                                  <td>
+                                    <input
+                                      type="number"
+                                      name={test.namaP}
+                                      className="input is-primary is-small form-control"
+                                      defaultValue={0}
+                                      min={0}
+                                      maxLength={7}
+                                      onInput={(e) => maxLengthCheck(e)}
+                                      onPaste={preventPasteNegative}
+                                      onKeyPress={preventMinus}
+                                      onChange={(e) => changeHandler(e, no)}
+                                      onFocus={handleFocus}
+                                      disabled={isPerempuanDisabled}
+                                    />
+                                  </td>
+                                </tr>
+                              );
+                            });
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                   <div className="mt-3 mb-3">
                     <ToastContainer />

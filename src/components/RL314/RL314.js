@@ -16,9 +16,12 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { Spinner, Modal } from "react-bootstrap";
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL314 = () => {
+  const [bulan, setBulan] = useState(1);
   const [tahun, setTahun] = useState("");
+  const [daftarBulan, setDaftarBulan] = useState([])
   const [total, setTotal] = useState("");
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
@@ -43,10 +46,11 @@ const RL314 = () => {
 
   useEffect(() => {
     refreshToken();
+    getBulan();
     const getLastYear = async () => {
       const date = new Date();
-      setTahun(date.getFullYear() - 1);
-      return date.getFullYear() - 1;
+      setTahun('2025');
+      return date.getFullYear();
     };
     getLastYear().then((results) => {});
     // getRLTigaTitikEmpatBelasTemplate()
@@ -70,6 +74,35 @@ const RL314 = () => {
     }
   };
 
+  function handleDownloadExcel() {
+    const header = [
+      "No",
+      "No Kegiatan",
+      "Jenis Kegiatan",
+      "Jumlah",
+    ];
+
+    const body = dataRL.map((value, index) => {
+      const data = [
+        index + 1,
+        value.jenisKegiatanRLTigaTitikEmpatBelasId,
+        value.namaJenisKegiatan,
+        value.jumlah,
+      ];
+
+      return data;
+    });
+
+    downloadExcel({
+      fileName: "RL_3_14",
+      sheet: "react-export-table-to-excel",
+      tablePayload: {
+        header,
+        body: body,
+      },
+    });
+  }
+
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
@@ -87,6 +120,64 @@ const RL314 = () => {
       return Promise.reject(error);
     }
   );
+
+  const getBulan = async () => {
+    const results = []
+    results.push({
+        key: "Januari",
+        value: "1",
+    })
+    results.push({
+        key: "Febuari",
+        value: "2",
+    })
+    results.push({
+        key: "Maret",
+        value: "3",
+    })
+    results.push({
+        key: "April",
+        value: "4",
+    })
+    results.push({
+        key: "Mei",
+        value: "5",
+    })
+    results.push({
+        key: "Juni",
+        value: "6",
+    })
+    results.push({
+        key: "Juli",
+        value: "7",
+    })
+    results.push({
+        key: "Agustus",
+        value: "8",
+    })
+    results.push({
+        key: "September",
+        value: "9",
+    })
+    results.push({
+        key: "Oktober",
+        value: "10",
+    })
+    results.push({
+        key: "November",
+        value: "11",
+    })
+    results.push({
+        key: "Desember",
+        value: "12",
+    })
+
+    setDaftarBulan([...results])
+};
+
+  const bulanChangeHandler = async (e) => {
+    setBulan(e.target.value)
+};
 
   const tahunChangeHandler = (event) => {
     setTahun(event.target.value);
@@ -133,6 +224,7 @@ const RL314 = () => {
     } catch (error) {}
   };
   const getRL = async (e) => {
+    let date = (tahun+'-'+bulan+'-01')
     e.preventDefault();
     if (rumahSakit == null) {
       toast(`rumah sakit harus dipilih`, {
@@ -142,7 +234,7 @@ const RL314 = () => {
     }
     const filter = [];
     filter.push("nama: ".concat(rumahSakit.nama));
-    filter.push("tahun: ".concat(String(tahun)));
+    filter.push("tahun: ".concat(String(tahun).concat("-").concat(bulan)));
     setFilterLabel(filter);
     try {
       const customConfig = {
@@ -152,7 +244,7 @@ const RL314 = () => {
         },
         params: {
           rsId: rumahSakit.id,
-          tahun: tahun,
+          tahun: date
         },
       };
       const results = await axiosJWT.get(
@@ -405,8 +497,8 @@ const RL314 = () => {
         `/apisirs6v2/rltigatitikempatbelas/${id}`,
         customConfig
       );
-    //   setDataRL((current) => current.filter((value) => value.id !== id));
-    window.location.reload(false);
+      setDataRL((current) => current.filter((value) => value.id !== id));
+    // window.location.reload(false);
       toast("Data Berhasil Dihapus", {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -438,6 +530,7 @@ const RL314 = () => {
 
   return (
     <div className="container" style={{ marginTop: "70px" }}>
+      <h2>RL 3.14 Pelayanan Khusus</h2>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -609,9 +702,31 @@ const RL314 = () => {
             ) : (
               <></>
             )}
+
+                  <div className="form-floating" style={{ width: "70%", display: "inline-block" }}>
+                                <select
+                                    typeof="select"
+                                    className="form-control"
+                                    onChange={bulanChangeHandler}
+                                >
+                                    {daftarBulan.map((bulan) => {
+                                        return (
+                                            <option
+                                                key={bulan.value}
+                                                name={bulan.key}
+                                                value={bulan.value}
+                                            >
+                                                {bulan.key}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <label>Bulan</label>
+                            </div>
+
             <div
               className="form-floating"
-              style={{ width: "100%", display: "inline-block" }}
+              style={{ width: "30%", display: "inline-block" }}
             >
               <input
                 name="tahun"
@@ -666,18 +781,37 @@ const RL314 = () => {
             >
               Filter
             </button>
+            <button
+              className="btn"
+              style={{
+                fontSize: "18px",
+                marginLeft: "5px",
+                backgroundColor: "#779D9E",
+                color: "#FFFFFF",
+              }}
+              onClick={handleDownloadExcel}
+            >
+              Download
+            </button>
           </div>
         </div>
         <div>
-          <h5 style={{ fontSize: "14px" }}>
-            filtered by{" "}
-            {filterLabel
-              .map((value) => {
-                return value;
-              })
-              .join(", ")}
-          </h5>
-        </div>
+                        <h5 style={{fontSize: "14px"}}>
+                            {
+                                filterLabel.length > 0 ? (
+                                    <>
+                                        filtered by {filterLabel.map((value) => {
+                                            return(
+                                                value
+                                            )
+                                        }).join(', ')}
+                                    </>
+                                ) : (
+                                    <></>
+                                )
+                            }
+                        </h5>
+                    </div>
       </div>
           <Table className={style.rlTable}>
             <thead>
@@ -697,7 +831,7 @@ const RL314 = () => {
                   }} key={value.jenisKegiatanRLTigaTitikEmpatBelasId}>
                     
                     <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                      style={{ textAlign: "left", verticalAlign: "middle" }}
                     >
                       {value.no}
                     </td>
@@ -714,7 +848,7 @@ const RL314 = () => {
                     </td>
                     
                     <td
-                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                      style={{ textAlign: "left", verticalAlign: "middle" }}
                     >
                       <ToastContainer />
                       <div style={{ display: "flex" }}>
@@ -730,6 +864,7 @@ const RL314 = () => {
                         >
                           Hapus
                         </button>
+                        {value.no != 0 ? (
                         <Link
                           to={`/rl314/ubah/${value.id}`}
                           className="btn btn-warning"
@@ -742,9 +877,12 @@ const RL314 = () => {
                         >
                           Ubah
                         </Link>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </td>
-                    <td>{value.namaJenisKegiatan}</td>
+                    <td style={{ textAlign: "left", verticalAlign: "middle" }}>{value.namaJenisKegiatan}</td>
                     <td style={{ textAlign: "center", verticalAlign: "middle" }}
                     >{value.jumlah}</td>
                   </tr>

@@ -13,7 +13,7 @@ import { downloadExcel } from 'react-export-table-to-excel'
 
 const RL53 = () => {
     const [bulan, setBulan] = useState(1)
-    const [tahun, setTahun] = useState('')
+    const [tahun, setTahun] = useState(2025)
     const [filterLabel, setFilterLabel] = useState([])
     const [daftarBulan, setDaftarBulan] = useState([])
     const [rumahSakit, setRumahSakit] = useState('')
@@ -30,14 +30,14 @@ const RL53 = () => {
     useEffect(() => {
         refreshToken()
         getBulan()
-        const getLastYear = async () => {
-            const date = new Date()
-            setTahun(date.getFullYear())
-            return date.getFullYear()
-        }
-        getLastYear().then((results) => {
+        // const getLastYear = async () => {
+        //     const date = new Date()
+        //     setTahun(date.getFullYear())
+        //     return date.getFullYear()
+        // }
+        // getLastYear().then((results) => {
             
-        })
+        // })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -521,7 +521,7 @@ const RL53 = () => {
                         </div>
                         <div className="form-floating" style={{ width: "30%", display: "inline-block" }}>
                             <input name="tahun" type="number" className="form-control" id="tahun"
-                                placeholder="Tahun" value={tahun} onChange={e => tahunChangeHandler(e)} disabled={false} />
+                                placeholder="Tahun" value={tahun} onChange={e => tahunChangeHandler(e)} disabled={true} />
                             <label htmlFor="tahun">Tahun</label>
                         </div>
                     </Modal.Body>
@@ -535,6 +535,7 @@ const RL53 = () => {
             </Modal>
             <div className="row">
                 <div className="col-md-12">
+                    <h4><span style={{ color: "gray" }}>RL. 5.3 10 Besar Kunjungan Penyakit Rawat Jalan</span></h4>
                     <div style={{marginBottom: "10px"}}>
                         <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                             Filter
@@ -543,11 +544,19 @@ const RL53 = () => {
                     </div>
                     <div>
                         <h5 style={{fontSize: "14px"}}>
-                            filtered by {filterLabel.map((value) => {
-                                return(
-                                    value
+                            {
+                                filterLabel.length > 0 ? (
+                                    <>
+                                        filtered by {filterLabel.map((value) => {
+                                            return(
+                                                value
+                                            )
+                                        }).join(', ')}
+                                    </>
+                                ) : (
+                                    <></>
                                 )
-                            }).join(', ')}
+                            }
                         </h5>
                     </div>
                     <Table

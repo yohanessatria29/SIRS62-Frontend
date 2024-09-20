@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
@@ -10,9 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 const RL312 = () => {
-  const [tahun, setTahun] = useState("");
+  // const [tahun, setTahun] = useState("");
+  const [bulan, setBulan] = useState(1);
+  const [tahun, setTahun] = useState("2025");
+  const [daftarBulan, setDaftarBulan] = useState([]);
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
   const [daftarRumahSakit, setDaftarRumahSakit] = useState([]);
@@ -29,19 +33,23 @@ const RL312 = () => {
   const [totalsedang, settotalsedang] = useState(0);
   const [totalkecil, settotalkecil] = useState(0);
   const [totalall, settotalall] = useState(0);
+  const tableRef = useRef(null);
+  const [namafile, setNamaFile] = useState("");
 
   useEffect(() => {
     refreshToken();
-    const getLastYear = async () => {
-      const date = new Date();
-      setTahun(date.getFullYear());
-      return date.getFullYear();
-      // setTahun(date.getFullYear() - 1);
-      // return date.getFullYear() - 1;
-    };
-    getLastYear().then((results) => {
-      // getDataRLTigaTitikDuaBelas(results);
-    });
+    getBulan();
+    // const getLastYear = async () => {
+    //   const date = new Date();
+    //   setTahun(date.getFullYear());
+    //   return date.getFullYear();
+    //   // setTahun(date.getFullYear() - 1);
+    //   // return date.getFullYear() - 1;
+    // };
+    // getLastYear().then((results) => {
+    //   // getDataRLTigaTitikDuaBelas(results);
+    // });
+
     // getRLTigaTitikTigaTemplate()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -61,6 +69,60 @@ const RL312 = () => {
     }
   };
 
+  const getBulan = async () => {
+    const results = [];
+    results.push({
+      key: "Januari",
+      value: "1",
+    });
+    results.push({
+      key: "Februari",
+      value: "2",
+    });
+    results.push({
+      key: "Maret",
+      value: "3",
+    });
+    results.push({
+      key: "April",
+      value: "4",
+    });
+    results.push({
+      key: "Mei",
+      value: "5",
+    });
+    results.push({
+      key: "Juni",
+      value: "6",
+    });
+    results.push({
+      key: "Juli",
+      value: "7",
+    });
+    results.push({
+      key: "Agustus",
+      value: "8",
+    });
+    results.push({
+      key: "September",
+      value: "9",
+    });
+    results.push({
+      key: "Oktober",
+      value: "10",
+    });
+    results.push({
+      key: "November",
+      value: "11",
+    });
+    results.push({
+      key: "Desember",
+      value: "12",
+    });
+
+    setDaftarBulan([...results]);
+  };
+
   const axiosJWT = axios.create();
   axiosJWT.interceptors.request.use(
     async (config) => {
@@ -78,6 +140,10 @@ const RL312 = () => {
       return Promise.reject(error);
     }
   );
+
+  const bulanChangeHandler = async (e) => {
+    setBulan(e.target.value);
+  };
 
   const tahunChangeHandler = (event) => {
     setTahun(event.target.value);
@@ -133,7 +199,8 @@ const RL312 = () => {
     }
     const filter = [];
     filter.push("nama: ".concat(rumahSakit.nama));
-    filter.push("periode: ".concat(String(tahun)));
+    // filter.push("periode: ".concat(String(tahun)));
+    filter.push("periode: ".concat(String(tahun).concat("-").concat(bulan)));
     setFilterLabel(filter);
     try {
       const customConfig = {
@@ -143,7 +210,8 @@ const RL312 = () => {
         },
         params: {
           rsId: rumahSakit.id,
-          periode: String(tahun),
+          // periode: String(tahun),
+          periode: String(tahun).concat("-").concat(bulan),
         },
       };
       const results = await axiosJWT.get(
@@ -169,7 +237,7 @@ const RL312 = () => {
         dataRLTigaTitikDuaBelasDetails.push(element);
         // });
       });
-      // console.log(dataRLTigaTitikDuaBelasDetails);
+
       let totalALL = totalKhusus + totalBesar + totalSedang + totalKecil;
       settotalkhusus(totalKhusus);
       settotalbesar(totalBesar);
@@ -179,6 +247,12 @@ const RL312 = () => {
       // setDataRL(dataRLTigaTitikDuaBelasDetails);
 
       setDataRL(rlTigaTitikDuaBelasDetails);
+
+      setNamaFile(
+        "RL312_" +
+          rumahSakit.id +
+          "_".concat(String(tahun).concat("-").concat(bulan).concat("-01"))
+      );
       setRumahSakit(null);
       handleClose();
     } catch (error) {
@@ -236,18 +310,22 @@ const RL312 = () => {
     switch (jenisUserId) {
       case 1:
         getProvinsi();
+        setBulan(1);
         setShow(true);
         break;
       case 2:
         getKabKota(satKerId);
+        setBulan(1);
         setShow(true);
         break;
       case 3:
         getRumahSakit(satKerId);
+        setBulan(1);
         setShow(true);
         break;
       case 4:
         showRumahSakit(satKerId);
+        setBulan(1);
         setShow(true);
         break;
       default:
@@ -322,7 +400,10 @@ const RL312 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -495,9 +576,48 @@ const RL312 = () => {
             ) : (
               <></>
             )}
-            <div
+            {/* <div
               className="form-floating"
               style={{ width: "100%", display: "inline-block" }}
+            >
+              <input
+                name="tahun"
+                type="number"
+                className="form-control"
+                id="tahun"
+                placeholder="Tahun"
+                value={tahun}
+                onChange={(e) => tahunChangeHandler(e)}
+                disabled={false}
+              />
+              <label htmlFor="tahun">Tahun</label>
+            </div> */}
+            <div
+              className="form-floating"
+              style={{ width: "70%", display: "inline-block" }}
+            >
+              <select
+                typeof="select"
+                className="form-control"
+                onChange={bulanChangeHandler}
+              >
+                {daftarBulan.map((bulan) => {
+                  return (
+                    <option
+                      key={bulan.value}
+                      name={bulan.key}
+                      value={bulan.value}
+                    >
+                      {bulan.key}
+                    </option>
+                  );
+                })}
+              </select>
+              <label>Bulan</label>
+            </div>
+            <div
+              className="form-floating"
+              style={{ width: "30%", display: "inline-block" }}
             >
               <input
                 name="tahun"
@@ -524,6 +644,9 @@ const RL312 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
+          <span style={{ color: "gray" }}>
+            <h4>RL 3.12 - Pembedahan</h4>
+          </span>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -552,16 +675,42 @@ const RL312 = () => {
             >
               Filter
             </button>
+
+            <DownloadTableExcel
+              filename={namafile}
+              sheet="data RL 312"
+              currentTableRef={tableRef.current}
+            >
+              {/* <button> Export excel </button> */}
+              <button
+                className="btn"
+                style={{
+                  fontSize: "18px",
+                  marginLeft: "5px",
+                  backgroundColor: "#779D9E",
+                  color: "#FFFFFF",
+                }}
+              >
+                {" "}
+                Download
+              </button>
+            </DownloadTableExcel>
           </div>
 
           <div>
             <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
+              {filterLabel.length > 0 ? (
+                <>
+                  filtered by{" "}
+                  {filterLabel
+                    .map((value) => {
+                      return value;
+                    })
+                    .join(", ")}
+                </>
+              ) : (
+                <></>
+              )}
             </h5>
           </div>
           <Table
@@ -569,6 +718,7 @@ const RL312 = () => {
             striped
             responsive
             style={{ width: "100%" }}
+            ref={tableRef}
           >
             <thead>
               <tr>
@@ -586,15 +736,18 @@ const RL312 = () => {
               {dataRL.map((value, index) => {
                 return (
                   <tr key={value.id}>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      <p>{index + 1}</p>
+                      {/* <input
                         type="text"
                         name="id"
                         className="form-control"
                         value={index + 1}
                         disabled={true}
                         style={{ textAlign: "center" }}
-                      />
+                      /> */}
                     </td>
                     <td
                       style={{ textAlign: "center", verticalAlign: "middle" }}
@@ -638,59 +791,77 @@ const RL312 = () => {
                         <></>
                       )}
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="jenisSpesialisasi"
                         className="form-control"
                         value={value.nama_spesialisasi}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.nama_spesialisasi}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="khusus"
                         className="form-control"
                         value={value.khusus}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.khusus}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="besar"
                         className="form-control"
                         value={value.besar}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.besar}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="sedang"
                         className="form-control"
                         value={value.sedang}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.sedang}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="kecil"
                         className="form-control"
                         value={value.kecil}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.kecil}</p>
                     </td>
-                    <td>
-                      <input
+                    <td
+                      style={{ textAlign: "center", verticalAlign: "middle" }}
+                    >
+                      {/* <input
                         type="text"
                         name="total"
                         className="form-control"
                         value={value.total}
                         disabled={true}
-                      />
+                      /> */}
+                      <p>{value.total}</p>
                     </td>
                   </tr>
                 );
@@ -705,51 +876,60 @@ const RL312 = () => {
                   <td style={{ textAlign: "center", verticalAlign: "middle" }}>
                     <h6>TOTAL</h6>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalKhusus"
                       className="form-control"
                       value={totalkhusus}
                       disabled={true}
-                    />
+                    /> */}
+                    <p>{totalkhusus}</p>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalBesar"
                       className="form-control"
                       value={totalbesar}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalbesar}</p>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalSedang"
                       className="form-control"
                       value={totalsedang}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalsedang}</p>
                   </td>
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalKecil"
                       className="form-control"
                       value={totalkecil}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalkecil}</p>
                   </td>
 
-                  <td>
-                    <input
+                  <td style={{ textAlign: "center", verticalAlign: "middle" }}>
+                    {/* <input
                       type="text"
                       name="totalAll"
                       className="form-control"
                       value={totalall}
                       disabled={true}
-                    />
+                    /> */}
+
+                    <p>{totalall}</p>
                   </td>
                 </tr>
               ) : (
