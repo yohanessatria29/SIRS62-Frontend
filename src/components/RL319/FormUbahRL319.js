@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import style from "./FormTambahRL319.module.css";
+import style from "./FormUbahRL319.module.css";
 import { HiSaveAs } from "react-icons/hi";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -331,6 +331,7 @@ export const FormUbahRL319 = () => {
 
   return (
     <div className="container" style={{ marginTop: "70px" }}>
+      <h2>RL. 3.19</h2>
       <form onSubmit={updateDataRLTigaTitikSembilanBelas}>
         <div className="row">
           <div className="col-md-6">
@@ -409,166 +410,164 @@ export const FormUbahRL319 = () => {
             </Link>
             <span style={{ color: "gray" }}>Kembali RL 3.19 Cara Bayar</span>
 
-            <Table
-              className={style.rlTable}
-              striped
-              bordered
-              responsive
-              style={{ width: "125%" }}
-            >
-              <thead>
-                <tr>
-                  <th
-                    style={{ width: "4%", verticalAlign: "middle" }}
-                    rowSpan={2}
-                  >
-                    No. Cara Bayar
-                  </th>
-                  <th
-                    style={{ width: "15%", verticalAlign: "middle" }}
-                    rowSpan={2}
-                  >
-                    Cara Pembayaran
-                  </th>
-                  <th colSpan={2}>Pasien Rawat Inap</th>
-                  <th
-                    style={{ width: "5%", verticalAlign: "middle" }}
-                    rowSpan={2}
-                  >
-                    Jumlah Pasien Rawat Jalan
-                  </th>
-                  <th colSpan={3}>Jumlah Pasien Rawat Jalan</th>
-                </tr>
-                <tr>
-                  <th style={{ width: "5%" }}>Jumlah Pasien Keluar</th>
-                  <th style={{ width: "5%" }}>Jumlah Lama Dirawat</th>
-                  <th style={{ width: "5%" }}>Laboratorium</th>
-                  <th style={{ width: "5%" }}>Radiologi</th>
-                  <th style={{ width: "5%" }}>Lain-lain</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input
-                      name="no"
-                      type="text"
-                      className="form-control"
-                      id="no"
-                      placeholder="No"
-                      value={no}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      name="nama"
-                      type="text"
-                      className="form-control"
-                      id="kegiatan"
-                      placeholder="Kegiatan"
-                      value={nama}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <div className="control">
+            <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+              <table responsive className={style.table}>
+                <thead className={style.thead}>
+                  <tr className="main-header-row">
+                    <th
+                      className={style["sticky-header"]}
+                      style={{ width: "4%" }}
+                      rowSpan={2}
+                    >
+                      No. Cara Bayar
+                    </th>
+                    <th
+                      className={style["sticky-header"]}
+                      style={{ width: "15%" }}
+                      rowSpan={2}
+                    >
+                      Cara Pembayaran
+                    </th>
+                    <th colSpan={2}>Pasien Rawat Inap</th>
+                    <th
+                      style={{ width: "5%", verticalAlign: "middle" }}
+                      rowSpan={2}
+                    >
+                      Jumlah Pasien Rawat Jalan
+                    </th>
+                    <th colSpan={3}>Jumlah Pasien Rawat Jalan</th>
+                  </tr>
+                  <tr className={style["subheader-row"]}>
+                    <th style={{ width: "5%" }}>Jumlah Pasien Keluar</th>
+                    <th style={{ width: "5%" }}>Jumlah Lama Dirawat</th>
+                    <th style={{ width: "5%" }}>Laboratorium</th>
+                    <th style={{ width: "5%" }}>Radiologi</th>
+                    <th style={{ width: "5%" }}>Lain-lain</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={style["sticky-column"]}>
                       <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
+                        name="no"
+                        type="text"
                         className="form-control"
-                        value={ranapPasienKeluar}
-                        onChange={(e) => changeHandler(e)}
-                        name="ranap_pasien_keluar"
-                        placeholder="RanapPasienKeluar"
+                        id="no"
+                        placeholder="No"
+                        value={no}
+                        disabled={true}
                       />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
+                    </td>
+                    <td className={style["sticky-column"]}>
                       <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
+                        name="nama"
+                        type="text"
                         className="form-control"
-                        value={ranapLamaDirawat}
-                        onChange={(e) => changeHandler(e)}
-                        name="ranap_lama_dirawat"
-                        placeholder="RanapLamaDirawat"
+                        id="kegiatan"
+                        placeholder="Kegiatan"
+                        value={nama}
+                        disabled={true}
                       />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={jumlahPasienRajal}
-                        placeholder="JumlahPasienRajal"
-                        readOnly={true}
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={rajalLab}
-                        onChange={(e) => changeHandler(e)}
-                        name="rajal_lab"
-                        placeholder="RajalLab"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={rajalRadiologi}
-                        onChange={(e) => changeHandler(e)}
-                        name="rajal_radiologi"
-                        placeholder="RajalRadiologi"
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="control">
-                      <input
-                        type="number"
-                        min="0"
-                        maxLength={7}
-                        onInput={(e) => maxLengthCheck(e)}
-                        onPaste={preventPasteNegative}
-                        className="form-control"
-                        value={rajalLainLain}
-                        onChange={(e) => changeHandler(e)}
-                        name="rajal_lain_lain"
-                        placeholder="RajalLainLain"
-                      />
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          className="form-control"
+                          value={ranapPasienKeluar}
+                          onChange={(e) => changeHandler(e)}
+                          name="ranap_pasien_keluar"
+                          placeholder="RanapPasienKeluar"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          className="form-control"
+                          value={ranapLamaDirawat}
+                          onChange={(e) => changeHandler(e)}
+                          name="ranap_lama_dirawat"
+                          placeholder="RanapLamaDirawat"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          className="form-control"
+                          value={jumlahPasienRajal}
+                          placeholder="JumlahPasienRajal"
+                          readOnly={true}
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          className="form-control"
+                          value={rajalLab}
+                          onChange={(e) => changeHandler(e)}
+                          name="rajal_lab"
+                          placeholder="RajalLab"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          className="form-control"
+                          value={rajalRadiologi}
+                          onChange={(e) => changeHandler(e)}
+                          name="rajal_radiologi"
+                          placeholder="RajalRadiologi"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="control">
+                        <input
+                          type="number"
+                          min="0"
+                          maxLength={7}
+                          onInput={(e) => maxLengthCheck(e)}
+                          onPaste={preventPasteNegative}
+                          className="form-control"
+                          value={rajalLainLain}
+                          onChange={(e) => changeHandler(e)}
+                          name="rajal_lain_lain"
+                          placeholder="RajalLainLain"
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div className="mt-3 mb-3">

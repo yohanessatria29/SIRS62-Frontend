@@ -473,7 +473,10 @@ const RL33 = () => {
   }
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -695,7 +698,9 @@ const RL33 = () => {
 
       <div className="row">
         <div className="col-md-12">
-          <h2>RL. 3.3 Rawat Darurat</h2>
+          <h4>
+            <span style={{ color: "gray" }}>RL. 3.3 Rawat Darurat</span>
+          </h4>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -980,8 +985,14 @@ const RL33 = () => {
                         </tr>
                       );
                     })}
-                    <tr>
-                      <td colSpan={3} className="text-center">
+                    <tr className="row-total">
+                      <td></td>
+                      <td></td>
+                      <td
+                        // colSpan={3}
+                        style={{ textAlign: "center" }}
+                        className={style["sticky-column"]}
+                      >
                         <strong>Total</strong>
                       </td>
                       <td className="text-center">

@@ -247,7 +247,10 @@ export const FormEditRL316 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <form onSubmit={UpdateRLTigaTitikDuaBelas}>
         <div className="row">
           <div className="col-md-6">

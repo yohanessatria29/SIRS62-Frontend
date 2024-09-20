@@ -10,8 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const FormTambahRL310 = () => {
   const navigate = useNavigate();
-  const [tahun, setTahun] = useState("");
-  const [bulan, setBulan] = useState("");
+  const [tahun, setTahun] = useState(2025);
+  const [bulan, setBulan] = useState(1);
+  const [daftarBulan, setDaftarBulan] = useState([]);
   // Data RS
   const [namaRS, setNamaRS] = useState("");
   const [alamatRS, setAlamatRS] = useState("");
@@ -25,9 +26,7 @@ const FormTambahRL310 = () => {
   useEffect(() => {
     refreshToken();
     getRLTigaTitikTigaTemplate();
-    const date = new Date();
-    setTahun(date.getFullYear());
-    setBulan(date.getMonth() + 1);
+    getBulan();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -45,6 +44,60 @@ const FormTambahRL310 = () => {
     { value: "11", label: "November" },
     { value: "12", label: "Desember" },
   ];
+
+  const getBulan = async () => {
+    const results = [];
+    results.push({
+      key: "Januari",
+      value: "1",
+    });
+    results.push({
+      key: "Febuari",
+      value: "2",
+    });
+    results.push({
+      key: "Maret",
+      value: "3",
+    });
+    results.push({
+      key: "April",
+      value: "4",
+    });
+    results.push({
+      key: "Mei",
+      value: "5",
+    });
+    results.push({
+      key: "Juni",
+      value: "6",
+    });
+    results.push({
+      key: "Juli",
+      value: "7",
+    });
+    results.push({
+      key: "Agustus",
+      value: "8",
+    });
+    results.push({
+      key: "September",
+      value: "9",
+    });
+    results.push({
+      key: "Oktober",
+      value: "10",
+    });
+    results.push({
+      key: "November",
+      value: "11",
+    });
+    results.push({
+      key: "Desember",
+      value: "12",
+    });
+
+    setDaftarBulan([...results]);
+  };
 
   const refreshToken = async () => {
     try {
@@ -132,6 +185,10 @@ const FormTambahRL310 = () => {
 
   const changeHandlerSingle = (event) => {
     setTahun(event.target.value);
+  };
+
+  const bulanChangeHandler = async (e) => {
+    setBulan(e.target.value);
   };
 
   const handleFocus = (event) => {
@@ -320,7 +377,11 @@ const FormTambahRL310 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
+      <h2>RL. 3.10</h2>
       <form onSubmit={Simpan}>
         <div className="row">
           <div className="col-md-6">
@@ -391,17 +452,21 @@ const FormTambahRL310 = () => {
                   style={{ width: "50%", display: "inline-block" }}
                 >
                   <select
-                    name="bulan"
+                    typeof="select"
                     className="form-control"
-                    id="bulan"
-                    value={bulan}
-                    onChange={(e) => setBulan(e.target.value)}
+                    onChange={bulanChangeHandler}
                   >
-                    {months.map((value) => (
-                      <option key={value.value - 1} value={value.value}>
-                        {value.label}
-                      </option>
-                    ))}
+                    {daftarBulan.map((bulan) => {
+                      return (
+                        <option
+                          key={bulan.value}
+                          name={bulan.key}
+                          value={bulan.value}
+                        >
+                          {bulan.key}
+                        </option>
+                      );
+                    })}
                   </select>
                   <label htmlFor="bulan">Bulan</label>
                 </div>
@@ -440,263 +505,266 @@ const FormTambahRL310 = () => {
             </Link>
             <span style={{ color: "gray" }}>RL 3.10 Rujukan</span>
 
-            <Table
-              className={style.rlTable}
-              striped
-              bordered
-              responsive
-              style={{ width: "200%" }}
-            >
-              <thead>
-                <tr>
-                  <th
-                    style={{ width: "4%", verticalAlign: "middle" }}
-                    rowSpan={3}
-                  >
-                    No Spesialisasi
-                  </th>
-                  <th
-                    style={{ width: "3%", verticalAlign: "middle" }}
-                    rowSpan={3}
-                  ></th>
-                  <th
-                    style={{ width: "20%", verticalAlign: "middle" }}
-                    rowSpan={3}
-                  >
-                    Jenis Spesialisasi
-                  </th>
-                  <th colSpan={8}>Rujukan Masuk</th>
-                  <th
-                    colSpan={4}
-                    rowSpan={2}
-                    style={{ verticalAlign: "middle" }}
-                  >
-                    Dirujuk Keluar
-                  </th>
-                </tr>
-                <tr>
-                  <th colSpan={4}>Diterima Dari</th>
-                  <th colSpan={4}>Dikembalikan Ke</th>
-                </tr>
-                <tr>
-                  <th>Puskesmas</th>
-                  <th>RS Lain</th>
-                  <th>Faskes Lain</th>
-                  <th>Total Rujukan Masuk</th>
-                  <th>Puskesmas</th>
-                  <th>RS Asal</th>
-                  <th>Faskes Lain</th>
-                  <th>Total Rujukan Masuk Dikembalikan</th>
-                  <th>Pasien Rujukn</th>
-                  <th>Pasien Datang Sendiri</th>
-                  <th>Total Dirujuk Keluar</th>
-                  <th>Diterima Kembali</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dataRL.map((value, index) => {
-                  return (
-                    <tr key={value.id}>
-                      <td>
-                        <input
-                          type="text"
-                          name="no"
-                          className="form-control"
-                          value={value.no}
-                          disabled={true}
-                        />
-                      </td>
-                      <td
-                        style={{ textAlign: "center", verticalAlign: "middle" }}
-                      >
-                        <input
-                          type="checkbox"
-                          name="check"
-                          className="form-check-input"
-                          onChange={(e) => changeHandler(e, index)}
-                          checked={value.checked}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="jenisKegiatan"
-                          className="form-control"
-                          value={value.jenisSpesialis}
-                          disabled={true}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_diterima_puskesmas"
-                          className="form-control"
-                          value={value.rm_diterima_puskesmas}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_diterima_rs"
-                          className="form-control"
-                          value={value.rm_diterima_rs}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_diterima_faskes_lain"
-                          className="form-control"
-                          value={value.rm_diterima_faskes_lain}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_diterima_total_rm"
-                          className="form-control"
-                          value={value.rm_diterima_total_rm}
-                          readOnly={true}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_dikembalikan_puskesmas"
-                          className="form-control"
-                          value={value.rm_dikembalikan_puskesmas}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_dikembalikan_rs"
-                          className="form-control"
-                          value={value.rm_dikembalikan_rs}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_dikembalikan_faskes_lain"
-                          className="form-control"
-                          value={value.rm_dikembalikan_faskes_lain}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="rm_dikembalikan_total_rm"
-                          className="form-control"
-                          value={value.rm_dikembalikan_total_rm}
-                          readOnly={true}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="keluar_pasien_rujukan"
-                          className="form-control"
-                          value={value.keluar_pasien_rujukan}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="keluar_pasien_datang_sendiri"
-                          className="form-control"
-                          value={value.keluar_pasien_datang_sendiri}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="keluar_total_keluar"
-                          className="form-control"
-                          value={value.keluar_total_keluar}
-                          readOnly={true}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="keluar_diterima_kembali"
-                          className="form-control"
-                          value={value.keluar_diterima_kembali}
-                          onChange={(e) => changeHandler(e, index)}
-                          disabled={value.disabledInput}
-                          min={0}
-                          onPaste={preventPasteNegative}
-                          onKeyPress={preventMinus}
-                          onFocus={handleFocus}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+            <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+              <table className={style.table}>
+                <thead className={style.thead}>
+                  <tr className="">
+                    <th
+                      className={style["sticky-header"]}
+                      style={{ width: "4%" }}
+                      rowSpan={3}
+                    >
+                      No Spesialisasi
+                    </th>
+                    <th
+                      className={style["sticky-header"]}
+                      style={{ width: "3%" }}
+                      rowSpan={3}
+                    ></th>
+                    <th
+                      className={style["sticky-header"]}
+                      style={{ width: "20%" }}
+                      rowSpan={3}
+                    >
+                      Jenis Spesialisasi
+                    </th>
+                    <th colSpan={8}>Rujukan Masuk</th>
+                    <th
+                      colSpan={4}
+                      rowSpan={2}
+                      style={{ verticalAlign: "middle" }}
+                    >
+                      Dirujuk Keluar
+                    </th>
+                  </tr>
+                  <tr className={style["subheader-row"]}>
+                    <th colSpan={4}>Diterima Dari</th>
+                    <th colSpan={4}>Dikembalikan Ke</th>
+                  </tr>
+                  <tr className={style["subsubheader-row"]}>
+                    <th>Puskesmas</th>
+                    <th>RS Lain</th>
+                    <th>Faskes Lain</th>
+                    <th>Total Rujukan Masuk</th>
+                    <th>Puskesmas</th>
+                    <th>RS Asal</th>
+                    <th>Faskes Lain</th>
+                    <th>Total Rujukan Masuk Dikembalikan</th>
+                    <th>Pasien Rujukn</th>
+                    <th>Pasien Datang Sendiri</th>
+                    <th>Total Dirujuk Keluar</th>
+                    <th>Diterima Kembali</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dataRL.map((value, index) => {
+                    return (
+                      <tr key={value.id}>
+                        <td className={style["sticky-column"]}>
+                          <input
+                            type="text"
+                            name="no"
+                            className="form-control"
+                            value={value.no}
+                            disabled={true}
+                          />
+                        </td>
+                        <td
+                          className={style["sticky-column"]}
+                          style={{
+                            textAlign: "center",
+                            verticalAlign: "middle",
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            name="check"
+                            className="form-check-input"
+                            onChange={(e) => changeHandler(e, index)}
+                            checked={value.checked}
+                          />
+                        </td>
+                        <td className={style["sticky-column"]}>
+                          <input
+                            type="text"
+                            name="jenisKegiatan"
+                            className="form-control"
+                            value={value.jenisSpesialis}
+                            disabled={true}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_diterima_puskesmas"
+                            className="form-control"
+                            value={value.rm_diterima_puskesmas}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_diterima_rs"
+                            className="form-control"
+                            value={value.rm_diterima_rs}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_diterima_faskes_lain"
+                            className="form-control"
+                            value={value.rm_diterima_faskes_lain}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_diterima_total_rm"
+                            className="form-control"
+                            value={value.rm_diterima_total_rm}
+                            readOnly={true}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_dikembalikan_puskesmas"
+                            className="form-control"
+                            value={value.rm_dikembalikan_puskesmas}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_dikembalikan_rs"
+                            className="form-control"
+                            value={value.rm_dikembalikan_rs}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_dikembalikan_faskes_lain"
+                            className="form-control"
+                            value={value.rm_dikembalikan_faskes_lain}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="rm_dikembalikan_total_rm"
+                            className="form-control"
+                            value={value.rm_dikembalikan_total_rm}
+                            readOnly={true}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="keluar_pasien_rujukan"
+                            className="form-control"
+                            value={value.keluar_pasien_rujukan}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="keluar_pasien_datang_sendiri"
+                            className="form-control"
+                            value={value.keluar_pasien_datang_sendiri}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="keluar_total_keluar"
+                            className="form-control"
+                            value={value.keluar_total_keluar}
+                            readOnly={true}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            name="keluar_diterima_kembali"
+                            className="form-control"
+                            value={value.keluar_diterima_kembali}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div className="mt-3 mb-3">

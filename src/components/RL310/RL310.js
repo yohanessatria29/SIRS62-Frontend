@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
-import style from "./FormTambahRL310.module.css";
+import { useNavigate, Link } from "react-router-dom";
+import style from "./RL310.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { Link } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL310 = () => {
-  const [tahun, setTahun] = useState("");
+  const [tahun, setTahun] = useState(1);
   const [bulan, setBulan] = useState("");
+  const [daftarBulan, setDaftarBulan] = useState([]);
   const [filterLabel, setFilterLabel] = useState([]);
   const [rumahSakit, setRumahSakit] = useState("");
   const [daftarRumahSakit, setDaftarRumahSakit] = useState([]);
@@ -29,9 +30,9 @@ const RL310 = () => {
 
   useEffect(() => {
     refreshToken();
+    getBulan();
     const date = new Date();
-    setTahun(date.getFullYear());
-    setBulan(date.getMonth() + 1);
+    setTahun("2025");
     // getDataRLTigaTitikSepuluh();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,6 +70,60 @@ const RL310 = () => {
       return Promise.reject(error);
     }
   );
+
+  const getBulan = async () => {
+    const results = [];
+    results.push({
+      key: "Januari",
+      value: "1",
+    });
+    results.push({
+      key: "Febuari",
+      value: "2",
+    });
+    results.push({
+      key: "Maret",
+      value: "3",
+    });
+    results.push({
+      key: "April",
+      value: "4",
+    });
+    results.push({
+      key: "Mei",
+      value: "5",
+    });
+    results.push({
+      key: "Juni",
+      value: "6",
+    });
+    results.push({
+      key: "Juli",
+      value: "7",
+    });
+    results.push({
+      key: "Agustus",
+      value: "8",
+    });
+    results.push({
+      key: "September",
+      value: "9",
+    });
+    results.push({
+      key: "Oktober",
+      value: "10",
+    });
+    results.push({
+      key: "November",
+      value: "11",
+    });
+    results.push({
+      key: "Desember",
+      value: "12",
+    });
+
+    setDaftarBulan([...results]);
+  };
 
   const getRumahSakit = async (kabKotaId) => {
     try {
@@ -317,8 +372,61 @@ const RL310 = () => {
     total.keluar_diterima_kembali += parseInt(value.keluar_diterima_kembali);
   });
 
+  function handleDownloadExcel() {
+    const header = [
+      "No",
+      "No Spesialisasi",
+      "Jenis Spesialisasi",
+      "Rujukan Masuk Diterima Dari Puskesmas",
+      "Rujukan Masuk Diterima Dari RS Lain",
+      "Rujukan Masuk Diterima Dari Faskes Lain",
+      "Total Rujukan Masuk Diterima",
+      "Rujukan Masuk Dikembalikan Ke Puskesmas",
+      "Rujukan Masuk Dikembalikan Ke RS Asal",
+      "Rujukan Masuk Dikembalikan Ke Faskes Lain",
+      "Total Rujukan Masuk Dikembalikan",
+      "Dirujuk Keluar Pasien Rujukan",
+      "Dirujuk Keluar Pasien Datang Sendiri",
+      "Total Dirujuk Keluar",
+      "Diterima Kembali",
+    ];
+
+    const body = dataRL.map((value, index) => {
+      const data = [
+        index + 1,
+        value.jenis_spesialis_rl_tiga_titik_sepuluh.no,
+        value.jenis_spesialis_rl_tiga_titik_sepuluh.nama,
+        value.rm_diterima_puskesmas,
+        value.rm_diterima_rs,
+        value.rm_diterima_faskes_lain,
+        value.rm_diterima_total_rm,
+        value.rm_dikembalikan_puskesmas,
+        value.rm_dikembalikan_rs,
+        value.rm_dikembalikan_faskes_lain,
+        value.rm_dikembalikan_total_rm,
+        value.keluar_pasien_rujukan,
+        value.keluar_pasien_datang_sendiri,
+        value.keluar_total_keluar,
+        value.keluar_diterima_kembali,
+      ];
+      return data;
+    });
+
+    downloadExcel({
+      fileName: "RL_3_10",
+      sheet: "react-export-table-to-excel",
+      tablePayload: {
+        header,
+        body: body,
+      },
+    });
+  }
+
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -540,7 +648,9 @@ const RL310 = () => {
 
       <div className="row">
         <div className="col-md-12">
-          <h2>RL. 3.10 Rujukan</h2>
+          <h4>
+            <span style={{ color: "gray" }}>RL. 3.10 Rujukan</span>
+          </h4>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -577,7 +687,7 @@ const RL310 = () => {
                 backgroundColor: "#779D9E",
                 color: "#FFFFFF",
               }}
-              // onClick={handleDownloadExcel}
+              onClick={handleDownloadExcel}
             >
               Download
             </button>
@@ -598,270 +708,281 @@ const RL310 = () => {
             <></>
           )}
 
-          <Table
-            className={style.rlTable}
-            striped
-            responsive
-            style={{ width: "200%" }}
-          >
-            <thead>
-              <tr>
-                <th
-                  style={{ width: "4%", verticalAlign: "middle" }}
-                  rowSpan={3}
-                >
-                  No Spesialisasi
-                </th>
-                <th
-                  style={{ width: "4%", verticalAlign: "middle" }}
-                  rowSpan={3}
-                >
-                  Aksi
-                </th>
-                <th
-                  style={{ width: "20%", verticalAlign: "middle" }}
-                  rowSpan={3}
-                >
-                  Jenis Spesialisasi
-                </th>
-                <th colSpan={8}>Rujukan Masuk</th>
-                <th colSpan={4} rowSpan={2} style={{ verticalAlign: "middle" }}>
-                  Dirujuk Keluar
-                </th>
-              </tr>
-              <tr>
-                <th colSpan={4}>Diterima Dari</th>
-                <th colSpan={4}>Dikembalikan Ke</th>
-              </tr>
-              <tr>
-                <th>Puskesmas</th>
-                <th>RS Lain</th>
-                <th>Faskes Lain</th>
-                <th>Total Rujukan Masuk</th>
-                <th>Puskesmas</th>
-                <th>RS Asal</th>
-                <th>Faskes Lain</th>
-                <th>Total Rujukan Masuk Dikembalikan</th>
-                <th>Pasien Rujukn</th>
-                <th>Pasien Datang Sendiri</th>
-                <th>Total Dirujuk Keluar</th>
-                <th>Diterima Kembali</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataRL.length > 0 ? (
-                <>
-                  {dataRL.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>
-                          <input
-                            type="text"
-                            name="no"
-                            className="form-control"
-                            value={
-                              value.jenis_spesialis_rl_tiga_titik_sepuluh.no
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          <ToastContainer />
-                          {/* <RiDeleteBin5Fill size={20} onClick={(e) => hapus(value.id)} style={{ color: "gray", cursor: "pointer", marginRight: "5px" }} /> */}
-                          <button
-                            className="btn btn-danger"
+          <div className={style["table-container"]}>
+            <table className={style.table}>
+              <thead className={style.thead}>
+                <tr className="">
+                  <th
+                    className={style["sticky-header"]}
+                    style={{ width: "4%", verticalAlign: "middle" }}
+                    rowSpan={3}
+                  >
+                    No Spesialisasi
+                  </th>
+                  <th
+                    className={style["sticky-header"]}
+                    style={{ width: "6%", verticalAlign: "middle" }}
+                    rowSpan={3}
+                  >
+                    Aksi
+                  </th>
+                  <th
+                    className={style["sticky-header"]}
+                    style={{ width: "20%", verticalAlign: "middle" }}
+                    rowSpan={3}
+                  >
+                    Jenis Spesialisasi
+                  </th>
+                  <th colSpan={8}>Rujukan Masuk</th>
+                  <th
+                    colSpan={4}
+                    rowSpan={2}
+                    style={{ verticalAlign: "middle" }}
+                  >
+                    Dirujuk Keluar
+                  </th>
+                </tr>
+                <tr className={style["subheader-row"]}>
+                  <th colSpan={4}>Diterima Dari</th>
+                  <th colSpan={4}>Dikembalikan Ke</th>
+                </tr>
+                <tr className={style["subheader-row"]}>
+                  <th>Puskesmas</th>
+                  <th>RS Lain</th>
+                  <th>Faskes Lain</th>
+                  <th>Total Rujukan Masuk</th>
+                  <th>Puskesmas</th>
+                  <th>RS Asal</th>
+                  <th>Faskes Lain</th>
+                  <th>Total Rujukan Masuk Dikembalikan</th>
+                  <th>Pasien Rujukn</th>
+                  <th>Pasien Datang Sendiri</th>
+                  <th>Total Dirujuk Keluar</th>
+                  <th>Diterima Kembali</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataRL.length > 0 ? (
+                  <>
+                    {dataRL.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="no"
+                              className="form-control"
+                              value={
+                                value.jenis_spesialis_rl_tiga_titik_sepuluh.no
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td
+                            className={style["sticky-column"]}
                             style={{
-                              margin: "0 5px 0 0",
-                              backgroundColor: "#FF6663",
-                              border: "1px solid #FF6663",
-                            }}
-                            type="button"
-                            onClick={(e) => hapus(value.id)}
-                          >
-                            Hapus
-                          </button>
-                          <Link
-                            to={`/rl310/edit/${value.id}`}
-                            className="btn btn-warning"
-                            style={{
-                              margin: "0 5px 0 0",
-                              backgroundColor: "#CFD35E",
-                              border: "1px solid #CFD35E",
-                              color: "#FFFFFF",
+                              textAlign: "center",
+                              verticalAlign: "middle",
                             }}
                           >
-                            Ubah
-                            {/* <RiEdit2Fill size={20} style={{ color: "gray", cursor: "pointer" }} /> */}
-                          </Link>
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="nama"
-                            className="form-control"
-                            value={
-                              value.jenis_spesialis_rl_tiga_titik_sepuluh.nama
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_diterima_puskesmas"
-                            className="form-control"
-                            value={value.rm_diterima_puskesmas}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_diterima_rs"
-                            className="form-control"
-                            value={value.rm_diterima_rs}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_diterima_faskes_lain"
-                            className="form-control"
-                            value={value.rm_diterima_faskes_lain}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_diterima_total_rm"
-                            className="form-control"
-                            value={value.rm_diterima_total_rm}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_dikembalikan_puskesmas"
-                            className="form-control"
-                            value={value.rm_dikembalikan_puskesmas}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_dikembalikan_rs"
-                            className="form-control"
-                            value={value.rm_dikembalikan_rs}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_dikembalikan_faskes_lain"
-                            className="form-control"
-                            value={value.rm_dikembalikan_faskes_lain}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rm_dikembalikan_total_rm"
-                            className="form-control"
-                            value={value.rm_dikembalikan_total_rm}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="keluar_pasien_rujukan"
-                            className="form-control"
-                            value={value.keluar_pasien_rujukan}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="keluar_pasien_datang_sendiri"
-                            className="form-control"
-                            value={value.keluar_pasien_datang_sendiri}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="keluar_total_keluar"
-                            className="form-control"
-                            value={value.keluar_total_keluar}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="keluar_diterima_kembali"
-                            className="form-control"
-                            value={value.keluar_diterima_kembali}
-                            disabled={true}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  <tr>
-                    <td colSpan={3} className="text-center">
-                      <strong>Total</strong>
-                    </td>
-                    <td className="text-center">
-                      {total.rm_diterima_puskesmas}
-                    </td>
-                    <td className="text-center">{total.rm_diterima_rs}</td>
-                    <td className="text-center">
-                      {total.rm_diterima_faskes_lain}
-                    </td>
-                    <td className="text-center">
-                      {total.rm_diterima_total_rm}
-                    </td>
-                    <td className="text-center">
-                      {total.rm_dikembalikan_puskesmas}
-                    </td>
-                    <td className="text-center">{total.rm_dikembalikan_rs}</td>
-                    <td className="text-center">
-                      {total.rm_dikembalikan_faskes_lain}
-                    </td>
-                    <td className="text-center">
-                      {total.rm_dikembalikan_total_rm}
-                    </td>
-                    <td className="text-center">
-                      {total.keluar_pasien_rujukan}
-                    </td>
-                    <td className="text-center">
-                      {total.keluar_pasien_datang_sendiri}
-                    </td>
-                    <td className="text-center">{total.keluar_total_keluar}</td>
-                    <td className="text-center">
-                      {total.keluar_diterima_kembali}
-                    </td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-            </tbody>
-          </Table>
+                            <ToastContainer />
+                            {/* <RiDeleteBin5Fill size={20} onClick={(e) => hapus(value.id)} style={{ color: "gray", cursor: "pointer", marginRight: "5px" }} /> */}
+                            <button
+                              className="btn btn-danger"
+                              style={{
+                                margin: "0 5px 0 0",
+                                backgroundColor: "#FF6663",
+                                border: "1px solid #FF6663",
+                              }}
+                              type="button"
+                              onClick={(e) => hapus(value.id)}
+                            >
+                              Hapus
+                            </button>
+                            <Link
+                              to={`/rl310/ubah/${value.id}`}
+                              className="btn btn-warning"
+                              style={{
+                                margin: "0 5px 0 0",
+                                backgroundColor: "#CFD35E",
+                                border: "1px solid #CFD35E",
+                                color: "#FFFFFF",
+                              }}
+                            >
+                              Ubah
+                              {/* <RiEdit2Fill size={20} style={{ color: "gray", cursor: "pointer" }} /> */}
+                            </Link>
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="nama"
+                              className="form-control"
+                              value={
+                                value.jenis_spesialis_rl_tiga_titik_sepuluh.nama
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_diterima_puskesmas"
+                              className="form-control"
+                              value={value.rm_diterima_puskesmas}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_diterima_rs"
+                              className="form-control"
+                              value={value.rm_diterima_rs}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_diterima_faskes_lain"
+                              className="form-control"
+                              value={value.rm_diterima_faskes_lain}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_diterima_total_rm"
+                              className="form-control"
+                              value={value.rm_diterima_total_rm}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_dikembalikan_puskesmas"
+                              className="form-control"
+                              value={value.rm_dikembalikan_puskesmas}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_dikembalikan_rs"
+                              className="form-control"
+                              value={value.rm_dikembalikan_rs}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_dikembalikan_faskes_lain"
+                              className="form-control"
+                              value={value.rm_dikembalikan_faskes_lain}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rm_dikembalikan_total_rm"
+                              className="form-control"
+                              value={value.rm_dikembalikan_total_rm}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="keluar_pasien_rujukan"
+                              className="form-control"
+                              value={value.keluar_pasien_rujukan}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="keluar_pasien_datang_sendiri"
+                              className="form-control"
+                              value={value.keluar_pasien_datang_sendiri}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="keluar_total_keluar"
+                              className="form-control"
+                              value={value.keluar_total_keluar}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="keluar_diterima_kembali"
+                              className="form-control"
+                              value={value.keluar_diterima_kembali}
+                              disabled={true}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td className={style["sticky-column"]}>
+                        <strong>Total</strong>
+                      </td>
+                      <td className="text-center">
+                        {total.rm_diterima_puskesmas}
+                      </td>
+                      <td className="text-center">{total.rm_diterima_rs}</td>
+                      <td className="text-center">
+                        {total.rm_diterima_faskes_lain}
+                      </td>
+                      <td className="text-center">
+                        {total.rm_diterima_total_rm}
+                      </td>
+                      <td className="text-center">
+                        {total.rm_dikembalikan_puskesmas}
+                      </td>
+                      <td className="text-center">
+                        {total.rm_dikembalikan_rs}
+                      </td>
+                      <td className="text-center">
+                        {total.rm_dikembalikan_faskes_lain}
+                      </td>
+                      <td className="text-center">
+                        {total.rm_dikembalikan_total_rm}
+                      </td>
+                      <td className="text-center">
+                        {total.keluar_pasien_rujukan}
+                      </td>
+                      <td className="text-center">
+                        {total.keluar_pasien_datang_sendiri}
+                      </td>
+                      <td className="text-center">
+                        {total.keluar_total_keluar}
+                      </td>
+                      <td className="text-center">
+                        {total.keluar_diterima_kembali}
+                      </td>
+                    </tr>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

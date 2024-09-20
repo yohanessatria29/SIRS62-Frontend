@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import style from "./FormTambahRL315.module.css";
+import style from "./RL315.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { confirmAlert } from "react-confirm-alert";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Modal from "react-bootstrap/Modal";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL315 = () => {
   const [bulan, setBulan] = useState(1);
@@ -262,8 +263,32 @@ const RL315 = () => {
     total += parseInt(value.jumlah);
   });
 
+  function handleDownloadExcel() {
+    const header = ["No", "No Kegiatan", "Jenis Kegiatan", "Jumlah"];
+    const body = dataRL.map((value, index) => {
+      const data = [
+        index + 1,
+        value.jenis_kegiatan_rl_tiga_titik_lima_belas.no,
+        value.jenis_kegiatan_rl_tiga_titik_lima_belas.nama,
+        value.jumlah,
+      ];
+      return data;
+    });
+    downloadExcel({
+      fileName: "RL_3_15",
+      sheet: "react-export-table-to-excel",
+      tablePayload: {
+        header,
+        body: body,
+      },
+    });
+  }
+
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -465,7 +490,9 @@ const RL315 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
-          <h2>RL. 3.15 Kesehatan Jiwa</h2>
+          <h4>
+            <span style={{ color: "gray" }}>RL. 3.15 Kesehatan Jiwa</span>
+          </h4>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -502,7 +529,7 @@ const RL315 = () => {
                 backgroundColor: "#779D9E",
                 color: "#FFFFFF",
               }}
-              // onClick={handleDownloadExcel}
+              onClick={handleDownloadExcel}
             >
               Download
             </button>
@@ -523,124 +550,133 @@ const RL315 = () => {
             <></>
           )}
 
-          <Table
-            className={style.rlTable}
-            striped
-            responsive
-            style={{ width: "100%" }}
-          >
-            <thead>
-              <tr>
-                <th style={{ width: "5%" }}>No</th>
-                <th style={{ width: "5%" }}>Aksi</th>
-                <th>Jenis Kegiatan</th>
-                <th>Jumlah</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataRL.length > 0 ? (
-                <>
-                  {dataRL.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>
-                          <input
-                            type="text"
-                            name="no"
-                            className="form-control"
-                            value={
-                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.no
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          <ToastContainer />
-                          {value.jenis_kegiatan_rl_tiga_titik_lima_belas.no ===
-                          0 ? (
-                            <></>
-                          ) : (
-                            <div
-                              style={{
-                                display:
-                                  value.jenis_kegiatan_rl_tiga_titik_lima_belas
-                                    .no == "0"
-                                    ? "none"
-                                    : "flex",
-                              }}
-                            >
-                              <button
-                                className="btn btn-danger"
+          <div className={style["table-container"]}>
+            <table className={style.table}>
+              <thead className={style.thead}>
+                <tr className="">
+                  <th
+                    // className={style["sticky-header"]}
+                    style={{ width: "4%" }}
+                  >
+                    No
+                  </th>
+                  <th
+                    // className={style["sticky-header"]}
+                    style={{ width: "12%" }}
+                  >
+                    Aksi
+                  </th>
+                  <th
+                  // className={style["sticky-header"]}
+                  // style={{ width: "30%" }}
+                  >
+                    Jenis Kegiatan
+                  </th>
+                  <th>Jumlah</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataRL.length > 0 ? (
+                  <>
+                    {dataRL.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="no"
+                              className="form-control"
+                              value={
+                                value.jenis_kegiatan_rl_tiga_titik_lima_belas.no
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <ToastContainer />
+                            {value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                              .no === 0 ? (
+                              <></>
+                            ) : (
+                              <div
                                 style={{
-                                  margin: "0 5px 0 0",
-                                  backgroundColor: "#FF6663",
-                                  border: "1px solid #FF6663",
-                                }}
-                                type="button"
-                                onClick={(e) => hapus(value.id)}
-                              >
-                                Hapus
-                              </button>
-                              <Link
-                                to={`/rl315/ubah/${value.id}`}
-                                className="btn btn-warning"
-                                style={{
-                                  margin: "0 5px 0 0",
-                                  backgroundColor: "#CFD35E",
-                                  border: "1px solid #CFD35E",
-                                  color: "#FFFFFF",
+                                  display:
+                                    value
+                                      .jenis_kegiatan_rl_tiga_titik_lima_belas
+                                      .no == "0"
+                                      ? "none"
+                                      : "flex",
                                 }}
                               >
-                                Ubah
-                              </Link>
-                            </div>
-                          )}
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="jenisKegiatan"
-                            className="form-control"
-                            value={
-                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.nama
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="jumlah"
-                            className="form-control"
-                            value={
-                              value.jenis_kegiatan_rl_tiga_titik_lima_belas.no >
-                              0
-                                ? value.jumlah
-                                : 0
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                  <tr>
-                    <th colSpan={3} className="text-center">
-                      Total
-                    </th>
-                    <td className="text-center align-middle">{total}</td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-            </tbody>
-          </Table>
+                                <button
+                                  className="btn btn-danger"
+                                  style={{
+                                    margin: "0 5px 0 0",
+                                    backgroundColor: "#FF6663",
+                                    border: "1px solid #FF6663",
+                                  }}
+                                  type="button"
+                                  onClick={(e) => hapus(value.id)}
+                                >
+                                  Hapus
+                                </button>
+                                <Link
+                                  to={`/rl315/ubah/${value.id}`}
+                                  className="btn btn-warning"
+                                  style={{
+                                    margin: "0 5px 0 0",
+                                    backgroundColor: "#CFD35E",
+                                    border: "1px solid #CFD35E",
+                                    color: "#FFFFFF",
+                                  }}
+                                >
+                                  Ubah
+                                </Link>
+                              </div>
+                            )}
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="jenisKegiatan"
+                              className="form-control"
+                              value={
+                                value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                                  .nama
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="jumlah"
+                              className="form-control"
+                              value={
+                                value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                                  .no > 0
+                                  ? value.jumlah
+                                  : 0
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                    <tr>
+                      <th colSpan={3} className="text-center">
+                        Total
+                      </th>
+                      <td className="text-center align-middle">{total}</td>
+                    </tr>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -810,10 +810,47 @@ const RL36 = () => {
     }
   };
 
-  function handleDownloadExcel() {}
+  function handleDownloadExcel() {
+    const header = [
+      "No",
+      "No Kegiatan",
+      "Jenis Kegiatan",
+      "Rujukan Medis Rumah Sakit",
+      "Rujukan Medis Bidan",
+      "Rujukan Medis Puskesmas",
+      "Rujukan Medis Faskes Lainnya",
+      "Jumlah Hidup Rujukan Medis",
+      "Jumlah Mati Rujukan Medis",
+      "Total Rujukan Medis",
+      "Jumlah Hidup Rujukan Non Medis",
+      "Jumlah Mati Rujukan Non Medis",
+      "Total Rujukan Non Medis",
+      "Jumlah Hidup Non Rujukan",
+      "Jumlah Mati Non Rujukan",
+      "Total Non Rujukan",
+      "Dirujuk",
+    ];
+
+    const body = dataRL.map((value, index) => {
+      const data = [index + 1];
+      return data;
+    });
+
+    downloadExcel({
+      fileName: "RL_3_6",
+      sheet: "react-export-table-to-excel",
+      tablePayload: {
+        header,
+        body: body,
+      },
+    });
+  }
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
         <Modal.Header closeButton>
           <Modal.Title>Filter</Modal.Title>
@@ -1038,7 +1075,9 @@ const RL36 = () => {
       </Modal>
       <div className="row">
         <div className="col-md-12">
-          <h2>RL. 3.6 Kebidanan</h2>
+          <h4>
+            <span style={{ color: "gray" }}>RL. 3.6 Kebidanan</span>
+          </h4>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -1080,16 +1119,21 @@ const RL36 = () => {
               Download
             </button>
           </div>
-          <div>
-            <h5 style={{ fontSize: "14px" }}>
-              filtered by{" "}
-              {filterLabel
-                .map((value) => {
-                  return value;
-                })
-                .join(", ")}
-            </h5>
-          </div>
+
+          {filterLabel.length > 0 ? (
+            <div>
+              <h5 style={{ fontSize: "14px" }}>
+                filtered by{" "}
+                {filterLabel
+                  .map((value) => {
+                    return value;
+                  })
+                  .join(", ")}
+              </h5>
+            </div>
+          ) : (
+            <></>
+          )}
 
           <div className={style["table-container"]}>
             <table responsive className={style.table}>
