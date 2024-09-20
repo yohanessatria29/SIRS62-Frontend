@@ -613,6 +613,7 @@ const FormTambahRL32 = () => {
                     <ToastContainer />
                     <button type="submit" className="btn btn-outline-success" disabled={buttonStatus}><HiSaveAs/> Simpan</button>
                 </div>
+            </form>
         </div>
     )
 }
