@@ -467,6 +467,18 @@ const FormUbahRL32 = () => {
 
             await axiosJWT.patch('/apisirs6v2/rltigatitikdua/' + id, data, customConfig)
 
+                        toast('Data Berhasil Diubah', {
+                position: toast.POSITION.TOP_RIGHT
+            })
+            setTimeout(() => {
+                navigate('/rl32')
+            }, 1000);
+        } catch (error) {
+            console.log(error)
+            toast(`Data tidak bisa disimpan karena ,${error.response.data.message}`, {
+                position: toast.POSITION.TOP_RIGHT
+            })
+
             setButtonStatus(false)
         }
     }
