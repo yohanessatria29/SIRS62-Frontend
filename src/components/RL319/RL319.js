@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useNavigate, Link } from "react-router-dom";
-import style from "./FormTambahRL319.module.css";
+import style from "./RL319.module.css";
 import { HiSaveAs } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import Modal from "react-bootstrap/Modal";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL319 = () => {
   const [tahun, setTahun] = useState("");
@@ -29,7 +30,7 @@ const RL319 = () => {
   useEffect(() => {
     refreshToken();
     const date = new Date();
-    setTahun(date.getFullYear());
+    setTahun("2025");
     setBulan(date.getMonth() + 1);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -381,6 +382,42 @@ const RL319 = () => {
       total.rajal_radiologi += parseInt(value.rajal_radiologi);
     });
 
+  function handleDownloadExcel() {
+    const header = [
+      "No",
+      "No. Cara Bayar",
+      "Cara Pembayaran",
+      "Pasien Rawat Inap Jumlah Pasien Dirawat",
+      "Pasien Rawat Inap Jumlah Lama Dirawat",
+      "Jumlah Pasien Rawat Jalan",
+      "Jumlah Pasien Rawat Jalan Laboratorium",
+      "Jumlah Pasien Rawat Jalan Radiologi",
+      "Jumlah Pasien Rawat Jalan Radiologi Lain-lain",
+    ];
+    const body = dataRL.map((value, index) => {
+      const data = [
+        index + 1,
+        value.golongan_obat_rl_tiga_titik_sembilan_belas.no,
+        value.golongan_obat_rl_tiga_titik_sembilan_belas.nama,
+        value.ranap_pasien_keluar,
+        value.ranap_lama_dirawat,
+        value.jumlah_pasien_rajal,
+        value.rajal_lab,
+        value.rajal_radiologi,
+        value.rajal_lain_lain,
+      ];
+      return data;
+    });
+    downloadExcel({
+      fileName: "RL_3_19",
+      sheet: "react-export-table-to-excel",
+      tablePayload: {
+        header,
+        body: body,
+      },
+    });
+  }
+
   return (
     <div className="container" style={{ marginTop: "70px" }}>
       <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
@@ -585,7 +622,9 @@ const RL319 = () => {
 
       <div className="row">
         <div className="col-sm-12">
-          <h2>RL. 3.19 Cara Bayar</h2>
+          <h4>
+            <span style={{ color: "gray" }}>RL. 3.19 Cara Bayar</span>
+          </h4>
           <div style={{ marginBottom: "10px" }}>
             {user.jenisUserId === 4 ? (
               <Link
@@ -622,7 +661,7 @@ const RL319 = () => {
                 backgroundColor: "#779D9E",
                 color: "#FFFFFF",
               }}
-              // onClick={handleDownloadExcel}
+              onClick={handleDownloadExcel}
             >
               Download
             </button>
@@ -643,195 +682,196 @@ const RL319 = () => {
             <></>
           )}
 
-          <Table
-            className={style.rlTable}
-            striped
-            responsive
-            style={{ width: "200%" }}
-          >
-            <thead>
-              <tr>
-                <th
-                  style={{ width: "4%", verticalAlign: "middle" }}
-                  rowSpan={2}
-                >
-                  No. Cara Bayar
-                </th>
-                <th
-                  style={{ width: "3%", verticalAlign: "middle" }}
-                  rowSpan={2}
-                >
-                  Aksi
-                </th>
-                <th
-                  style={{ width: "20%", verticalAlign: "middle" }}
-                  rowSpan={2}
-                >
-                  Cara Pembayaran
-                </th>
-                <th colSpan={2}>Pasien Rawat Inap</th>
-                <th
-                  style={{ width: "10%", verticalAlign: "middle" }}
-                  rowSpan={2}
-                >
-                  Jumlah Pasien Rawat Jalan
-                </th>
-                <th colSpan={3}>Jumlah Pasien Rawat Jalan</th>
-              </tr>
-              <tr>
-                <th style={{ width: "10%" }}>Jumlah Pasien Keluar</th>
-                <th style={{ width: "10%" }}>Jumlah Lama Dirawat</th>
-                <th style={{ width: "10%" }}>Laboratorium</th>
-                <th style={{ width: "10%" }}>Radiologi</th>
-                <th style={{ width: "10%" }}>Lain-lain</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataRL.length > 1 ? (
-                <>
-                  {dataRL.map((value, index) => {
-                    return (
-                      <tr key={value.id}>
-                        <td>
-                          <input
-                            type="text"
-                            name="no"
-                            className="form-control"
-                            value={
-                              value.golongan_obat_rl_tiga_titik_sembilan_belas
-                                .no
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td
-                          style={{
-                            textAlign: "center",
-                            verticalAlign: "middle",
-                          }}
-                        >
-                          <ToastContainer />
-                          {value.golongan_obat_rl_tiga_titik_sembilan_belas
-                            .no != 4 &&
-                          value.golongan_obat_rl_tiga_titik_sembilan_belas.no !=
-                            2 ? (
-                            <div style={{ display: "flex" }}>
-                              <button
-                                className="btn btn-danger"
-                                style={{
-                                  margin: "0 5px 0 0",
-                                  backgroundColor: "#FF6663",
-                                  border: "1px solid #FF6663",
-                                }}
-                                type="button"
-                                onClick={(e) => hapus(value.id)}
-                              >
-                                Hapus
-                              </button>
-                              <Link
-                                to={`/rl319/ubah/${value.id}`}
-                                className="btn btn-warning"
-                                style={{
-                                  margin: "0 5px 0 0",
-                                  backgroundColor: "#CFD35E",
-                                  border: "1px solid #CFD35E",
-                                  color: "#FFFFFF",
-                                }}
-                              >
-                                Ubah
-                              </Link>
-                            </div>
-                          ) : (
-                            ""
-                          )}
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="golonganObat"
-                            className="form-control"
-                            value={
-                              value.golongan_obat_rl_tiga_titik_sembilan_belas
-                                .nama
-                            }
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="ranap_pasien_keluar"
-                            className="form-control"
-                            value={value.ranap_pasien_keluar}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="ranap_lama_dirawat"
-                            className="form-control"
-                            value={value.ranap_lama_dirawat}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="jumlah_pasien_rajal"
-                            className="form-control"
-                            value={value.jumlah_pasien_rajal}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rajal_lab"
-                            className="form-control"
-                            value={value.rajal_lab}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rajal_radiologi"
-                            className="form-control"
-                            value={value.rajal_radiologi}
-                            disabled={true}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            name="rajal_lain_lain"
-                            className="form-control"
-                            value={value.rajal_lain_lain}
-                            disabled={true}
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
+          <div className={style["table-container"]}>
+            <table className={style.table}>
+              <thead className={style.thead}>
+                <tr className="">
+                  <th
+                    className={style["sticky-header"]}
+                    style={{ width: "4%" }}
+                    rowSpan={2}
+                  >
+                    No. Cara Bayar
+                  </th>
+                  <th
+                    className={style["sticky-header"]}
+                    style={{ width: "6%" }}
+                    rowSpan={2}
+                  >
+                    Aksi
+                  </th>
+                  <th
+                    className={style["sticky-header"]}
+                    style={{ width: "20%" }}
+                    rowSpan={2}
+                  >
+                    Cara Pembayaran
+                  </th>
+                  <th colSpan={2}>Pasien Rawat Inap</th>
+                  <th
+                    style={{ width: "10%", verticalAlign: "middle" }}
+                    rowSpan={2}
+                  >
+                    Jumlah Pasien Rawat Jalan
+                  </th>
+                  <th colSpan={3}>Jumlah Pasien Rawat Jalan</th>
+                </tr>
+                <tr className={style["subheader-row"]}>
+                  <th style={{ width: "8%" }}>Jumlah Pasien Keluar</th>
+                  <th style={{ width: "8%" }}>Jumlah Lama Dirawat</th>
+                  <th style={{ width: "8%" }}>Laboratorium</th>
+                  <th style={{ width: "8%" }}>Radiologi</th>
+                  <th style={{ width: "8%" }}>Lain-lain</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dataRL.length > 1 ? (
+                  <>
+                    {dataRL.map((value, index) => {
+                      return (
+                        <tr key={value.id}>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="no"
+                              className="form-control"
+                              value={
+                                value.golongan_obat_rl_tiga_titik_sembilan_belas
+                                  .no
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <ToastContainer />
+                            {value.golongan_obat_rl_tiga_titik_sembilan_belas
+                              .no != 4 &&
+                            value.golongan_obat_rl_tiga_titik_sembilan_belas
+                              .no != 2 ? (
+                              <div style={{ display: "flex" }}>
+                                <button
+                                  className="btn btn-danger"
+                                  style={{
+                                    margin: "0 5px 0 0",
+                                    backgroundColor: "#FF6663",
+                                    border: "1px solid #FF6663",
+                                  }}
+                                  type="button"
+                                  onClick={(e) => hapus(value.id)}
+                                >
+                                  Hapus
+                                </button>
+                                <Link
+                                  to={`/rl319/ubah/${value.id}`}
+                                  className="btn btn-warning"
+                                  style={{
+                                    margin: "0 5px 0 0",
+                                    backgroundColor: "#CFD35E",
+                                    border: "1px solid #CFD35E",
+                                    color: "#FFFFFF",
+                                  }}
+                                >
+                                  Ubah
+                                </Link>
+                              </div>
+                            ) : (
+                              ""
+                            )}
+                          </td>
+                          <td className={style["sticky-column"]}>
+                            <input
+                              type="text"
+                              name="golonganObat"
+                              className="form-control"
+                              value={
+                                value.golongan_obat_rl_tiga_titik_sembilan_belas
+                                  .nama
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="ranap_pasien_keluar"
+                              className="form-control"
+                              value={value.ranap_pasien_keluar}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="ranap_lama_dirawat"
+                              className="form-control"
+                              value={value.ranap_lama_dirawat}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="jumlah_pasien_rajal"
+                              className="form-control"
+                              value={value.jumlah_pasien_rajal}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rajal_lab"
+                              className="form-control"
+                              value={value.rajal_lab}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rajal_radiologi"
+                              className="form-control"
+                              value={value.rajal_radiologi}
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="rajal_lain_lain"
+                              className="form-control"
+                              value={value.rajal_lain_lain}
+                              disabled={true}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
 
-                  <tr>
-                    <td colSpan={3} className="text-center">
-                      <strong>Total</strong>
-                    </td>
-                    <td className="text-center">{total.ranap_pasien_keluar}</td>
-                    <td className="text-center">{total.ranap_lama_dirawat}</td>
-                    <td className="text-center">{total.jumlah_pasien_rajal}</td>
-                    <td className="text-center">{total.rajal_lab}</td>
-                    <td className="text-center">{total.rajal_radiologi}</td>
-                    <td className="text-center">{total.rajal_lain_lain}</td>
-                  </tr>
-                </>
-              ) : (
-                <></>
-              )}
-            </tbody>
-          </Table>
+                    <tr>
+                      <td colSpan={3} className="text-center">
+                        <strong>Total</strong>
+                      </td>
+                      <td className="text-center">
+                        {total.ranap_pasien_keluar}
+                      </td>
+                      <td className="text-center">
+                        {total.ranap_lama_dirawat}
+                      </td>
+                      <td className="text-center">
+                        {total.jumlah_pasien_rajal}
+                      </td>
+                      <td className="text-center">{total.rajal_lab}</td>
+                      <td className="text-center">{total.rajal_radiologi}</td>
+                      <td className="text-center">{total.rajal_lain_lain}</td>
+                    </tr>
+                  </>
+                ) : (
+                  <></>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

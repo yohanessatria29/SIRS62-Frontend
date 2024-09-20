@@ -355,7 +355,10 @@ export const FormUbahRL36 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
       <h2>RL. 3.6</h2>
       <form onSubmit={updateDataRLTigaTitikEnam}>
         <div className="row">

@@ -4,7 +4,7 @@ import jwt_decode from "jwt-decode";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import style from "./FormTambahRL315.module.css";
 import { HiSaveAs } from "react-icons/hi";
-import Table from "react-bootstrap/Table";
+// import Table from "react-bootstrap/Table";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -162,7 +162,11 @@ export const FormUbahRL315 = () => {
   };
 
   return (
-    <div className="container" style={{ marginTop: "70px" }}>
+    <div
+      className="container"
+      style={{ marginTop: "70px", marginBottom: "70px" }}
+    >
+      <h2>RL. 3.15</h2>
       <form onSubmit={updateData}>
         <div className="row">
           <div className="col-md-6">
@@ -239,59 +243,57 @@ export const FormUbahRL315 = () => {
               {/* <IoArrowBack size={30} style={{color:"gray",cursor: "pointer"}}/> */}
               &lt;
             </Link>
-            <span style={{ color: "gray" }}>Kembali RL 3.15 Kesehatan Jiwa</span>
+            <span style={{ color: "gray" }}>
+              Kembali RL 3.15 Kesehatan Jiwa
+            </span>
 
-            <Table
-              className={style.rlTable}
-              striped
-              bordered
-              responsive
-              style={{ width: "100%" }}
-            >
-              <thead>
-                <tr>
-                  <th style={{ width: "10%" }}>No</th>
-                  <th>Jenis Kegiatan</th>
-                  <th>Jumlah</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      name="no"
-                      className="form-control"
-                      value={no}
-                      disabled={true}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="jenisKegiatan"
-                      className="form-control"
-                      value={nama}
-                      disabled={true}
-                      onFocus={handleFocus}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="jumlah"
-                      className="form-control"
-                      value={jumlah}
-                      onChange={(e) => setJumlah(e.target.value)}
-                      min={0}
-                      onPaste={preventPasteNegative}
-                      onKeyPress={preventMinus}
-                      onFocus={handleFocus}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+            <div className={`${style["table-container"]} mt-2 mb-1 pb-2 `}>
+              <table responsive className={style.table}>
+                <thead className={style.thead}>
+                  <tr className="main-header-row">
+                    <th style={{ width: "10%" }}>No</th>
+                    <th>Jenis Kegiatan</th>
+                    <th>Jumlah</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input
+                        type="text"
+                        name="no"
+                        className="form-control"
+                        value={no}
+                        disabled={true}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="jenisKegiatan"
+                        className="form-control"
+                        value={nama}
+                        disabled={true}
+                        onFocus={handleFocus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="jumlah"
+                        className="form-control"
+                        value={jumlah}
+                        onChange={(e) => setJumlah(e.target.value)}
+                        min={0}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        onFocus={handleFocus}
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div className="mt-3 mb-3">
