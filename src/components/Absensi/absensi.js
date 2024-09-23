@@ -23,6 +23,7 @@ const Absensi = () => {
     const [dataAbsensi, setDataAbsensi] = useState([])
     const [namafile, setNamaFile] = useState("");
     const tableRef = useRef(null);
+    const [apa,setApa]=useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -107,6 +108,7 @@ const Absensi = () => {
 
     const provinsiChangeHandler = (e) => {
         const provinsiId = e.target.value
+        console.log(e.target)
         setProvinsiId(provinsiId)
         getKabKota(provinsiId)
     }
@@ -155,6 +157,7 @@ const Absensi = () => {
             setNamaFile("Absensi_".concat(String(provinsiId).concat("-").concat(kabKotaId).concat("-").concat(namaRS)));
 
             console.log(daftarKabKota)
+            setApa(false);
         } catch (error) {
             console.log(error)
         }
@@ -221,13 +224,13 @@ const Absensi = () => {
 
                                 <div className="mt-1">
                                     <button type="submit" className="btn btn-outline-success" ><HiSaveAs /> Cari</button>
-                                    <DownloadTableExcel
+                            <DownloadTableExcel
                             filename={namafile}
-                            sheet="data RL 37"
+                            sheet="Absensi"
                             currentTableRef={tableRef.current}
                         >
                             {/* <button> Export excel </button> */}
-                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} > Download
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} hidden={apa}> Download
                             </button>
                         </DownloadTableExcel>
                                 </div>
