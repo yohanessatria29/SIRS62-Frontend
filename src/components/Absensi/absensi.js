@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect ,useRef} from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
@@ -9,6 +9,8 @@ import style from './absensi.module.css'
 // import Table from 'react-bootstrap/Table'
 import checkIcon from '../Images/check.png'
 import silangIcon from '../Images/silang.png'
+import { DownloadTableExcel } from "react-export-table-to-excel"
+
 
 const Absensi = () => {
     const [namaRS, setNamaRS] = useState('')
@@ -19,6 +21,9 @@ const Absensi = () => {
     const [provinsiId, setProvinsiId] = useState(null)
     const [kabKotaId, setKabKotaId] = useState(null)
     const [dataAbsensi, setDataAbsensi] = useState([])
+    const [namafile, setNamaFile] = useState("");
+    const tableRef = useRef(null);
+    const [apa,setApa]=useState(true)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -103,6 +108,7 @@ const Absensi = () => {
 
     const provinsiChangeHandler = (e) => {
         const provinsiId = e.target.value
+        console.log(e.target)
         setProvinsiId(provinsiId)
         getKabKota(provinsiId)
     }
@@ -148,7 +154,10 @@ const Absensi = () => {
                 return value
             })
             setDataAbsensi(dataAbsensiDetail)
-            console.log(results)
+            setNamaFile("Absensi_".concat(String(provinsiId).concat("-").concat(kabKotaId).concat("-").concat(namaRS)));
+
+            console.log(daftarKabKota)
+            setApa(false);
         } catch (error) {
             console.log(error)
         }
@@ -215,6 +224,15 @@ const Absensi = () => {
 
                                 <div className="mt-1">
                                     <button type="submit" className="btn btn-outline-success" ><HiSaveAs /> Cari</button>
+                            <DownloadTableExcel
+                            filename={namafile}
+                            sheet="Absensi"
+                            currentTableRef={tableRef.current}
+                        >
+                            {/* <button> Export excel </button> */}
+                            <button className='btn' style={{ fontSize: "18px", marginLeft: "5px", backgroundColor: "#779D9E", color: "#FFFFFF" }} hidden={apa}> Download
+                            </button>
+                        </DownloadTableExcel>
                                 </div>
                             </div>
                         </div>
@@ -225,7 +243,8 @@ const Absensi = () => {
                 <div className="col-md-12">
                     <div className={`${style['table-container']} mt-2 mb-1 pb-2 `}>
                         <table
-                        className={style.table}>
+                        className={style.table}
+                        ref={tableRef}>
                             <thead className={style.thead}>
                                 <tr className="main-header-row">
                                     <th className={style['sticky-header']} rowSpan="2" style={{ "width": "60px" }} >No.</th>
