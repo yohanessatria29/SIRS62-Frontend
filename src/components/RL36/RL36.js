@@ -22,6 +22,7 @@ const RL36 = () => {
   const [daftarProvinsi, setDaftarProvinsi] = useState([]);
   const [daftarKabKota, setDaftarKabKota] = useState([]);
   const [dataRL, setDataRL] = useState([]);
+  const [downloadData, setDownloadData] = useState([]);
   const [token, setToken] = useState("");
   const [expire, setExpire] = useState("");
   const [show, setShow] = useState(false);
@@ -204,6 +205,7 @@ const RL36 = () => {
           dataRLTigaTitikEnamDetails.push(value);
         });
       });
+      console.log(dataRLTigaTitikEnamDetails);
       // setDataRL(dataRLTigaTitikEnamDetails)
 
       let sortedProducts = dataRLTigaTitikEnamDetails.sort((p1, p2) =>
@@ -214,7 +216,7 @@ const RL36 = () => {
           : 0
       );
 
-      console.log(sortedProducts);
+      // console.log(sortedProducts);
 
       let groups = [];
 
@@ -330,7 +332,7 @@ const RL36 = () => {
           });
         }
       });
-      console.log(data);
+      // console.log(data);
       setDataRL(data);
 
       setSpinner(false);
@@ -400,7 +402,8 @@ const RL36 = () => {
           dataRLTigaTitikEnamDetails.push(value);
         });
       });
-      // setDataRL(dataRLTigaTitikEnamDetails)
+      console.log(dataRLTigaTitikEnamDetails);
+      setDownloadData(dataRLTigaTitikEnamDetails);
 
       let sortedProducts = dataRLTigaTitikEnamDetails.sort((p1, p2) =>
         p1.jenis_kegiatan_id > p2.jenis_kegiatan_id
@@ -526,7 +529,7 @@ const RL36 = () => {
           });
         }
       });
-      console.log(data);
+      // console.log(data);
       setDataRL(data);
       handleClose();
       setSpinner(false);
@@ -810,7 +813,7 @@ const RL36 = () => {
     }
   };
 
-  function handleDownloadExcel() {
+  async function handleDownloadExcel() {
     const header = [
       "No",
       "No Kegiatan",
@@ -831,8 +834,25 @@ const RL36 = () => {
       "Dirujuk",
     ];
 
-    const body = dataRL.map((value, index) => {
-      const data = [index + 1];
+    const body = downloadData.map((value, index) => {
+      const data = [
+        index + 1,
+        value.jenis_kegiatan_rl_tiga_titik_enam.no,
+        value.jenis_kegiatan_rl_tiga_titik_enam.nama,
+        value.rmRumahSakit,
+        value.rmBidan,
+        value.rmPuskesmas,
+        value.rmFaskesLainnya,
+        value.rmHidup,
+        value.rmMati,
+        value.rmTotal,
+        value.rnmHidup,
+        value.rnmMati,
+        value.rnmTotal,
+        value.nrHidup,
+        value.nrMati,
+        value.nrTotal,
+      ];
       return data;
     });
 
