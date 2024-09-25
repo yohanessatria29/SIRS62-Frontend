@@ -196,13 +196,16 @@ const FormTambahRL310 = () => {
   };
 
   const changeHandler = (event, index) => {
+    console.log(index);
     let newDataRL = [...dataRL];
     const name = event.target.name;
     if (name === "check") {
-      if (event.target.checked === true) {
-        newDataRL[index].disabledInput = false;
-      } else if (event.target.checked === false) {
-        newDataRL[index].disabledInput = true;
+      if (index != 20) {
+        if (event.target.checked === true) {
+          newDataRL[index].disabledInput = false;
+        } else if (event.target.checked === false) {
+          newDataRL[index].disabledInput = true;
+        }
       }
       newDataRL[index].checked = event.target.checked;
     } else if (name === "rm_diterima_puskesmas") {
