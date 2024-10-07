@@ -28,6 +28,7 @@ const FormTambahRL32 = () => {
         getBulan()
         // const date = new Date();
         // setTahun(date.getFullYear())
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
@@ -150,6 +151,8 @@ const FormTambahRL32 = () => {
                     pasienKeluarHidup: 0,
                     pasienKeluarMatiKurangDari48Jam: 0,
                     pasienKeluarMatiLebihDariAtauSamaDengan48Jam: 0,
+                    pasienWanitaKeluarMatiKurangDari48Jam: 0,
+                    pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam: 0,
                     jumlahLamaDirawat: 0,
                     pasienAkhirBulan: 0,
                     jumlahHariPerawatan: 0,
@@ -185,7 +188,9 @@ const FormTambahRL32 = () => {
         parseInt(newDataRL[index].pasienMasuk) + parseInt(newDataRL[index].pasienPindahan)) -
         (parseInt(newDataRL[index].pasienDipindahkan) + parseInt(newDataRL[index].pasienKeluarHidup) +
             parseInt(newDataRL[index].pasienKeluarMatiKurangDari48Jam) +
-            parseInt(newDataRL[index].pasienKeluarMatiLebihDariAtauSamaDengan48Jam)
+            parseInt(newDataRL[index].pasienKeluarMatiLebihDariAtauSamaDengan48Jam) +
+            parseInt(newDataRL[index].pasienWanitaKeluarMatiKurangDari48Jam) +
+            parseInt(newDataRL[index].pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam)
         )
     })
 
@@ -263,7 +268,22 @@ const FormTambahRL32 = () => {
             }
             newDataRL[index].pasienKeluarMatiLebihDariAtauSamaDengan48Jam = event.target.value
             hitungPasienAkhirBulan(index)
-        } else if (name === 'jumlahLamaDirawat') {
+        } else if (name === 'pasienWanitaKeluarMatiKurangDari48Jam') {
+            if (event.target.value === '') {
+                event.target.value = 0
+                event.target.select(event.target.value)
+            }
+            newDataRL[index].pasienWanitaKeluarMatiKurangDari48Jam = event.target.value
+            hitungPasienAkhirBulan(index)
+        } else if (name === 'pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam') {
+            if (event.target.value === '') {
+                event.target.value = 0
+                event.target.select(event.target.value)
+            }
+            newDataRL[index].pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam = event.target.value
+            hitungPasienAkhirBulan(index)
+        }
+        else if (name === 'jumlahLamaDirawat') {
             if (event.target.value === '') {
                 event.target.value = 0
                 event.target.select(event.target.value)
@@ -355,6 +375,8 @@ const FormTambahRL32 = () => {
                     "pasienKeluarHidup": value.pasienKeluarHidup,
                     "pasienKeluarMatiKurangDari48Jam": value.pasienKeluarMatiKurangDari48Jam,
                     "pasienKeluarMatiLebihDariAtauSamaDengan48Jam": value.pasienKeluarMatiLebihDariAtauSamaDengan48Jam,
+                    "pasienWanitaKeluarMatiKurangDari48Jam": value.pasienWanitaKeluarMatiKurangDari48Jam,
+                    "pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam": value.pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam,
                     "jumlahLamaDirawat": value.jumlahLamaDirawat,
                     "rincianHariPerawatanKelasVVIP": value.rincianHariPerawatanKelasVVIP,
                     "rincianHariPerawatanKelasVIP": value.rincianHariPerawatanKelasVIP,
@@ -499,7 +521,8 @@ const FormTambahRL32 = () => {
                                         <th rowSpan="2" style={{"width": "4%"}}>Pasien Pindahan</th>
                                         <th rowSpan="2" style={{"width": "4%"}}>Pasien Dipindahkan</th>
                                         <th rowSpan="2" style={{"width": "4%"}}>Pasien Keluar Hidup</th>
-                                        <th colSpan="2" style={{"width": "8%"}}>Pasien Keluar Mati</th>
+                                        <th colSpan="2" style={{"width": "8%"}}>Pasien Pria Keluar Mati</th>
+                                        <th colSpan="2" style={{"width": "8%"}}>Pasien Wanita Keluar Mati</th>
                                         <th rowSpan="2" style={{"width": "4%"}}>Jumlah Lama Dirawat</th>
                                         <th rowSpan="2" style={{"width": "4%"}}>Pasien Akhir Bulan</th>
                                         <th rowSpan="2" style={{"width": "4%"}}>Jumlah Hari Perawatan</th>
@@ -507,6 +530,8 @@ const FormTambahRL32 = () => {
                                         <th rowSpan="2" style={{"width": "4%"}}>Jumlah Alokasi TT Awal Bulan</th>
                                     </tr>
                                     <tr className={style['subheader-row']}>
+                                        <th style={{"width": "4%"}}>{"< 48 jam"}</th>
+                                        <th style={{"width": "4%"}}>{">= 48 jam"}</th>
                                         <th style={{"width": "4%"}}>{"< 48 jam"}</th>
                                         <th style={{"width": "4%"}}>{">= 48 jam"}</th>
                                         <th style={{"width": "4%"}}>VVIP</th>
@@ -560,6 +585,17 @@ const FormTambahRL32 = () => {
                                                     onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
                                                     onKeyPress={preventMinus}/>
                                                 </td>
+
+                                                <td><input type="number" name="pasienWanitaKeluarMatiKurangDari48Jam" className="form-control" value={value.pasienWanitaKeluarMatiKurangDari48Jam} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus} />
+                                                </td>
+                                                <td><input type="number" name="pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam" className="form-control" value={value.pasienWanitaKeluarMatiLebihDariAtauSamaDengan48Jam} 
+                                                    onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
+                                                    onKeyPress={preventMinus}/>
+                                                </td>
+
+
                                                 <td><input type="number" name="jumlahLamaDirawat" className="form-control" value={value.jumlahLamaDirawat} 
                                                     onFocus={handleFocus} onChange={e => changeHandler(e, index)} disabled={value.disabledInput} min={0} onPaste={preventPasteNegative}
                                                     onKeyPress={preventMinus}/>
