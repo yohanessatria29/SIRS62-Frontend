@@ -22,6 +22,8 @@ export const FormUbahRL315 = () => {
   const [expire, setExpire] = useState("");
   // Data RL
   const [jumlah, setJumlah] = useState(0);
+  const [laki, setLaki] = useState(0);
+  const [perempuan, setPerempuan] = useState(0);
   const { id } = useParams();
   const [no, setNo] = useState("");
   const [nama, setNama] = useState("");
@@ -93,6 +95,8 @@ export const FormUbahRL315 = () => {
       setNo(response.data.data.jenis_kegiatan_rl_tiga_titik_lima_belas.no);
       setNama(response.data.data.jenis_kegiatan_rl_tiga_titik_lima_belas.nama);
       setTahun(response.data.data.tahun);
+      setLaki(response.data.data.laki);
+      setPerempuan(response.data.data.perempuan);
       setJumlah(response.data.data.jumlah);
     } catch (error) {
       console.log(error);
@@ -103,7 +107,9 @@ export const FormUbahRL315 = () => {
     e.preventDefault();
     try {
       const data = {
-        jumlah: jumlah,
+        laki: laki,
+        perempuan: perempuan,
+        jumlah: parseInt(laki) + parseInt(perempuan),
       };
 
       const customConfig = {
@@ -253,6 +259,8 @@ export const FormUbahRL315 = () => {
                   <tr className="main-header-row">
                     <th style={{ width: "10%" }}>No</th>
                     <th>Jenis Kegiatan</th>
+                    <th>Laki-laki</th>
+                    <th>Perempuan</th>
                     <th>Jumlah</th>
                   </tr>
                 </thead>
@@ -280,10 +288,37 @@ export const FormUbahRL315 = () => {
                     <td>
                       <input
                         type="number"
+                        name="laki"
+                        className="form-control"
+                        value={laki}
+                        onChange={(e) => setLaki(e.target.value)}
+                        min={0}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        onFocus={handleFocus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="perempuan"
+                        className="form-control"
+                        value={perempuan}
+                        onChange={(e) => setPerempuan(e.target.value)}
+                        min={0}
+                        onPaste={preventPasteNegative}
+                        onKeyPress={preventMinus}
+                        onFocus={handleFocus}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
                         name="jumlah"
                         className="form-control"
-                        value={jumlah}
-                        onChange={(e) => setJumlah(e.target.value)}
+                        value={parseInt(laki) + parseInt(perempuan)}
+                        // onChange={(e) => setJumlah(e.target.value)}
+                        readOnly={true}
                         min={0}
                         onPaste={preventPasteNegative}
                         onKeyPress={preventMinus}
