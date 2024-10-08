@@ -155,10 +155,10 @@ const RL315 = () => {
         `/apisirs6v2/rltigatitiklimabelas/${id}`,
         customConfig
       );
-      setDataRL((current) => current.filter((value) => value.id !== id));
       toast("Data Berhasil Dihapus", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setDataRL((current) => current.filter((value) => value.id !== id));
     } catch (error) {
       console.log(error);
       toast("Data Gagal Disimpan", {
@@ -258,9 +258,11 @@ const RL315 = () => {
     }
   };
 
-  let total = 0;
+  let total = { laki: 0, perempuan: 0, jumlah: 0 };
   dataRL.map((value, index) => {
-    total += parseInt(value.jumlah);
+    total.perempuan += parseInt(value.perempuan);
+    total.laki += parseInt(value.laki);
+    total.jumlah += parseInt(value.jumlah);
   });
 
   function handleDownloadExcel() {
@@ -572,6 +574,8 @@ const RL315 = () => {
                   >
                     Jenis Kegiatan
                   </th>
+                  <th>Laki-laki</th>
+                  <th>Perempuan</th>
                   <th>Jumlah</th>
                 </tr>
               </thead>
@@ -655,6 +659,34 @@ const RL315 = () => {
                               value={
                                 value.jenis_kegiatan_rl_tiga_titik_lima_belas
                                   .no > 0
+                                  ? value.laki
+                                  : 0
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="jumlah"
+                              className="form-control"
+                              value={
+                                value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                                  .no > 0
+                                  ? value.perempuan
+                                  : 0
+                              }
+                              disabled={true}
+                            />
+                          </td>
+                          <td>
+                            <input
+                              type="text"
+                              name="jumlah"
+                              className="form-control"
+                              value={
+                                value.jenis_kegiatan_rl_tiga_titik_lima_belas
+                                  .no > 0
                                   ? value.jumlah
                                   : 0
                               }
@@ -668,7 +700,13 @@ const RL315 = () => {
                       <th colSpan={3} className="text-center">
                         Total
                       </th>
-                      <td className="text-center align-middle">{total}</td>
+                      <td className="text-center align-middle">{total.laki}</td>
+                      <td className="text-center align-middle">
+                        {total.perempuan}
+                      </td>
+                      <td className="text-center align-middle">
+                        {total.jumlah}
+                      </td>
                     </tr>
                   </>
                 ) : (

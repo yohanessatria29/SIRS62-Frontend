@@ -89,6 +89,8 @@ const FormTambahRL315 = () => {
           id: value.id,
           no: value.no,
           jenisKegiatan: value.nama,
+          laki: 0,
+          perempuan: 0,
           jumlah: 0,
           disabledInput: true,
           checked: false,
@@ -117,12 +119,22 @@ const FormTambahRL315 = () => {
         }
       }
       newDataRL[index].checked = event.target.checked;
-    } else if (name === "jumlah") {
+    } else if (name === "laki") {
       if (event.target.value === "") {
         event.target.value = 0;
         event.target.select(event.target.value);
       }
-      newDataRL[index].jumlah = event.target.value;
+      newDataRL[index].laki = event.target.value;
+      newDataRL[index].jumlah =
+        parseInt(event.target.value) + parseInt(newDataRL[index].perempuan);
+    } else if (name === "perempuan") {
+      if (event.target.value === "") {
+        event.target.value = 0;
+        event.target.select(event.target.value);
+      }
+      newDataRL[index].perempuan = event.target.value;
+      newDataRL[index].jumlah =
+        parseInt(event.target.value) + parseInt(newDataRL[index].laki);
     }
 
     setDataRL(newDataRL);
@@ -138,6 +150,8 @@ const FormTambahRL315 = () => {
         .map((value, index) => {
           return {
             jenisKegiatanTigaTitikLimaBelasId: parseInt(value.id),
+            laki: parseInt(value.laki),
+            perempuan: parseInt(value.perempuan),
             jumlah: parseInt(value.jumlah),
           };
         });
@@ -319,6 +333,8 @@ const FormTambahRL315 = () => {
                     <th style={{ width: "4%" }}>No</th>
                     <th style={{ width: "4%" }}></th>
                     <th style={{ width: "30%" }}>Jenis Kegiatan</th>
+                    <th>Laki-Laki</th>
+                    <th>Perempuan</th>
                     <th>Jumlah</th>
                   </tr>
                 </thead>
@@ -362,11 +378,40 @@ const FormTambahRL315 = () => {
                         <td>
                           <input
                             type="number"
+                            name="laki"
+                            className="form-control"
+                            value={value.laki}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="number"
+                            name="perempuan"
+                            className="form-control"
+                            value={value.perempuan}
+                            onChange={(e) => changeHandler(e, index)}
+                            disabled={value.disabledInput}
+                            min={0}
+                            onPaste={preventPasteNegative}
+                            onKeyPress={preventMinus}
+                            onFocus={handleFocus}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            type="number"
                             name="jumlah"
                             className="form-control"
                             value={value.jumlah}
                             onChange={(e) => changeHandler(e, index)}
                             disabled={value.disabledInput}
+                            readOnly={true}
                             min={0}
                             onPaste={preventPasteNegative}
                             onKeyPress={preventMinus}
