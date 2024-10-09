@@ -8,7 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
+import { downloadExcel } from "react-export-table-to-excel";
 
 const RL31 = () => {
     const [bulan, setBulan] = useState(1)
@@ -37,8 +38,7 @@ const RL31 = () => {
         getBulan()
         const getLastYear = async () => {
             const date = new Date()
-            setTahun(date.getFullYear() - 1)
-            return date.getFullYear() - 1
+            setTahun(date.getFullYear() + 1)
         }
         getLastYear().then((results) => {
 
@@ -329,8 +329,74 @@ const RL31 = () => {
         }
     }
 
+    function handleDownloadExcel() {
+        const header = [
+          "No",
+          "Jenis Pelayanan",
+          "BOR",
+          "ALOS",
+          "BTO",
+          "TOI",
+          "NDR",
+          "GDR"
+        ];
+    
+        const body = dataRL.map((value, index) => {
+          const data = [
+            value.id,
+            value.nama_kelompok_jenis_pelayanan,
+            (Math.round(value.BOR * 100) / 100).toFixed(2),
+            (Math.round(value.ALOS * 100) / 100).toFixed(2),
+            (Math.round(value.BTO * 100) / 100).toFixed(2),
+            (Math.round(value.TOI * 100) / 100).toFixed(2),
+            (Math.round(value.NDR * 100) / 100).toFixed(2),
+            (Math.round(value.GDR * 100) / 100).toFixed(2),
+          ];
+
+    
+          return data;
+        });
+
+        body.push(
+            [
+            "77",
+            "Rata - Rata",
+            (Math.round(abor * 100) / 100).toFixed(2),
+            (Math.round(alos * 100) / 100).toFixed(2),
+            (Math.round(abto * 100) / 100).toFixed(2),
+            (Math.round(atoi * 100) / 100).toFixed(2),
+            (Math.round(andr * 100) / 100).toFixed(2),
+            (Math.round(agdr * 100) / 100).toFixed(2),
+            ]
+        )
+
+        // console.log(dt)
+        // data.push 
+        // (
+        //     "77",
+        //     "Rata - Rata"
+        //     "(Math.round(abor * 100) / 100).toFixed(2)",
+        //     "(Math.round(alos * 100) / 100).toFixed(2)",
+        //     "(Math.round(abto * 100) / 100).toFixed(2)",
+        //     "(Math.round(atoi * 100) / 100).toFixed(2)",
+        //     "(Math.round(andr * 100) / 100).toFixed(2)",
+        //     "(Math.round(agdr * 100) / 100).toFixed(2)"
+        // ); 
+
+    
+        downloadExcel({
+          fileName: "RL_3_1",
+          sheet: "react-export-table-to-excel",
+          tablePayload: {
+            header,
+            body: body,
+          },
+        });
+      };
+
     return (
         <div className="container" style={{ marginTop: "70px" }}>
+            <h2>RL 3.1 Indikator Pelayanan</h2>
             <Modal show={show} onHide={handleClose} style={{ position: "fixed" }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Filter</Modal.Title>
@@ -538,15 +604,35 @@ const RL31 = () => {
                         <button className='btn' style={{ fontSize: "18px", backgroundColor: "#779D9E", color: "#FFFFFF" }} onClick={handleShow}>
                             Filter
                         </button>
+                        <button
+              className="btn"
+              style={{
+                fontSize: "18px",
+                marginLeft: "5px",
+                backgroundColor: "#779D9E",
+                color: "#FFFFFF",
+              }}
+              onClick={handleDownloadExcel}
+            >
+              Download
+            </button>
                     </div>
 
                     <div>
-                        <h5 style={{ fontSize: "14px" }}>
-                            filtered by {filterLabel.map((value) => {
-                                return (
-                                    value
+                    <h5 style={{fontSize: "14px"}}>
+                            {
+                                filterLabel.length > 0 ? (
+                                    <>
+                                        filtered by {filterLabel.map((value) => {
+                                            return(
+                                                value
+                                            )
+                                        }).join(', ')}
+                                    </>
+                                ) : (
+                                    <></>
                                 )
-                            }).join(', ')}
+                            }
                         </h5>
                     </div>
                     <Table
