@@ -265,7 +265,7 @@ const Absensi = () => {
                                     <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.11</th>
                                     <th colSpan="12" >RL 3.12</th>
                                     <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.13</th>
-                                    <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.14</th>
+                                    <th colSpan="12" >RL 3.14</th>
                                     <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.15</th>
                                     <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.16</th>
                                     <th rowSpan="2" className={style.myTableTH} style={{ "width": "0.5%" }}>RL 3.17</th>
@@ -424,6 +424,19 @@ const Absensi = () => {
                                     <th className={style.myTableTH} style={{ "width": "1%" }}>12</th>
 
                                     {/* rl 4 dan 5  */}
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>1</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>2</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>3</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>4</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>5</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>6</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>7</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>8</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>9</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>10</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>11</th>
+                                    <th className={style.myTableTH} style={{ "width": "1%" }}>12</th>
+
                                     <th className={style.myTableTH} style={{ "width": "1%" }}>1</th>
                                     <th className={style.myTableTH} style={{ "width": "1%" }}>2</th>
                                     <th className={style.myTableTH} style={{ "width": "1%" }}>3</th>
